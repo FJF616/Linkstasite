@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import './App.css';
-import { base } from '../rebaseConfig'
 import Header from '../Header/Header.js';
 import MediaList from '../MediaList/MediaList.js';
-import InstagramLogin from '../../util/InstagramLogin';
+import InstagramLogin from '../../util/instagramLogin';
 
+import { base } from '../rebaseConfig/config'
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       linkstasite: [],
-      userProfile: {}
+      userProfile: [],
+      accountName:'' 
     };
   }
 
 
   componentDidMount() {
-    InstagramLogin.fetchUser()
-      .then(InstagramUser => {
-        this.setState({
-          linkstasite: InstagramUser,
-          userProfile: InstagramUser['0']
-        });
-      });
+    InstagramLogin.display().then(instagramUser => this.setState({
+          linkstasite: instagramUser,
+          userProfile: [instagramUser.id, instagramUser.profilePic, instagramUser.userName, instagramUser.instagramUserID],
+          accountName: instagramUser.userName
+        })
+      );
     }
 
     componentWillMount() {
@@ -40,7 +40,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header accountName={this.state.accountName}/>
-        <MediaList medias={this.this.linkstafeedRef.context.state.linkstasite}/>
+        <MediaList medias={this.linkstafeedRef.context.state.linkstasite}/>
       </div>
     );
   }

@@ -1,10 +1,11 @@
 const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
-const token_url = `https://api.instagram.com/v1/users/self/info/recent/?access_token=${accessToken}`
 const redirectURI = "http://localhost:3000/"
 const client_id = "0d744e65869b4acc8dde4d6e3c6a58e2";
 let accessToken;
-let InstagramUser = {};
-let user;
+let instagramUser;
+
+
+
 
 
 
@@ -23,10 +24,11 @@ const InstagramLogin = {
      window.location = auth_url;
     }
   },
-  async fetchUser() {
+  async display() {
     if (!accessToken) {
       this.getAccessToken();
     }
+    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}`;
     try {
       let response = await fetch(token_url, {
         method: 'GET'
@@ -34,13 +36,13 @@ const InstagramLogin = {
       if (response.ok) {
         console.log(response);
         let jsonResponse = await response.json();
-        InstagramUser = jsonResponse.data.map(info => ({
+        instagramUser = jsonResponse.data.map(info => ({
           id: info.id,
           image: info.images.standard_resolution.url,
           instagramUserID: info.user.id,
           url: info.link,
           title: info.caption ? info.caption.text : '',
-          profileinfo: info.user.profile_infoture,
+          profilePic: info.user.profile_picture,
           userName:info.user.full_name,
           affiliatedLink: '',
           favorite: false,
@@ -48,7 +50,8 @@ const InstagramLogin = {
           likes: info.likes.count,
           tags: info.tags
         }));
-        return InstagramUser;
+        
+        return instagramUser 
       }
       throw new Error('Request failed!');
     } catch (error) {
