@@ -1,6 +1,7 @@
-const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
 const redirectURI = "http://localhost:3000/"
 const client_id = "0d744e65869b4acc8dde4d6e3c6a58e2";
+const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
+
 let accessToken;
 let instagramUser;
 
@@ -24,7 +25,7 @@ const InstagramLogin = {
      window.location = auth_url;
     }
   },
-  async display() {
+  async fetchUserInfo() {
     if (!accessToken) {
       this.getAccessToken();
     }

@@ -1,6 +1,6 @@
 import Rebase from 're-base';
 import firebase from 'firebase';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import 'firebase/database';
 const prodConfig = {
     apiKey: "AIzaSyDsQ1r5hgfllHJFlZVjBwI2Bp8btznK5Os",
@@ -26,11 +26,11 @@ const prodConfig = {
       messagingSenderId: "178394875945"
   };
   
-//   const config = process.env.NODE_ENV === 'production'
-//     ? prodConfig
-//     : devConfig;
+  const config = process.env.NODE_ENV === 'production'
+    ? prodConfig
+    : devConfig;
  
- const app = firebase.initializeApp(devConfig)
+ const app = firebase.initializeApp(config)
  const db = app.database();
  const base = Rebase.createClass(db);
 
