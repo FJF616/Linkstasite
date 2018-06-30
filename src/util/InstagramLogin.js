@@ -6,7 +6,11 @@ let accessToken;
 let instagramUser;
 
 
-
+/**
+ *   This method uses the implicit authorization flow which is less secure than the explicit (server-sided) 
+ *   authorization flow, however, it does not require server sided authentication.  We will rely on firebase
+ *   for that.
+ */
 
 
 
