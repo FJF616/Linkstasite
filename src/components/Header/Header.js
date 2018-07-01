@@ -24,8 +24,10 @@ class Header extends React.Component {
       <ol class="breadcrumb" aria-label="Left Align">
       <li class="breadcrumb-item active" aria-current="page">Home</li>
 
-        <li class="breadcrumb-item"><a href="#">Account Settings</a></li>
         <li class="breadcrumb-item"><a href="#">Billing</a></li>
+        <li class="breadcrumb-item"><a href="#">Account Settings</a></li>
+        <li class="breadcrumb-item"><a href="#">List View</a></li>
+        <li class="breadcrumb-item"><a href="#">Grid View</a></li>
         <li class="breadcrumb-item active" aria-current="page">Pictures</li>
       </ol>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
