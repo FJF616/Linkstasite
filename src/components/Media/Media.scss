@@ -1,13 +1,13 @@
  
   
-.image {
+.media__image {
     position: relative;
-    width: calc(20% - 1px);
+    width: calc(60% - 1px);
     height: auto;
     overflow: hidden;
     justify-content: center;
-    margin-right: 1px;
-    margin-top: 1px;
+    margin-right: 10px;
+    margin-top: 5px;
 
 
   img {
@@ -52,4 +52,10 @@
   .image {
     width: calc(100% - 1px);
   }
+}
+.trash__container:hover {
+  position: relative;
+  display: block;
+  filter: opacity(50%);
+  cursor: pointer;
 }

@@ -33,7 +33,7 @@ class App extends Component {
       this.linkstafeedRef = base.syncState('linkstasite', {
         context: this,
         state: 'linkstasite',
-        asArray: true
+        
     });
       // this.linkstasteUserRef = base.syncState('userProfile', {
       //   context: this,
@@ -51,6 +51,7 @@ class App extends Component {
     // console.log(this.linkstasiteUserRef.context.state.userProfile)
     return (
       <div className="App">
+      
         <Header medias={this.state.userProfile}/>
         <MediaList medias={this.linkstafeedRef.context.state.linkstasite}/>
       </div>
