@@ -36,7 +36,7 @@ export default class PhotoContainer extends Component {
    }
    
     checkFilled() {
-     if(this.state.edited) {
+     if(this.state.edited && this.state.title) {
         this.setState({filled: true}) 
         return this.state.filled
      }else {
@@ -82,7 +82,8 @@ export default class PhotoContainer extends Component {
         const name = target.type;
         e.preventDefault();
         this.setState({
-            [name]: value
+            title: value,
+          
         })
         this.props.media.title = this.state.title
     }
@@ -119,8 +120,8 @@ export default class PhotoContainer extends Component {
                         }
                     <button className="controls" onClick={this.handleCopy} type="button" disabled={this.state.edited || !this.state.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', alignContent: 'center' }}><Icon icon={ICONS.LINK} color={"blue"} size={32} /></button>
                     <button onClick={this.handleClear} className="controls" type="button" disabled={!this.state.edited} style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
-                    <button onClick={this.handleClear} className="controls" onChange={this.handleEdit} disabled={!this.state.editing} type="button" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>
-                    <button onClick={this.handleClear} className="controls" type="button" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><i className="fa fa-save"/></button></div></div>
+                    <button  className="controls" onChange={this.handleEdit} disabled={!this.state.editing} type="button" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>
+                    <button onClick={this.checkFilled} className="controls" type="button" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><i className="fa fa-save"/></button></div></div>
                 </div>
             </div>
          <div className="media" >
@@ -131,9 +132,13 @@ export default class PhotoContainer extends Component {
                 <Imager  className="mr-3" src={this.props.media.image} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
                 }
             <div className="media-body"> 
+         { 
+             this.state.filled ? 
+             <h5>{this.state.title}</h5>  
+             :
          
-           <h5><input style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'slateBlue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  value={this.props.title} onChange={this.handleChange} placeholder="title" type="title" /></h5>
-            
+           <h5><input style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'slateBlue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  disabled={this.state.filled} value={this.props.title} onChange={this.handleChange} placeholder="title" type="title" /></h5>
+        }
             {this.state.edited?
              
                 <h5><b>Link Preview</b> 

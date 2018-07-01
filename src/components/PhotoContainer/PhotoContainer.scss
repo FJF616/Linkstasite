@@ -77,10 +77,7 @@
     margin-bottom: 16px; 
     margin-left: 2px  
 }
-.controls.enabled:hover {
-    opacity: 0.65; 
-    
-  }
+
 .controls.enabled {
     cursor: not-allowed;
 }
@@ -174,3 +171,17 @@
     /* background: linear-gradient(135deg, #ecb43a8e 0%,#7f4a89 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e76dd', endColorstr='#7f4a89',GradientType=1 ); */
 /* }   */
+
+.controls:enabled:hover {
+    opacity: 0.65; 
+    cursor: pointer;
+  }
+
+  .controls:disabled:hover {
+    opacity: 0.35; 
+    cursor: not-allowed;
+  }
+
+  .controls:disabled {
+      opacity: 0.50;
+  }
