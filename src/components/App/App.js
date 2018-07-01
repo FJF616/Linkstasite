@@ -3,7 +3,7 @@ import './App.css';
 import Header from '../Header/Header';
 import MediaList from '../MediaList/MediaList.js';
 import InstagramLogin from '../../util/instagramLogin';
-
+import SideBar from '../SideBar/SideBar';
 import { base } from '../rebaseConfig/config'
 class App extends Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class App extends Component {
     // console.log(this.linkstasiteUserRef.context.state.userProfile)
     return (
       <div className="App">
-      
+        <SideBar/>
         <Header medias={this.state.userProfile}/>
         <MediaList medias={this.linkstafeedRef.context.state.linkstasite}/>
       </div>
