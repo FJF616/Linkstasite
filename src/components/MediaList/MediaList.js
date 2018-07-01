@@ -1,6 +1,6 @@
 import React from 'react';
-import './MediaList.css';
-
+import './MediaList.scss';
+import PhotoContainer from '../PhotoContainer/PhotoContainer'
 import Media from '../Media/Media.js'
 
 class MediaList extends React.Component {
@@ -12,7 +12,7 @@ class MediaList extends React.Component {
       <div className='list'>
         {
           this.props.medias.map(media => {
-            return <Media media={media} key={media.id} />;
+            return <PhotoContainer media={media} key={media.id} />;
           })
         }
       </div>

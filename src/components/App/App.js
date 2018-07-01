@@ -5,6 +5,7 @@ import MediaList from '../MediaList/MediaList.js';
 import InstagramLogin from '../../util/instagramLogin';
 import SideBar from '../SideBar/SideBar';
 import { base } from '../rebaseConfig/config'
+import PhotoContainer from '../PhotoContainer/PhotoContainer'
 class App extends Component {
   constructor(props) {
     super(props);
@@ -52,6 +53,7 @@ class App extends Component {
     return (
       <div className="App">
         <SideBar/>
+        
         <Header medias={this.state.userProfile}/>
         <MediaList medias={this.linkstafeedRef.context.state.linkstasite}/>
       </div>
