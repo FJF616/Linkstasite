@@ -6,6 +6,7 @@ import Imager from '../Imager/Imager'
 import {Card, Col, Row } from 'reactstrap'
 import ICONS from '../Icons/constants'
 import Icon from '../Icons/Icon'
+import MicrolinkCard from 'react-microlink'
 
 export default class PhotoContainer extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ export default class PhotoContainer extends Component {
             [name]: value  
         })
      
-        this.props.media.affiliatedLink = this.state.url;   
+        this.props.media.affiliateLink = this.state.url;   
     }
   
 }
@@ -73,15 +74,17 @@ export default class PhotoContainer extends Component {
             url: value,
             edited: false
         })
-        this.props.media.affiliatedLink = '';
+        this.props.media.affiliateLink = null;
     }
     handleChange(e) {
         const target = e.target;
         let value = target.value;
+        const name = target.type;
         e.preventDefault();
         this.setState({
-            title: value
+            [name]: value
         })
+        this.props.media.title = this.state.title
     }
     handleCopy() {
        
@@ -90,7 +93,7 @@ export default class PhotoContainer extends Component {
         })
        
     }
-   
+ 
    
    
     
@@ -101,7 +104,7 @@ export default class PhotoContainer extends Component {
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-          <div className="card" style={{height: 365, margin: 15, padding: 10,  width: 675}}>
+          <div className="card" style={{height: 365, margin: 25, padding: 10,  width: 675}}>
           <div className="card-header" style={{backgroundColor: 'rgba(153,153,153,0.03)', color: 'rgb(176,196,215)'}}>
           <div className="input-group">
             <div className="input-group-prepend">
@@ -127,18 +130,25 @@ export default class PhotoContainer extends Component {
                 :
                 <Imager  className="mr-3" src={this.props.media.image} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
                 }
-            <div className="media-body">
+            <div className="media-body"> 
          
-           <h5><input style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'slateBlue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}} type="text" value={this.props.title} onChange={this.handleChange} placeholder="title" /></h5>
-            <h5><textarea maxLength="85" style={{width: 370, marginTop: 12, borderRadius: '6%', color: 'slateBlue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}} placeholder="description"/></h5>
-       
+           <h5><input style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'slateBlue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  value={this.props.title} onChange={this.handleChange} placeholder="title" type="title" /></h5>
+            
+            {this.state.edited?
+             
+                <h5><b>Link Preview</b> 
+                    <MicrolinkCard url={this.state.url} contrast='true' target='_blank' prerender="auto" style={{borderColor: 'pink', border: '3px ridge', width: 370, marginTop: 10, marginLeft: 3, height: 95, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} />
+                    </h5>
+                :
+                ''
+              }
                 
          
             </div>
        
           </div>
          </div>
-            
+        
         </div>
        
          

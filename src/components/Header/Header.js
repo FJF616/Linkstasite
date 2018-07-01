@@ -72,8 +72,8 @@ class Header extends React.Component {
               height={55}
               border={6}
               color={[185, 253, 255, 0.074]} // RGBA
-              scale={1.75}
-              rotate={0}
+              scale={1.25}
+              rotate={1}
               />  
              <div >
              <h5> <p><b className="userId" >{this.props.medias['2']}</b></p></h5> 

@@ -8,7 +8,11 @@ admin.initializeApp({
   databaseURL: `https://${serviceAccount.porject_id}.firebaseio.com`
 });
 let accessToken;
-let instagramUser;
+let jsonResponse;
+let instagramUser = {
+  user: {},
+  gallery:{},
+};
 
 
 /**
@@ -45,23 +49,28 @@ const InstagramLogin = {
       });
       if (response.ok) {
         console.log(response);
-        let jsonResponse = await response.json();
-        instagramUser = jsonResponse.data.map(info => ({
+        jsonResponse = await response.json();
+        instagramUser.user = jsonResponse.data.map(info => ({
           id: info.id,
-          image: info.images.standard_resolution.url,
+          // image: info.images.standard_resolution.url,
           instagramUserID: info.user.id,
           url: info.link,
           title: info.caption ? info.caption.text : '',
           profilePic: info.user.profile_picture,
           userName:info.user.full_name,
-          affiliatedLink: '',
           favorite: false,
           access_token: `${accessToken}`,
           likes: info.likes.count,
           tags: info.tags
         }));
-        
-        return instagramUser; 
+          instagramUser.gallery = jsonResponse.data.map(info => ({
+            image: info.images.standard_resolution.url,
+            title: info.caption ? info.caption.text : '',
+            author: info.user.full_name,
+            id: info.id,
+            affiliateLink: '',
+          }));
+            return instagramUser;
       }
       throw new Error('Request failed!');
     } catch (error) {

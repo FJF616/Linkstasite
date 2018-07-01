@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../App/App.css';
 import Header from '../Header/Header';
-// import TitleBarGridList from '../GridList/GridList'
+import MediaList from '../MediaList/MediaList.js';
 import InstagramLogin from '../../util/instagramLogin';
 import SideBar from '../SideBar/SideBar';
 import { base } from '../rebaseConfig/config'
-import MediaList from '../MediaList/MediaList'
-class App extends Component {
+class ListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,9 +18,9 @@ class App extends Component {
 
   componentDidMount() {
     InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
-          linkstasite: instagramUser.gallery,
-          userProfile: [instagramUser.user['0'].access_token, instagramUser.user['0'].profilePic, instagramUser.user['0'].userName, instagramUser.user['0'].instagramUserID],
-          accountName: instagramUser.user['0'].userName,
+          linkstasite: instagramUser,
+          userProfile: [instagramUser['0'].access_token, instagramUser['0'].profilePic, instagramUser['0'].userName, instagramUser['0'].instagramUserID],
+          accountName: instagramUser['0'].userName,
           
         })).catch(error => {
           if (error) {
@@ -34,7 +33,7 @@ class App extends Component {
       this.linkstafeedRef = base.syncState('linkstasite', {
         context: this,
         state: 'linkstasite',
-        asArray: true
+        
     });
   }
     componentWillUnMount() {
@@ -45,16 +44,16 @@ class App extends Component {
     console.log(this.state.userProfile)
     // console.log(this.linkstafeedRef.context.state.linkstasite)
     const linkstafeed = [...this.linkstafeedRef.context.state.linkstasite]
+    
     console.log(linkstafeed)
     return (
       <div className="App">
         <SideBar/>
-        <MediaList medias={linkstafeed}/>
         <Header medias={this.state.userProfile}/>
-      
+        <MediaList medias={linkstafeed}/>
       </div>
     );
   }
 }
 
-export default App;
+export default ListView;
