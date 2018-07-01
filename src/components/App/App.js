@@ -6,6 +6,7 @@ import InstagramLogin from '../../util/instagramLogin';
 import SideBar from '../SideBar/SideBar';
 import { base } from '../rebaseConfig/config'
 import MediaList from '../MediaList/MediaList'
+import MediaGrid from '../MediaList/MediaGrid'
 class App extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +50,7 @@ class App extends Component {
     return (
       <div className="App">
         <SideBar/>
-        <MediaList medias={linkstafeed}/>
+        <MediaGrid medias={linkstafeed}/>
         <Header medias={this.state.userProfile}/>
       
       </div>
