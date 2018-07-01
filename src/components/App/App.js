@@ -20,7 +20,8 @@ class App extends Component {
     InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
           linkstasite: instagramUser,
           userProfile: [instagramUser['0'].access_token, instagramUser['0'].profilePic, instagramUser['0'].userName, instagramUser['0'].instagramUserID],
-          accountName: instagramUser['0'].userName
+          accountName: instagramUser['0'].userName,
+          
         })).catch(error => {
           if (error) {
             console.log("error fetching instagramUser")
@@ -50,7 +51,7 @@ class App extends Component {
     // console.log(this.linkstasiteUserRef.context.state.userProfile)
     return (
       <div className="App">
-        <Header accountName={this.state.accountName}/>
+        <Header medias={this.state.userProfile}/>
         <MediaList medias={this.linkstafeedRef.context.state.linkstasite}/>
       </div>
     );

@@ -56,7 +56,7 @@ const InstagramLogin = {
           tags: info.tags
         }));
         
-        return instagramUser 
+        return instagramUser; 
       }
       throw new Error('Request failed!');
     } catch (error) {
