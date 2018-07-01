@@ -121,7 +121,7 @@ export default class PhotoContainer extends Component {
                     <button className="controls" onClick={this.handleCopy} type="button" disabled={this.state.edited || !this.state.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', alignContent: 'center' }}><Icon icon={ICONS.LINK} color={"blue"} size={32} /></button>
                     <button onClick={this.handleClear} className="controls" type="button" disabled={!this.state.edited} style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                     <button  className="controls" onChange={this.handleEdit} disabled={!this.state.editing} type="button" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>
-                    <button onClick={this.checkFilled} className="controls" type="button" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><i className="fa fa-save"/></button></div></div>
+                    <button onClick={this.checkFilled} className="controls" type="button" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button></div></div>
                 </div>
             </div>
          <div className="media" >
