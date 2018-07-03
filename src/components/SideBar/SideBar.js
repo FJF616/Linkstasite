@@ -27,6 +27,9 @@ export default class SideBar2 extends Component {
                         <li><a href="#GridView"><Icon className="listItem" icon={ICONS.GRID} size={95} mode={"contain"} color={"rgb(151, 54, 241)"}/></a></li>
                       
                     </ul>
+                    <h5 style={{paddingTop: '25px', paddingBottom: '95px', color: 'purple'}}><b>Upgrade to Pro Subscription  For Only $9.99!</b></h5>
+                    <br/>
+                    
                     <StripeForm />
                 </div>
                
