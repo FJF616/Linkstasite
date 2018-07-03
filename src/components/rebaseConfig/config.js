@@ -30,8 +30,9 @@ const prodConfig = {
     ? prodConfig
     : devConfig;
  
- const app = firebase.initializeApp(config)
+ export const app = firebase.initializeApp(config)
  const db = app.database();
  const base = Rebase.createClass(db);
+ export const facebookProvider = new firebase.auth.FacebookAuthProvider()
 
  export { base };
