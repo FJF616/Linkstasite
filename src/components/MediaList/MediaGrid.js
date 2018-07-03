@@ -4,7 +4,7 @@ import MediaGridComponent from '../Media/MediaGridComponent'
 // import Media from '../Media/Media.js'
 
 class MediaGrid extends React.Component {
-
+  
 
 
   render () {
@@ -12,7 +12,7 @@ class MediaGrid extends React.Component {
       <div className='list'>
         {
           this.props.medias.map(media => {
-            return <MediaGridComponent media={media} key={media.id} />;
+            return <MediaGridComponent  media={media} key={media.id} />;
           })
         }
       </div>

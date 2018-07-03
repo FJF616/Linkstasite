@@ -66,9 +66,8 @@ const InstagramLogin = {
           instagramUser.gallery = jsonResponse.data.map(info => ({
             image: info.images.standard_resolution.url,
             title: info.caption ? info.caption.text : '',
-            author: info.user.full_name,
             id: info.id,
-            affiliateLink: '',
+            // affiliateLink: '',
           }));
             return instagramUser;
       }
