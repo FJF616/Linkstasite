@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from '../Header/Header';
 // import TitleBarGridList from '../GridList/GridList'
-import InstagramLogin from '../../util/instagramLogin';
+import InstagramLogin from '../../util/InstagramLogin';
 import SideBar from '../SideBar/SideBar';
 // import { base } from '../rebaseConfig/config';
 import MediaList from '../MediaList/MediaList';
