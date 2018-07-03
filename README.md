@@ -9,3 +9,8 @@ Inline edit/ delete feature
 grid/list view: grid will show linked pics, list will be for editing mode.
 stripe integration.  
 Firebase integration for state management , realtime database
+
+Todo:
+routing
+delete item function
+linked pics gallery view
