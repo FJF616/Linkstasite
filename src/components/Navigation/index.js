@@ -27,16 +27,6 @@ const NavigationAuth = () =>
       </nav>
 
 
-   
-    
-  
-
- 
-  
-
-  
-   
-   
 
 const NavigationNonAuth = () =>
     <nav style={{backgroundColor: 'rgba(86, 59, 136, 55%)', height: 110, position: 'relative'}} className="navbar navbar-expand-lg  fixed-top">

@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 // import InstagramLogin from '../../util/InstagramLogin'
 import withAuthorization from '../Session/withAuthorization';
 import { db } from '../rebaseConfig';
+import SideBar from '../SideBar/SideBar';
 // import { base } from '../rebaseConfig/firebase';
 class HomePage extends Component {
   constructor(props) {
@@ -27,10 +28,11 @@ class HomePage extends Component {
 
     return (
       <div>
-        <h1>Home</h1>
+      <SideBar/>
+       {/* <h1>Home</h1>
         <p>The Home Page is accessible by every signed in user.</p>
 
-        { !!users && <UserList users={users} /> }
+       { !!users && <UserList users={users} /> }}*/}
       </div>
     );
   }
