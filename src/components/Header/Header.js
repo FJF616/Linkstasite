@@ -1,6 +1,9 @@
 import React from 'react';
 import './Header.scss';
 import  'bootstrap/dist/css/bootstrap.css';
+import { inject, observer } from 'mobx-react';
+import { compose } from 'recompose';
+import withAuthentication from '../Session/withAuthentication';
 import Imager from '../Imager/Imager'
 // import instaUser from '../../util/instaUser'
 import ICONS from '../Icons/constants'
@@ -91,4 +94,6 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+
+
+export default compose(withAuthentication(Header));

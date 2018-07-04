@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { compose } from 'recompose';
+// import{ BrowserRouter } from 'react-router-dom';
+// import Header from '../Header/Header';
 
+// import InstagramLogin from '../../util/InstagramLogin'
 import withAuthorization from '../Session/withAuthorization';
 import { db } from '../rebaseConfig';
-
+// import { base } from '../rebaseConfig/firebase';
 class HomePage extends Component {
   componentDidMount() {
     const { userStore } = this.props;
@@ -27,6 +30,7 @@ class HomePage extends Component {
     );
   }
 }
+
 const UserList = ({ users }) =>
   <div>
     <h2>List of Usernames of Users</h2>
