@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-
+import './SignIn.scss'
+import 'bootstrap/dist/css/bootstrap.css';
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { auth } from '../rebaseConfig';
 import * as routes from '../../constants/routes';
-
+import Imager from '../Imager/Imager'
 const SignInPage = ({ history }) =>
   <div>
-    <h1>SignIn</h1>
+    
     <SignInForm history={history} />
-    <PasswordForgetLink />
-    <SignUpLink />
+    
+   
   </div>
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -65,25 +66,45 @@ class SignInForm extends Component {
       email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <div>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+      
+      <div className="login-card"><h1>SignIn</h1><Imager src={'./avatar_2x.png'}  className="profile-img-card" width={155} height={155} mode={'contain'}/>
+      
+      <p className="profile-name-card"> </p>
+        <form className="form-signin" onSubmit={this.onSubmit}>
+        
+        <span className="reauth-email"> </span>
         <input
           value={email}
           onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
-          type="text"
-          placeholder="Email Address"
+          className="form-control" 
+          type="email" 
+          required 
+          placeholder="Email address" 
+          autofocus id="inputEmail"
         />
         <input
           value={password}
           onChange={event => this.setState(updateByPropertyName('password', event.target.value))}
-          type="password"
-          placeholder="Password"
+          className="form-control" 
+          type="password" 
+          required 
+          placeholder="Password" 
+          id="inputPassword"
         />
-        <button disabled={isInvalid} type="submit">
+        <div className="checkbox">
+        <div className="form-check"><input className="form-check-input" type="checkbox" id="formCheck-3" /></div>
+        </div><button disabled={isInvalid} className="btn btn-primary btn-block btn-lg btn-signin" type="submit">
           Sign In
         </button>
 
         { error && <p>{error.message}</p> }
-      </form>
+      </form><PasswordForgetLink /><SignUpLink /></div>
+    </div>
+      
     );
   }
 }
