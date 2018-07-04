@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
-import { compose } from 'recompose';
+import AuthUserContext from './AuthUserContext';
 
 import { firebase } from '../rebaseConfig';
 import * as routes from '../../constants/routes';
@@ -17,15 +16,15 @@ const withAuthorization = (condition) => (Component) => {
     }
 
     render() {
-      return this.props.sessionStore.authUser ? <Component /> : null;
+      return (
+        <AuthUserContext.Consumer>
+          {authUser => authUser ? <Component /> : null}
+        </AuthUserContext.Consumer>
+      );
     }
   }
 
-  return compose(
-    withRouter,
-    inject('sessionStore'),
-    observer
-  )(WithAuthorization);
+  return withRouter(WithAuthorization);
 }
 
 export default withAuthorization;

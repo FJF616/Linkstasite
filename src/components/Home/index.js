@@ -9,16 +9,22 @@ import withAuthorization from '../Session/withAuthorization';
 import { db } from '../rebaseConfig';
 // import { base } from '../rebaseConfig/firebase';
 class HomePage extends Component {
-  componentDidMount() {
-    const { userStore } = this.props;
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      users: {}
+    };
+  }
+
+  componentDidMount() {
     db.onceGetUsers().then(snapshot =>
-      userStore.setUsers(snapshot.val())
+      this.setState(() => ({ users: snapshot.val() }))
     );
   }
 
   render() {
-    const { users } = this.props.userStore;
+    const { users } = this.state;
 
     return (
       <div>
@@ -43,8 +49,4 @@ const UserList = ({ users }) =>
 
 const authCondition = (authUser) => !!authUser;
 
-export default compose(
-  withAuthorization(authCondition),
-  inject('userStore'),
-  observer
-)(HomePage);
+export default withAuthorization(authCondition)(HomePage);

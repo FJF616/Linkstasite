@@ -1,18 +1,17 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
-import { compose } from 'recompose';
 import { Link } from 'react-router-dom';
 
+import AuthUserContext from '../Session/AuthUserContext';
 import SignOutButton from '../SignOut';
 import * as routes from '../../constants/routes';
 
-const Navigation = ({ sessionStore }) =>
-  <div>
-    { sessionStore.authUser
-        ? <NavigationAuth />
-        : <NavigationNonAuth />
+const Navigation = () =>
+  <AuthUserContext.Consumer>
+    {authUser => authUser
+      ? <NavigationAuth />
+      : <NavigationNonAuth />
     }
-  </div>
+  </AuthUserContext.Consumer>
 
 const NavigationAuth = () =>
   <ul>
@@ -28,7 +27,4 @@ const NavigationNonAuth = () =>
     <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
   </ul>
 
-export default compose(
-  inject('sessionStore'),
-  observer
-)(Navigation);
+export default Navigation;
