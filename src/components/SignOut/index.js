@@ -4,10 +4,6 @@ import Icon from '../Icons/Icon'
 import { auth } from '../rebaseConfig';
 
 const SignOutButton = () =>
-  <a
-    onClick={auth.doSignOut}
-  >
-  <Icon icon={ICONS.LOGOUT} size={125} mode={"contain"} color={"gray"}/>
-  </a>
+  <a onClick={auth.doSignOut}><Icon icon={ICONS.LOGOUT} size={125} mode={"contain"} color={"orangered"}/></a>
 
 export default SignOutButton;
