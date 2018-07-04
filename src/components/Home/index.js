@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import { compose } from 'recompose';
+
 // import{ BrowserRouter } from 'react-router-dom';
 // import Header from '../Header/Header';
 
