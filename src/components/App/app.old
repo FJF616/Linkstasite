@@ -1,0 +1,96 @@
+import React, { Component } from 'react';
+import './App.css';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import LogOut from '../LogOut/LogOut';
+import Header from '../Header/Header';
+import MediaList from '../MediaList/MediaList.js';
+import InstagramLogin from '../../util/InstagramLogin';
+import LogIn from '../Login/LogIn';
+import { app, base, auth } from '../rebaseConfig/config'
+
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticated: false,
+      currentUser: null,
+      loading: true,
+      linkstasite: [],
+      userProfile: [],
+      accountName:'loading' 
+    };
+  }
+  setCurrentUser(user) {
+    if (user) {
+      this.setState({
+        currentUser: user,
+        authenticated: true
+      })
+    } else {
+      this.setState({
+        currentUser: null,
+        authenticated: false
+      })
+    }
+  }
+
+  componentDidMount() {
+    InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
+          linkstasite: instagramUser,
+          userProfile: [instagramUser['0'].access_token, instagramUser['0'].profilePic, instagramUser['0'].userName, instagramUser['0'].instagramUserID],
+          accountName: instagramUser['0'].userName,
+          
+        })).catch(error => {
+          if (error) {
+            console.log("error fetching instagramUser")
+          }
+      });
+    }
+
+    componentWillMount() {
+     
+      
+      if (user) {
+        this.setState({
+          authenticated: true,
+          currentUser: user,
+          loading: false,
+        })
+
+        this.instaRef = base.syncState(`linkstasite/${user.uid}`, {
+          context: this,
+          state: 'linkstasite'
+        });
+      } else {
+        this.setState({
+          authenticated: false,
+          currentUser: null,
+          loading: false,
+        })
+
+        base.removeBinding(this.instaRef);
+      }
+        }
+      
+      
+    
+    componentWillUnMount() {
+      base.removeBinding(this.instafeedRef);
+    }
+  
+  render() {
+    console.log(this.state.userProfile)
+    console.log(this.instaRef.context.state.linkstasite)
+    // console.log(this.linkstasiteUserRef.context.state.userProfile)
+    return (
+      <div className="App">
+      <BrowserRouter>
+     
+      <Header medias={this.state.userProfile} authenticated={this.state.authenticated} />
+        
+        </BrowserRouter>  
+        
+      </div>
+    );
+  }

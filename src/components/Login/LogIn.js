@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Toaster, Intent } from '@blueprintjs/core'
-import { app, facebookProvider } from '..rebaseConfig/config'
+import { app } from '../rebaseConfig/config'
 
 const loginStyles = {
   width: "90%",
@@ -15,24 +15,24 @@ const loginStyles = {
 class Login extends Component {
     constructor(props) {
       super(props)
-      this.authWithFacebook = this.authWithFacebook.bind(this)
+      // this.authWithFacebook = this.authWithFacebook.bind(this)
       this.authWithEmailPassword = this.authWithEmailPassword.bind(this)
       this.state = {
         redirect: false
       }
     }
   
-    authWithFacebook() {
-      app.auth().signInWithPopup(facebookProvider)
-        .then((user, error) => {
-          if (error) {
-            this.toaster.show({ intent: Intent.DANGER, message: "Unable to sign in with Facebook" })
-          } else {
-            this.props.setCurrentUser(user)
-            this.setState({ redirect: true })
-          }
-        })
-    }
+    // authWithFacebook() {
+    //   app.auth().signInWithPopup(facebookProvider)
+    //     .then((user, error) => {
+    //       if (error) {
+    //         this.toaster.show({ intent: Intent.DANGER, message: "Unable to sign in with Facebook" })
+    //       } else {
+    //         this.props.setCurrentUser(user)
+    //         this.setState({ redirect: true })
+    //       }
+    //     })
+    // }
   
     authWithEmailPassword(event) {
       event.preventDefault()

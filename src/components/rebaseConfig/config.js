@@ -1,5 +1,7 @@
 import Rebase from 're-base';
-import firebase from 'firebase/app';
+import firebase from 'firebase/app'
+import 'firebase/auth';
+import 'firebase/database';
 // import dotenv from 'dotenv';
 import 'firebase/database';
 const prodConfig = {
@@ -31,8 +33,9 @@ const prodConfig = {
     : devConfig;
  
  export const app = firebase.initializeApp(config)
- const db = app.database();
+ export const db = app.database();
  const base = Rebase.createClass(db);
- export const facebookProvider = new firebase.auth.FacebookAuthProvider()
+ export const auth = firebase.auth();
+//  export const facebookProvider = new firebase.auth.FacebookAuthProvider()
 
  export { base };
