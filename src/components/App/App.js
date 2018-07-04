@@ -51,7 +51,7 @@ class App extends Component {
     return (
       <div className="App">
         <SideBar/>
-        <MediaGrid medias={this.state.linkstasite}/>
+        <MediaList medias={this.state.linkstasite}/>
         <Header medias={this.state.userProfile}/>
       </div>
     );
