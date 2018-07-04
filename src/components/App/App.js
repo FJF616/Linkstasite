@@ -4,7 +4,10 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
-
+import InstagramFeed from '../InstagramFeed/InstagramFeed'
+import ListView from '../ListView/ListView'
+import MediaGrid from '../MediaList/MediaGrid'
+import Billing from '../Billing/Billing'
 import Navigation from '../Navigation';
 import LandingPage from '../Landing';
 import SignUpPage from '../SignUp';
@@ -28,6 +31,10 @@ const App = () =>
       <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
       <Route exact path={routes.HOME} component={() => <HomePage />} />
       <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
+      <Route exact path={routes.BILLING} component={() => <Billing />} />
+      <Route exact path={routes.GRID_VIEW} component={() => <MediaGrid />} />
+      <Route exact path={routes.LIST_VIEW} component={() => <ListView />} />
+      <Route exact path={routes.INSTAGRAMFEED} component={() => <InstagramFeed />} />
     </div>
   </Router>
 

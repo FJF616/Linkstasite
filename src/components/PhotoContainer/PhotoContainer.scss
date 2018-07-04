@@ -1,0 +1,188 @@
+@import '../font-awesome-4.0.3/css/font-awesome.css';
+.affiliate {
+    /* background: #b7deed; /* Old browsers */
+/* background: -moz-linear-gradient(left, #b7deed 0%, #73efed 0%, #b7deed 45%); FF3.6-15 */
+/* background: -webkit-linear-gradient(left, #b7deed 0%,#73efed 0%,#b7deed 45%); Chrome10-25,Safari5.1-6 */
+/* background: linear-gradient(to right, #b7deed 0%,#73efed 0%,#b7deedca 25%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+/* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed',GradientType=1 ); */ 
+
+    background-color: turquoise;
+    padding: 10; 
+    width: 335;
+    height: 31; 
+    margin-bottom: 5;  
+    box-shadow: 0 3px 4px 0 hsla(0, 5%, 5%, .55); 
+    text-decoration: underline;
+    background: -moz-linear-gradient(left, rgba(49,249,249,0.76) 1%, rgba(225,48,244,0.76) 28%, rgba(226,43,95,0.76) 52%, rgba(204,155,32,0.76) 78%, rgba(192,173,51,0.76) 82%, rgba(136,252,136,0.76) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(49,249,249,0.76) 1%,rgba(225,48,244,0.76) 28%,rgba(226,43,95,0.76) 52%,rgba(204,155,32,0.76) 78%,rgba(192,173,51,0.76) 82%,rgba(136,252,136,0.76) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(49,249,249,0.76) 1%,rgba(225,48,244,0.76) 28%,rgba(226,43,95,0.76) 52%,rgba(204,155,32,0.76) 78%,rgba(192,173,51,0.76) 82%,rgba(136,252,136,0.76) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c231f9f9', endColorstr='#c288fc88',GradientType=1 );
+}
+.card-container {
+    padding: 10px;
+    position: relative; 
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #1e5799 0%, #681062 61%, #f2a982 100%); /* FF3.6-15*/
+     background: -webkit-linear-gradient(-45deg, #1e5799 0%,#681062 61%,#f2a982 100%); /*Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #1e5799 0%,#681062 61%,#f2a982 100%); /*W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#f2a982',GradientType=1 ); /*IE6-9 fallback on horizontal gradientIE6-9 fallback on horizontal gradient   */
+     
+    background-size: contain;
+} 
+
+ .card {
+    display: inline-flex;
+    height: auto;
+    margin: 10;
+    position:relative;
+    background-size: cover;
+    width: 650;
+    border: 6px outset;
+    background-color: blueViolet;
+    border-color: rgba(129, 35, 124, 0.438); 
+    background-position: center;
+    
+    background-repeat: no-repeat;
+    background-image: url("../../images/linkstasite2.png");
+
+  
+
+}
+/*
+.card_description_input {
+    width: 370; 
+    margin-top: 12; 
+    border-radius: 6%; 
+    color: slateblue;  
+    box-shadow: 0 3px 2px 0 hsla(0, 5%, 5%, .75); 
+    padding-left: 15
+}
+.card_header {
+    background-color: rgba(153,153,153,0.03); 
+    color: rgb(176,196,215)
+}
+.card_title_input {
+    width: 370; 
+    margin-top: 10; 
+    border-radius: 6%; 
+    color: slateBlue;  
+    box-shadow: 0 3px 2px 0 hsla(0, 5%, 5%, .75); 
+    padding-left: 15
+}
+.controls_edit {
+    color: purple; 
+    padding: 5px; 
+    width: 35px; 
+    height: 31px; 
+    margin-bottom: 16px; 
+    margin-left: 2px  
+}
+
+.controls.enabled {
+    cursor: not-allowed;
+}
+
+.controls_link {
+    color: blue; 
+    padding: 5px; 
+    width: 35px; 
+    height: 31px; 
+    margin-bottom: 16px; 
+    margin-left: 10px; 
+    align-content: center 
+}
+
+.controls_unlink {
+    color: purple; 
+    padding: 5px; 
+    width: 35px;
+    height: 31px; 
+    margin-bottom: 16px; 
+    margin-left: 2px 
+}
+.controls_save {
+    color: purple; 
+    padding: 5px; 
+    width: 35px; 
+    height: 31px; 
+    margin-bottom: 16px; 
+    margin-left: 2px 
+}
+
+
+.icon {
+    margin-top: 5px;
+}
+
+.card-container .inner__card__container {
+    height: 365; 
+    margin: 15; 
+    padding: 10;  
+    width: 675
+}
+.input-group .input-group-prepend .input_group_text {
+    background-color: turquoise;
+    height: 31; 
+    width: 110;   
+    box-shadow: 0 3px 4px 0 hsla(0, 5%, 5%, .75)
+
+}
+.landing__container{
+    background: #6e76dd; /* Old browsers */
+  /*  background: -moz-linear-gradient(-45deg, #d6dd6e6c 30%, #7f4a89 30%); /* FF3.6-15 */
+    /* background: -webkit-linear-gradient(-45deg, #6e76dd 0%,#7f4a89 100%); /* Chrome10-25,Safari5.1-6 */
+    /* background: linear-gradient(135deg, #ecb43a8e 0%,#7f4a89 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e76dd', endColorstr='#7f4a89',GradientType=1 );
+    min-height: 335px;
+    height: 700px;
+    max-height: 855px;
+    width: auto; */ 
+    
+    /* background-image: url('../../images/ins1.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative */
+/* }
+.mr-3 {
+    width: 225; 
+    height: 225; 
+    margin: 10; 
+    border: 7px ridge;
+    padding: 5;
+    box-shadow: 0 3px 6px 0 hsla(0, 5%, 5%, .75);
+    border-color: gold 
+}
+
+.url_input {
+    padding: 10; 
+    width: 335;
+    height: 31; 
+    border-radius: 5%;  
+    box-shadow: 0 3px 4px 0 hsla(0, 5%, 5%, .75)
+} */ 
+/* div.signIn {
+    height: 755px;
+    display: 'inline-flex';
+    align-self: center;
+    background: #6e76dd; /* Old browsers */
+    /* background: -moz-linear-gradient(-45deg, #d6dd6e6c 30%, #7f4a89 30%); /* FF3.6-15 */
+    /* background: -webkit-linear-gradient(-45deg, #6e76dd 0%,#7f4a89 100%); /* Chrome10-25,Safari5.1-6 */
+    /* background: linear-gradient(135deg, #ecb43a8e 0%,#7f4a89 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e76dd', endColorstr='#7f4a89',GradientType=1 ); */
+/* }   */
+
+.controls:enabled:hover {
+    opacity: 0.65; 
+    cursor: pointer;
+  }
+
+  .controls:disabled:hover {
+    opacity: 0.15; 
+    cursor: not-allowed;
+  }
+
+  .controls:disabled {
+      opacity: 0.25;
+  }
+

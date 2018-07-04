@@ -1,22 +1,23 @@
 import React from 'react';
-import './MediaList.css';
+import './MediaList.scss';
+import PhotoContainer from '../PhotoContainer/PhotoContainer';
 
-import Media from '../Media/Media.js'
+// import Media from '../Media/Media.js'
 
 class MediaList extends React.Component {
+  
 
 
 
   render () {
     return (
       <div className='list'>
-        {
-          this.props.medias.map(media => {
-            return <Media media={media} key={media.id} />;
-          })
-        }
+      {
+        this.props.medias.map(media => {
+          return <PhotoContainer media={media} key={media.id} />;
+        })
+      }
       </div>
-
     );
   }
 }

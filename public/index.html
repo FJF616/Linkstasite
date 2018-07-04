@@ -1,34 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <script type="text/javascript">
-        (function() {
-            if (typeof window.janrain !== 'object') window.janrain = {};
-            if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
-            
-            janrain.settings.tokenUrl = 'https://api.instagram.com/oauth/access_token';
-        
-            function isReady() { janrain.ready = true; };
-            if (document.addEventListener) {
-              document.addEventListener("DOMContentLoaded", isReady, false);
-            } else {
-              window.attachEvent('onload', isReady);
-            }
-        
-            var e = document.createElement('script');
-            e.type = 'text/javascript';
-            e.id = 'janrainAuthWidget';
-        
-            if (document.location.protocol === 'https:') {
-              e.src = 'https://rpxnow.com/js/lib/linkstasite/engage.js';
-            } else {
-              e.src = 'http://widget-cdn.rpxnow.com/js/lib/linkstasite/engage.js';
-            }
-        
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(e, s);
-        })();
-        </script>
+     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
@@ -65,5 +38,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src = "https://js.stripe.com/v3/" ></script>
   </body>
 </html>

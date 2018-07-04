@@ -26,8 +26,10 @@ class Header extends React.Component {
       <ol class="breadcrumb" aria-label="Left Align">
       <li class="breadcrumb-item active" aria-current="page">Home</li>
 
-        <li class="breadcrumb-item"><a href="#">Account Settings</a></li>
         <li class="breadcrumb-item"><a href="#">Billing</a></li>
+        <li class="breadcrumb-item"><a href="#">Account Settings</a></li>
+        <li class="breadcrumb-item"><a href="#">List View</a></li>
+        <li class="breadcrumb-item"><a href="#">Grid View</a></li>
         <li class="breadcrumb-item active" aria-current="page">Pictures</li>
       </ol>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,8 +76,8 @@ class Header extends React.Component {
               height={55}
               border={6}
               color={[185, 253, 255, 0.074]} // RGBA
-              scale={1.75}
-              rotate={0}
+              scale={1.25}
+              rotate={1}
               />  
              <div >
              <h5> <p><b className="userId" >{this.props.medias['2']}</b></p></h5> 
