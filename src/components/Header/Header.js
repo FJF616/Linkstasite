@@ -2,7 +2,6 @@ import React from 'react';
 import './Header.scss';
 import  'bootstrap/dist/css/bootstrap.css';
 
-import { compose } from 'recompose';
 import withAuthentication from '../Session/withAuthentication';
 import Imager from '../Imager/Imager'
 // import instaUser from '../../util/instaUser'
@@ -96,4 +95,4 @@ class Header extends React.Component {
 
 
 
-export default compose(withAuthentication(Header));
+export default Header;

@@ -1,5 +1,6 @@
 
 import React from "react";
+// import NewPara from '../NewPara/NewPara';
 // import { Button } from "reactstrap";
 // import { Link } from "react-router-dom";
 // import Billing from '../Billing'
@@ -8,8 +9,8 @@ import React from "react";
 
 const LandingPage = () =>
       <div>
-        <h1>Landing</h1>
-        <p>The Landing Page is open to everyone, even thought the user isn't signed in.</p>
+      
+       
       </div>
     
 

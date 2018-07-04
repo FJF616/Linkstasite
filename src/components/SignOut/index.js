@@ -1,13 +1,13 @@
 import React from 'react';
-
+import ICONS from '../Icons/constants'
+import Icon from '../Icons/Icon'
 import { auth } from '../rebaseConfig';
 
 const SignOutButton = () =>
-  <button
-    type="button"
+  <a
     onClick={auth.doSignOut}
   >
-    Sign Out
-  </button>
+  <Icon icon={ICONS.LOGOUT} size={125} mode={"contain"} color={"gray"}/>
+  </a>
 
 export default SignOutButton;
