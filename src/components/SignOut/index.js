@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { auth } from './rebaseConfig';
+import { auth } from '../rebaseConfig';
 
 const SignOutButton = () =>
   <button

@@ -1,7 +1,7 @@
 import React from 'react';
 import { inject } from 'mobx-react';
 
-import { firebase } from '../firebase';
+import { firebase } from '../rebaseConfig';
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {

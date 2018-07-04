@@ -10,9 +10,9 @@ import LandingPage from '../Landing';
 import SignUpPage from '../SignUp';
 import SignInPage from '../SignIn';
 import PasswordForgetPage from '../PasswordForget';
-import HomePage from '../HomePage';
+import HomePage from '../Home';
 import AccountPage from '../Account';
-
+import withAuthentication from '../Session/withAuthentication';
 import * as routes from '../../constants/routes';
 
 const App = () =>
@@ -31,4 +31,4 @@ const App = () =>
     </div>
   </Router>
 
-export default App;
+export default withAuthentication(App);

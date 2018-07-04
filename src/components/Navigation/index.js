@@ -3,8 +3,8 @@ import { inject, observer } from 'mobx-react';
 import { compose } from 'recompose';
 import { Link } from 'react-router-dom';
 
-import SignOutButton from './SignOut';
-import * as routes from '../constants/routes';
+import SignOutButton from '../SignOut';
+import * as routes from '../../constants/routes';
 
 const Navigation = ({ sessionStore }) =>
   <div>

@@ -1,9 +1,6 @@
 import Rebase from 're-base';
-import firebase from 'firebase/app'
-import 'firebase/auth';
-import 'firebase/database';
-// import dotenv from 'dotenv';
-import 'firebase/database';
+import * as firebase from 'firebase';
+
 const prodConfig = {
     apiKey: "AIzaSyDsQ1r5hgfllHJFlZVjBwI2Bp8btznK5Os",
     authDomain: "linkstasitecs5-18740.firebaseapp.com",
@@ -31,11 +28,14 @@ const prodConfig = {
   const config = process.env.NODE_ENV === 'production'
     ? prodConfig
     : devConfig;
- 
- export const app = firebase.initializeApp(config)
- export const db = app.database();
- const base = Rebase.createClass(db);
- export const auth = firebase.auth();
+
+  if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+
+const db = firebase.database();
+const base = Rebase.createClass(db);
+const auth = firebase.auth();
 //  export const facebookProvider = new firebase.auth.FacebookAuthProvider()
 
- export { base };
+ export { base, db, auth };

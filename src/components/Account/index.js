@@ -2,9 +2,9 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { compose } from 'recompose';
 
-import { PasswordForgetForm } from './PasswordForget';
-import PasswordChangeForm from './PasswordChange';
-import withAuthorization from './withAuthorization';
+import { PasswordForgetForm } from '../PasswordForget/index';
+import PasswordChangeForm from '../PasswordChange/index';
+import withAuthorization from '../Session/withAuthorization';
 
 const AccountPage = ({ sessionStore }) =>
   <div>

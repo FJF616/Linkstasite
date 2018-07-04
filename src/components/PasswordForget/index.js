@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { auth } from './rebaseConfig';
-
+import { auth } from '../rebaseConfig';
+import * as routes from '../../constants/routes';
 const PasswordForgetPage = () =>
   <div>
     <h1>PasswordForget</h1>
     <PasswordForgetForm />
   </div>
 
-const byPropKey = (propertyName, value) => () => ({
+const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
 });
 
@@ -33,7 +33,7 @@ class PasswordForgetForm extends Component {
         this.setState(() => ({ ...INITIAL_STATE }));
       })
       .catch(error => {
-        this.setState(byPropKey('error', error));
+        this.setState(updateByPropertyName('error', error));
       });
 
     event.preventDefault();
@@ -51,7 +51,7 @@ class PasswordForgetForm extends Component {
       <form onSubmit={this.onSubmit}>
         <input
           value={this.state.email}
-          onChange={event => this.setState(byPropKey('email', event.target.value))}
+          onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
           type="text"
           placeholder="Email Address"
         />
@@ -67,7 +67,7 @@ class PasswordForgetForm extends Component {
 
 const PasswordForgetLink = () =>
   <p>
-    <Link to="/pw-forget">Forgot Password?</Link>
+    <Link to={routes.PASSWORD_FORGET}>Forgot Password?</Link>
   </p>
 
 export default PasswordForgetPage;

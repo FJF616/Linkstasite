@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { compose } from 'recompose';
 
-import withAuthorization from './withAuthorization';
-import { db } from './rebaseConfig';
+import withAuthorization from '../Session/withAuthorization';
+import { db } from '../rebaseConfig';
 
 class HomePage extends Component {
   componentDidMount() {
