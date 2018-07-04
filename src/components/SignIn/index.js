@@ -71,7 +71,7 @@ class SignInForm extends Component {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
       
-      <div className="login-card"><h1>SignIn</h1><Imager src={'./avatar_2x.png'}  className="profile-img-card" width={155} height={155} mode={'contain'}/>
+      <div className="login-card"><h1>SignIn</h1>
       
       <p className="profile-name-card"> </p>
         <form className="form-signin" onSubmit={this.onSubmit}>
@@ -95,12 +95,10 @@ class SignInForm extends Component {
           placeholder="Password" 
           id="inputPassword"
         />
-        <div className="checkbox">
-        <div className="form-check"><input className="form-check-input" type="checkbox" id="formCheck-3" /></div>
-        </div><button disabled={isInvalid} className="btn btn-primary btn-block btn-lg btn-signin" type="submit">
+        <button disabled={isInvalid} className="btn btn-primary btn-block btn-lg btn-signin" type="submit">
           Sign In
         </button>
-
+        <br/>
         { error && <p>{error.message}</p> }
       </form><PasswordForgetLink /><SignUpLink /></div>
     </div>
