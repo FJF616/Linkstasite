@@ -7,7 +7,7 @@ import ICONS from '../Icons/constants';
 import Icon from '../Icons/Icon';
 import MicrolinkCard from 'react-microlink';
 import ReactTooltip from 'react-tooltip';
-import { base } from '../rebaseConfig/config';
+import { base } from '../rebaseConfig/firebase';
 /**
  * 
  * 

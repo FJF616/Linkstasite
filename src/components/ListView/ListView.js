@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import '../App/App.css';
+import { withRouter } from 'react-router-dom';
 import Navigation from '../Navigation';
 import MediaList from '../MediaList/MediaList.js';
-import InstagramLogin from '../../util/instagramLogin';
+import InstagramLogin from '../../util/InstagramLogin';
 import SideBar from '../SideBar/SideBar';
 import withAuthentication from '../Session/withAuthentication'
-import { base } from '../rebaseConfig/config'
+import { base } from '../rebaseConfig/firebase'
 class ListView extends Component {
   constructor(props) {
     super(props);
@@ -42,19 +43,19 @@ class ListView extends Component {
     }
 
   render() {
-    console.log(this.state.userProfile)
+    // console.log(this.state.userProfile)
     // console.log(this.linkstafeedRef.context.state.linkstasite)
-    const linkstafeed = [...this.linkstafeedRef.context.state.linkstasite]
+    // const linkstafeed = [...this.linkstafeedRef.context.state.linkstasite]
     
-    console.log(linkstafeed)
+    // console.log(linkstafeed)
     return (
       <div className="App">
-        <SideBar/>
-        <Navigation/>
-        <MediaList medias={linkstafeed}/>
+        
+       
+        <MediaList medias={this.state.linkstasite}/>
       </div>
     );
   }
 }
 
-export default withAuthentication(ListView);
+export default withRouter(ListView);

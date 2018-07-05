@@ -4,7 +4,7 @@ import ICONS from '../Icons/constants'
 import Icon from '../Icons/Icon'
 import AuthUserContext from '../Session/AuthUserContext';
 import SignOutButton from '../SignOut';
-import * as routes from '../../constants/routes';
+import * as routes from '../constants/routes';
 import  'bootstrap/dist/css/bootstrap.css';
 import './Navigation.scss'
 

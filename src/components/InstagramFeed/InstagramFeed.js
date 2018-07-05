@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../App/App.css';
 import Navigation from '../Navigation'
 import MediaList from '../MediaList/MediaList.js';
 import InstagramLogin from '../../util/InstagramLogin';
 import Sidebar from '../SideBar/SideBar'
-import { base } from '../rebaseConfig/config'
+import { base } from '../rebaseConfig/firebase'
 import withAuthentication from '../Session/withAuthentication';
-
-
+import { withRouter } from 'react-router-dom'
+import  withAuthorization from '../Session/withAuthorization'
 class InstagramFeed extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      authUser: true,
       authenticated: false,
       currentUser: null,
       loading: true,
@@ -53,20 +54,20 @@ class InstagramFeed extends Component {
       if (this.state.authUser) {
         this.setState({
           authenticated: true,
-          // currentUser: instagramUser['0'].instagramUserID,
+          currentUser: this.state.userProfile['3'],
           loading: false,
         })
 
-      //   this.instaRef = base.syncState(`linkstasite/${user.uid}`, {
-      //     context: this,
-      //     state: 'linkstasite'
-      //   });
-      // } else {
-      //   this.setState({
-      //     authenticated: false,
-      //     currentUser: null,
-      //     loading: false,
-      //   })
+        this.instaRef = base.syncState(`linkstasite/${this.state.authUser.user}`, {
+          context: this,
+          state: 'linkstasite'
+        });
+      } else {
+        this.setState({
+          authenticated: false,
+          currentUser: null,
+          loading: false,
+        })
 
         base.removeBinding(this.instaRef);
       }
@@ -79,14 +80,13 @@ class InstagramFeed extends Component {
     }
   
   render() {
-    console.log(this.state.userProfile)
-    console.log(this.instaRef.context.state.linkstasite)
+    // console.log(this.state.userProfile)
+    // console.log(this.instaRef.context.state.linkstasite)
     // console.log(this.linkstasiteUserRef.context.state.userProfile)
     return (
       <div className="App">
     
-     <Navigation/>
-     <Sidebar/>
+     
       <MediaList medias={this.state.linkstasite}/>
         
       
@@ -95,4 +95,7 @@ class InstagramFeed extends Component {
     );
   }
  }
- export default withAuthentication(InstagramFeed);
+ 
+
+export default withRouter(InstagramFeed)
+ 

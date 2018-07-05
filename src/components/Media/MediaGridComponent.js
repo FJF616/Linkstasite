@@ -3,7 +3,7 @@ import './Media.scss';
 import Imager from '../Imager/Imager';
 import ICONS from '../Icons/constants';
 import Icon from '../Icons/Icon';
-import { base } from '../rebaseConfig/config';
+import { base } from '../rebaseConfig/firebase';
 // import { withRouter } from 'react-router-dom'
 class MediaGridComponent extends React.Component {
   componentWillMount() {
