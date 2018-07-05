@@ -7,6 +7,8 @@ import SignOutButton from '../SignOut';
 import * as routes from '../constants/routes';
 import  'bootstrap/dist/css/bootstrap.css';
 import './Navigation.scss'
+import AvatarEditor from 'react-avatar-editor'
+import { Card, Col, Row } from 'reactstrap';
 
 const Navigation = () =>
   <AuthUserContext.Consumer>
@@ -43,6 +45,7 @@ const NavigationAuth = () =>
           <li  className="nav-item" style={{ marginLeft: '5px'}}><Link to={routes.ACCOUNT}><Icon   icon={ICONS.INTERNET} size={125} mode={"contain"} color={"aquamarine"}/></Link></li>
           <li className="nav-item" style={{marginLeft: '-55px'}}><SignOutButton /></li>
         </ul>
+      
         </div>
       </nav>
 

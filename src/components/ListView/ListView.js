@@ -43,16 +43,16 @@ class ListView extends Component {
     }
 
   render() {
-    // console.log(this.state.userProfile)
-    // console.log(this.linkstafeedRef.context.state.linkstasite)
-    // const linkstafeed = [...this.linkstafeedRef.context.state.linkstasite]
+    console.log(this.state.userProfile)
+    console.log(this.linkstafeedRef.context.state.linkstasite)
+    const linkstafeed = [...this.linkstafeedRef.context.state.linkstasite]
     
-    // console.log(linkstafeed)
+    console.log(linkstafeed)
     return (
       <div className="App">
         
        
-        <MediaList medias={this.state.linkstasite}/>
+        <MediaList medias={linkstafeed}/>
       </div>
     );
   }

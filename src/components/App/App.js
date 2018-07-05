@@ -25,7 +25,7 @@ const App = () =>
       <Navigation />
 
       <hr/>
-      
+      <InstagramProvider>
       <Route exact path={routes.LANDING} component={() => <LandingPage />} />
       <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
       <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
@@ -35,7 +35,7 @@ const App = () =>
       <Route exact path={routes.BILLING} component={() => <Billing />} />
       <Route exact path={routes.GRID_VIEW} component={() => <MediaGrid />} />
       <Route exact path={routes.LIST_VIEW} component={() => <ListView />} />
-      <InstagramProvider>
+      
       <Route exact path={routes.INSTAGRAM_FEED} component={() => <InstagramFeed />} />
       </InstagramProvider>
     </div>

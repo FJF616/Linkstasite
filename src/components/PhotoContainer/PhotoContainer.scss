@@ -38,7 +38,7 @@
     background-size: cover;
     width: 650;
     border: 6px outset;
-    background-color: blueViolet;
+    // background-color: blueViolet;
     border-color: rgba(129, 35, 124, 0.438); 
     background-position: center;
     
@@ -173,8 +173,14 @@
 /* }   */
 
 .controls:enabled:hover {
-    opacity: 0.65; 
+    opacity: 0.45; 
     cursor: pointer;
+    background-color: rgb(226, 214, 214);
+  }
+  .controls:enabled {
+   
+    cursor: pointer;
+    background-color: rgba(95, 241, 229, 0.411);
   }
 
   .controls:disabled:hover {
