@@ -16,9 +16,11 @@ class MediaGridComponent extends React.Component {
    });
 }
   render () {
+    
+  
     return (
         <div className='image-grid' >
-          <Imager src={this.props.media.image} style={{width: 215, height: 215, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} alt='1'>
+          <Imager onClick={this.onDelete.bind(this)} src={this.props.media.image} className="list-image" style={{width: 215, height: 215, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} alt='1'>
            <div className="trash__container">
             <Icon  className="trash__icon" icon={ICONS.BIN3} color={"white"} size={56} />
           </div>
@@ -26,8 +28,10 @@ class MediaGridComponent extends React.Component {
         </div>
     );
   }
+ onDelete() {() => this.handleDelete}
+  //  this.handleDelete(media);
  
-  
+
 }
 
 export default MediaGridComponent;

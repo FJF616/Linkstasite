@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 // import TitleBarGridList from '../GridList/GridList'
 import InstagramLogin from '../../util/InstagramLogin';
 import SideBar from '../SideBar/SideBar';
-// import { base } from '../rebaseConfig/config';
+import { base } from '../rebaseConfig/config';
 import MediaList from '../MediaList/MediaList';
 import MediaGrid from '../MediaList/MediaGrid';
 // import NewPara from  '../../NewPara/NewPara';
@@ -32,16 +32,16 @@ class App extends Component {
       });
     }
 //use rebase to sync local state with real time database
-  //   componentWillMount() {
-  //    this.linkstafeedRef = base.syncState('linkstasite', {
-  //       context: this,
-  //       state: 'linkstasite',
+    componentWillMount() {
+     this.linkstafeedRef = base.syncState('linkstasite', {
+        context: this,
+        state: 'linkstasite',
        
-  //   });
-  // }
-  //   componentWillUnMount() {
-  //     base.removeBinding(this.linkstafeedRef);
-  //   }
+    });
+  }
+    componentWillUnMount() {
+      base.removeBinding(this.linkstafeedRef);
+    }
 
   render() {
     console.log(this.state.userProfile)
@@ -51,7 +51,7 @@ class App extends Component {
     return (
       <div className="App">
         <SideBar/>
-        <MediaList medias={this.state.linkstasite}/>
+        <MediaGrid medias={this.state.linkstasite}/>
         <Header medias={this.state.userProfile}/>
       </div>
     );

@@ -1,5 +1,6 @@
 .header {
   display:inline-flex;
+  flex-wrap: wrap;
   background-color: #bf45f0 40%;
   height: 90px;
   overflow: hidden;
@@ -17,7 +18,7 @@
   flex-wrap: wrap;
   top: 0;
   background-color: lightcyan;
- 
+  max-height: 125px;
   width: 205;
   margin: 10px;
   padding: 10px;
@@ -77,6 +78,7 @@ h1 {
 
 .profile {
   display: flex;
+  flex-wrap: wrap;
   padding: 1px;
   padding-left: 10px;
   background-image: url('../../images/ins15.png');

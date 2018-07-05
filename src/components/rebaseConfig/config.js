@@ -33,5 +33,5 @@ const prodConfig = {
  const app = firebase.initializeApp(config)
  const db = app.database();
  const base = Rebase.createClass(db);
-
- export { base };
+ const instagramTokenRef = db.ref('/instagramAccessToken');
+ export { base, instagramTokenRef };

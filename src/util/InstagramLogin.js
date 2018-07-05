@@ -63,10 +63,10 @@ const InstagramLogin = {
           likes: info.likes.count,
           tags: info.tags
         }));
-          instagramUser.gallery = jsonResponse.data.map(info => ({
-            image: info.images.standard_resolution.url,
-            title: info.caption ? info.caption.text : '',
-            id: info.id,
+          instagramUser.gallery = jsonResponse.data.map(pic => ({
+            image: pic.images.standard_resolution.url,
+            title: pic.caption ? pic.caption.text : '',
+            id: pic.id,
             // affiliateLink: '',
           }));
             return instagramUser;

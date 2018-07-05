@@ -12,7 +12,7 @@ class MediaGrid extends React.Component {
       <div className='list'>
         {
           this.props.medias.map(media => {
-            return <MediaGridComponent  media={media} key={media.id} />;
+            return <MediaGridComponent  handleDelete={this.deleteItem} media={media} key={media.id} />;
           })
         }
       </div>
