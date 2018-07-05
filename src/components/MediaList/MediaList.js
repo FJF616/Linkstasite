@@ -1,11 +1,12 @@
 import React from 'react';
 import './MediaList.scss';
 import PhotoContainer from '../PhotoContainer/PhotoContainer';
-
+import { base } from '../rebaseConfig/firebase';
 // import Media from '../Media/Media.js'
 
 class MediaList extends React.Component {
   
+
 
 
 
@@ -14,7 +15,7 @@ class MediaList extends React.Component {
       <div className='list'>
       {
         this.props.medias.map(media => {
-          return <PhotoContainer media={media} key={media.id} />;
+          return <PhotoContainer data={this.props.medias} media={media} key={media.id} />;
         })
       }
       </div>

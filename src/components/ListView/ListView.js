@@ -20,7 +20,7 @@ class ListView extends Component {
 
   componentDidMount() {
     InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
-          linkstasite: instagramUser,
+          linkstasite: instagramUser.gallery,
           userProfile: [instagramUser['0'].access_token, instagramUser['0'].profilePic, instagramUser['0'].userName, instagramUser['0'].instagramUserID],
           accountName: instagramUser['0'].userName,
           
@@ -51,8 +51,8 @@ class ListView extends Component {
     return (
       <div className="App">
         
-       
-        <MediaList medias={linkstafeed}/>
+       <SideBar/>
+        <MediaList medias={[...this.linkstafeedRef.context.state.linkstasite]}/>
       </div>
     );
   }

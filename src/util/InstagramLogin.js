@@ -67,7 +67,7 @@ const InstagramLogin = {
             image: info.images.standard_resolution.url,
             title: info.caption ? info.caption.text : '',
             id: info.id,
-            // affiliateLink: '',
+            affiliateLink: '',
           }));
             return instagramUser;
       }

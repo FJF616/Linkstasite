@@ -64,6 +64,9 @@ export default class PhotoContainer extends Component {
             [name]: value  
         });
         this.props.media.affiliateLink = this.state.url;   
+        this.setState({
+            media: this.props.media
+        });
     }
  }
 
@@ -99,17 +102,10 @@ export default class PhotoContainer extends Component {
         });
        
     }
+    
 
-    // componentWillMount() {
-    //      base.syncState('linkstasite', {
-    //         context: this,
-    //         state: 'linkstasite',
-    //         asArray: false
-    //     });
-            
-       
-    // }
-    render() {
+        render() {
+        
       return (
         
         <div className="cardContainer">
