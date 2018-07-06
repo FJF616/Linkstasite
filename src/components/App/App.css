@@ -5,9 +5,9 @@
   align-content: auto;
   margin-top: -5px;
   background: #6e76dd; /* Old browsers */
-  background: -moz-linear-gradient(-45deg, #d6dd6e6c 30%, #7f4a89 30%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(-45deg, #6e76dd 0%,#7f4a89 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(135deg, #ecb43a8e 0%,#7f4a89 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: -moz-linear-gradient(-45deg, #d6dd6e6c 10%, #7f4a89 70%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #6e76dd 35%,#7f4a89 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(115deg, #ecb43a8e 0%,#7f4a89 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e76dd', endColorstr='#7f4a89',GradientType=1 );
   width: 100%;
   padding-top: 100px; 

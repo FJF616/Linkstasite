@@ -102,7 +102,7 @@ export default class PhotoContainer extends Component {
         <div className="cardContainer">
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <div className="card" style={{height: 365, margin: 25, padding: 10,  width: 675}}>
+              <div className="card" style={{backgroundColor: 'plum', border: '4px  outset', borderColor: 'pink', height: 365, margin: 25, padding: 10,  width: 675}}>
                 <div className="card-header" style={{ color: 'rgb(176,196,215)'}}>
                     <div className="input-group">
                       <div className="input-group-prepend">

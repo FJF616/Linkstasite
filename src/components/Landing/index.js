@@ -1,5 +1,6 @@
 
 import React from "react";
+import NewHeader from '../Header2/NewHeader'
 // import NewPara from '../NewPara/NewPara';
 // import { Button } from "reactstrap";
 // import { Link } from "react-router-dom";
@@ -9,7 +10,7 @@ import React from "react";
 
 const LandingPage = () =>
       <div>
-      
+      <NewHeader/>
        
       </div>
     
