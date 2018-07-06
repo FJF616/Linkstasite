@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import InstagramFeed from '../InstagramFeed/InstagramFeed'
 import ListView from '../ListView/ListView'
-import MediaGrid from '../MediaList/MediaGrid'
+import GridView from '../GridView/GridView'
 import Billing from '../Billing/Billing'
 import Navigation from '../Navigation';
 import LandingPage from '../Landing';
@@ -17,7 +17,8 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import withAuthentication from '../Session/withAuthentication';
 import * as routes from '../constants/routes';
-import InstagramProvider from '../Session/InstagramProvider'
+import InstagramProvider from '../Session/InstagramProvider';
+
 const App = () =>
 
   <Router>
@@ -33,9 +34,8 @@ const App = () =>
       <Route exact path={routes.HOME} component={() => <HomePage />} />
       <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
       <Route exact path={routes.BILLING} component={() => <Billing />} />
-      <Route exact path={routes.GRID_VIEW} component={() => <MediaGrid />} />
+      <Route exact path={routes.GRID_VIEW} component={() => <GridView />} />
       <Route exact path={routes.LIST_VIEW} component={() => <ListView />} />
-      
       <Route exact path={routes.INSTAGRAM_FEED} component={() => <InstagramFeed />} />
       </InstagramProvider>
     </div>

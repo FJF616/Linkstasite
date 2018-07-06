@@ -56,9 +56,13 @@
     width: calc(100% - 1px);
   }
 }
+.trash__container {
+  display: flex;
+}
 .trash__container:hover {
   position: relative;
-  display: block;
+  display: flex;
+ 
   filter: opacity(50%);
   cursor: pointer;
 }

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import '../App/App.css';
 import { withRouter } from 'react-router-dom';
-import Navigation from '../Navigation';
-import MediaList from '../MediaList/MediaList.js';
+// import Navigation from '../Navigation';
+import MediaGrid from '../MediaList/MediaGrid';
 import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar';
-import withAuthentication from '../Session/withAuthentication'
+// import withAuthentication from '../Session/withAuthentication'
 import { base } from '../rebaseConfig/firebase'
 class ListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       linkstasite: [],
-      userProfile: [],
+      userProfile: {},
       accountName:'loading' 
     };
   }
@@ -52,7 +52,7 @@ class ListView extends Component {
       <div className="App">
         
        <SideBar2/>
-        <MediaList medias={linkstafeed}/>
+        <MediaGrid medias={linkstafeed}/>
       </div>
     );
   }

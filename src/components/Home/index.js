@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
+import '../App/App.css'
 // import{ BrowserRouter } from 'react-router-dom';
 // import Header from '../Header/Header';
 
 // import InstagramLogin from '../../util/InstagramLogin'
 import withAuthorization from '../Session/withAuthorization';
 import { db } from '../rebaseConfig';
-import SideBar from '../SideBar/SideBar';
+import SideBar2 from '../SideBar/SideBar';
 // import { base } from '../rebaseConfig/firebase';
 class HomePage extends Component {
   constructor(props) {
@@ -27,8 +27,8 @@ class HomePage extends Component {
     const { users } = this.state;
 
     return (
-      <div>
-      <SideBar/>
+      <div className="App">
+      <SideBar2/>
        {/* <h1>Home</h1>
         <p>The Home Page is accessible by every signed in user.</p>
 

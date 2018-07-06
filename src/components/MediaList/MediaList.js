@@ -15,7 +15,7 @@ class MediaList extends React.Component {
       <div className='list'>
       {
         this.props.medias.map(media => {
-          return <PhotoContainer data={this.props.medias} media={media} key={media.id} />;
+          return <PhotoContainer  media={media} key={media.id} />;
         })
       }
       </div>
