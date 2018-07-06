@@ -1,3 +1,6 @@
+const recurly = require('recurly');
+const $ = require('jquery');
+
 recurly.configure({
     publicKey: window.recurlyConfig.publicKey, // Set this to your own public key
     style: {

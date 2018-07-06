@@ -16,23 +16,9 @@ const onSubmit = async values => {
   window.alert(JSON.stringify(values, 0, 2))
 }
 
-const App = () => (
+const CreditCard= () => (
   <Styles>
-    <h1>🏁 React Final Form</h1>
-    <h2>Credit Card Example</h2>
-    <a href="https://github.com/erikras/react-final-form#-react-final-form">
-      Read Docs
-    </a>
-    <p>
-      This example demonstrates how to use the amazing{' '}
-      <a
-        href="https://github.com/amarofashion/react-credit-cards"
-        target="_blank"
-      >
-        React Credit Cards
-      </a>{' '}
-      library with your form.
-    </p>
+   
     <Form
       onSubmit={onSubmit}
       render={({
@@ -88,7 +74,7 @@ const App = () => (
                 format={formatCVC}
               />
             </div>
-            <div className="buttons">
+            {/*<div className="buttons">
               <button type="submit" disabled={submitting}>
                 Submit
               </button>
@@ -101,12 +87,11 @@ const App = () => (
               </button>
             </div>
             <h2>Values</h2>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
+        <pre>{JSON.stringify(values, 0, 2)}</pre>*/}
           </form>
         )
       }}
     />
   </Styles>
 )
-
-render(<App />, document.getElementById('root'));
+export default CreditCard;

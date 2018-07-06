@@ -1,4 +1,5 @@
 * {
+
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -6,14 +7,16 @@
     box-sizing: border-box;
   }
   
-  html, body {
-     
-    height: 100%;
-    margin: 10;
-    padding: 0;
+ .billing {
+   display: flex;
+   flex-wrap: wrap;
+    width: 55%;
+    height: 85%;
+    
   }
   
   body {
+    
     background: -webkit-linear-gradient(-30deg, #e1e3e6, #ebeff8);
     background: -moz-linear-gradient(-30deg, #e1e3e6, #ebeff8);
     background: -ms-linear-gradient(-30deg, #e1e3e6, #ebeff8);
