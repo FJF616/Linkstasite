@@ -21,8 +21,8 @@ class ListView extends Component {
   componentDidMount() {
     InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
           linkstasite: instagramUser.gallery,
-          userProfile: [instagramUser['0'].access_token, instagramUser['0'].profilePic, instagramUser['0'].userName, instagramUser['0'].instagramUserID],
-          accountName: instagramUser['0'].userName,
+          userProfile: [instagramUser.user['0'].access_token, instagramUser.user['0'].profilePic, instagramUser.user['0'].userName, instagramUser.user['0'].instagramUserID],
+          accountName: instagramUser.user['0'].userName,
           
         })).catch(error => {
           if (error) {
@@ -50,7 +50,6 @@ class ListView extends Component {
     console.log(linkstafeed)
     return (
       <div className="App">
-        
        <SideBar/>
         <MediaList medias={[...this.linkstafeedRef.context.state.linkstasite]}/>
       </div>

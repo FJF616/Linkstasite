@@ -24,7 +24,7 @@ const App = () =>
     <div>
       <Navigation />
 
-      <hr/>
+      
       <InstagramProvider>
       <Route exact path={routes.LANDING} component={() => <LandingPage />} />
       <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
