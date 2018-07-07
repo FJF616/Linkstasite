@@ -5,7 +5,13 @@ import { base } from '../rebaseConfig/firebase';
 // import Media from '../Media/Media.js'
 
 class MediaList extends React.Component {
-  
+//   componentWillMount() {
+//       base.syncState('gallery', {
+//       context: this,
+//       state: 'gallery',
+//       asArray: true
+//   });
+// }
 
 
 

@@ -11,7 +11,7 @@ class ListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      linkstasite: [],
+      gallery: [],
       userProfile: [],
       accountName:'loading' 
     };
@@ -20,9 +20,9 @@ class ListView extends Component {
 
   componentDidMount() {
     InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
-          linkstasite: instagramUser,
-          userProfile: [instagramUser['0'].access_token, instagramUser['0'].profilePic, instagramUser['0'].userName, instagramUser['0'].instagramUserID],
-          accountName: instagramUser['0'].userName,
+          gallery: instagramUser.gallery,
+          userProfile: instagramUser.user['0'],
+          accountName: instagramUser.user['0'].userName,
           
         })).catch(error => {
           if (error) {
@@ -32,27 +32,32 @@ class ListView extends Component {
     }
 
     componentWillMount() {
-      this.linkstafeedRef = base.syncState('linkstasite', {
+      this.galleryRef = base.syncState('gallery', {
         context: this,
-        state: 'linkstasite',
-        
+        state: 'gallery',
+        asArray: true
+    });
+    this.userRef = base.syncState('userProfile', {
+      context: this,
+      state: 'userProfile',
+      
     });
   }
-    componentWillUnMount() {
-      base.removeBinding(this.linkstafeedRef);
-    }
+    // componentWillUnMount() {
+    //   base.removeBinding(this.galleryRef);
+    // }
 
   render() {
     console.log(this.state.userProfile)
-    console.log(this.linkstafeedRef.context.state.linkstasite)
-    const linkstafeed = [...this.linkstafeedRef.context.state.linkstasite]
+    console.log(this.galleryRef.context.state.gallery)
+    const galleryFeed = this.galleryRef.context.state.gallery
     
-    console.log(linkstafeed)
+    console.log(galleryFeed)
     return (
       <div className="App">
         
        <SideBar2/>
-        <MediaList medias={linkstafeed}/>
+        <MediaList medias={galleryFeed}/>
       </div>
     );
   }

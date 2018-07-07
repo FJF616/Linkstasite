@@ -7,7 +7,7 @@ import Icon from '../Icons/Icon';
 import MicrolinkCard from 'react-microlink';
 import ReactTooltip from 'react-tooltip';
 // import {Card, Col, Row } from 'reactstrap';
-// import { base } from '../rebaseConfig/firebase';
+import { base } from '../rebaseConfig/firebase';
 /**
  * 
  * 
@@ -30,7 +30,8 @@ export default class PhotoContainer extends Component {
     this.handleChange= this.handleChange.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     }
-
+    
+  
    
 
    handleEdit() {
@@ -58,15 +59,29 @@ export default class PhotoContainer extends Component {
         if (!value) {
             console.log("error");
         } else {
-        this.setState ({
-            [name]: value  
-        });
+            this.setState ({
+                [name]: value  
+            })
+        }
+        //  base.update('gallery', {
+        //     data: {affiliateLink: this.state.url},
+        //     then(err) {
+        //         if(!err){
+        //             console.log('updated re-base endpoint: `gallery`');
+        //         }
+        //     }
+        // });
+                            
+                
+
+                
+            
         this.props.media.affiliateLink = this.state.url;   
-        this.setState({
-            media: this.props.media
-        });
+        // this.setState({
+        //     media: this.props.media
+        // });
      }
-   };
+   
 
     handleClear(e) {
         const target = e.target;
@@ -87,7 +102,7 @@ export default class PhotoContainer extends Component {
         e.preventDefault();
         this.setState({
             title: value,
-        });
+        })
         this.props.media.title = this.state.title;
     };
 
@@ -96,6 +111,8 @@ export default class PhotoContainer extends Component {
             edited: true,
         });
     };
+    
+    
     
     render() {    
       return (   

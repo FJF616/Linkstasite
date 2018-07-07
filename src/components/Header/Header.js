@@ -71,7 +71,7 @@ class Header extends React.Component {
           <Card className="profile">
           <Row className="profile__container">
               <AvatarEditor className="avatar__img"
-              image={this.props.medias['1']}
+              image={this.props.medias['5']}
               width={55}
               height={55}
               border={6}

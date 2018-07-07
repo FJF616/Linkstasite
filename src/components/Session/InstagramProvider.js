@@ -8,7 +8,7 @@ export default class InstagramProvider extends React.Component {
     constructor() {
         super();
         this.state = {
-            linkstasite: [],
+            gallery: [],
             userProfile: [],
             listView: false,
             accountName: ''
@@ -17,8 +17,8 @@ export default class InstagramProvider extends React.Component {
 
     componentDidMount() {
         InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
-            linkstasite: instagramUser.gallery,
-            userProfile: instagramUser.user,
+            gallery: instagramUser.gallery,
+            userProfile: instagramUser.user['0'],
             accountName: instagramUser.user['0'].userName,
         }));
     }

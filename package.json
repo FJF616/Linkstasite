@@ -59,6 +59,7 @@
     "react-avatar": "^3.0.2",
     "react-avatar-editor": "^11.0.4",
     "react-awesome-button": "^4.2.1",
+    "react-bootstrap": "^0.32.1",
     "react-credit-cards": "^0.7.0",
     "react-delay": "^0.1.0",
     "react-dev-utils": "^5.0.1",
