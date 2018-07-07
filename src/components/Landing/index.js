@@ -11,7 +11,7 @@ import NewHeader from '../Header2/NewHeader'
 const LandingPage = () =>
       <div>
       <NewHeader/>
-       
+     
       </div>
     
 

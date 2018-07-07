@@ -77,9 +77,9 @@ export default class PhotoContainer extends Component {
                 
             
         this.props.media.affiliateLink = this.state.url;   
-        // this.setState({
-        //     media: this.props.media
-        // });
+        this.setState({
+            media: this.props.media
+        });
      }
    
 

@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import './NewPara.css';
+import Footer from '../Footer/Footer';
+import Imager from '../Imager/Imager';
 // import MicrolinkCard from 'react-microlink';
 export default class NewPara extends Component {
     render () {
       return (
         <div>
+
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>Untitled</title>
          
-          <div><div>
-              <label className="debug">
-                <input type="checkbox" />Debug </label>    
-            </div>
+          <div>
             <div className="parallax">
               <div id="group1" className="parallax-group">
                 <div className="parallax-layer scroll-level-base">
                   <div className="title">
                     <p>Base layer</p>
+                    <Imager style={{position: 'relative'}} src={('../images/linkstasitepic.PNG')} height={245} width={245} mode={'contain'}/>
+
                   </div>
                 </div>
               </div>
@@ -25,7 +27,7 @@ export default class NewPara extends Component {
                 <div className="parallax-layer scroll-level-base">
                   <div className="title">
                     <p>Base layer</p>
-                
+               
 
                   </div>
                 </div>
@@ -92,6 +94,8 @@ export default class NewPara extends Component {
                 <div className="parallax-layer scroll-level-base">
                   <div className="title">
                     <p>Base layer</p>
+
+                    <Footer/>
                   </div>
                 </div>
               </div>
