@@ -4,9 +4,10 @@ import { withRouter } from 'react-router-dom';
 import Navigation from '../Navigation';
 import MediaList from '../MediaList/MediaList.js';
 import InstagramLogin from '../../util/InstagramLogin';
-import SideBar2 from '../SideBar/SideBar';
+import SideBar2 from '../SideBar/SideBar2';
 import withAuthentication from '../Session/withAuthentication'
 import { base } from '../rebaseConfig/firebase'
+import Graph from '../Graph/Graph'
 class ListView extends Component {
   constructor(props) {
     super(props);
@@ -18,18 +19,18 @@ class ListView extends Component {
   }
 
 
-  componentDidMount() {
-    InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
-          gallery: instagramUser.gallery,
-          userProfile: instagramUser.user['0'],
-          accountName: instagramUser.user['0'].userName,
+  // componentDidMount() {
+  //   InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
+  //         gallery: instagramUser.gallery,
+  //         userProfile: instagramUser.user['0'],
+  //         accountName: instagramUser.user['0'].userName,
           
-        })).catch(error => {
-          if (error) {
-            console.log("error fetching instagramUser")
-          }
-      });
-    }
+  //       })).catch(error => {
+  //         if (error) {
+  //           console.log("error fetching instagramUser")
+  //         }
+  //     });
+  //   }
 
     componentWillMount() {
       this.galleryRef = base.syncState('gallery', {
@@ -37,27 +38,29 @@ class ListView extends Component {
         state: 'gallery',
         asArray: true
     });
-    this.userRef = base.syncState('userProfile', {
-      context: this,
-      state: 'userProfile',
+  //   this.userRef = base.syncState('userProfile', {
+  //     context: this,
+  //     state: 'userProfile',
       
-    });
+  //   });
   }
     // componentWillUnMount() {
     //   base.removeBinding(this.galleryRef);
     // }
 
   render() {
-    console.log(this.state.userProfile)
-    console.log(this.galleryRef.context.state.gallery)
+    // console.log(this.state.userProfile)
+    // console.log(this.galleryRef.context.state.gallery)
     const galleryFeed = this.galleryRef.context.state.gallery
     
     console.log(galleryFeed)
+   
     return (
       <div className="App">
         
        <SideBar2/>
-        <MediaList medias={galleryFeed}/>
+        <MediaList gallery={galleryFeed}/>
+       
       </div>
     );
   }

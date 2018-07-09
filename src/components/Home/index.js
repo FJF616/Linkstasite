@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import '../App/App.css'
 // import{ BrowserRouter } from 'react-router-dom';
 // import Header from '../Header/Header';
-
+import Graph from '../Graph/Graph'
 // import InstagramLogin from '../../util/InstagramLogin'
 import withAuthorization from '../Session/withAuthorization';
 import { db } from '../rebaseConfig';
-import SideBar2 from '../SideBar/SideBar';
+import SideBar2 from '../SideBar/SideBar2';
 // import { base } from '../rebaseConfig/firebase';
 class HomePage extends Component {
   constructor(props) {
@@ -29,6 +29,8 @@ class HomePage extends Component {
     return (
       <div className="App">
       <SideBar2/>
+     
+      <Graph style={{ paddingTop: '5px'}}/>
        {/* <h1>Home</h1>
         <p>The Home Page is accessible by every signed in user.</p>
 

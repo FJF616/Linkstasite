@@ -1,5 +1,6 @@
 import React from 'react';
 import AuthUserContext from './AuthUserContext';
+import InstagramLogin from '../../util/InstagramLogin';
 
 
 import { firebase } from '../rebaseConfig';
@@ -20,8 +21,9 @@ const withAuthentication = (Component) =>
           ? this.setState(() => ({ authUser }))
           : this.setState(() => ({ authUser: null }));
       });
+      
+      
     }
-
     render() {
       const { authUser } = this.state;
 

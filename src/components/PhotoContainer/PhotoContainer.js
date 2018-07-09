@@ -7,7 +7,8 @@ import Icon from '../Icons/Icon';
 import MicrolinkCard from 'react-microlink';
 import ReactTooltip from 'react-tooltip';
 // import {Card, Col, Row } from 'reactstrap';
-import { base } from '../rebaseConfig/firebase';
+import { base } from '../rebaseConfig/firebase'
+import Graph from '../Graph/Graph';
 /**
  * 
  * 
@@ -54,7 +55,7 @@ export default class PhotoContainer extends Component {
     
     updateLink(e) {
         const target = e.target;
-        const value =  target.value;
+        const value =  `${target.value }`;
         const name = target.type;
         if (!value) {
             console.log("error");
@@ -63,25 +64,15 @@ export default class PhotoContainer extends Component {
                 [name]: value  
             })
         }
-        //  base.update('gallery', {
-        //     data: {affiliateLink: this.state.url},
-        //     then(err) {
-        //         if(!err){
-        //             console.log('updated re-base endpoint: `gallery`');
-        //         }
-        //     }
-        // });
-                            
+        
                 
 
-                
+        e.preventDefault();        
             
         this.props.media.affiliateLink = this.state.url;   
-        this.setState({
-            media: this.props.media
-        });
+        
      }
-   
+    
 
     handleClear(e) {
         const target = e.target;
@@ -99,10 +90,11 @@ export default class PhotoContainer extends Component {
         const target = e.target;
         let value = target.value;
         const name = target.type;
-        e.preventDefault();
+       
         this.setState({
             title: value,
         })
+        e.preventDefault();
         this.props.media.title = this.state.title;
     };
 
@@ -116,7 +108,9 @@ export default class PhotoContainer extends Component {
     
     render() {    
       return (   
+        
         <div className="cardContainer">
+      
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
               <div className="card" style={{backgroundColor: 'plum', border: '4px  outset', borderColor: 'pink', height: 365, margin: 25, padding: 10,  width: 675}}>
@@ -169,6 +163,7 @@ export default class PhotoContainer extends Component {
                     </div>
                 </div>
             </div>
+           
         );
       }
     }

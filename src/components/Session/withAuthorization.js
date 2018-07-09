@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import AuthUserContext from './AuthUserContext';
-
+import InstagramLogin from '../../util/InstagramLogin';
 import { firebase } from '../rebaseConfig';
 import * as routes from '../../constants/routes';
 
@@ -9,6 +9,12 @@ const withAuthorization = (condition) => (Component) => {
   class WithAuthorization extends React.Component {
     componentDidMount() {
       firebase.auth.onAuthStateChanged(authUser => {
+          if(authUser && authUser.uid) return;
+          if (authUser) {
+            this.instagramtokenRef = firebase.db.ref('/instagramAccesstoken/' + authUser.id )
+            
+          }
+       
         if (!condition(authUser)) {
           this.props.history.push(routes.SIGN_IN);
         }

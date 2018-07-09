@@ -1,18 +1,16 @@
+const createFirebaseAccount = require('../components/rebaseConfig/createFirebaseAccount');
+const signInFirebaseTemplate = require('../components/rebaseConfig/signInFirebaseTemplate');
 const redirectURI = "http://localhost:3000/"
 const client_id = "0d744e65869b4acc8dde4d6e3c6a58e2";
 const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
-const serviceAccount = require('./service-account.json');
-const admin = require('firebase-admin');
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: `https://${serviceAccount.project_id}.firebaseio.com`
-});
+
 let accessToken;
 let jsonResponse;
 let instagramUser = {
   user: {},
   gallery:{},
 };
+
 
 
 /**
@@ -37,12 +35,14 @@ const InstagramLogin = {
       //use redirect instead of popup window
      window.location = auth_url;
     }
+   
   },
+  
   async fetchUserInfo() {
     if (!accessToken) {
       this.getAccessToken();
     }
-    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}`;
+    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=5`;
     try {
       let response = await fetch(token_url, {
         method: 'GET'
@@ -70,13 +70,17 @@ const InstagramLogin = {
             affiliateLink: '',
           }));
             return instagramUser;
+
       }
       throw new Error('Request failed!');
     } catch (error) {
       console.log(error);
     }
-    
+    // createFirebaseAccount(instagramUser.user.instagramUserID, instagramUser.useruserName, instagramUser.userprofilePic, instagramUser.user.access_token)
+    //   .then(token => {signInFirebaseTemplate(token,  instagramUser.useruserName, instagramUser.userprofilePic, instagramUser.user.access_token)})
   }
+ 
+   
 }
 
 export default InstagramLogin;

@@ -3,30 +3,25 @@ import './MediaList.scss';
 import PhotoContainer from '../PhotoContainer/PhotoContainer';
 import { base } from '../rebaseConfig/firebase';
 // import Media from '../Media/Media.js'
-
-class MediaList extends React.Component {
-//   componentWillMount() {
+import Graph from '../Graph/Graph';
+// class MediaList extends React.Component {
+//   componentDidMount() {
 //       base.syncState('gallery', {
 //       context: this,
 //       state: 'gallery',
-//       asArray: true
+      
 //   });
 // }
 
-
-
-
-  render () {
+ const MediaList = ({ gallery }) => {
     return (
       <div className='list'>
-      {
-        this.props.medias.map(media => {
-          return <PhotoContainer  media={media} key={media.id} />;
-        })
-      }
+        { 
+          gallery.map(media => {
+            return <PhotoContainer  media={media} key={media.id} />;
+          })
+        }
       </div>
     );
   }
-}
-
 export default MediaList;

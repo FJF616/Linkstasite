@@ -18,7 +18,7 @@ import AccountPage from '../Account';
 import withAuthentication from '../Session/withAuthentication';
 import * as routes from '../constants/routes';
 import InstagramProvider from '../Session/InstagramProvider';
-
+import PictureList from '../Pictures/PictureList';
 const App = () =>
 
   <Router>
@@ -36,7 +36,7 @@ const App = () =>
       <Route exact path={routes.BILLING} component={() => <Billing />} />
       <Route exact path={routes.GRID_VIEW} component={() => <GridView />} />
       <Route exact path={routes.LIST_VIEW} component={() => <ListView />} />
-      <Route exact path={routes.INSTAGRAM_FEED} component={() => <InstagramFeed />} />
+      <Route exact path={routes.INSTAGRAM_FEED} component={() => <PictureList />} />
       </InstagramProvider>
     </div>
   </Router>

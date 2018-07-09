@@ -45,7 +45,9 @@ const NavigationAuth = () =>
           <li  className="nav-item" style={{ marginLeft: '5px'}}><Link to={routes.ACCOUNT}><Icon   icon={ICONS.INTERNET} size={125} mode={"contain"} color={"gold"}/></Link></li>
           <li className="nav-item" style={{marginLeft: '-55px'}}><SignOutButton /></li>
         </ul>
-      
+        <pre>
+     
+      </pre>
         </div>
       </nav>
 

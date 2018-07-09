@@ -3,7 +3,7 @@ import '../App/App.css';
 import Navigation from '../Navigation'
 import MediaList from '../MediaList/MediaList.js';
 import InstagramLogin from '../../util/InstagramLogin';
-import Sidebar from '../SideBar/SideBar'
+import Sidebar from '../SideBar/SideBar2'
 import { base } from '../rebaseConfig/firebase'
 import withAuthentication from '../Session/withAuthentication';
 import { withRouter } from 'react-router-dom'
