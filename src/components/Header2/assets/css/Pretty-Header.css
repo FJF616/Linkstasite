@@ -1,9 +1,17 @@
+
+
 .custom-header {
-  background:#292c2f;
-  padding:20px 40px;
+  position: absolute;
+  display: inline-flex;
+  width: 100%;
+  background:transparent;
+  padding: 3px 4px;
   box-sizing:border-box;
   border:0;
   border-radius:0;
+  align-content: space-around;
+  height: 100px;
+  
 }
 
 .custom-header a.navbar-brand {
@@ -31,8 +39,9 @@
   opacity:1;
 }
 
-.custom-header .badge {
-  position:absolute;
+.custom-header .navbar .badge {
+  position:right;
+  direction: row;
   top:4px;
   border-radius:2px;
   font-size:11px;
@@ -40,6 +49,7 @@
   background-color:#2A6A92;
   padding:2px 4px;
   font-weight:normal;
+  display: flex;
 }
 
 .custom-header li.dropdown, .custom-header li.dropdown.open {

@@ -8,7 +8,7 @@ import {
   VerticalRectSeries
 } from 'react-vis';
 
-const timestamp = new Date('May 23 2018').getTime();
+const timestamp = new Date().getTime();
 const ONE_DAY = 86400000;
 
 const DATA = [
@@ -26,15 +26,16 @@ export default class Graph extends React.Component {
   render() {
     return (
       <XYPlot
+        style={{border: '2px  outset', borderColor: 'pink', padding: '5px', margin: '22px'}}
         xDomain={[timestamp - 2 * ONE_DAY, timestamp + 30 * ONE_DAY]}
-        yDomain={[0.0, 10]}
+        yDomain={[0.0, 5]}
         xType="time"
-        width={300}
-        height={300} >
-        <VerticalGridLines />
-        <HorizontalGridLines />
-        <XAxis />
-        <YAxis />
+        width={1650}
+        height={450} >
+        <VerticalGridLines style={{stroke:'black'}}/>
+        <HorizontalGridLines style={{stroke:'black'}}/>
+        <XAxis style={{stroke: 'black', }}/>
+        <YAxis sstyle= {{stroke: '5px black'}}/>
         <VerticalRectSeries data={DATA} style={{stroke: '#fff'}}/>
       </XYPlot>
     );

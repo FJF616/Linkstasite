@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { auth } from '../rebaseConfig';
+import  { firebase, auth, db } from '../rebaseConfig';
 const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
 });

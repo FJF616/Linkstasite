@@ -1,9 +1,9 @@
 import React from 'react';
 import AuthUserContext from './AuthUserContext';
-import InstagramLogin from '../../util/InstagramLogin';
+// import InstagramLogin from '../../util/InstagramLogin';
 
 
-import { firebase } from '../rebaseConfig';
+import { firebase, auth, db }  from '../rebaseConfig';
 
 const withAuthentication = (Component) =>
   class WithAuthentication extends React.Component {

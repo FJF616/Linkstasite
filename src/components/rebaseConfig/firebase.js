@@ -21,7 +21,7 @@ const prodConfig = {
       authDomain: "linkstasite-dev.firebaseapp.com",
       databaseURL: "https://linkstasite-dev.firebaseio.com",
       projectId: "linkstasite-dev",
-      storageBucket: "",
+      storageBucket: "gs://linkstasite-dev.appspot.com",
       messagingSenderId: "178394875945"
   };
   
@@ -36,6 +36,8 @@ const prodConfig = {
 const db = firebase.database();
 const base = Rebase.createClass(db);
 const auth = firebase.auth();
+const storage = firebase.storage();
+//.ref('images');
 //  export const facebookProvider = new firebase.auth.FacebookAuthProvider()
 
- export { base, db, auth };
+ export { base, db, auth, storage };

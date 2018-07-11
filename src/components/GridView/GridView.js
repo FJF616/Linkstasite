@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import '../App/App.css';
 import { withRouter } from 'react-router-dom';
 // import Navigation from '../Navigation';
-import MediaGrid from '../MediaList/MediaGrid';
+// import MediaGrid from '../MediaList/MediaGrid';
 import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
 // import withAuthentication from '../Session/withAuthentication'
+import MediaGridComponent from '../Media/MediaGridComponent';
 import { base } from '../rebaseConfig/firebase'
+import Header from '../Header/Header';
 class GridView extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +31,8 @@ class GridView extends Component {
   //         if (error) {
   //           console.log("error fetching instagramUser")
   //         }
+  //       })
+  //     }
   //     });
   //   }
     // onListChange (id, updatedList) {
@@ -46,27 +50,48 @@ class GridView extends Component {
     //   });
     // }
     componentWillMount() {
-      this.galleryRef = base.syncState('gallery', {
+     base.syncState('gallery', {
         context: this,
         state: 'gallery',
         asArray: true
     });
   }
+
     // componentWillUnMount() {
     //   base.removeBinding(this.galleryRef);
     // }
-
+    removeImage(id) {
+      const { newState } = this.state;
+      const index = newState.gallery.findIndex(media => media.id === id);
+      
+      if (index === -1) return;
+      newState.gallery.splice(index, 1);
+  
+      this.setState({ gallery: newState });
+    }
   render() {
-    console.log(this.state.userProfile)
-    // console.log(this.galleryRef.context.state.gallery)
-    const galleryFeed = this.galleryRef.context.state.gallery
-    // const linkstaFeed =  this.linkstaFeedRef.context.state.gallery
-    console.log(galleryFeed)
+    const MediaGrid = ({ gallery, removeImage}) => {
+      return (
+        <div className='list'>
+        {
+          this.state.gallery.map(media => {
+            return <MediaGridComponent  removeImage={this.removeImage.bind(this)}  media={media} key={media.id} />;
+          })
+        }
+      </div>
+      );
+    }
+  
+    // console.log(this.state.userProfile)
+    // // console.log(this.galleryRef.context.state.gallery)
+    // const galleryFeed = this.galleryRef.context.state.gallery
+    // // const linkstaFeed =  this.linkstaFeedRef.context.state.gallery
+    // console.log(galleryFeed)
     return (
-      <div className="App">
-        
+      <div className="App"> 
+      <Header />
        <SideBar2/>
-        <MediaGrid gallery={galleryFeed}/>
+        <MediaGrid />
       </div>
     );
   }

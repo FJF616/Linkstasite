@@ -1,9 +1,10 @@
 .header {
-  display:inline-flex;
+  display:flex;
+  flex: 0;
   background-color: #bf45f0 40%;
   height: 90px;
-  overflow: hidden;
-  position: relative;
+  overflow: no-overflow;
+  position: top;
  
 
 .nav {
@@ -79,14 +80,14 @@ h1 {
   display: flex;
   padding: 1px;
   padding-left: 10px;
-  background-image: url('../../images/ins15.png');
+  background-image: url('../images/ins15.png');
   background-blend-mode: normal;
   border: 1px solid;
   border-color: rgba(64, 224, 208, 0.644);
   background-size: cover;
 
   background-repeat: no-repeat;
-  width:205px;
+  width:175px;
   height: 85px;
   margin: 25px;
   

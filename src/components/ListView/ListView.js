@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import Header from '../Header/Header';
 import '../App/App.css';
 import { withRouter } from 'react-router-dom';
-import Navigation from '../Navigation';
-import MediaList from '../MediaList/MediaList.js';
+// import Navigation from '../Navigation';
+// import MediaList from '../MediaList/MediaList.js';
 import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
-import withAuthentication from '../Session/withAuthentication'
+// import withAuthentication from '../Session/withAuthentication'
 import { base } from '../rebaseConfig/firebase'
-import Graph from '../Graph/Graph'
+import PhotoContainer from '../PhotoContainer/PhotoContainer'
+// import Graph from '../Graph/Graph'
 class ListView extends Component {
   constructor(props) {
     super(props);
@@ -33,34 +35,42 @@ class ListView extends Component {
   //   }
 
     componentWillMount() {
-      this.galleryRef = base.syncState('gallery', {
+      base.syncState('gallery', {
         context: this,
         state: 'gallery',
         asArray: true
     });
-  //   this.userRef = base.syncState('userProfile', {
-  //     context: this,
-  //     state: 'userProfile',
+    base.syncState('userProfile', {
+      context: this,
+      state: 'userProfile',
       
-  //   });
+    });
   }
     // componentWillUnMount() {
     //   base.removeBinding(this.galleryRef);
     // }
-
+    
   render() {
+    const MediaList = ({ gallery })  => {
+      return (
+        <div className='list'>
+          { 
+            this.state.gallery.map(media => {
+              return <PhotoContainer  media={media} key={media.id} />;
+            })
+          }
+        </div>
+      );
+    }
     // console.log(this.state.userProfile)
     // console.log(this.galleryRef.context.state.gallery)
-    const galleryFeed = this.galleryRef.context.state.gallery
-    
-    console.log(galleryFeed)
    
+    
     return (
       <div className="App">
-        
-       <SideBar2/>
-        <MediaList gallery={galleryFeed}/>
-       
+        <Header/>
+        <SideBar2/>
+          <MediaList />
       </div>
     );
   }

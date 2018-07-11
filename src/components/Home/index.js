@@ -5,9 +5,12 @@ import '../App/App.css'
 import Graph from '../Graph/Graph'
 // import InstagramLogin from '../../util/InstagramLogin'
 import withAuthorization from '../Session/withAuthorization';
-import { db } from '../rebaseConfig';
+import  { firebase, auth, db } from '../rebaseConfig';
 import SideBar2 from '../SideBar/SideBar2';
 // import { base } from '../rebaseConfig/firebase';
+// import InstagramConsumer from '../Session/InstagramProvider'
+// import AvatarEditor from 'react-avatar-editor'
+import Header from '../Header/Header'
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -27,15 +30,20 @@ class HomePage extends Component {
     const { users } = this.state;
 
     return (
+      
       <div className="App">
-      <SideBar2/>
      
+     <Header/>
+      <SideBar2/>
+      
       <Graph style={{ paddingTop: '5px'}}/>
-       {/* <h1>Home</h1>
-        <p>The Home Page is accessible by every signed in user.</p>
-
-       { !!users && <UserList users={users} /> }}*/}
+     
       </div>
+       
+    
+     
+      
+   
     );
   }
 }

@@ -1,6 +1,7 @@
 
 .App {
-  display: inline-flex;
+  
+  display: flex;
   flex: 1;
   align-content: auto;
   margin-top: -5px;
@@ -10,7 +11,9 @@
   background: linear-gradient(115deg, #ecb43a8e 0%,#7f4a89 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e76dd', endColorstr='#7f4a89',GradientType=1 );
   width: 100%;
-  padding-top: 100px; 
+  padding-top: 125px; 
+  height: 100%;
+  
 }
 body {
   

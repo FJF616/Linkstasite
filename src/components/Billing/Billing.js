@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import CreditCard from '../PaymentForm/CreditCard'
 import './billing.scss';
 import withAuthentication from '../Session/withAuthentication';
- class Billing extends Component {
+import SideBar2 from '../SideBar/SideBar2' 
+class Billing extends Component {
     render() {
       return (
         <div className="App">
+        <SideBar2/>
         <div  className="billing" >
           <title>Recurly.js Example: Advanced Pricing</title>
           <style dangerouslySetInnerHTML={{__html: "\n      select, input { display: block; }\n      input[type=radio] { display: inline; }\n    " }} />

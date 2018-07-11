@@ -1,16 +1,35 @@
 import React, { Component } from 'react';
+import { base } from '../rebaseConfig/firebase'
 import './Account.css';
-
-
-export default class AccountSettings extends Component {
-    render() {
-      return (
-        <div>
+import AuthUserContext from '../Session/AuthUserContext';
+import withAuthorization from '../Session/withAuthorization';
+import SideBar2 from '../SideBar/SideBar2'
+import AvatarEditor from 'react-avatar-editor'
+import Header from '../Header/Header'
+ class AccountSettings extends Component { 
+   state = {
+     userProfile: []
+   }
+     
+     componentDidMount() {
+       base.syncState('userProfile', {
+         context: this,
+         state: 'userProfile'
+       });
+     }
+     render() {
+       return (
+        <AuthUserContext.Consumer>
+        {authUser =>
+         
+          <div className="App" >
+          <Header/>
+          <SideBar2/>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Untitled</title>
+          
        
-          <div className="container profile profile-view" id="profile">
+          <div className="container profile profile-view" id="profile" >
             <div className="row">
               <div className="col-md-12 alert-col relative">
                 <div className="alert alert-info absolue center" role="alert"><button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><span>Profile save with success</span></div>
@@ -19,18 +38,30 @@ export default class AccountSettings extends Component {
             <form>
               <div className="form-row profile-row">
                 <div className="col-md-4 relative">
-                  <div className="avatar">
-                    <div className="avatar-bg center" />
-                  </div><input type="file" className="form-control" name="avatar-file" /></div>
+                <AvatarEditor style={{borderRadius: '50%', marginLeft:'calc(50% - 100px)'}} className="avatar__img"
+                image={this.state.userProfile.profilePic}
+                width={55}
+                height={55}
+                border={45}
+                color={[185, 253, 255, 0.074]} // RGBA
+                scale={3}
+                rotate={1}
+                /> 
+                <h5>  Instagram Profile: {this.state.userProfile.userName}</h5>
+                <p>  Instagram ID: {this.state.userProfile.instagramUserID}</p>
+                  {/*<div className="avatar">
+        <div className="avatar-bg center" />*/}
+                  {/*</div>*/}<input type="file" className="form-control" name="avatar-file" /></div>
                 <div className="col-md-8">
-                  <h1>Profile </h1>
+                  <h1>Profile: {authUser.email}</h1>
+                  
                   <hr />
                   <div className="form-row">
                     <div className="col-sm-12 col-md-6">
-                      <div className="form-group"><label>Firstname </label><input className="form-control" type="text" name="firstname" /></div>
+                      <div className="form-group"><label>First name </label><input className="form-control" type="text" name="firstname" /></div>
                     </div>
                     <div className="col-sm-12 col-md-6">
-                      <div className="form-group"><label>Lastname </label><input className="form-control" type="text" name="lastname" /></div>
+                      <div className="form-group"><label>Last name </label><input className="form-control" type="text" name="lastname" /></div>
                     </div>
                   </div>
                   <div className="form-group"><label>Email </label><input className="form-control" type="email" autoComplete="off" required name="email" /></div>
@@ -51,6 +82,12 @@ export default class AccountSettings extends Component {
             </form>
           </div>
         </div>
-      );
-    }
-  };
+        }
+     
+        </AuthUserContext.Consumer>
+      )
+    } 
+  }
+    const authCondition = (authUser) => !!authUser;
+
+    export default withAuthorization(authCondition)(AccountSettings);

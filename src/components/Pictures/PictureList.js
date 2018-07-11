@@ -96,7 +96,7 @@ const InstagramLogin = {
         // When the component is clicked, trigger the onClick handler that 
         // was passed as an attribute when it was constructed:
         console.log(e.target)
-        this.props.onClick(e.target.ref);
+        this.props.onClick(e.target);
     },
 
     render: function(){

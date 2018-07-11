@@ -9,6 +9,7 @@ let jsonResponse;
 let instagramUser = {
   user: {},
   gallery:{},
+  slides: {},
 };
 
 
@@ -64,10 +65,17 @@ const InstagramLogin = {
           tags: info.tags
         }));
           instagramUser.gallery = jsonResponse.data.map(info => ({
-            image: info.images.standard_resolution.url,
+            src: info.images.standard_resolution.url,
             title: info.caption ? info.caption.text : '',
             id: info.id,
+            url: info.link,
             affiliateLink: '',
+            editing: false,
+            edited: false,
+            filled: false
+          }));
+          instagramUser.slides = jsonResponse.data.map(info=> ({
+            src: info.images.standard_resolution.url
           }));
             return instagramUser;
 

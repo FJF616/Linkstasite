@@ -32,7 +32,7 @@ export default class PhotoContainer extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     }
     
-  
+   
    
 
    handleEdit() {
@@ -83,7 +83,7 @@ export default class PhotoContainer extends Component {
             url: value,
             edited: false
         });
-        this.props.media.affiliateLink = null;
+        this.media.affiliateLink = null;
     };
 
     handleChange(e) {
@@ -137,8 +137,8 @@ export default class PhotoContainer extends Component {
               <div className="media" >
               { 
                 this.state.edited ? 
-                 <a href={this.state.url}><Imager  className="mr-3" src={this.props.media.image} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
-                 : <Imager  className="mr-3" src={this.props.media.image} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
+                 <a href={this.state.url}><Imager  className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
+                 : <Imager  className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
                     }
                     <div className="media-body"> 
                     { 

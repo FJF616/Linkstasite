@@ -10,7 +10,7 @@ export default class InstagramProvider extends React.Component {
         this.state = {
             gallery: [],
             userProfile: [],
-            listView: false,
+            listView: null,
             accountName: ''
         };
     }
@@ -29,8 +29,9 @@ export default class InstagramProvider extends React.Component {
     //     )})
     // );
     render() {
+        const { state } = this.state;
         return (
-            <InstagramContext.Provider  value={{ state: this.state}} >
+            <InstagramContext.Provider  value={{ state }} >
                 {this.props.children}
             </InstagramContext.Provider>
         );
