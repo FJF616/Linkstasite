@@ -5,10 +5,10 @@ import './SideBar.scss'
 import  'bootstrap/dist/css/bootstrap.css';
 import StripeForm from '../PaymentForm/StripeForm';
 import Icon from '../Icons/Icon'
-import ICONS from '../Icons/constants';
+import ICONS from '../Icons/constants'
 import * as routes from '../constants/routes';
 import { Link } from 'react-router-dom'
-import { base } from '../rebaseConfig';
+import { base } from '../rebaseConfig/firebase';
 // import ListView from '../ListView/ListView'
 // import Imager from '../Imager/Imager'
 // import MicrolinkCard from 'react-microlink'
@@ -30,7 +30,7 @@ export default class SideBar2 extends Component {
 
                     <ul style={{listStyleType: 'none'}}>
 
-                        <li ><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"gray"}/></Link></li>
+                        <li ><Link to={routes.INSTAGRAM_FEED} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"gray"}/></Link></li>
                         <li><Link to={routes.BILLING}><Icon className="listItem" icon={ICONS.CREDITCARD} size={95} mode={"contain"} color={"gray"} /></Link></li>
                         <li><Link to={routes.ACCOUNT}><Icon className="listItem" icon={ICONS.SETTINGS} size={95} mode={"contain"} color={"gray"}/></Link></li>
                         <li><Link to={routes.LIST_VIEW}><Icon className="listItem" icon={ICONS.THLIST2} size={95} mode={"contain"} color={"gray"}/></Link></li>

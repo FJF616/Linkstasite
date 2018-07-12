@@ -4,6 +4,9 @@ import { base } from '../rebaseConfig/firebase'
 import Media from '../Media/Media'
 import ListView from '../ListView/ListView';
 import GridView from '../GridView/GridView';
+import PictureList from '../Pictures/PictureList'
+import SideBar2 from '../SideBar/SideBar2'
+import Graph from '../Graph/Graph';
 // import { Gallery } from 'react-grid-gallery';
 // import NewHeader from '../Header2/NewHeader'
 // import NewPara from '../NewPara/NewPara';
@@ -12,6 +15,7 @@ import GridView from '../GridView/GridView';
 // import Billing from '../Billing'
 import { Carousel }  from "react-responsive-carousel";
 import Header from "../Header/Header";
+import MenuAppBar from '../MenuAppBar/MenuAppBar'
 
 class LandingPage extends Component {
       state = {
@@ -20,10 +24,10 @@ class LandingPage extends Component {
             listView:false
       }
       componentDidMount = () => {
-        InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
-          gallery: instagramUser.gallery,
-          slides: instagramUser.slides
-        }))
+        // InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
+        //   gallery: instagramUser.gallery,
+        //   slides: instagramUser.slides
+        // }))
         base.syncState('gallery', {
               context: this,
               state: 'gallery'
@@ -50,11 +54,14 @@ class LandingPage extends Component {
                 }
             
         return(
-            <div className="App" style={{display: 'table'}}>
-                  <Header/>
-                    <MediaList />
+          <div style={{backgroundColor:'lightcyan'}}>  <Header/>
+            <div className='App' >
+                <SideBar2/>
+              
                 
-          
+                  
+                
+            </div>
             </div>
     
       )

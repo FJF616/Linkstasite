@@ -1,5 +1,5 @@
-const createFirebaseAccount = require('../components/rebaseConfig/createFirebaseAccount');
-const signInFirebaseTemplate = require('../components/rebaseConfig/signInFirebaseTemplate');
+// const createFirebaseAccount = require('../components/rebaseConfig/createFirebaseAccount');
+// const signInFirebaseTemplate = require('../components/rebaseConfig/signInFirebaseTemplate');
 const redirectURI = "http://localhost:3000/"
 const client_id = "0d744e65869b4acc8dde4d6e3c6a58e2";
 const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
@@ -10,6 +10,7 @@ let instagramUser = {
   user: {},
   gallery:{},
   slides: {},
+  links:{}
 };
 
 
@@ -70,12 +71,18 @@ const InstagramLogin = {
             id: info.id,
             url: info.link,
             affiliateLink: '',
+            favorite: false,
             editing: false,
             edited: false,
             filled: false
           }));
           instagramUser.slides = jsonResponse.data.map(info=> ({
             src: info.images.standard_resolution.url
+          }));
+          instagramUser.links = jsonResponse.data.map(info=> ({
+            src:info.src,
+            affiliateLink:'',
+            title: info.caption ? info.caption.text : '',
           }));
             return instagramUser;
 
