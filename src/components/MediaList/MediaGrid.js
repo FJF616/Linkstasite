@@ -15,7 +15,7 @@ class MediaGrid extends React.Component {
    }
   }
    componentDidMount() {
-     base.syncState('gallery', {
+     base.syncState('affiliates', {
        context: this,
        state: 'gallery'
      }) 
@@ -29,8 +29,9 @@ class MediaGrid extends React.Component {
           {
           Object.keys(this.state.gallery).map((key, id) => {
             return <div key={key}>
+                  <div className="delete" >
                     <MediaGridComponent  media={this.state.gallery[key]}  />
-                    <div className="delete" >
+                    {this.state.gallery[key].affiliateLink &&
                     <Button 
                      
                         // className="remove-btn"
@@ -38,15 +39,16 @@ class MediaGrid extends React.Component {
                         style={{width: 65, position: 'relative', backgroundColor: 'transparent'}}
                         onClick={() => {
                           const gallery = {...this.state.gallery};
-                          id = gallery[key].id
+                          id = gallery[key]
                           this.setState(state => ({
-                            gallery: this.state.gallery.filter(key => key.id !== id),
+                            gallery: Object.keys(this.state.gallery).filter(key => key.id !== id),
                           }));
                         }}
                        >
                        <Icon   className="trash__icon" icon={ICONS.BIN3} color={"white"} size={56} />
                         Remove
                        </Button>
+                      }
                        </div>
                        </div>   
                      })

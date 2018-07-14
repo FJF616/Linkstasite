@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthUserContext from './AuthUserContext';
 // import InstagramLogin from '../../util/InstagramLogin';
-
+import InstagramProvider from '../Session/InstagramProvider'
 
 import { firebase, auth, db }  from '../rebaseConfig';
 
@@ -29,7 +29,9 @@ const withAuthentication = (Component) =>
 
       return (
         <AuthUserContext.Provider value={authUser}>
-          <Component />
+        
+            <Component />
+         
         </AuthUserContext.Provider>
       );
     }

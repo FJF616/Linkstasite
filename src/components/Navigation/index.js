@@ -14,6 +14,7 @@ import HeaderNonAuth from '../Header/HeaderNonAuth'
 // import Header from '../Header/Header'
 import LandingPage from '../Landing/index'
 import NewPara from '../NewPara/NewPara'
+import HomePage from '../Home'
 const Navigation = () =>
   <AuthUserContext.Consumer>
     {authUser => authUser
@@ -28,7 +29,7 @@ const NavigationAuth = () =>
       { userProfile => { 
         return (
          
-        <LandingPage value={{state: userProfile}} />
+        <HomePage value={{state: userProfile}} />
        
       )}
       }

@@ -24,7 +24,8 @@ export default class PhotoContainer extends Component {
         edited: false,
         filled: false,
         slides:{},
-        listView: ''
+        listView: '',
+        generatedKey:''
     }
     this.checkFilled = this.checkFilled.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
@@ -35,12 +36,28 @@ export default class PhotoContainer extends Component {
     }
     
    
-   componentWillMount() {
-     this.slidesRef =  base.syncState('slides', {
-           context: this,
-           state: 'slides'
-       })
-   }
+//    componentWillMount() {
+//      this.slidesRef =  base.syncState('slides', {
+//            context: this,
+//            state: 'slides'
+//        })
+//    }
+    enterData (){
+        const { url, title } = this.state;
+        const  src = this.props.media.src;
+        const timestamp = Date.now();
+        // const id = this.this.props.media.id;
+        const dataRef = base.push('affiliates', {
+            data: {affiliateLink: url, title: title, src: src, id: `${timestamp}` },
+            then(err){
+                if(!err) {
+                    console.log('success');
+                }
+            }
+    }) ;
+    const generatedKey = dataRef.key;
+    this.setState({ generatedKey: generatedKey });
+}
 
    handleEdit() {
        if (this.state.filled) {
@@ -58,6 +75,7 @@ export default class PhotoContainer extends Component {
             editing: false
         });
      }
+     this.enterData();
    };
     
     updateLink(e) {
@@ -70,17 +88,23 @@ export default class PhotoContainer extends Component {
             this.setState ({
                 [name]: value  
             })
+            // base.update('gallery', {
+            //     data: {affiliatedLink: value}
+            // }).then(() => {
+            //     console.log('updated affiliate Link');
+            // }).catch(err => {
+            //     if(err) { return console.log('error!', err) }
+            // });
         }
         
                 
 
-        e.preventDefault();        
+        // e.preventDefault();        
             
-        this.props.media.affiliateLink = this.state.url;   
+        // this.props.media.affiliateLink = this.state.url;   
         
      }
-    
-
+   
     handleClear(e) {
         const target = e.target;
         let value = target.value;
@@ -110,9 +134,9 @@ export default class PhotoContainer extends Component {
             edited: true,
         });
     };
-    componentWillUnmount() {
-        base.removeBinding(this.slidesRef);
-    }
+    // componentWillUnmount() {
+    //     base.removeBinding(this.slidesRef);
+    // }
     
     
     
@@ -130,8 +154,7 @@ export default class PhotoContainer extends Component {
                        <span className="input-group-text" style={{backgroundColor: 'turquoise', height: 31, width: 110,   boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}>Affiliate Link</span>
                         <div className="input-group-append" >
                             {/* check if url has been entered. if it has, return associated link with image by making it clickable */}
-                               {
-                                     !this.state.edited || this.state.ListView
+                               {!this.state.edited || this.state.ListView
                                         ? <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
                                         : <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
                                      }
@@ -145,35 +168,48 @@ export default class PhotoContainer extends Component {
                     </div>
                 </div>
               <div className="media" >
-              { 
-                this.state.edited ? 
-                 <a href={this.state.url}><Imager  className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
-                 : <Imager  className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
-                    }
-                    <div className="media-body"> 
-                    { 
-                    this.state.filled ? 
-                        <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
+              { this.state.edited 
+                ?  <a href={this.state.url}>
+                    <Imager 
+                        style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
+                        className="mr-3" 
+                        src={this.props.media.src} 
+                    /></a>
+                 : <Imager 
+                    style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}}
+                    className="mr-3" src={this.props.media.src}  
+                  />}
+                <div className="media-body"> 
+                { this.state.filled 
+                    ? <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
                         <h3><b>{this.state.title}</b></h3>  
-                        </div>
-                            : !this.state.editing ?
-                            <h5><input style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}    onChange={this.handleChange} placeholder="title" type="title" /></h5>
-                            : <h5><input style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  disabled={this.state.filled} value={this.state.title} onChange={this.handleChange} placeholder="title" type="title" /></h5>
-                            }
-                            <br/>
-                                {/* if a link has been added to the image, generate a link preview */}
-                                {
-                                this.state.edited ?
-                                    <h5>Link Preview 
-                                        <MicrolinkCard url={this.state.url} size='small' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 10, marginLeft: 3, height: 95, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
-                                    </h5>
-                                    :  ''
-                                    } 
+                      </div>
+                    : !this.state.editing 
+                        ? <h5><input 
+                                style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}    
+                                onChange={this.handleChange} 
+                                placeholder="title" 
+                                type="title" 
+                            /></h5>
+                        : <h5><input 
+                                style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  
+                                disabled={this.state.filled} 
+                                value={this.state.title} 
+                                onChange={this.handleChange} 
+                                placeholder="title" 
+                                type="title" 
+                            /></h5>}
+                           <br/>
+                            {/* if a link has been added to the image, generate a link preview */}
+                            {this.state.edited ?
+                                <h5>Link Preview 
+                                    <MicrolinkCard url={this.state.url} size='small' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 10, marginLeft: 3, height: 95, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
+                                </h5>
+                                :  ''} 
                         </div>
                     </div>
                 </div>
-            </div>
-           
+            </div>        
         );
       }
     }

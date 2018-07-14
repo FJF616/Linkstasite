@@ -52,7 +52,7 @@ class GridView extends Component {
     //   });
     // }
     componentWillMount() {
-     base.syncState('gallery', {
+     base.bindToState('gallery', {
         context: this,
         state: 'gallery',
         asArray: true
