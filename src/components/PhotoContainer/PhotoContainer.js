@@ -22,7 +22,8 @@ export default class PhotoContainer extends Component {
         title: '',
         editing: false,
         edited: false,
-        filled: false
+        filled: false,
+        slides:{}
     }
     this.checkFilled = this.checkFilled.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
@@ -33,7 +34,12 @@ export default class PhotoContainer extends Component {
     }
     
    
-   
+   componentWillMount() {
+     this.slidesRef =  base.syncState('slides', {
+           context: this,
+           state: 'slides'
+       })
+   }
 
    handleEdit() {
        if (this.state.filled) {
@@ -55,7 +61,7 @@ export default class PhotoContainer extends Component {
     
     updateLink(e) {
         const target = e.target;
-        const value =  `${target.value }`;
+        const value =  target.value;
         const name = target.type;
         if (!value) {
             console.log("error");
@@ -78,6 +84,7 @@ export default class PhotoContainer extends Component {
         const target = e.target;
         let value = target.value;
         const name = target.type;
+       
         value = null;
         this.setState({
             url: value,
@@ -95,14 +102,16 @@ export default class PhotoContainer extends Component {
             title: value,
         })
         e.preventDefault();
-        this.props.media.title = this.state.title;
-    };
-
+      
+    }
     handleCopy() {   
         this.setState({
             edited: true,
         });
     };
+    componentWillUnmount() {
+        base.removeBinding(this.slidesRef);
+    }
     
     
     
@@ -120,11 +129,11 @@ export default class PhotoContainer extends Component {
                        <span className="input-group-text" style={{backgroundColor: 'turquoise', height: 31, width: 110,   boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}>Affiliate Link</span>
                         <div className="input-group-append" >
                             {/* check if url has been entered. if it has, return associated link with image by making it clickable */}
-                                {
-                                !this.state.edited ? 
-                                    <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
-                                    : <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
-                                    }
+                               {
+                                     !this.state.edited 
+                                        ? <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
+                                        : <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
+                                     }
                                 <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.edited || !this.state.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
                                 <button onClick={this.handleClear} className="controls" type="button" disabled={!this.state.edited} data-tip="Remove affiliate Link" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                                 <button  className="controls" onClick={this.handleEdit} disabled={ !this.state.filled} type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>
@@ -155,7 +164,7 @@ export default class PhotoContainer extends Component {
                                 {
                                 this.state.edited ?
                                     <h5>Link Preview 
-                                        <MicrolinkCard url={this.state.url} size='medium' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ border: '3px ridge', width: 370, marginTop: 10, marginLeft: 3, height: 95, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
+                                        <MicrolinkCard url={this.state.url} size='small' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 10, marginLeft: 3, height: 95, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
                                     </h5>
                                     :  ''
                                     } 

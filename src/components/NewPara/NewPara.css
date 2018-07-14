@@ -101,15 +101,18 @@ body {
 }
 
 #group1 {
+
   z-index:5;
 }
 
 #group1 .scroll-level-base {
   background:white;
-  background-image: url('../images/ins1.png');
-  background-repeat: no-repeat;
-  background-size: small;
+  background-image: url('../images/insta11.png');
+
+  background-repeat: repeat;
+  background-size: center;
   background-position: bottom;
+
 }
 
 #group2 {
@@ -117,13 +120,13 @@ body {
 }
 
 #group2 .scroll-level-back {
-  background:rgb(224, 204, 18);
-  /* background-image: url('../images/insta4.jpg'); */
-  /* background-image: url('../images/insta20.jpg'); */
+  background:white;
+  background-image: url('../images/dhaval-parmar-531617-unsplash.jpg');
 
-  background-repeat: no-repeat;
-  background-size: small;
-  background-position: left;
+  /* background-image: url('../images/insta3.jpg'); */
+  background-repeat: repeat-x;
+  background-size: stretch;
+  background-position: center;
 }
 
 #group3 {
@@ -131,12 +134,16 @@ body {
 }
 
 #group3 .scroll-level-base {
-  background:white;
-  
-  /* background-image: url('../images/insta3.jpg'); */
-  background-repeat: repeat-x;
-  background-size: stretch;
-  background-position: center;
+  background-color: transparent;
+  background-image: url('../images/ins1.png');
+
+  /* background-image: url('../images/insta4.jpg'); */
+  /* background-image: url('../images/insta20.jpg'); */
+background-position: center;
+  background-repeat: repeat;
+  background-size: contain;
+  /* background-position: center; */
+ 
 }
 
 #group4 {
@@ -144,11 +151,11 @@ body {
 }
 
 #group4 .scroll-level-deep {
-  background:rgb(224, 204, 18);
-  /* background-image: url('../images/insta20.jpg'); */
+  background:black;
+  background-image: url('../images/insta20.jpg');
   /* background-image: url('../images/ins5.png'); */
   background-repeat: no-repeat;
-  background-size: small;
+  background-size: contain;
   background-position: right;
  
 }
@@ -158,10 +165,11 @@ body {
 }
 
 #group5 .scroll-level-base {
-  background:rgb(214,229,100);
-  /* background-image: url('../images/insta37.gif'); */
-  background-repeat: no-repeat;
-  background-size: contain;
+  background:black;
+  background-image: url('../images/high-res-instagram-logo_832328.png');
+  background-repeat: repeat;
+  background-size: small;
+  background-position: right
   
 }
 
@@ -171,10 +179,10 @@ body {
 
 #group6 .scroll-level-back {
   background:black;
-  /* background-image: url('../images/insta14.jpg'); */
+  background-image: url('../images/rawpixel-597450-unsplash.jpg');
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: right;
+  background-position: left;
 
 }
 
@@ -183,9 +191,10 @@ body {
 }
 
 #group7 .scroll-level-base {
-  background:rgb(255,241,100);
-  /* background-image: url('../images/linkstasite2.png'); */
+  background:rgb(111, 52, 138);
+  background-image: url('../images/linkstasite2.png');
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
 }
 

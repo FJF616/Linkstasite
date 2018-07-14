@@ -1,5 +1,12 @@
 .list {
-  
+  display: inline-flex;
+  padding-top: 10px;
   position: relative;
+  margin: 20px;
   flex-wrap: wrap;
+}
+.delete {
+  z-index: 1000;
+  position: absolute;
+ 
 }

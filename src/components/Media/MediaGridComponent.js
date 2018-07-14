@@ -15,15 +15,16 @@ export default class MediaGridComponent extends Component {
 //     state: 'gallery'
 //   });
 // }
+
 render() {
   return (
-      <div className='image-grid' >
-        <Imager src={this.props.media.src} style={{width: 210, height: 210, margin: 5, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} alt='1'>
-          <div  className="trash__container">
-          <Icon  onClick={() => this.props.removeImage(this.props.media.src)} className="trash__icon" icon={ICONS.BIN3} color={"white"} size={56} />
-         </div>
-        </Imager>
-      </div>   
+      <div className='image-grid' > 
+        { 
+          this.props.media.affiliateLink
+            ? <a href={this.props.media.affiliateLink} ><Imager  className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
+            : <Imager  className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
+           }
+        </div>   
       );
     }
   }

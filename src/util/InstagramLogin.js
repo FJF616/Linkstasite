@@ -10,6 +10,7 @@ let instagramUser = {
   user: {},
   gallery:{},
   slides: {},
+  image:{}
 };
 
 
@@ -43,7 +44,7 @@ const InstagramLogin = {
     if (!accessToken) {
       this.getAccessToken();
     }
-    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=5`;
+    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=3`;
     try {
       let response = await fetch(token_url, {
         method: 'GET'
@@ -75,6 +76,13 @@ const InstagramLogin = {
             filled: false
           }));
           instagramUser.slides = jsonResponse.data.map(info=> ({
+            src: info.images.standard_resolution.url,
+            id: info.id,
+            affiliateLink:'',
+            title: info.caption ? info.caption.text : '',
+
+          }));
+          instagramUser.image = jsonResponse.data.map(info => ({
             src: info.images.standard_resolution.url
           }));
             return instagramUser;

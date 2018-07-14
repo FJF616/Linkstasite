@@ -4,24 +4,32 @@ import PhotoContainer from '../PhotoContainer/PhotoContainer';
 import { base } from '../rebaseConfig/firebase';
 // import Media from '../Media/Media.js'
 import Graph from '../Graph/Graph';
-// class MediaList extends React.Component {
-//   componentDidMount() {
-//       base.syncState('gallery', {
-//       context: this,
-//       state: 'gallery',
+class MediaList extends React.Component {
+  componentDidMount() {
+      this.galleryRef = base.syncState('gallery', {
+      context: this,
+      state: 'gallery',
       
-//   });
-// }
+  });
+}
+  componentWillUnmount() {
+    base.removeBinding(this.galleryRef);
+  }
+  
 
- const MediaList = ({ gallery }) => {
-    return (
-      <div className='list'>
+ render() {
+  //  const images = this.galleryRef.context.state.gallery;
+   return(
+      <div  className='list'>
+      
         { 
-          gallery.map(media => {
+          this.props.gallery.map(media => {
             return <PhotoContainer  media={media} key={media.id} />;
           })
         }
+       
       </div>
     );
   }
+}
 export default MediaList;

@@ -1,58 +1,59 @@
 import React from 'react';
+import { ListGroupItem, ListGroup, Grid, Button } from 'react-bootstrap'
 import './MediaList.scss';
 import { base } from '../rebaseConfig/firebase'
 import MediaGridComponent from '../Media/MediaGridComponent'
+import Icon from '../Icons/Icon';
+import ICONS from '../Icons/constants'
 // import Media from '../Media/Media.js'
 
 class MediaGrid extends React.Component {
-  // constructor(props) {
-  //   super(props);
-   state = {
+    constructor() {
+    super();
+    this.state = {
      gallery: []
    }
-
+  }
    componentDidMount() {
-     base.fetch('gallery', {
+     base.syncState('gallery', {
        context: this,
        state: 'gallery'
-     })
+     }) 
    }
    
-  //   this.onClickDelete = this.onClickDelete.bind(this);
-  // }
-
-  // onClickDelete(e) {
-  //   const { id } = this.props;
-  //   const clickedId = e.target.value;
-  //   const newList = this.props.medias.filter(media => media.id !== clickedId);
-  //   this.props.onListChange(id, newList);
-  // }
-
-    
-    
-   
-  
-  
+ 
 
   render () {
-    this.state.gallery.map(media => {
-      console.log('media', media);
-      console.log('media.id', media.id);
-      
-    })
     return (
       <div className='list'>
-        {
-          this.state.gallery.map(media => {
-            console.log('media', media);
-            console.log('media.id', media.id);
-            return <MediaGridComponent    media={media} key={media.id} />;
-          })
-        }
-      </div>
-
-    );
-  }
-}
+          {
+          Object.keys(this.state.gallery).map((key, id) => {
+            return <div key={key}>
+                    <MediaGridComponent  media={this.state.gallery[key]}  />
+                    <div className="delete" >
+                    <Button 
+                     
+                        // className="remove-btn"
+                        type="button"
+                        style={{width: 105, position: 'relative', backgroundColor: 'transparent'}}
+                        onClick={() => {
+                          const gallery = {...this.state.gallery};
+                          id = gallery[key].id
+                          this.setState(state => ({
+                            gallery: this.state.gallery.filter(key => key.id !== id),
+                          }))
+                        }}
+                       >
+                       <Icon   className="trash__icon" icon={ICONS.BIN3} color={"white"} size={56} />
+                        Remove
+                       </Button>
+                       </div>
+                       </div>   
+                     })
+                   }
+                  </div>
+                 );
+              }
+            }
 
 export default MediaGrid;

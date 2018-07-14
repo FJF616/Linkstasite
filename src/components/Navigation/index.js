@@ -11,8 +11,9 @@ import InstagramConsumer from '../Session/InstagramProvider'
 // import AvatarEditor from 'react-avatar-editor'
 // import { Card, Col, Row } from 'reactstrap';
 import HeaderNonAuth from '../Header/HeaderNonAuth'
-import Header from '../Header/Header'
+// import Header from '../Header/Header'
 import LandingPage from '../Landing/index'
+import NewPara from '../NewPara/NewPara'
 const Navigation = () =>
   <AuthUserContext.Consumer>
     {authUser => authUser
@@ -34,5 +35,8 @@ const NavigationAuth = () =>
     </InstagramConsumer>
 
 const NavigationNonAuth = () =>
-   <HeaderNonAuth />
+    <div>  
+      <HeaderNonAuth />
+      
+    </div> 
 export default Navigation;

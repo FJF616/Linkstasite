@@ -6,6 +6,8 @@ import { withRouter } from 'react-router-dom';
 import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
 // import withAuthentication from '../Session/withAuthentication'
+import Media from '../Media/Media'
+import MediaGrid from '../MediaList/MediaGrid'
 import MediaGridComponent from '../Media/MediaGridComponent';
 import { base } from '../rebaseConfig/firebase'
 import Header from '../Header/Header';
@@ -54,33 +56,50 @@ class GridView extends Component {
         context: this,
         state: 'gallery',
         asArray: true
+        
     });
   }
+  
+
 
     // componentWillUnMount() {
     //   base.removeBinding(this.galleryRef);
     // }
-    removeImage(id) {
-      const { newState } = this.state;
-      const index = newState.gallery.findIndex(media => media.id === id);
+    // removeFromGallery(media) {
+    //   const gallery = {...this.state.gallery};
+    //   delete gallery[media];
+    //   this.setState({ gallery });
+    // }
+    
+    // removeImage(id) {
+    //   const { newState } = this.state;
+    //   const index = newState.gallery.findIndex(media => media.id === id);
       
-      if (index === -1) return;
-      newState.gallery.splice(index, 1);
+    //   if (index === -1) return;
+    //   newState.gallery.splice(index, 1);
   
-      this.setState({ gallery: newState });
-    }
+    //   this.setState({ gallery: newState });
+    // }
+    deleteMedia = id => {
+      this.setState(prevState => {
+        return { gallery: prevState.gallery.filter(media => media.id !==id) };
+      });
+    };
+
+    //  renderMediaList = media =>
+    //  <MediaGrid key={media.id} media={media} onClick={this.deleteMedia} />
   render() {
-    const MediaGrid = ({ gallery, removeImage}) => {
-      return (
-        <div className='list'>
-        {
-          this.state.gallery.map(media => {
-            return <MediaGridComponent  removeImage={this.removeImage.bind(this)}  media={media} key={media.id} />;
-          })
-        }
-      </div>
-      );
-    }
+    // const MediaGrid = ({ gallery, removeImage}) => {
+    //   return (
+    //     <div className='list'>
+    //     {
+    //       this.state.gallery.map(media => {
+    //         return <MediaGridComponent   media={media} key={media.id} />;
+    //       })
+    //     }
+    //   </div>
+    //   );
+    // }
   
     // console.log(this.state.userProfile)
     // // console.log(this.galleryRef.context.state.gallery)
@@ -91,10 +110,11 @@ class GridView extends Component {
       <div className="App"> 
       <Header />
        <SideBar2/>
-        <MediaGrid />
+       <MediaGrid deleteMedia={this.deleteMedia.bind(this)}/>
       </div>
     );
   }
-}
+  
 
+}
 export default withRouter(GridView);

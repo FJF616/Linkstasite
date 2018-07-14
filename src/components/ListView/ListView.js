@@ -15,7 +15,8 @@ class ListView extends Component {
     super(props);
     this.state = {
       gallery: [],
-      userProfile: [],
+      // userProfile: [],
+      slides:[],
       accountName:'loading' 
     };
   }
@@ -35,42 +36,46 @@ class ListView extends Component {
   //   }
 
     componentWillMount() {
-      base.syncState('gallery', {
+     this.galleryRef = base.syncState('gallery', {
         context: this,
         state: 'gallery',
         asArray: true
     });
-    base.syncState('userProfile', {
+   this.slidesRef = base.syncState('slides', {
       context: this,
-      state: 'userProfile',
+      state: 'slides',
       
     });
   }
-    // componentWillUnMount() {
-    //   base.removeBinding(this.galleryRef);
-    // }
+    componentWillUnMount() {
+      base.removeBinding(this.galleryRef);
+      base.removeBinding(this.slidesRef)
+     }
     
-  render() {
-    const MediaList = ({ gallery })  => {
+ 
+   MediaList = ({ gallery })  => {
+      const images = this.galleryRef.context.state.gallery;
       return (
         <div className='list'>
+      
           { 
-            this.state.gallery.map(media => {
+            images.map(media => {
               return <PhotoContainer  media={media} key={media.id} />;
             })
           }
+         
         </div>
       );
     }
     // console.log(this.state.userProfile)
     // console.log(this.galleryRef.context.state.gallery)
    
-    
+    render() {
     return (
       <div className="App">
         <Header/>
         <SideBar2/>
-          <MediaList />
+          {this.MediaList(this.state.gallery)}
       </div>
     );
   }

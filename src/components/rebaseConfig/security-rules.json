@@ -1,0 +1,26 @@
+//securtiy rules to be implemented on fb db
+
+{
+    "rules": {
+        // won't let people delete an existing room
+        ".write": "!data.exists()",
+        ".read": true,
+        "$gallery" : {
+          // only the store owner can edit the data
+          ".write" : "auth != null && (!data.exists() || data.child('owner').val() === auth.uid)",
+          ".read" : true
+        },
+        ".write": "!data.exists()",
+        ".read": true,
+        "$userProfile" : {
+            ".write" : "auth != null && (!data.exists() || data.child('owner').val() === auth.uid)",
+          ".read" : true
+        },
+        ".write": "!data.exists()",
+        ".read": true,
+        "$slides" : {
+            ".write" : "auth != null && (!data.exists() || data.child('owner').val() === auth.uid)",
+          ".read" : true
+      }
+    }
+}
