@@ -90,7 +90,7 @@ body {
 .parallax {
   font-size:200%;
 }
-
+/* 
 .title {
   text-align:center;
   position:absolute;
@@ -98,7 +98,7 @@ body {
   top:50%;
   -webkit-transform:translate(-50%, -50%);
   transform:translate(-50%, -50%);
-}
+} */
 
 #group1 {
 

@@ -3,10 +3,12 @@ import CreditCard from '../PaymentForm/CreditCard'
 import './billing.scss';
 import withAuthentication from '../Session/withAuthentication';
 import SideBar2 from '../SideBar/SideBar2' 
+import Header from '../Header/Header'
 class Billing extends Component {
     render() {
       return (
         <div className="App">
+        <Header/>
         <SideBar2/>
         <div  className="billing" >
           <title>Recurly.js Example: Advanced Pricing</title>

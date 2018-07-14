@@ -8,6 +8,7 @@ import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
 // import withAuthentication from '../Session/withAuthentication'
 import { base } from '../rebaseConfig/firebase'
+import Graph from '../Graph/Graph'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
 // import Graph from '../Graph/Graph'
 class ListView extends Component {
@@ -17,8 +18,10 @@ class ListView extends Component {
       gallery: [],
       // userProfile: [],
       slides:[],
-      accountName:'loading' 
+      accountName:'loading',
+      listView:''
     };
+
   }
 
 
@@ -36,31 +39,40 @@ class ListView extends Component {
   //   }
 
     componentWillMount() {
-     this.galleryRef = base.syncState('gallery', {
+    base.syncState('gallery', {
         context: this,
         state: 'gallery',
-        asArray: true
+       
     });
-   this.slidesRef = base.syncState('slides', {
+   base.syncState('slides', {
       context: this,
       state: 'slides',
       
     });
   }
-    componentWillUnMount() {
-      base.removeBinding(this.galleryRef);
-      base.removeBinding(this.slidesRef)
-     }
+    updateGallery = (key, updatedKey) => {
+      const gallery =  { ...this.state.gallery };
+      gallery[key] = updatedKey;
+      this.setState({ gallery });
+    };
+    // componentWillUnMount() {
+    //   base.removeBinding(this.galleryRef);
+    //   base.removeBinding(this.slidesRef)
+    //  }
     
  
    MediaList = ({ gallery })  => {
-      const images = this.galleryRef.context.state.gallery;
+      // const images = this.galleryRef.context.state.gallery;
+      // this.setState({
+      //   gallery: images
+      // })
+      
       return (
         <div className='list'>
       
           { 
-            images.map(media => {
-              return <PhotoContainer  media={media} key={media.id} />;
+          Object.keys(this.state.gallery).map((media, id) => {
+              return <PhotoContainer  media={this.state.gallery[media]} key={media} />;
             })
           }
          
@@ -72,10 +84,11 @@ class ListView extends Component {
    
     render() {
     return (
-      <div className="App">
+      <div className="App" style={{display: 'inline-flex'}}>
         <Header/>
         <SideBar2/>
           {this.MediaList(this.state.gallery)}
+        
       </div>
     );
   }

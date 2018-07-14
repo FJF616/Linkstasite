@@ -16,9 +16,11 @@ export default class NewPara extends Component {
             <div className="parallax">
               <div id="group1" className="parallax-group">
                 <div className="parallax-layer scroll-level-base">
+                <Imager style={{position: 'relative'}} src={('../images/linkstasitepic.PNG')} height={245} width={245} mode={'contain'}/>
                   <div className="title">
+
                     <p>Base layer</p>
-                    <Imager style={{position: 'relative'}} src={('../images/linkstasitepic.PNG')} height={245} width={245} mode={'contain'}/>
+                   
 
                   </div>
                 </div>

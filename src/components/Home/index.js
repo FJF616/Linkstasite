@@ -30,16 +30,16 @@ class HomePage extends Component {
     const { users } = this.state;
 
     return (
-      
-      <div className="App">
+      <div className="App" >
+      <div className="home__page">
      
      <Header/>
       <SideBar2/>
       
       <Graph style={{ paddingTop: '5px'}}/>
-     
+   
       </div>
-       
+      </div>
     
      
       

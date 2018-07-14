@@ -75,6 +75,7 @@
     "react-firestore": "^0.8.1",
     "react-form": "^3.5.5",
     "react-grid-gallery": "^0.4.11",
+    "react-image-carousel": "^2.0.18",
     "react-instafeed": "^0.4.0",
     "react-ions": "^5.0.5",
     "react-linkify": "^0.2.2",

@@ -70,7 +70,7 @@ class Header extends React.Component {
          
           <li className="nav-item active" style={{ marginTop: '-2px', marginLeft: '-55px'}}><Link to={routes.HOME}><span className="sr-only">(current)</span><Icon icon={ICONS.HOME} size={65} mode={"contain"} color={"gold"}/></Link></li>
           <li  className="nav-item" style={{ marginLeft: '5px'}}><Link to={routes.ACCOUNT}><Icon   icon={ICONS.INTERNET} size={125} mode={"contain"} color={"gold"}/></Link></li>
-          <li className="nav-item" style={{marginLeft: '-55px'}}><SignOutButton /></li>
+          <li className="nav-item" style={{marginLeft: '-65px'}}><SignOutButton /></li>
         </ul>
            
           </div>

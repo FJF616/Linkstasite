@@ -28,7 +28,7 @@ export default class SideBar2 extends Component {
 
                 <div className="sideItem">
 
-                    <ul style={{listStyleType: 'none'}}>
+                    <ul className="sidelist" style={{listStyleType: 'none'}}>
 
                         <li ><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"gray"}/></Link></li>
                         <li><Link to={routes.BILLING}><Icon className="listItem" icon={ICONS.CREDITCARD} size={95} mode={"contain"} color={"gray"} /></Link></li>
