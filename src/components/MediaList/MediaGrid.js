@@ -28,27 +28,31 @@ class MediaGrid extends React.Component {
       <div className='list'>
           {
           Object.keys(this.state.gallery).map((key, id) => {
-            return <div key={key}>
+            return <div className="delete" key={key}>
                     <MediaGridComponent  media={this.state.gallery[key]}  />
-                    <div className="delete" >
+                   
                     <Button 
                      
                         // className="remove-btn"
                         type="button"
-                        style={{width: 105, position: 'relative', backgroundColor: 'transparent'}}
+                        style={{width: 55, height: 55, position: 'baseline', marginBottom: 65, marginLeft: -75, marginRight: 45, zIndex: 2, backgroundColor: 'transparent'}}
                         onClick={() => {
                           const gallery = {...this.state.gallery};
                           id = gallery[key].id
+                          console.log(id, gallery[key])
                           this.setState(state => ({
-                            gallery: this.state.gallery.filter(key => key.id !== id),
+                            gallery: this.state.gallery.filter(key => {
+                              console.log(key.id);
+                              return key.id !== id;
+                            })
                           }))
                         }}
                        >
-                       <Icon   className="trash__icon" icon={ICONS.BIN3} color={"white"} size={56} />
-                        Remove
+                       <Icon   className="trash__icon" icon={ICONS.BIN3} color={"white"} size={80} />
+                       
                        </Button>
                        </div>
-                       </div>   
+                     
                      })
                    }
                   </div>
