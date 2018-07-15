@@ -82,20 +82,41 @@ export default class PhotoContainer extends Component {
         const target = e.target;
         const value =  target.value;
         const name = target.type;
+       
         if (!value) {
             console.log("error");
         } else {
             this.setState ({
                 [name]: value  
             })
-            // base.update('gallery', {
-            //     data: {affiliatedLink: value}
+           
+            // base.push('affilates', {
+            //     data: {affiliatedLink: value, src: src, title: title}
             // }).then(() => {
             //     console.log('updated affiliate Link');
             // }).catch(err => {
             //     if(err) { return console.log('error!', err) }
             // });
         }
+        this.addData();
+    }
+        addData() {
+            
+            const pushKey = base.push('affiliates', {
+                  data: {affiliateLink: this.state.url, title: this.state.title, id: this.props.media.id },
+                  then(err){
+                    if(!err) {
+                      console.log('success');
+                    }
+                  }
+                });
+                //available immediately, you don't have to wait for the callback to be called
+               const generatedKey = pushKey.key;
+               this.setState({
+                   generatedKey: generatedKey 
+               });
+            }
+        
         
                 
 
@@ -103,7 +124,7 @@ export default class PhotoContainer extends Component {
             
         // this.props.media.affiliateLink = this.state.url;   
         
-     }
+    
    
     handleClear(e) {
         const target = e.target;
