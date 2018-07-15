@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App/App.js';
 import registerServiceWorker from './registerServiceWorker';
-import NewPara from './components/NewPara/NewPara'
+// import NewPara from './components/NewPara/NewPara'
 
 // const config = {
 //   projectId: 'linkstasite-dev',

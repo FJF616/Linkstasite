@@ -40,6 +40,8 @@ export default class PhotoContainer extends Component {
            state: 'slides'
        })
    }
+   
+   
 
    handleEdit() {
        if (this.state.filled) {
@@ -57,6 +59,7 @@ export default class PhotoContainer extends Component {
             editing: false
         });
      }
+   
    };
     
     updateLink(e) {
@@ -66,7 +69,7 @@ export default class PhotoContainer extends Component {
         if (!value) {
             console.log("error");
         } else {
-            this.setState ({
+            this.setState({
                 [name]: value  
             })
         }
@@ -102,16 +105,16 @@ export default class PhotoContainer extends Component {
             title: value,
         })
         e.preventDefault();
-      
+      this.props.media.title = this.state.title;
     }
     handleCopy() {   
         this.setState({
             edited: true,
         });
     };
-    componentWillUnmount() {
-        base.removeBinding(this.slidesRef);
-    }
+    // componentWillUnmount() {
+    //     base.removeBinding(this.slidesRef);
+    // }
     
     
     
