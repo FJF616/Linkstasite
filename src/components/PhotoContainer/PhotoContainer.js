@@ -120,6 +120,7 @@ export default class PhotoContainer extends Component {
             edited: false
         });
         this.media.affiliateLink = null;
+        this.setState({ generatedKey : null });
     };
 
     handleChange(e) {
