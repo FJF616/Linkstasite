@@ -56,6 +56,7 @@ export default class PhotoContainer extends Component {
             }
     }) ;
     const generatedKey = dataRef.key;
+    this.props.media.generatedKey = generatedKey;
     this.setState({ generatedKey: generatedKey });
 }
 
@@ -98,32 +99,14 @@ export default class PhotoContainer extends Component {
             //     if(err) { return console.log('error!', err) }
             // });
         }
-        this.addData();
-    }
-        addData() {
-            
-            const pushKey = base.push('affiliates', {
-                  data: {affiliateLink: this.state.url, title: this.state.title, id: this.props.media.id },
-                  then(err){
-                    if(!err) {
-                      console.log('success');
-                    }
-                  }
-                });
-                //available immediately, you don't have to wait for the callback to be called
-               const generatedKey = pushKey.key;
-               this.setState({
-                   generatedKey: generatedKey 
-               });
-            }
-        
+      
         
                 
 
-        // e.preventDefault();        
+        e.preventDefault();        
             
-        // this.props.media.affiliateLink = this.state.url;   
-        
+        this.props.media.affiliateLink = this.state.url;   
+    } 
     
    
     handleClear(e) {
@@ -148,7 +131,7 @@ export default class PhotoContainer extends Component {
             title: value,
         })
         e.preventDefault();
-      
+      this.props.media.title = this.state.title;
     }
     handleCopy() {   
         this.setState({

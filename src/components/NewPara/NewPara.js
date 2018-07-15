@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './NewPara.css';
+// import './NewPara.css';
 import Footer from '../Footer/Footer';
 import Imager from '../Imager/Imager';
 // import MicrolinkCard from 'react-microlink';
