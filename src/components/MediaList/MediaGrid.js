@@ -5,7 +5,7 @@ import { base } from '../rebaseConfig/firebase'
 import MediaGridComponent from '../Media/MediaGridComponent'
 import Icon from '../Icons/Icon';
 import ICONS from '../Icons/constants'
-import ReactTooltip from 'react-tooltip';
+// import ReactTooltip from 'react-tooltip';
 
 // import Media from '../Media/Media.js'
 
@@ -17,7 +17,7 @@ class MediaGrid extends React.Component {
    }
   }
    componentDidMount() {
-     base.syncState('affiliates', {
+     base.bindToState('affiliates', {
        context: this,
        state: 'gallery'
      }) 
