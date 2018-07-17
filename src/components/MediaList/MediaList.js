@@ -3,18 +3,18 @@ import './MediaList.scss';
 import PhotoContainer from '../PhotoContainer/PhotoContainer';
 import { base } from '../rebaseConfig/firebase';
 // import Media from '../Media/Media.js'
-import Graph from '../Graph/Graph';
+// import Graph from '../Graph/Graph';
 class MediaList extends React.Component {
   componentDidMount() {
-      this.galleryRef = base.syncState('gallery', {
+      base.bindToState('gallery', {
       context: this,
       state: 'gallery',
       
   });
 }
-  componentWillUnmount() {
-    base.removeBinding(this.galleryRef);
-  }
+  // componentWillUnmount() {
+  //   base.removeBinding(this.galleryRef);
+  // }
   
 
  render() {

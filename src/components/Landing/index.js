@@ -4,7 +4,7 @@ import { base } from '../rebaseConfig/firebase';
 import Media from '../Media/Media';
 import './Landing.scss';
 import Header from "../Header/Header";
-
+import SideBar2 from '../SideBar/SideBar2'
 class LandingPage extends Component {
   constructor() {
     super();
@@ -36,7 +36,12 @@ class LandingPage extends Component {
         state: 'userProfile',
         asArray: true
       });
-    };
+   
+    this.imageRef = base.syncState('imageUrls', {
+      context: this,
+      state: 'image'
+    })
+  };
     deleteMedia = id => {
       this.setState(prevState => {
         return { gallery: prevState.gallery.filter(media => media.id !==id) };
@@ -65,14 +70,16 @@ class LandingPage extends Component {
      <Media gallery={this.galleryRef.context.state.gallery} key={media.id} media={media}  />
       render() { 
         return(
-            <div className="App" style={{display: 'table'}}>
+            <div className="App" style={{display: 'flex'}}>
                 <Header/>
+                <SideBar2/>
                   <div className="landing">
                     <h1>Your Instagram Gallery</h1>
-                  </div>     
+                    
                     <ul>
                     {this.state.gallery.map(this.renderMediaList)}
                   </ul>
+                  </div>   
             </div>
       );
    };
