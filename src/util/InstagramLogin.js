@@ -26,6 +26,9 @@ let instagramUser = {
   links:{}
 };
 
+const user = instagramUser.user;
+const instagramUserID = user.instagramUserID;
+const instagramTokenRef = firebase.database().ref('/instagramAccessToken/' + user.uid);
 
 
 /**
@@ -76,6 +79,7 @@ const InstagramLogin = {
       });
       if (response.ok) {
         console.log(response);
+        
         jsonResponse = await response.json();
         instagramUser.user = jsonResponse.data.map(info => ({
           id: info.id,
@@ -128,10 +132,11 @@ const CreateFirebaseAccount =   createReactClass ({
     return { user:{} };
 },
 
-componentDidMount: function(){
-    
+componentWillMount: function(){
+    // firebase.auth().onAuthStateChanged();
+    InstagramLogin.fetchUserInfo();
     // When the component loads, send a jQuery AJAX request
-
+   
     
     InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
        user: instagramUser.user
@@ -139,8 +144,8 @@ componentDidMount: function(){
     }));
     console.log(this.state.user)
     // The UID we'll assign to the user.
-    const instagramUserID = this.state.user.instagramUserID;
-    const uid = `instagram:${instagramUser.user.instagramUserID}`;
+   
+    const uid = `instagram:7687466936`;
   
     // Save the access token tot he Firebase Realtime Database.
     const databaseTask = firebase.database().ref(`/instagramAccessToken/${uid}`)
@@ -176,6 +181,13 @@ componentDidMount: function(){
    * popup.
    */
    render: function(token) {
+    instagramTokenRef.once('value').then(function(snapshot) {
+        accessToken = snapshot.val();
+   }).catch(err =>{
+       if(!err){
+           console.log('success')
+       }
+   })
     return `
       <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
       <script>
