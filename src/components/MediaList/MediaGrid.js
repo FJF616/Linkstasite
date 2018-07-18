@@ -13,13 +13,14 @@ class MediaGrid extends React.Component {
     constructor() {
     super();
     this.state = {
-     gallery: {}
+     gallery: []
    }
   }
    componentDidMount() {
      base.bindToState('affiliates', {
        context: this,
-       state: 'gallery'
+       state: 'gallery',
+       asArray: true
      }) 
    }
    
@@ -40,10 +41,10 @@ class MediaGrid extends React.Component {
                         type="button"
                         style={{width: 35, height: 35, marginBottom: 85, marginLeft: -85, position: 'relative', backgroundColor: 'transparent'}}
                         onClick={() => {
-                          const gallery = {...this.state.gallery};
-                          id = gallery[key].id
-                          this.setState(state => ({
-                            gallery: Object.keys(gallery).filter(key => id === gallery[key].id),
+                          const gallery = [...this.state.gallery];
+                           id = gallery[key].id  
+                           this.setState(state => ({
+                            gallery: gallery.filter(key => key.id !== id),
                           }));
                         }}
                        >

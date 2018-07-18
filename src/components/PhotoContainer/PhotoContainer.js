@@ -112,7 +112,7 @@ export default class PhotoContainer extends Component {
             url: value,
             edited: false
         });
-        this.media.affiliateLink = null;
+        this.props.media.affiliateLink = null;
         this.setState({ generatedKey : null });
     };
 
@@ -203,12 +203,12 @@ export default class PhotoContainer extends Component {
                             ? <h4>Link Preview 
                                 <MicrolinkCard 
                                     url={this.state.url} 
-                                    size='small' 
+                                    size='medium' 
                                     contrast='true' 
                                     target='_blank' 
                                     prerender="auto" 
                                     image={['screenshot', 'image', 'video']} 
-                                    style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 10, marginLeft: 3, height: 95, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
+                                    style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 8, marginLeft: 3, height: 105, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
                               </h4>
                             :  ''} 
                         </div>

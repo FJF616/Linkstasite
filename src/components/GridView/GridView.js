@@ -110,7 +110,7 @@ class GridView extends Component {
       <div className="App"> 
       <Header />
        <SideBar2/>
-       <MediaGrid deleteMedia={this.deleteMedia.bind(this)}/>
+       <MediaGrid />
       </div>
     );
   }
