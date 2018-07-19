@@ -1,4 +1,5 @@
 import InstagramLogin from '../../util/InstagramLogin';
+import { Card, Col, Row, Grid } from 'reactstrap';
 import React, { Component } from "react";
 import { base } from '../rebaseConfig/firebase';
 import Media from '../Media/Media';
@@ -67,18 +68,21 @@ class LandingPage extends Component {
       }
     
       renderMediaList = media =>
-     <Media gallery={this.galleryRef.context.state.gallery} key={media.id} media={media}  />
+      
+      <Card> <Media  gallery={this.galleryRef.context.state.gallery} key={media.id} media={media}/></Card>
       render() { 
         return(
             <div className="App" style={{display: 'flex'}}>
                 <Header/>
                 <SideBar2/>
+               
                   <div className="landing">
-                    <h1>Your Instagram Gallery</h1>
+                   
                     
                     <ul>
                     {this.state.gallery.map(this.renderMediaList)}
                   </ul>
+                  <p><h1>Your Instagram Gallery</h1></p>
                   </div>   
             </div>
       );

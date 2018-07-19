@@ -12,8 +12,8 @@ import InstagramConsumer from '../Session/InstagramProvider'
 // import { Card, Col, Row } from 'reactstrap';
 import HeaderNonAuth from '../Header/HeaderNonAuth'
 // import Header from '../Header/Header'
-import LandingPage from '../Landing/index'
-import NewPara from '../NewPara/NewPara'
+// import LandingPage from '../Landing/index'
+// import NewPara from '../NewPara/NewPara'
 import HomePage from '../Home'
 const Navigation = () =>
   <AuthUserContext.Consumer>

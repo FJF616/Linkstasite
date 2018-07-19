@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/App.css'
-
+// import ProgressBar from '../Graph/ProgressBar';
 // import{ BrowserRouter } from 'react-router-dom';
 // import Header from '../Header/Header';
 import Graph from '../Graph/Graph'
@@ -12,6 +12,7 @@ import SideBar2 from '../SideBar/SideBar2';
 // import InstagramConsumer from '../Session/InstagramProvider'
 // import AvatarEditor from 'react-avatar-editor'
 import Header from '../Header/Header'
+import ClickGraph from '../Graph/ClickGraph'
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -39,6 +40,7 @@ class HomePage extends Component {
       
       <Graph style={{ paddingTop: '5px'}}/>
    
+ 
       </div>
       </div>
     

@@ -8,6 +8,7 @@ import MicrolinkCard from 'react-microlink';
 import ReactTooltip from 'react-tooltip';
 // import {Card, Col, Row } from 'reactstrap';
 import { base } from '../rebaseConfig/firebase'
+import ProgressBar from '../Graph/ProgressBar'
 // import Graph from '../Graph/Graph';
 /**
  * 
@@ -156,12 +157,14 @@ export default class PhotoContainer extends Component {
                                     ? <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
                                     : <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
                                     }
+                                     
                             <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.edited || !this.state.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
                             <button onClick={this.handleClear} className="controls" type="button" disabled={!this.state.edited} data-tip="Remove affiliate Link" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                             <button  className="controls" onClick={this.handleEdit} disabled={ !this.state.filled} type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>
                             <button onClick={this.checkFilled} disabled={this.state.filled} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
-                            <ReactTooltip place="top" type="light" effect="float"/>
-                        </div>
+                           
+                           
+                            </div>
                     </div>
                 </div>
             </div>
@@ -177,7 +180,11 @@ export default class PhotoContainer extends Component {
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}}
                         className="mr-3" src={this.props.media.src}  
                     />}
+                    
+
                     <div className="media-body"> 
+                    <ProgressBar data-tip="Pro Subribers receive unlimited clicks"/> 
+                    <ReactTooltip place="top" type="light" effect="float"/>
                     { this.state.filled 
                     ? <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
                         <h3><b>{this.state.title}</b></h3>  
@@ -202,11 +209,11 @@ export default class PhotoContainer extends Component {
                         {this.state.edited 
                             ? <h4>Link Preview 
                                 <MicrolinkCard 
-                                    url={this.state.url} 
+                                    url={this.state.url || {}} 
                                     size='medium' 
                                     contrast='true' 
                                     target='_blank' 
-                                    prerender="auto" 
+                                    prerender="false" 
                                     image={['screenshot', 'image', 'video']} 
                                     style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 8, marginLeft: 3, height: 105, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
                               </h4>
@@ -214,6 +221,7 @@ export default class PhotoContainer extends Component {
                         </div>
                     </div>
                 </div>
+                
             </div>        
         );
       }

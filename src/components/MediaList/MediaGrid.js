@@ -5,6 +5,7 @@ import { base } from '../rebaseConfig/firebase'
 import MediaGridComponent from '../Media/MediaGridComponent'
 import Icon from '../Icons/Icon';
 import ICONS from '../Icons/constants'
+// import ProgressBar from '../Graph/ProgressBar'
 // import ReactTooltip from 'react-tooltip';
 
 // import Media from '../Media/Media.js'
@@ -32,7 +33,7 @@ class MediaGrid extends React.Component {
           {
           Object.keys(this.state.gallery).map((key, id) => {
             return <div className="delete" key={key}>
-                 
+          
                     <MediaGridComponent  media={this.state.gallery[key]}  />
                     {this.state.gallery[key].affiliateLink &&
                     <Button 
@@ -42,9 +43,9 @@ class MediaGrid extends React.Component {
                         style={{width: 35, height: 35, marginBottom: 85, marginLeft: -85, position: 'relative', backgroundColor: 'transparent'}}
                         onClick={() => {
                           const gallery = [...this.state.gallery];
-                           id = gallery[key].id  
+                           id = gallery[key].id; 
                            this.setState(state => ({
-                            gallery: gallery.filter(key => key.id !== id),
+                            gallery: gallery.filter(key => key.id !== id)
                           }));
                         }}
                        >
