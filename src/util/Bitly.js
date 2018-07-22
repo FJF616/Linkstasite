@@ -39,6 +39,10 @@ export default class ShortenLink extends Component {
             longUrl: value
         });
     }
+    /**
+     * Use bit.ly api to convert to short url
+     * TODO: add endpoint for analytics to gather number of clicks to be used for graphing data.
+     */
     async shortenLink()  {
         const BITLY_URL =  `https://api-ssl.bitly.com/v3/shorten?access_token=${access_token}&longUrl=${this.state.longUrl}`;
         try {
@@ -59,6 +63,7 @@ export default class ShortenLink extends Component {
     render() {
         return(
             <div>
+             {/* enter longUrl, convert it to short, then copy shortUrl to clipboard, clear local state  to enter another LongUrl*/}
                 {this.state.shortUrl 
                 ? <div>
                     <CopyToClipboard text={this.state.shortUrl}
@@ -68,7 +73,6 @@ export default class ShortenLink extends Component {
                     {this.state.copied 
                         ? <div>
                             <span style={{color: 'red'}}>Copied.<button onClick={this.handleClick.bind(this)}>Enter Another Url</button> </span>
-                            
                         </div> 
                         : null
                         }

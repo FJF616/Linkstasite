@@ -39,7 +39,7 @@ class HomePage extends Component {
      <Header/>
       <SideBar2/>
       <Graph style={{ paddingTop: '5px'}}/>
-      <EditableTable/>
+     
  
       </div>
       </div>

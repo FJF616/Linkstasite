@@ -15,6 +15,7 @@ import AvatarEditor from 'react-avatar-editor'
 import { Link } from 'react-router-dom'
 import { base } from '../rebaseConfig/firebase'
 import DropDown from './DropDown'
+import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 class Header extends React.Component {
   state = {
     userProfile: []
@@ -60,7 +61,6 @@ class Header extends React.Component {
         </Card>
       </div>
      
-
       
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />

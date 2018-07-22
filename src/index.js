@@ -17,7 +17,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <FirestoreProvider firebase={firebase}>
-        <ShortenLink /> 
+        <App /> 
     </FirestoreProvider>,
      document.getElementById('root'));
     registerServiceWorker();
