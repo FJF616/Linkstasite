@@ -13,6 +13,7 @@ import SideBar2 from '../SideBar/SideBar2';
 // import AvatarEditor from 'react-avatar-editor'
 import Header from '../Header/Header'
 import ClickGraph from '../Graph/ClickGraph'
+import EditableTable from '../FormInputs/EditableTable'
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -37,9 +38,8 @@ class HomePage extends Component {
      
      <Header/>
       <SideBar2/>
-      
       <Graph style={{ paddingTop: '5px'}}/>
-   
+      <EditableTable/>
  
       </div>
       </div>

@@ -18,48 +18,55 @@ class MediaGrid extends React.Component {
    }
   }
    componentDidMount() {
-     base.bindToState('affiliates', {
+   this.affiliatesRef =  base.syncState('affiliates', {
        context: this,
        state: 'gallery',
        asArray: true
      }) 
    }
    
- 
-
+  componentWillUnmount(){
+    base.removeBinding(this.affiliatesRef);
+  }
+  updateGallery = (key, updatedKey) => {
+    const gallery =  { ...this.state.gallery };
+    gallery[key] = updatedKey;
+    this.setState({ gallery });
+  };
   render () {
     return (
       <div className='list'>
-          {
-          Object.keys(this.state.gallery).map((key, id) => {
-            return <div className="delete" key={key}>
-          
+      { Object.keys(this.state.gallery).map((key, id) => {
+            return (
+                  <div className="delete" key={key}>
                     <MediaGridComponent  media={this.state.gallery[key]}  />
-                    {this.state.gallery[key].affiliateLink &&
-                    <Button 
-                     
+                      {this.state.gallery[key].affiliateLink &&
+                      <Button 
                         // className="remove-btn"
                         type="button"
-                        style={{width: 35, height: 35, marginBottom: 85, marginLeft: -85, position: 'relative', backgroundColor: 'transparent'}}
+                        style={{width: 35, height: 35, marginBottom: 115, marginLeft: -85, position: 'relative', backgroundColor: 'transparent'}}
                         onClick={() => {
                           const gallery = [...this.state.gallery];
                            id = gallery[key].id; 
                            this.setState(state => ({
                             gallery: gallery.filter(key => key.id !== id)
-                          }));
+                          })); 
                         }}
-                       >
-                       <Icon   className="trash__icon"  icon={ICONS.BIN3} color={"white"} size={85} />
-                       
-                       </Button>
-                      }
-                       </div>
-                     
-                     })
-                   }
+                      >
+                      <Icon   
+                        className="trash__icon"  
+                        icon={ICONS.BIN3} 
+                        color={"white"} 
+                        size={85} 
+                      />
+                    </Button>
+                    }
                   </div>
-                 );
-              }
-            }
+                  );
+                })}
+              </div>
+            );
+          }
+        }
 
 export default MediaGrid;

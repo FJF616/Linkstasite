@@ -9,9 +9,11 @@ import ProgressBar from '../Graph/ProgressBar';
 // import { withRouter } from 'react-router-dom'
 export default class MediaGridComponent extends Component { 
   state = {
+    completed: false,
     stats: {
       link: '',
-      clicks: 0
+      clicks: 0,
+    
     }
   }
 //    state = {
@@ -35,14 +37,18 @@ export default class MediaGridComponent extends Component {
 // }
 
 handleClicks = () => {
-  
+ const  key  = this.props.media.key;
  const { clicks } = this.state.stats
- const amount = clicks + 1;
+ const amount = clicks + 25;
+ if (amount === 100) {
+   this.setState({completed : true})
+ } else {
  this.setState({
     stats: { link: this.props.media.affiliateLink, clicks: amount }
  });
- base.update('stats', {
-   data: {link: this.state.stats.link, clicks: this.state.stats.clicks},
+}
+ base.update(`affiliates/${key}`, {
+   data: { clicks: this.state.stats.clicks},
    then(err) {
      if(!err){
        console.log('success tracking clicks')
@@ -53,16 +59,30 @@ handleClicks = () => {
 render() {
   return (
       <div className='image-grid' > 
-        { this.props.media.affiliateLink
+        { this.props.media.affiliateLink && !this.state.completed
 
             ?  <div >
-                <a href={this.props.media.affiliateLink} ><Imager  onClick={this.handleClicks} data-tip={`title: ${this.props.media.title}, url: ${this.props.media.affiliateLink}`} className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
+            <span className="media-title">{this.props.media.title}</span>
+                <a href={this.props.media.affiliateLink} ><Imager  onClick={this.handleClicks} data-tip={this.props.media.affiliateLink} className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
                 
-                <ReactTooltip place="top" type="light" effect="float"/>
+                
                
+                <ProgressBar data={this.state.stats} />
+                <ReactTooltip place="top" type="light" effect="float"/>
               </div>
+              
 
-            : null }
+            : this.state.completed 
+            ?<div>
+                <Imager  onClick={this.handleClicks} data-tip="upgrade to pro for unlimited clicks" className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
+                
+                <ProgressBar data={this.state.stats} />
+                <ReactTooltip place="top" type="light" effect="float"/>
+              </div>
+            
+            :null
+           
+          }
          
         </div>   
       );

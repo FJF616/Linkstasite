@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import CreditCard from '../PaymentForm/CreditCard'
-import './billing.scss';
+// import './billing.scss';
 import withAuthentication from '../Session/withAuthentication';
 import SideBar2 from '../SideBar/SideBar2' 
 import Header from '../Header/Header'
 class Billing extends Component {
     render() {
       return (
-        <div className="App">
+        <div className="App" >
         <Header/>
         <SideBar2/>
         <div  className="billing" >
           <title>Recurly.js Example: Advanced Pricing</title>
           <style dangerouslySetInnerHTML={{__html: "\n      select, input { display: block; }\n      input[type=radio] { display: inline; }\n    " }} />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <form method="post" action="/api/subscriptions/new" style={{ border: '6px ridge', borderColor: 'pink', padding: 10, }} >
+          <form method="post" action="/api/subscriptions/new" style={{ border: '6px ridge', borderColor: 'pink', padding: 15, margin: 30}} >
             <label htmlFor="plan">Plan</label>
             <select id="plan" data-recurly="plan">
               <option value="simpleplan" selected>Simple Plan</option>
@@ -22,7 +22,7 @@ class Billing extends Component {
             </select>
             <label htmlFor="plan-quantity">Quantity</label>
             <input type="text" data-recurly="plan_quantity" id="plan-quantity" defaultValue={2} />
-           <CreditCard/>
+          
             <label htmlFor="country">Country</label>
             <select id="country" data-recurly="country">
               <option value="US">United States</option>

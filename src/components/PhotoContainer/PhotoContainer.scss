@@ -20,7 +20,7 @@
 }
 .card-container {
    
-    padding: 10px;
+    padding: 30px;
     position: relative; 
     /* Old browsers */
     background: -moz-linear-gradient(-45deg, #1e5799 0%, #681062 61%, #f2a982 75%); /* FF3.6-15*/
@@ -57,10 +57,10 @@
     box-shadow: 0 3px 2px 0 hsla(0, 5%, 5%, .75); 
     padding-left: 15
 }
-.card_header {
-    background-color: rgba(153,153,153,0.03); 
-    color: rgb(176,196,215)
-}
+// .card_header {
+//     background-color: rgba(153,153,153,0.03); 
+//     color: rgb(176,196,215)
+// }
 .card_title_input {
     width: 370; 
     margin-top: 10; 

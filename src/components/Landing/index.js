@@ -13,7 +13,8 @@ class LandingPage extends Component {
           gallery: [] ,
           slides: [],   
           userProfile:[],
-          image:[] 
+          image:[] ,
+          proGallery:[]
           // listView:false
       };
       
@@ -23,7 +24,10 @@ class LandingPage extends Component {
    
 
     componentWillMount() {
-    
+      this.proGalleryRef = base.syncState('linkstasite', {
+        context: this,
+        state: 'proGallery'
+      });
       this.galleryRef = base.syncState('gallery', {
         context: this,
         state: 'gallery'
@@ -54,6 +58,7 @@ class LandingPage extends Component {
       base.removeBinding(this.galleryRef);
       base.removeBinding(this.slidesRef);
       base.removeBinding(this.userRef);
+      base.removeBinding(this.proGalleryRef)
     }
     
 
@@ -77,12 +82,12 @@ class LandingPage extends Component {
                 <SideBar2/>
                
                   <div className="landing">
-                   
+                  <p><h1>Your Instagram Gallery</h1></p> 
                     
                     <ul>
                     {this.state.gallery.map(this.renderMediaList)}
                   </ul>
-                  <p><h1>Your Instagram Gallery</h1></p>
+                
                   </div>   
             </div>
       );

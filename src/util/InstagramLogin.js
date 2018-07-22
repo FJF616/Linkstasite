@@ -5,12 +5,16 @@ const client_id = "0d744e65869b4acc8dde4d6e3c6a58e2";
 const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
 
 let accessToken;
+const instagramToken = /^(\d+)/gm.test(accessToken);
 let jsonResponse;
 let instagramUser = {
-  user: {},
+  user: {
+    instagramToken:`${instagramToken}`,
+  },
   gallery:{},
   slides: {},
-  image:{}
+  image:{},
+  
 };
 
 
@@ -44,7 +48,7 @@ const InstagramLogin = {
     if (!accessToken) {
       this.getAccessToken();
     }
-    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=3`;
+    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=6`;
     try {
       let response = await fetch(token_url, {
         method: 'GET'

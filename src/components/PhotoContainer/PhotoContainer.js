@@ -9,6 +9,7 @@ import ReactTooltip from 'react-tooltip';
 // import {Card, Col, Row } from 'reactstrap';
 import { base } from '../rebaseConfig/firebase'
 import ProgressBar from '../Graph/ProgressBar'
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 // import Graph from '../Graph/Graph';
 /**
  * 
@@ -26,7 +27,7 @@ export default class PhotoContainer extends Component {
         filled: false,
         slides:{},
         listView: '',
-        generatedKey:''
+        generatedKeys:[]
     }
     this.checkFilled = this.checkFilled.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
@@ -36,13 +37,19 @@ export default class PhotoContainer extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     }
     
-   
+   UpdateAffiliateGallery(generatedKey) {
+       base.bindToState(`affiliates/${generatedKey}`, {
+           context: this,
+           state: 'generatedKeys'
+       })
+   }
 //    componentWillMount() {
 //      this.slidesRef =  base.syncState('slides', {
 //            context: this,
 //            state: 'slides'
 //        })
 //    }
+    /*create a gallery in firebase and create a unique key */
     enterData (){
         const { url, title } = this.state;
         const  src = this.props.media.src;
@@ -52,15 +59,24 @@ export default class PhotoContainer extends Component {
             data: {affiliateLink: url, title: title, src: src, id: `${timestamp}` },
             then(err){
                 if(!err) {
+                    
                     console.log('success');
                 }
             }
      });
+     /* unique push key */
     const generatedKey = dataRef.key;
+   
     this.props.media.generatedKey = generatedKey;
     this.setState({ generatedKey: generatedKey });
+    this.UpdateAffiliateGallery(`${generatedKey}`)
+    base.syncState(`affiliates/${generatedKey}`, {
+        context: this,
+        state: 'generatedKeys'
+    })
 }
 
+   
    handleEdit() {
        if (this.state.filled) {
        this.setState({
@@ -70,7 +86,8 @@ export default class PhotoContainer extends Component {
      }
    };
    
-    checkFilled() {
+    
+   checkFilled() {
      if (this.state.edited && this.state.title) {
         this.setState({
             filled: true,
@@ -99,20 +116,21 @@ export default class PhotoContainer extends Component {
             //     if(err) { return console.log('error!', err) }
             // });
         }
-        e.preventDefault();          
+        // e.preventDefault();          
         this.props.media.affiliateLink = this.state.url;   
     } 
 
     handleClear(e) {
         const target = e.target;
         let value = target.value;
-        const name = target.type;
+        // const name = target.type;
        
         value = null;
         this.setState({
             url: value,
             edited: false
         });
+       
         this.props.media.affiliateLink = null;
         this.setState({ generatedKey : null });
     };
@@ -120,7 +138,7 @@ export default class PhotoContainer extends Component {
     handleChange(e) {
         const target = e.target;
         let value = target.value;
-        const name = target.type;
+        // const name = target.type;
        
         this.setState({
             title: value,
@@ -155,13 +173,16 @@ export default class PhotoContainer extends Component {
                             {/* check if url has been entered. if it has, return associated link with image by making it clickable */}
                             {!this.state.edited 
                                     ? <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
+                                    : this.state.generatedKey
+                                    ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.generatedKeys.affiliateLink}</b></h6></a>
                                     : <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
-                                    }
+
+                                }
                                      
                             <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.edited || !this.state.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
                             <button onClick={this.handleClear} className="controls" type="button" disabled={!this.state.edited} data-tip="Remove affiliate Link" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                             <button  className="controls" onClick={this.handleEdit} disabled={ !this.state.filled} type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>
-                            <button onClick={this.checkFilled} disabled={this.state.filled} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
+                            <button onClick={this.checkFilled} disabled={this.state.filled || !this.props.media.affiliateLink} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
                            
                            
                             </div>
@@ -170,20 +191,26 @@ export default class PhotoContainer extends Component {
             </div>
             <div className="media" >
               { this.state.edited 
-                ?  <a href={this.state.url}>
+                ?  <a href={this.state.generatedKeys.url || this.state.url}>
                     <Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
                         className="mr-3" 
                         src={this.props.media.src} 
                     /></a>
-                    : <Imager 
+                    : (this.state.generatedKey || this.state.filled)
+                    ?  <a href={this.state.generatedKeys.affiliateLink}>
+                    <Imager 
+                        style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
+                        className="mr-3" 
+                        src={this.state.generatedKeys.src} 
+                    /></a>
+                    :<Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}}
                         className="mr-3" src={this.props.media.src}  
                     />}
                     
 
                     <div className="media-body"> 
-                    <ProgressBar data-tip="Pro Subribers receive unlimited clicks"/> 
                     <ReactTooltip place="top" type="light" effect="float"/>
                     { this.state.filled 
                     ? <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
@@ -206,22 +233,26 @@ export default class PhotoContainer extends Component {
                         /></h5>}
                         <br/>
                         {/* if a link has been added to the image, generate a link preview */}
-                        {this.state.edited 
-                            ? <h4>Link Preview 
+                        {this.state.edited ?
+                            <div>
+                           <ErrorBoundary>
                                 <MicrolinkCard 
-                                    url={this.state.url || {}} 
+                                    url={this.state.url } 
                                     size='medium' 
-                                    contrast='true' 
-                                    target='_blank' 
-                                    prerender="false" 
-                                    image={['screenshot', 'image', 'video']} 
-                                    style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 8, marginLeft: 3, height: 105, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
-                              </h4>
-                            :  ''} 
+                                    // contrast='false' 
+                                    // target='_blank' 
+                                    // prerender="false" 
+                                    // image={['screenshot', 'image', 'video']} 
+                                    // style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 8, marginLeft: 3, height: 105, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}
+                                    />
+                                    </ErrorBoundary>
+                                    </div>
+                            : null} 
                         </div>
                     </div>
                 </div>
-                
+              
+
             </div>        
         );
       }

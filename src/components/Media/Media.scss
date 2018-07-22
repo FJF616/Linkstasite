@@ -78,3 +78,44 @@
 // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#131313', GradientType=0 );
 
 // }
+
+.media-title {
+  color:white;
+ filter: opacity(75%);
+ cursor: pointer;
+ position: absolute;
+ background: -moz-linear-gradient(top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.63) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(0,0,0,0.45) 0%,rgba(0,0,0,0.24) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0.15) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+ width: 220px;
+ overflow: hidden;
+ background-position:center;
+ background-size: contain;
+padding: 10px;
+margin: 5px 0px 0px 12px;
+display:block;
+height: 40px;
+}
+
+.media-title:hover {
+  filter: opacity(100%);
+  color: aquamarine;
+ position: absolute;
+ 
+ background-position: center;
+ 
+ overflow: hidden;
+ background-position:center;
+ background-size: contain;
+
+display:block;
+height: 40px;
+
+}
+
+// Needs latest Compass, add '@import "compass"' to your scss
+// Permalink - use to edit and share this gradient:
+// http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.65+0,0+100;Neutral+Density
+// @include filter-gradient(#a6000000, #00000000, vertical); // IE6-9
+// @include background-image(linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%));
