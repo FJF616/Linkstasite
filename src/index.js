@@ -3,6 +3,7 @@ import firebase from '@firebase/app';
 import '@firebase/firestore';
 import { FirestoreProvider } from 'react-firestore';
 import ReactDOM from 'react-dom';
+import ShortenLink from '../src/util/Bitly'
 import './index.css';
 import App from './components/App/App.js';
 import registerServiceWorker from './registerServiceWorker';
@@ -16,7 +17,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <FirestoreProvider firebase={firebase}>
-        <App /> 
+        <ShortenLink /> 
     </FirestoreProvider>,
      document.getElementById('root'));
     registerServiceWorker();
