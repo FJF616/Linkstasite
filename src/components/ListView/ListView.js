@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from '../Header/Header';
+import BitlyHeader from '../Header/BitlyHeader';
 import '../App/App.css';
 import { withRouter } from 'react-router-dom';
 // import Navigation from '../Navigation';
@@ -10,6 +10,7 @@ import SideBar2 from '../SideBar/SideBar2';
 import { base } from '../rebaseConfig/firebase'
 // import Graph from '../Graph/Graph'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
+import withAuthorization from '../Session/withAuthorization'
 // import Graph from '../Graph/Graph'
 class ListView extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class ListView extends Component {
   //   }
 
     componentWillMount() {
-    base.bindToState('gallery', {
+    this.galleryRef = base.syncState('gallery', {
         context: this,
         state: 'gallery',
        
@@ -66,13 +67,13 @@ class ListView extends Component {
       // this.setState({
       //   gallery: images
       // })
-      
+      gallery = {...this.galleryRef.context.state.gallery};
       return (
         <div className='list'>
       
           { 
-          Object.keys(this.state.gallery).map((media) => {
-              return <PhotoContainer  media={this.state.gallery[media]} key={media} />;
+          Object.keys(gallery).map((media) => {
+              return <PhotoContainer  media={gallery[media]} key={media} />;
             })
           }
          
@@ -85,13 +86,15 @@ class ListView extends Component {
     render() {
     return (
       <div className="App" style={{display: 'inline-flex'}}>
-        <Header/>
+        <BitlyHeader/>
         <SideBar2/>
-          {this.MediaLists(this.state.gallery)}
+          {this.MediaLists(this.galleryRef.context.state.gallery)}
         
       </div>
     );
   }
 }
+const authCondition = (authUser) => !!authUser;
 
-export default withRouter(ListView);
+
+export default withAuthorization(authCondition)(withRouter(ListView));

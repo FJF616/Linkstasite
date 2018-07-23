@@ -1,8 +1,11 @@
 .landing  {
   
     padding-left: 25px;
-    display: flex;
-    position: relative;
+   
+    flex-wrap: no-wrap;
+    index: 3;
+    direction: row;
+    z-index: 1000;
     color: #d3509c;
     font-weight: 900;
     font-size: 22px;

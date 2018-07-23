@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.scss';
-import Menupanel from './Menupanel'
+// import Menupanel from './Menupanel'
 import  'bootstrap/dist/css/bootstrap.css';
 import * as routes from '../constants/routes'
 // import instaUser from '../../util/instaUser'
@@ -15,10 +15,9 @@ import AvatarEditor from 'react-avatar-editor'
 import { Link } from 'react-router-dom'
 import { base } from '../rebaseConfig/firebase'
 import DropDown from './DropDown'
-import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
-// import InstagramConsumer from '../Session/InstagramProvider';
+// import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 import ShortenLink from '../../util/Bitly'
-class Header extends React.Component {
+class BitlyHeader extends React.Component {
   state = {
     userProfile: []
   }
@@ -31,7 +30,7 @@ class Header extends React.Component {
   
   render () {
     return (
-    
+     
       <div className="header">
       <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95, }} className="navbar navbar-expand-lg  fixed-top">
       
@@ -62,7 +61,7 @@ class Header extends React.Component {
           
         </Card>
       </div>
-      
+         <ShortenLink/>
       
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
@@ -82,11 +81,11 @@ class Header extends React.Component {
       
       </nav> 
       </div>
-   
+    
     );
   }
 }
 
 
 
-export default Header;
+export default BitlyHeader;

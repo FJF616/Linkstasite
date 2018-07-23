@@ -7,7 +7,7 @@ let shortUrl={};
 
 // const CLIENT_ID = 'f917135d477d7653ab28557b83c765d769a824c4';
 // const CLIENT_SECRET = 'f917135d477d7653ab28557b83c765d769a824c4';
-const access_token = 'd00a795d6ce23f36ca494486da00dcabe09e539f';
+const access_token = process.env.REACT_APP_BITLY_ACCESS_TOKEN;
 
 /*******
  * 
@@ -66,19 +66,22 @@ export default class ShortenLink extends Component {
              {/* enter longUrl, convert it to short, then copy shortUrl to clipboard, clear local state  to enter another LongUrl*/}
                 {this.state.shortUrl 
                 ? <div>
-                    <CopyToClipboard text={this.state.shortUrl}
-                        onCopy={() => this.setState({copied: true})}>
-                        <button>Copy to clipboard</button>
+                    <span type="text" style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}} disabled={!this.state.copied}>{this.state.shortUrl}</span> 
+                    <CopyToClipboard
+                        text={this.state.shortUrl}
+                        onCopy={() => this.setState({copied: true, })}
+                       >
+                      <button>Copy to clipboard</button>
                     </CopyToClipboard>
                     {this.state.copied 
                         ? <div>
-                            <span style={{color: 'red'}}>Copied.<button onClick={this.handleClick.bind(this)}>Enter Another Url</button> </span>
-                        </div> 
+                            <span style={{color: 'red'}}>Copied. </span><button onClick={this.handleClick.bind(this)}>Enter Another Url</button>
+                          </div> 
                         : null
-                        }
+                      }
                   </div>
                 : <div>
-                    <input type="url" onChange={this.handleChange.bind(this)} className="urlInput"></input><button onClick={this.shortenLink.bind(this)}>Shorten</button>
+                    <input   style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}} type="url" placeholder="enter a url" onChange={this.handleChange.bind(this)} className="urlInput"></input><button onClick={this.shortenLink.bind(this)}>Shorten</button>
                   </div>
                 }
             </div> 

@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import { base } from '../rebaseConfig/firebase';
 import Media from '../Media/Media';
 import './Landing.scss';
+import InstagramProvider from '../Session/InstagramProvider'
+import TitlebarGridList from '../GridList/GridList'
 import Header from "../Header/Header";
 import SideBar2 from '../SideBar/SideBar2'
 class LandingPage extends Component {
@@ -72,24 +74,27 @@ class LandingPage extends Component {
         }));
       }
     
-      renderMediaList = media =>
-      
-      <Card> <Media  gallery={this.galleryRef.context.state.gallery} key={media.id} media={media}/></Card>
+      renderMediaList = (media) =>
+        
+      <Media  gallery={this.galleryRef.context.state.gallery} key={media.id} media={media} />
       render() { 
         return(
-            <div className="App" style={{display: 'flex'}}>
+        
+            <div className="App" style={{display: 'inlineBlock'}}>
+           
                 <Header/>
                 <SideBar2/>
-               
-                  <div className="landing">
-                  <p><h1>Your Instagram Gallery</h1></p> 
+                <p><h1>Your Instagram Gallery</h1></p> 
+                  <div className="landing" >
+                 
                     
-                    <ul>
+                    <ul >
                     {this.state.gallery.map(this.renderMediaList)}
                   </ul>
                 
                   </div>   
             </div>
+          
       );
    };
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../App/App.css'
+
 // import ProgressBar from '../Graph/ProgressBar';
 // import{ BrowserRouter } from 'react-router-dom';
 // import Header from '../Header/Header';
@@ -38,7 +38,7 @@ class HomePage extends Component {
      
      <Header/>
       <SideBar2/>
-      <Graph style={{ paddingTop: '5px'}}/>
+     
      
  
       </div>

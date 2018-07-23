@@ -1,13 +1,14 @@
 import React from 'react';
-import { ListGroupItem, ListGroup, Grid, Button } from 'react-bootstrap'
+import { ListGroupItem, ListGroup, Grid, Button } from 'react-bootstrap';
 import './MediaList.scss';
-import { base } from '../rebaseConfig/firebase'
-import MediaGridComponent from '../Media/MediaGridComponent'
+import { base } from '../rebaseConfig/firebase';
+import MediaGridComponent from '../Media/MediaGridComponent';
 import Icon from '../Icons/Icon';
-import ICONS from '../Icons/constants'
+import ICONS from '../Icons/constants';
 // import ProgressBar from '../Graph/ProgressBar'
 // import ReactTooltip from 'react-tooltip';
-
+import withAuthorization from '../Session/withAuthorization';
+import { withRouter } from 'react-router-dom'
 // import Media from '../Media/Media.js'
 
 class MediaGrid extends React.Component {
@@ -68,5 +69,9 @@ class MediaGrid extends React.Component {
             );
           }
         }
+      
 
-export default MediaGrid;
+const authCondition = (authUser) => !!authUser;
+
+
+export default withAuthorization(authCondition)(withRouter(MediaGrid));

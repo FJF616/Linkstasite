@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import CreditCard from '../PaymentForm/CreditCard'
 // import './billing.scss';
-import withAuthentication from '../Session/withAuthentication';
+import { withRouter } from 'react-router-dom';
+import withAuthorization from '../Session/withAuthorization';
 import SideBar2 from '../SideBar/SideBar2' 
 import Header from '../Header/Header'
 class Billing extends Component {
@@ -99,4 +100,8 @@ class Billing extends Component {
     }
   };
 
-  export default withAuthentication(Billing);
+
+  const authCondition = (authUser) => !!authUser;
+
+
+export default withAuthorization(authCondition)(withRouter(Billing));

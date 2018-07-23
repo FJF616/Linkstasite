@@ -29,9 +29,9 @@ export default class InstagramProvider extends React.Component {
     //     )})
     // );
     render() {
-        const { state } = this.state;
+        const { gallery, userProfile, accountName } = this.state;
         return (
-            <InstagramContext.Provider  value={{ state }} >
+            <InstagramContext.Provider  value={{ gallery, userProfile, accountName }} >
                 {this.props.children}
             </InstagramContext.Provider>
         );
