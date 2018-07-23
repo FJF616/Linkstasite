@@ -3,7 +3,7 @@ import firebase from '@firebase/app';
 import '@firebase/firestore';
 import { FirestoreProvider } from 'react-firestore';
 import ReactDOM from 'react-dom';
-import ShortenLink from '../src/util/Bitly'
+// import ShortenLink from '../src/util/Bitly'
 import './index.css';
 import InstagramProvider from './components/Session/InstagramProvider';
 // import EditableTable from './components/FormInputs/EditableTable'
@@ -20,7 +20,7 @@ import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render(
     <FirestoreProvider firebase={firebase}>
     <InstagramProvider>
-        <App /> 
+        <App/>
         </InstagramProvider>
     </FirestoreProvider>,
      document.getElementById('root'));

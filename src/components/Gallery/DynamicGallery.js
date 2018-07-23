@@ -1,8 +1,8 @@
 import DynamicContent from 'react-dynamic-content';
 import "react-dynamic-content/styles/style.css"; 
 import { base } from '../rebaseConfig/firebase';
-
-class DynamicGallery extends React.Component {
+import React from 'react';
+export default class DynamicGallery extends React.Component {
     state= {
         content:[]
     }
@@ -13,6 +13,14 @@ class DynamicGallery extends React.Component {
             asArray: true
         });
     }
+    imgArray = this.state.content.map((image, idx) => {
+      let images = [];
+      for (let i = 0; i < this.state.content.length; i++) {
+        image = this.state.content.length[idx]
+        images.push(image[0]);
+      }
+      return images;
+    })
   render() {
     const content = [
       <img src="http://lorempixel.com/1000/600" />,

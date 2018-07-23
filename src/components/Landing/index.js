@@ -4,10 +4,12 @@ import React, { Component } from "react";
 import { base } from '../rebaseConfig/firebase';
 import Media from '../Media/Media';
 import './Landing.scss';
-import InstagramProvider from '../Session/InstagramProvider'
-import TitlebarGridList from '../GridList/GridList'
+// import InstagramProvider from '../Session/InstagramProvider'
+// import TitlebarGridList from '../GridList/GridList'
 import Header from "../Header/Header";
 import SideBar2 from '../SideBar/SideBar2'
+import Gallery from '../Gallery/ModalGallery/ModalGallery'
+
 class LandingPage extends Component {
   constructor() {
     super();
@@ -86,11 +88,8 @@ class LandingPage extends Component {
                 <SideBar2/>
                 <p><h1>Your Instagram Gallery</h1></p> 
                   <div className="landing" >
-                 
-                    
-                    <ul >
-                    {this.state.gallery.map(this.renderMediaList)}
-                  </ul>
+              
+                 <Gallery imagUrls={this.state.image}/>
                 
                   </div>   
             </div>
