@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.scss';
+import { NavItem } from 'mdbreact'
 import Menupanel from './Menupanel'
 import  'bootstrap/dist/css/bootstrap.css';
 import * as routes from '../constants/routes'
@@ -70,9 +71,9 @@ class Header extends React.Component {
          
       <ul className="navbar-nav ml-auto float float-right" style={{paddingTop: 85, overFlow: 'hidden'}} >
          
-          <li className="nav-item active" style={{ marginTop: '-2px', marginLeft: '-55px'}}><Link to={routes.HOME}><span className="sr-only">(current)</span><Icon icon={ICONS.HOME} size={65} mode={"contain"} color={"gold"}/></Link></li>
-          <li  className="nav-item" style={{ marginLeft: '5px'}}><Link to={routes.ACCOUNT}><Icon   icon={ICONS.INTERNET} size={125} mode={"contain"} color={"gold"}/></Link></li>
-          <li className="nav-item" style={{marginLeft: '-65px'}}><SignOutButton /></li>
+          <NavItem className="nav-item active" style={{ marginTop: '-2px', marginLeft: '-55px'}}><Link to={routes.HOME}><span className="sr-only">(current)</span><Icon icon={ICONS.HOME} size={65} mode={"contain"} color={"gold"}/></Link></NavItem>
+          <NavItem  className="nav-item" style={{ marginLeft: '5px'}}><Link to={routes.ACCOUNT}><Icon   icon={ICONS.INTERNET} size={125} mode={"contain"} color={"gold"}/></Link></NavItem>
+          <NavItem className="nav-item" style={{marginLeft: '-65px'}}><SignOutButton /></NavItem>
         </ul>
            
           </div>

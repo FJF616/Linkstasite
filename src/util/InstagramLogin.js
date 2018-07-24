@@ -87,7 +87,7 @@ const InstagramLogin = {
 
           }));
           instagramUser.image = jsonResponse.data.map(info => ({
-            src: info.images.standard_resolution.url
+            src: info.images.standard_resolution.url,
           }));
             return instagramUser;
 

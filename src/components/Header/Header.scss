@@ -1,15 +1,16 @@
 .header {
-  display:flex;
-  flex: 0;
+  display:inline-flex;
+  flex: 1;
   background-color: #bf45f0 40%;
   height: 90px;
-  overflow: no-overflow;
+  overflow: hidden;
   position: top;
  
 
 .nav {
   min-height: 100px;
   max-height: 105px;
+ 
  
 }
 .breadcrumb {
@@ -65,9 +66,7 @@
     border-color: aliceblue;
   }
   
-  .home__page {
-    display: inline-block; 
-  }
+  
   // .userId {
   //   color: rgb(205, 14, 223);
   //   margin: 5px;
