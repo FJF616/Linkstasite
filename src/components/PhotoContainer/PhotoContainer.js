@@ -8,7 +8,8 @@ import MicrolinkCard from 'react-microlink';
 import ReactTooltip from 'react-tooltip';
 // import {Card, Col, Row } from 'reactstrap';
 import { base } from '../rebaseConfig/firebase'
-import ProgressBar from '../Graph/ProgressBar'
+// import ProgressBar from '../Graph/ProgressBar'
+import Bitlink from '../../util/BitlyHelper';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 // import Graph from '../Graph/Graph';
 /**
@@ -28,6 +29,7 @@ export default class PhotoContainer extends Component {
         slides:{},
         listView: '',
         revised: false,
+        affiliateLinked:'',
         generatedKeys:[]
     }
     this.checkFilled = this.checkFilled.bind(this);
@@ -36,6 +38,7 @@ export default class PhotoContainer extends Component {
     this.handleClear = this.handleClear.bind(this);
     this.handleChange= this.handleChange.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.fetchUrl = this.fetchUrl.bind(this);
     }
     
    UpdateAffiliateGallery(generatedKey) {
@@ -54,14 +57,32 @@ export default class PhotoContainer extends Component {
         state: 'generatedKeys'
     })
    }
+   fetchUrl() {
+    let affiliateLinked;
+    affiliateLinked = Object.keys(this.state.generatedKeys).map(data => {
+      if(data.id === this.props.media.id_){
+        return data.affiliateLink
+      }
+      console.log(affiliateLinked)
+      return affiliateLinked;
+    })
+        this.setState({
+            affiliateLinked: affiliateLinked,
+        })
+    
+    
+    this.props.media.affiliateLinked = this.state.affiliateLinked;
+   
+  }
+
     /*create a gallery in firebase and create a unique key */
     enterData (){
         const { url, title } = this.state;
         const  src = this.props.media.src;
-        const timestamp = Date.now();
+        // const timestamp = Date.now();
         // const id = this.this.props.media.id;
-        const dataRef = base.push('affiliates', {
-            data: {affiliateLink: url, title: title, src: src, id: `${timestamp}` },
+        const dataRef = base.push(`affiliates/${this.props.media.id}`, {
+            data: {affiliateLink: url, title: title, src: src, id: `${this.props.media.id}` },
             then(err){
                 if(!err) {
                     
@@ -89,6 +110,7 @@ export default class PhotoContainer extends Component {
     this.props.media.generatedKey = generatedKey;
     this.setState({ generatedKey: generatedKey });
     this.UpdateAffiliateGallery(`${generatedKey}`)
+    this.fetchUrl();
    
 }
 
@@ -182,8 +204,7 @@ export default class PhotoContainer extends Component {
     //     base.removeBinding(this.slidesRef);
     // }
     
-    
-    
+   
     render() {    
       return (   
         
@@ -201,8 +222,8 @@ export default class PhotoContainer extends Component {
                                     ? <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
                                     : this.props.media.affliateLink
                                     ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.props.media.affiliateLink}</b></h6></a>
-                                    : this.state.url
-                                    ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
+                                    : this.state.generatedKeys
+                                    ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url ? this.state.url: this.generatedKeys['0'].affiliateLink}</b></h6></a>
                                     : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                 }
                                      

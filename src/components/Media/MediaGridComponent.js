@@ -35,26 +35,40 @@ export default class MediaGridComponent extends Component {
 // componentWillUnmount() {
 //   base.removeBinding(this.statsRef);
 // }
-
+updateClicks = () => {
+  base.update(`affiliates/${this.props.media.key}`, {
+    data: { clicks: this.state.stats.clicks},
+    then(err) {
+      if(!err){
+        console.log('success tracking clicks')
+      }
+    }
+  })
+}
 handleClicks = () => {
- const  key  = this.props.media.key;
- const { clicks } = this.state.stats
- const amount = clicks + 25;
+//  const  key  = this.props.media.key;
+ const clicks  = this.state.stats.clicks;
+ let amount = clicks + 25;
  if (amount === 100) {
    this.setState({completed : true})
  } else {
  this.setState({
-    stats: { link: this.props.media.affiliateLink, clicks: amount }
+    stats: { 
+      link: this.props.media.affiliateLink, 
+      clicks: amount 
+    }
  });
 }
- base.update(`affiliates/${key}`, {
-   data: { clicks: this.state.stats.clicks},
-   then(err) {
-     if(!err){
-       console.log('success tracking clicks')
-     }
-   }
- })
+ this.updateClicks();
+}
+getClicks= () => {
+  base.fetch(`affiliates/${this.props.media.key}`,{
+    context: this,
+    asArray: true,
+    then(data){
+      console.log(data);
+    }
+  })
 }
 render() {
   return (

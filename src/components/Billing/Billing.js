@@ -11,6 +11,7 @@ class Billing extends Component {
         <div className="App" >
         <Header/>
         <SideBar2/>
+        <CreditCard/>
         <div  className="billing" >
           <title>Recurly.js Example: Advanced Pricing</title>
           <style dangerouslySetInnerHTML={{__html: "\n      select, input { display: block; }\n      input[type=radio] { display: inline; }\n    " }} />
@@ -31,13 +32,14 @@ class Billing extends Component {
             </select>
             <label htmlFor="postal_code">Postal Code</label>
             <input type="text" data-recurly="postal_code" id="postal_code" />
+         
             <p id="addons-title">Add-ons</p>
             <p id="addons" />
             <p>Coupon</p>
             <input type="text" data-recurly="coupon" defaultValue="test" />
             <input type="radio" defaultValue="USD" name="currency" data-recurly="currency" id="currency-USD" defaultChecked />
             <label htmlFor="currency-USD">USD</label>
-           
+          
             <input type="hidden" data-recurly="token" name="recurly-token" />
             <p>
               Due now

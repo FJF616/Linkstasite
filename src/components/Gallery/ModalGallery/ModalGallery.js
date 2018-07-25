@@ -1,6 +1,8 @@
 import React from 'react';
 import { base } from '../../rebaseConfig/firebase';
+import ReactDOM from 'react-dom'
 // Component for gallery image
+const galleryContainer = document.querySelector('.react-gallery');
 export class GalleryImage extends React.Component {
     render() {
      return(
@@ -19,7 +21,7 @@ export class GalleryImage extends React.Component {
      return(
       <div isOpen={this.props.isOpen} className='modal-overlay' onClick={this.props.onClick} name={this.props.name}>
        <div className='modal-body'>
-        <a className='modal-close' href='#' onClick={this.props.onClick}><span className='fa fa-times'></span></a>
+        <a className='modal-close'  onClick={this.props.onClick}><span className='fa fa-times'></span></a>
     
         <img src={this.props.src} />
        </div>
@@ -55,19 +57,23 @@ export class GalleryImage extends React.Component {
       <div refs='gallery-container' className='container-fluid gallery-container'>
       <div className='row'>
        {
-        Object.keys(imgUrls).map((key, index) => {
+        Object.keys(imgUrls).map((url, index) => {
+
+          this.setState({
+            url: url.src
+          })
          return <div className='col-sm-6 col-md-3 col-xl-2'>
           <div  className='gallery-card'>
-           <GalleryImage className='gallery-thumbnail' key={key} src={key.src} alt={'Image number ' + (index + 1)} />
+           <GalleryImage className='gallery-thumbnail' key={url} src={url.src} alt={'Image number ' + (index + 1)} />
     
-           <span className='card-icon-open fa fa-expand' value={key.src} onClick={(e) => this.openModal(key.src, e)}></span>
+           <span className='card-icon-open fa fa-expand' value={url.src} onClick={(e) => this.openModal(url.src, e)}></span>
           </div>
          </div>
         })
        }
       </div>
     
-      <GalleryModal isOpen={this.state.showModal} onClick={this.closeModal} src={this.state.url} /> 
+      <GalleryModal onOpen={this.state.showModal} onClick={this.closeModal} src={this.state.url.src} /> 
      </div>
      )
     }
@@ -88,3 +94,6 @@ export class GalleryImage extends React.Component {
      })
     }
    }
+   ReactDOM.render(
+    <Gallery  />
+  , galleryContainer);

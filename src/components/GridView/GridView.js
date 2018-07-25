@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import '../App/App.css';
-import { withRouter } from 'react-router-dom';
+import withAuthentication from '../Session/withAuthentication';
 // import Navigation from '../Navigation';
 // import MediaGrid from '../MediaList/MediaGrid';
-import InstagramLogin from '../../util/InstagramLogin';
+// import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
 // import withAuthentication from '../Session/withAuthentication'
-import Media from '../Media/Media'
+// import Media from '../Media/Media'
 import MediaGrid from '../MediaList/MediaGrid'
-import MediaGridComponent from '../Media/MediaGridComponent';
+// import MediaGridCompnpm startonent from '../Media/MediaGridComponent';
 import { base } from '../rebaseConfig/firebase'
 import Header from '../Header/Header';
 class GridView extends Component {
@@ -117,4 +117,4 @@ class GridView extends Component {
   
 
 }
-export default withRouter(GridView);
+export default withAuthentication(GridView);

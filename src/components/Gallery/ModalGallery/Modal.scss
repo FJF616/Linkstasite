@@ -24,6 +24,8 @@ body {
 .gallery-card {
  position: relative;
  overflow: hidden;
+ border: 3.75px double ;
+ box-shadow: 1px 7px 9px 2px hsla(0, 5%, 5%, .55);
  margin-bottom: 1.875rem;
 }
 

@@ -60,21 +60,22 @@ class BitlyHeader extends React.Component {
          
           
         </Card>
-      </div>
-         <ShortenLink/>
+        </div>
       
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon" />
-          </button>
-         
-      <ul className="navbar-nav ml-auto float float-right" style={{paddingTop: 85, overFlow: 'hidden'}} >
+      <ShortenLink style={{paddingBottom: '10px'}}/>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon" />
+        </button>
+        </div>
+    <ul className="showHide navbar-nav ml-auto float float-right" style={{paddingTop: 85, overFlow: 'hidden'}} id="rightside" >
+       
          
           <li className="nav-item active" style={{ marginTop: '-2px', marginLeft: '-55px'}}><Link to={routes.HOME}><span className="sr-only">(current)</span><Icon icon={ICONS.HOME} size={65} mode={"contain"} color={"gold"}/></Link></li>
           <li  className="nav-item" style={{ marginLeft: '5px'}}><Link to={routes.ACCOUNT}><Icon   icon={ICONS.INTERNET} size={125} mode={"contain"} color={"gold"}/></Link></li>
           <li className="nav-item" style={{marginLeft: '-65px'}}><SignOutButton /></li>
         </ul>
            
-          </div>
+         
      
      
        

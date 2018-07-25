@@ -10,7 +10,7 @@ import SideBar2 from '../SideBar/SideBar2';
 import { base } from '../rebaseConfig/firebase'
 // import Graph from '../Graph/Graph'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
-import withAuthorization from '../Session/withAuthorization'
+import withAuthentication from '../Session/withAuthentication'
 // import Graph from '../Graph/Graph'
 class ListView extends Component {
   constructor(props) {
@@ -73,7 +73,7 @@ class ListView extends Component {
       
           { 
           Object.keys(gallery).map((media) => {
-              return <PhotoContainer  media={gallery[media]} key={media} />;
+              return <PhotoContainer  media={gallery[media]} key={gallery[media].id} />;
             })
           }
          
@@ -94,7 +94,4 @@ class ListView extends Component {
     );
   }
 }
-const authCondition = (authUser) => !!authUser;
-
-
-export default withAuthorization(authCondition)(withRouter(ListView));
+export default withAuthentication(ListView);

@@ -18,7 +18,7 @@ import { base } from '../rebaseConfig/firebase'
 import DropDown from './DropDown'
 import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 // import InstagramConsumer from '../Session/InstagramProvider';
-import ShortenLink from '../../util/Bitly'
+// import ShortenLink from '../../util/Bitly'
 class Header extends React.Component {
   state = {
     userProfile: []
@@ -62,21 +62,22 @@ class Header extends React.Component {
          
           
         </Card>
-      </div>
+        </div>
       
       
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon" />
-          </button>
-         
-      <ul className="navbar-nav ml-auto float float-right" style={{paddingTop: 85, overFlow: 'hidden'}} >
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon" />
+        </button>
+        </div>
+    <ul className="showHide navbar-nav ml-auto float float-right" style={{paddingTop: 85, overFlow: 'hidden'}} id="rightside" >
+       
          
           <NavItem className="nav-item active" style={{ marginTop: '-2px', marginLeft: '-55px'}}><Link to={routes.HOME}><span className="sr-only">(current)</span><Icon icon={ICONS.HOME} size={65} mode={"contain"} color={"gold"}/></Link></NavItem>
           <NavItem  className="nav-item" style={{ marginLeft: '5px'}}><Link to={routes.ACCOUNT}><Icon   icon={ICONS.INTERNET} size={125} mode={"contain"} color={"gold"}/></Link></NavItem>
           <NavItem className="nav-item" style={{marginLeft: '-65px'}}><SignOutButton /></NavItem>
         </ul>
            
-          </div>
+        
      
      
        

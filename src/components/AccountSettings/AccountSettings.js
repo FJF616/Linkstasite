@@ -88,6 +88,8 @@ import Header from '../Header/Header'
       )
     } 
   }
-    const authCondition = (authUser) => !!authUser;
+  
 
-    export default withAuthorization(authCondition)(AccountSettings);
+  const authCondition = (authUser) => !!authUser;
+
+  export default withAuthorization(authCondition)(AccountSettings);

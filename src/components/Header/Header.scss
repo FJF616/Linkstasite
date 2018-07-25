@@ -27,6 +27,14 @@
 }
 @import url(https://fonts.googleapis.com/css?family=Lato:400,900);
 
+.showHide { display:none; }
+
+/* Desktop*/
+@media screen and (min-width: 1150px) {
+  .showHide  { display: block; }
+  #rightside > ul  { display: none; }
+}
+
 
 
 

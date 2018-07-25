@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import InstagramLogin from '../../util/InstagramLogin';
 // import ProgressBar from '../Graph/ProgressBar';
 // import{ BrowserRouter } from 'react-router-dom';
 // import Header from '../Header/Header';
@@ -12,22 +12,69 @@ import SideBar2 from '../SideBar/SideBar2';
 // import InstagramConsumer from '../Session/InstagramProvider'
 // import AvatarEditor from 'react-avatar-editor'
 import Header from '../Header/Header'
-import ClickGraph from '../Graph/ClickGraph'
-import EditableTable from '../FormInputs/EditableTable'
+// import ClickGraph from '../Graph/ClickGraph'
+// import EditableTable from '../FormInputs/EditableTable'
+import { base } from '../rebaseConfig/firebase';
+import Bitlink from '../../util/BitlyHelper'
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      users: {}
+      users: {},
+      gallery: [] ,
+      slides: [],   
+      userProfile:[],
+      proGallery:[],
     };
   }
 
+  
+  
+  componentWillMount() {
+    this.proGalleryRef = base.syncState('linkstasite', {
+      context: this,
+      state: 'proGallery'
+    });
+    this.galleryRef = base.syncState('gallery', {
+      context: this,
+      state: 'gallery'
+    });
+    this.slidesRef = base.syncState('slides', {
+      context: this,
+      state: 'slides'
+    });
+    this.userRef = base.syncState('userProfile', {
+      context: this,
+      state: 'userProfile',
+      // asArray: true
+    });
+ 
+  }
   componentDidMount() {
     db.onceGetUsers().then(snapshot =>
       this.setState(() => ({ users: snapshot.val() }))
     );
+    InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
+      gallery: instagramUser.gallery,
+      slides: instagramUser.slides,
+      userProfile: instagramUser.user['0'],
+      instagramUserID: instagramUser.user.instagramUserID,
+      image: instagramUser.image
+    }));
+    Bitlink.fetchClicks(`http://bit.ly/2L9BFIy`).then(clicks => this.setState({
+      clicks: clicks.link_clicks,
+      clickData: clicks
+    }))
+
   }
+  // componentWillUnmount() {
+    // base.removeBinding(this.galleryRef);
+    // base.removeBinding(this.slidesRef);
+    // base.removeBinding(this.userRef);
+    // base.removeBinding(this.proGalleryRef)
+  // }
+  
 
   render() {
     const { users } = this.state;
@@ -38,8 +85,7 @@ class HomePage extends Component {
      
      <Header/>
       <SideBar2/>
-     
-     
+     <Graph/>
  
       </div>
       </div>
