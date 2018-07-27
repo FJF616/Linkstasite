@@ -52,7 +52,7 @@ class GridView extends Component {
     //   });
     // }
     componentWillMount() {
-     base.bindToState('gallery', {
+    this.galleryRef = base.bindToState('gallery', {
         context: this,
         state: 'gallery',
         asArray: true
@@ -62,9 +62,9 @@ class GridView extends Component {
   
 
 
-    // componentWillUnMount() {
-    //   base.removeBinding(this.galleryRef);
-    // }
+    componentWillUnMount() {
+      base.removeBinding(this.galleryRef);
+    }
     // removeFromGallery(media) {
     //   const gallery = {...this.state.gallery};
     //   delete gallery[media];
@@ -110,7 +110,7 @@ class GridView extends Component {
       <div className="App"> 
       <Header />
        <SideBar2/>
-       <MediaGrid />
+       <MediaGrid  />
       </div>
     );
   }

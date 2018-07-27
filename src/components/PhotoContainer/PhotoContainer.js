@@ -29,7 +29,7 @@ export default class PhotoContainer extends Component {
         slides:{},
         listView: '',
         revised: false,
-        affiliateLinked:'',
+      
         generatedKeys:[]
     }
     this.checkFilled = this.checkFilled.bind(this);
@@ -38,7 +38,8 @@ export default class PhotoContainer extends Component {
     this.handleClear = this.handleClear.bind(this);
     this.handleChange= this.handleChange.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.fetchUrl = this.fetchUrl.bind(this);
+    this.updateGallery = this.updateGallery.bind(this);
+    this.checkLinked = this.checkLinked.bind(this);
     }
     
    UpdateAffiliateGallery(generatedKey) {
@@ -52,47 +53,77 @@ export default class PhotoContainer extends Component {
     //        context: this,
     //        state: 'slides'
     //    })
-    base.syncState('affiliates', {
+    base.bindToState('affiliates', {
         context: this,
-        state: 'generatedKeys'
+        state: 'affiliates'
     })
    }
-   fetchUrl() {
-    let affiliateLinked;
-    affiliateLinked = Object.keys(this.state.generatedKeys).map(data => {
-      if(data.id === this.props.media.id_){
-        return data.affiliateLink
-      }
-      console.log(affiliateLinked)
-      return affiliateLinked;
-    })
-        this.setState({
-            affiliateLinked: affiliateLinked,
-        })
-    
-    
-    this.props.media.affiliateLinked = this.state.affiliateLinked;
+
+
+
+//   fetchUrl() {
+//     if(!this.state.generatedKey){
+//     // let affiliateLinked;
+//     const id = Object.keys(this.state.generatedKeys).filter(key => {
+//         if (this.props.media.id === key) {
+//           return key;
+//         }
    
+//         console.log(id)
+//         return id;
+//     })
+// }
+// }
+  updateGallery() {
+      const id = this.props.media.id;
+      const {url, title} = this.state;
+      base.update(`gallery/${id}`, {
+        data: { affiliateLink: url, title: title },
+        then(err) {
+            if(!err) {
+                console.log('successfully updated gallery');
+            }
+        }
+    });
   }
+
+//    fetchUrl() {
+  
+//     let affiliateLinked;
+//     affiliateLinked = Object.keys(this.state.generatedKeys).filter(data => {
+//       if(data === this.props.media.key){
+//         return  this.state.generatedKeys[data].this.state.generatedKey.affliateLink
+//       }
+//       console.log(affiliateLinked)
+//       return affiliateLinked;
+//     })
+//         this.setState({
+//             affiliateLinked: affiliateLinked,
+//         })
+    
+    
+//     this.props.media.affiliateLinked = this.state.affiliateLinked;
+   
+//   }
 
     /*create a gallery in firebase and create a unique key */
     enterData (){
         const { url, title } = this.state;
         const  src = this.props.media.src;
-        // const timestamp = Date.now();
+        const timestamp = Date.now();
         // const id = this.this.props.media.id;
-        const dataRef = base.push(`affiliates/${this.props.media.id}`, {
-            data: {affiliateLink: url, title: title, src: src, id: `${this.props.media.id}` },
+        const dataRef = base.post(`affiliates/${this.props.media.id}`, {
+            data: {affiliateLink: url, title: title, src: src, id: `${this.props.media.id}`, dateLinked: `${timestamp}` },
             then(err){
-                if(!err) {
-                    
-                    console.log('success');
+                if(!err) {  
+                    console.log('success adding affiliate link');
                 }
             }
      });
+
      /* unique push key */
     const generatedKey = dataRef.key;
-    this.newInfo = base.fetch(`affiliates/${generatedKey}`, {
+    this.newInfo = base.fetch(`affiliates/${this.props.media.id}`, {
         context: this,
         asArray: true,
         then(data) {
@@ -106,15 +137,26 @@ export default class PhotoContainer extends Component {
         }
         
     })
-    // this.props.media.newInfo = {...this.newInfo}
+    this.props.media.newInfo = {...this.newInfo}
     this.props.media.generatedKey = generatedKey;
     this.setState({ generatedKey: generatedKey });
     this.UpdateAffiliateGallery(`${generatedKey}`)
-    this.fetchUrl();
+    
    
 }
-
    
+   checkLinked() {
+      
+         if (!this.state.affiliateLinked  && this.state.affiliates.length > -1) {
+        const {media} = this.props;
+        const {affiliates} = this.state;
+        const key = media.id
+        const affiliateLinked = affiliates[key].affiliateLink
+        this.setState({ affiliateLinked });
+    } else {
+        console.log('there are no affiliatelinks to re-link to')
+    }
+}
    handleEdit() {
        if (this.state.filled) {
        this.setState({
@@ -135,6 +177,7 @@ export default class PhotoContainer extends Component {
         });
      }
      this.enterData();
+     this.updateGallery();
    }; 
 
     updateLink(e) {
@@ -149,7 +192,7 @@ export default class PhotoContainer extends Component {
                 [name]: value  
             })  
             // base.push('affilates', {
-            //     data: {affiliatedLink: value, src: src, title: title}
+            //     data: {affiliatedLink: value}
             // }).then(() => {
             //     console.log('updated affiliate Link');
             // }).catch(err => {
@@ -218,7 +261,7 @@ export default class PhotoContainer extends Component {
                        <span className="input-group-text" style={{backgroundColor: 'turquoise', height: 31, width: 110,   boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}>Affiliate Link</span>
                         <div className="input-group-append" >
                             {/* check if url has been entered. if it has, return associated link with image by making it clickable */}
-                            {!this.state.edited 
+                            {(!this.state.edited && !this.props.media.affiliateLink)
                                     ? <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
                                     : this.props.media.affliateLink
                                     ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.props.media.affiliateLink}</b></h6></a>
@@ -239,18 +282,18 @@ export default class PhotoContainer extends Component {
             </div>
             <div className="media" >
               { this.state.edited 
-                ?  <a href={this.state.generatedKeys.url || this.state.url}>
+                ?  <a href={this.state.url}>
                     <Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
                         className="mr-3" 
                         src={this.props.media.src} 
                     /></a>
-                    : (this.state.generatedKey || this.state.filled)
-                    ?  <a href={this.state.generatedKeys.affiliateLink}>
+                    : (this.props.media.affiliateLink && this.state.filled)
+                    ?  <a href={this.props.media.affiliateLink || this.checkLinked()}>
                     <Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
                         className="mr-3" 
-                        src={this.state.generatedKeys.src} 
+                        src={this.props.media.src} 
                     /></a>
                     :<Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}}

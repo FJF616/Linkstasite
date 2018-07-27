@@ -3,7 +3,7 @@ const signInFirebaseTemplate = require('../components/rebaseConfig/signInFirebas
 const redirectURI = "http://localhost:3000/"
 const client_id = "0d744e65869b4acc8dde4d6e3c6a58e2";
 const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
-
+const log_out_url = `http://instagram.com/accounts/logout/`
 let accessToken;
 const instagramToken = /^(\d+)/gm.test(accessToken);
 let jsonResponse;
@@ -74,7 +74,7 @@ const InstagramLogin = {
             title: info.caption ? info.caption.text : '',
             id: info.id,
             url: info.link,
-            affiliateLink: '',
+           
             editing: false,
             edited: false,
             filled: false
@@ -82,7 +82,7 @@ const InstagramLogin = {
           instagramUser.slides = jsonResponse.data.map(info=> ({
             src: info.images.standard_resolution.url,
             id: info.id,
-            affiliateLink:'',
+            
             title: info.caption ? info.caption.text : '',
 
           }));
@@ -98,6 +98,18 @@ const InstagramLogin = {
     }
     // createFirebaseAccount(instagramUser.user.instagramUserID, instagramUser.useruserName, instagramUser.userprofilePic, instagramUser.user.access_token)
     //   .then(token => {signInFirebaseTemplate(token,  instagramUser.useruserName, instagramUser.userprofilePic, instagramUser.user.access_token)})
+  },
+  logout() {
+    const Match = window.location.href.match(/access_token=([^&]*)/);
+    if (Match) {
+      //set access token to regex match group
+      accessToken = null;
+      return accessToken;
+    } else {
+      //use redirect instead of popup window
+     window.location = log_out_url;
+    }
+   
   }
  
    

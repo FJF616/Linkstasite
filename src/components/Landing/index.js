@@ -1,4 +1,4 @@
-import InstagramLogin from '../../util/InstagramLogin';
+// import InstagramLogin from '../../util/InstagramLogin';
 // import { Card, Col, Row, Grid } from 'reactstrap';
 import React, { Component } from "react";
 import { base } from '../rebaseConfig/firebase';
@@ -10,7 +10,11 @@ import '../Gallery/ModalGallery/Modal.scss';
 import Header from "../Header/Header";
 import SideBar2 from '../SideBar/SideBar2'
 // import Gallery from '../Gallery/ModalGallery/ModalGallery'
-
+/**
+ * 
+ * 
+ * https://blog.alexdevero.com/learn-react-practice-create-gallery/
+*/
 
   export class GalleryImage extends React.Component {
     render() {
@@ -67,24 +71,7 @@ import SideBar2 from '../SideBar/SideBar2'
           return { gallery: prevState.gallery.filter(media => media.id !==id) };
         });
       };
-  
-      
-     
-  
-        // componentDidMount = () => {
-        //   InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
-        //     gallery: instagramUser.gallery,
-        //     slides: instagramUser.slides,
-        //     userProfile: instagramUser.user['0'],
-        //     instagramUserID: instagramUser.user.instagramUserID,
-        //     image: instagramUser.image
-        //   }));
-        // }
-      
-        // renderMediaList = (media) =>
-          
-        // <Media  gallery={this.galleryRef.context.state.gallery} key={media.id} media={media} />
-        render() {
+      render() {
           const  imgUrls  = [...this.state.image];
        return(
          <div className="App" >

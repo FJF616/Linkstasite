@@ -4,7 +4,7 @@ import '../App/App.css';
 import { withRouter } from 'react-router-dom';
 // import Navigation from '../Navigation';
 // import MediaList from '../MediaList/MediaList.js';
-// import InstagramLogin from '../../util/InstagramLogin';
+import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
 // import withAuthentication from '../Session/withAuthentication'
 import { base } from '../rebaseConfig/firebase'
@@ -16,72 +16,107 @@ class ListView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gallery: [],
+      gallery: {},
       // userProfile: [],
       slides:[],
       accountName:'loading',
       listView:''
     };
+    this.updateGallery = this.updateGallery.bind(this); 
 
   }
+  // makeGallery = () => {
+  //   let newGallery ={};
+  //   const newGalleryKeys = Object.keys(this.galleryRef.context.state.gallery).map(key => {
+  //     const newKey  = this.state.gallery[key].id;
+  //     newGallery[newKey]= this.state.gallery[key];
+  //     return newGallery;
+  // });
+  // let updatedGallery = newGalleryKeys['0'];
+  // return updatedGallery;  
+  // }
 
-
-  // componentDidMount() {
-  //   InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
-  //         gallery: instagramUser.gallery,
-  //         userProfile: instagramUser.user['0'],
-  //         accountName: instagramUser.user['0'].userName,
-          
-  //       })).catch(error => {
-  //         if (error) {
-  //           console.log("error fetching instagramUser")
-  //         }
-  //     });
+  //  updateRebase =  () => {
+  //       const updatedGallery = {...this.makeGallery()};
+  //       this.setState({gallery: updatedGallery})
   //   }
+    // updateGallery = (key, updatedKey) => {
+    //   const gallery =  { ...this.state.gallery };
+    //   gallery[key] = updatedKey;
+    //   this.setState({ gallery });
+    // };
+
+  componentDidMount() {
+    InstagramLogin.fetchUserInfo().then(instagramUser => {
+      let newGallery ={};
+      const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
+      const newKey  = instagramUser.gallery[key].id;
+      newGallery[newKey]= instagramUser.gallery[key];
+      return newGallery;
+    });
+      let updatedGallery = newGalleryKeys['0'];
+      this.setState({
+        gallery: updatedGallery,
+        slides: instagramUser.slides,
+        userProfile: instagramUser.user['0'],
+        instagramUserID: instagramUser.user.instagramUserID
+      });  
+    })
+    .catch(error => {
+          if (error) {
+            console.log("error fetching instagramUser")
+          }
+      });
+    }
 
     componentWillMount() {
     this.galleryRef = base.syncState('gallery', {
         context: this,
         state: 'gallery',
-       
     });
-   base.syncState('slides', {
-      context: this,
-      state: 'slides',
+  //  base.syncState('slides', {
+  //     context: this,
+  //     state: 'slides',
       
-    });
+  //   });
   }
-    updateGallery = (key, updatedKey) => {
-      const gallery =  { ...this.state.gallery };
-      gallery[key] = updatedKey;
-      this.setState({ gallery });
-    };
-    // componentWillUnMount() {
-    //   base.removeBinding(this.galleryRef);
-    //   base.removeBinding(this.slidesRef)
-    //  }
+   
+    componentWillUnMount() {
+      base.removeBinding(this.galleryRef);
+      base.removeBinding(this.slidesRef)
+     }
     
- 
-   MediaLists = ({ gallery })  => {
-      // const images = this.galleryRef.context.state.gallery;
-      // this.setState({
-      //   gallery: images
-      // })
+     updateGallery() {
+      
+      const id = this.state.gallery.id;
+      try {
+        base.fetch('affiliates', {
+          context: this,
+         }).then(data => {
+           this.setState({ data })
+         })
+      } catch (err) {
+        
+      }
+      base.remove(`gallery/${id}`, function(err) {
+            if(!err) {
+                console.log('successfully updated gallery');
+            }
+        })
+    }  
+   MediaLists = ({ gallery, updateGallery })  => {
+    
       gallery = {...this.galleryRef.context.state.gallery};
       return (
         <div className='list'>
-      
           { 
           Object.keys(gallery).map((media) => {
-              return <PhotoContainer  media={gallery[media]} key={gallery[media].id} />;
+              return <PhotoContainer updateGallery={this.updateGallery} media={gallery[media]} key={gallery[media].id} />;
             })
           }
-         
         </div>
       );
     }
-    // console.log(this.state.userProfile)
-    // console.log(this.galleryRef.context.state.gallery)
    
     render() {
     return (
@@ -89,7 +124,6 @@ class ListView extends Component {
         <BitlyHeader/>
         <SideBar2/>
           {this.MediaLists(this.galleryRef.context.state.gallery)}
-        
       </div>
     );
   }

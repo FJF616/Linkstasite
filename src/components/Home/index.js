@@ -15,7 +15,7 @@ import Header from '../Header/Header'
 // import ClickGraph from '../Graph/ClickGraph'
 // import EditableTable from '../FormInputs/EditableTable'
 import { base } from '../rebaseConfig/firebase';
-import Bitlink from '../../util/BitlyHelper'
+import Bitlink from '../../util/BitlyHelper';
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -26,46 +26,65 @@ class HomePage extends Component {
       slides: [],   
       userProfile:[],
       proGallery:[],
+      newGallery:{}
     };
   }
-
   
   
   componentWillMount() {
-    this.proGalleryRef = base.syncState('linkstasite', {
-      context: this,
-      state: 'proGallery'
-    });
-    this.galleryRef = base.syncState('gallery', {
-      context: this,
-      state: 'gallery'
-    });
-    this.slidesRef = base.syncState('slides', {
-      context: this,
-      state: 'slides'
-    });
-    this.userRef = base.syncState('userProfile', {
-      context: this,
-      state: 'userProfile',
-      // asArray: true
-    });
- 
+    try {
+      base.bindToState('imageUrls', {
+        context: this,
+        state: 'image'
+      })
+    } catch (error) {
+      console.log('no imageUrls database!!')
+    }
+  //   this.proGalleryRef = base.syncState('linkstasite', {
+  //     context: this,
+  //     state: 'proGallery'
+  //   });
+
+  //   this.galleryRef = base.syncState('gallery', {
+  //     context: this,
+  //     state: 'gallery'
+  //   });
+  //   this.slidesRef = base.syncState('slides', {
+  //     context: this,
+  //     state: 'slides'
+  //   });
+  //   this.userRef = base.syncState('userProfile', {
+  //     context: this,
+  //     state: 'userProfile',
+  //     // asArray: true
+  //   });
   }
   componentDidMount() {
     db.onceGetUsers().then(snapshot =>
       this.setState(() => ({ users: snapshot.val() }))
     );
     InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
-      gallery: instagramUser.gallery,
-      slides: instagramUser.slides,
-      userProfile: instagramUser.user['0'],
-      instagramUserID: instagramUser.user.instagramUserID,
+      // gallery: instagramUser.gallery,
+      // slides: instagramUser.slides,
+      // userProfile: instagramUser.user['0'],
+      // instagramUserID: instagramUser.user.instagramUserID,
       image: instagramUser.image
     }));
     Bitlink.fetchClicks(`http://bit.ly/2L9BFIy`).then(clicks => this.setState({
       clicks: clicks.link_clicks,
       clickData: clicks
     }))
+    .catch(error => {
+      if(error) {
+        console.log('error fetching instagramUser', error);
+      };
+    })
+    .catch(error => {
+      if(error) {
+        console.log('error retrieving link metrics', error);
+      };
+    });
+    
 
   }
   // componentWillUnmount() {
@@ -74,10 +93,13 @@ class HomePage extends Component {
     // base.removeBinding(this.userRef);
     // base.removeBinding(this.proGalleryRef)
   // }
-  
 
+ 
   render() {
-    const { users } = this.state;
+    
+    
+ 
+   const { users } = this.state;
 
     return (
       <div className="App" >

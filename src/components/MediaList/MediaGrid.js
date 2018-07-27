@@ -29,11 +29,11 @@ class MediaGrid extends React.Component {
   componentWillUnmount(){
     base.removeBinding(this.affiliatesRef);
   }
-  updateGallery = (key, updatedKey) => {
-    const gallery =  { ...this.state.gallery };
-    gallery[key] = updatedKey;
-    this.setState({ gallery });
-  };
+  // updateGallery = (key, updatedKey) => {
+  //   const gallery =  { ...this.state.gallery };
+  //   gallery[key] = updatedKey;
+  //   this.setState({ gallery });
+  // };
   render () {
     return (
       <div className='list'>
