@@ -7,7 +7,8 @@ import Icon from '../Icons/Icon';
 import ICONS from '../Icons/constants';
 // import ProgressBar from '../Graph/ProgressBar'
 // import ReactTooltip from 'react-tooltip';
-import withAuthorization from '../Session/withAuthorization';
+// import withAuthorization from '../Session/withAuthorization';
+import withAuthentication from '../Session/withAuthentication';
 import { withRouter } from 'react-router-dom'
 // import Media from '../Media/Media.js'
 
@@ -26,9 +27,9 @@ class MediaGrid extends React.Component {
      }) 
    }
    
-  componentWillUnmount(){
-    base.removeBinding(this.affiliatesRef);
-  }
+  // componentWillUnmount(){
+  //   base.removeBinding(this.affiliatesRef);
+  // }
   // updateGallery = (key, updatedKey) => {
   //   const gallery =  { ...this.state.gallery };
   //   gallery[key] = updatedKey;
@@ -71,7 +72,7 @@ class MediaGrid extends React.Component {
         }
       
 
-const authCondition = (authUser) => !!authUser;
+// const authCondition = (authUser) => !!authUser;
 
 
-export default withAuthorization(authCondition)(withRouter(MediaGrid));
+export default withAuthentication(MediaGrid);

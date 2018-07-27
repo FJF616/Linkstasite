@@ -13,7 +13,7 @@ export const onceGetUsers = () =>
 
 // Other Entity APIs ...
 
- storage.ref().constructor.prototype.putFiles = (files) => { 
+storage.ref().constructor.prototype.putFiles = (files) => { 
   var ref = this;
   const fileBlobs = [...this.state.blobs];
   return Promise.all(fileBlobs.map(function(file) {

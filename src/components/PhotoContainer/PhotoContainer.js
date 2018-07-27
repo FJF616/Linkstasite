@@ -7,7 +7,7 @@ import Icon from '../Icons/Icon';
 import MicrolinkCard from 'react-microlink';
 import ReactTooltip from 'react-tooltip';
 // import {Card, Col, Row } from 'reactstrap';
-import { base } from '../rebaseConfig/firebase'
+import { db, base } from '../rebaseConfig/firebase'
 // import ProgressBar from '../Graph/ProgressBar'
 import Bitlink from '../../util/BitlyHelper';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
@@ -40,6 +40,8 @@ export default class PhotoContainer extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.updateGallery = this.updateGallery.bind(this);
     this.checkLinked = this.checkLinked.bind(this);
+    // this.checkDb = this.checkDb.bind(this);
+    // this.getMediaTitle = this.getMediaTitle.bind(this);
     }
     
    UpdateAffiliateGallery(generatedKey) {
@@ -81,6 +83,7 @@ export default class PhotoContainer extends Component {
         data: { affiliateLink: url, title: title },
         then(err) {
             if(!err) {
+                
                 console.log('successfully updated gallery');
             }
         }
@@ -127,12 +130,13 @@ export default class PhotoContainer extends Component {
         context: this,
         asArray: true,
         then(data) {
-            console.log(data);
+            console.log(data.title);
             
             this.props.media.affiliateLink = data['0'];
-            this.props.media.id = data['1'];
-            this.props.media.src = data['2'];
-            this.props.media.title = data['3'];
+            this.props.media.timestamp = data['1'];
+            this.props.media.id = data['2'];
+            this.props.media.src = data['3'];
+            this.props.media.title = data['4']
             console.log(this.props.media);
         }
         
@@ -205,6 +209,7 @@ export default class PhotoContainer extends Component {
     } 
 
     handleClear(e) {
+        
         const target = e.target;
         let value = target.value;
         // const name = target.type;
@@ -214,17 +219,19 @@ export default class PhotoContainer extends Component {
             url: value,
             edited: false
         });
-        (this.state.generatedKey !== null)  
-        ?  base.remove(`affiliates/${this.state.generatedKey}`).then(() => {
-            this.setState({ generatedKey : value, editing: false, edited: false, filled: false, revised: true });
-            this.props.media.generatedKey = value;
-        }).catch(error => {
-            console.log('error', error);
-        })
-        :
-        this.props.media.affiliateLink = value;
-        
-    };
+      
+         base.update(`affiliates/${this.props.media.id}`, {
+             data: { affiliateLink: value },
+             then(err) {
+                 if(!err) {
+                    this.updateGallery();
+                    this.setState({ url : value, editing: false, edited: false, filled: false, revised: true });
+                    this.props.media.affiliateLink = value;
+                 }
+             }
+           
+        });
+    }
 
     handleChange(e) {
         const target = e.target;
@@ -247,8 +254,31 @@ export default class PhotoContainer extends Component {
     //     base.removeBinding(this.slidesRef);
     // }
     
-   
+//    checkDb () {
+//     let title;  //every user must have an email
+//     db().ref(`affiliates/${this.props.media.id}/title`).once("value", snapshot => {
+//         if (snapshot.exists()){
+//             console.log("fount title!");
+//             title = snapshot.val();
+//         }
+//         return title;
+//     });
+//     this.props.media.title = title;
+//    }
+// getMediaTitle() {
+//     const { id, title } = this.props;
+    
+//     const newTitle = this.state.affiliates.filter(key => {
+//         key = affiliates[key];
+//         if (id === key.id) {
+//             return key.id.title;
+//         }
+//     });
+//     console.log(newTitle)
+//     return newTitle;
+// }
     render() {    
+    //    this.getMediaTitle();
       return (   
         
         <div className="cardContainer">
@@ -263,18 +293,19 @@ export default class PhotoContainer extends Component {
                             {/* check if url has been entered. if it has, return associated link with image by making it clickable */}
                             {   
                                 !this.state.edited 
-                                ? this.props.media.affiliateLink 
+                                    ? this.props.media.affiliateLink 
                                        ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.props.media.affiliateLink}</b></h6></a>
                                        : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
                                     : this.state.edited
                                         ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
+                                        // : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                     : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                 }
                                      
-                            <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.edited || !this.state.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
+                            <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.edited || !this.state.url } style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
                             <button onClick={this.handleClear} className="controls" type="button" disabled={!this.state.edited} data-tip="Remove affiliate Link" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                             <button  className="controls" onClick={this.handleEdit} disabled={ !this.state.filled} type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>
-                            <button onClick={this.checkFilled} disabled={(this.state.filled && !this.state.revised) || ( !this.state.url || this.props.media.affiliateLink)} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
+                            <button onClick={this.checkFilled} disabled={(this.state.filled && !this.state.revised) || ( !this.state.url || this.props.media.affiliateLink) || ( !this.state.edited && !this.state.editing && !this.state.revised)} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
                            
                            
                             </div>
@@ -316,6 +347,11 @@ export default class PhotoContainer extends Component {
                             placeholder="title" 
                             type="title" 
                         /></h5>
+                    : !this.state.edited && !this.state.filled 
+                    ?  <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
+                        <h3><b>{this.props.media.title}</b></h3>  
+                       </div>
+                    
                     : <h5><input 
                             style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  
                             disabled={this.state.filled} 

@@ -79,10 +79,14 @@ class ListView extends Component {
   //     state: 'slides',
       
   //   });
-  }
+  this.updatedGalleryRef = base.syncState('updatedGallery', {
+    context: this,
+    state: 'updatedGallery',
+  });
+}
    
     componentWillUnMount() {
-      base.removeBinding(this.galleryRef);
+      // base.removeBinding(this.galleryRef);
       base.removeBinding(this.slidesRef)
      }
     

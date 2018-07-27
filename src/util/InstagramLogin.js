@@ -1,5 +1,6 @@
 const createFirebaseAccount = require('../components/rebaseConfig/createFirebaseAccount');
 const signInFirebaseTemplate = require('../components/rebaseConfig/signInFirebaseTemplate');
+const firebase = require('firebase');
 const redirectURI = "http://localhost:3000/"
 const client_id = "0d744e65869b4acc8dde4d6e3c6a58e2";
 const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
@@ -16,7 +17,7 @@ let instagramUser = {
   image:{},
   
 };
-
+// const createFirebaseAccount = require('./components/rebaseConfig/createFirebaseAccount')
 
 
 /**
@@ -39,14 +40,33 @@ const InstagramLogin = {
       return accessToken;
     } else {
       //use redirect instead of popup window
+      
      window.location = auth_url;
     }
+    firebase.auth().signInWithCustomToken(`${accessToken}`).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      if(error) {
+        console.log('error signing in with custom token', error.code)
+      }
+      // ...
+    });
    
   },
   
   async fetchUserInfo() {
     if (!accessToken) {
       this.getAccessToken();
+      // firebase.auth().signInWithCustomToken(`${accessToken}`).catch(function(error) {
+      //   // Handle Errors here.
+      //   var errorCode = error.code;
+      //   var errorMessage = error.message;
+      //   if(error) {
+      //     console.log('error signing in with custom token', error.code)
+      //   }
+      //   // ...
+      // });
     }
     const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=6`;
     try {
@@ -96,8 +116,8 @@ const InstagramLogin = {
     } catch (error) {
       console.log(error);
     }
-    // createFirebaseAccount(instagramUser.user.instagramUserID, instagramUser.useruserName, instagramUser.userprofilePic, instagramUser.user.access_token)
-    //   .then(token => {signInFirebaseTemplate(token,  instagramUser.useruserName, instagramUser.userprofilePic, instagramUser.user.access_token)})
+    // createFirebaseAccount(instagramUser.user.instagramUserID, instagramUser.user.userName, instagramUser.user.profilePic, instagramUser.user.access_token)
+    //   .then(token => {signInFirebaseTemplate(token,  instagramUser.user.userName, instagramUser.user.profilePic, instagramUser.user.access_token)})
   },
   logout() {
     const Match = window.location.href.match(/access_token=([^&]*)/);
