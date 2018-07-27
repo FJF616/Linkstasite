@@ -289,8 +289,8 @@ export default class PhotoContainer extends Component {
                         className="mr-3" 
                         src={this.props.media.src} 
                     /></a>
-                    : (this.props.media.affiliateLink && this.state.filled)
-                    ?  <a href={this.props.media.affiliateLink || this.checkLinked()}>
+                    : (this.props.media.affiliateLink || this.state.filled)
+                    ?  <a href={this.props.media.affiliateLink }>
                     <Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
                         className="mr-3" 
@@ -299,7 +299,8 @@ export default class PhotoContainer extends Component {
                     :<Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}}
                         className="mr-3" src={this.props.media.src}  
-                    />}
+                    />
+                }
                     
 
                     <div className="media-body"> 
