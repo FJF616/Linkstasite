@@ -42,8 +42,19 @@ export default class PhotoContainer extends Component {
     this.checkLinked = this.checkLinked.bind(this);
     // this.checkDb = this.checkDb.bind(this);
     // this.getMediaTitle = this.getMediaTitle.bind(this);
+    this.updateState = this.updateState.bind(this);
     }
     
+    updateState() {
+        const id = this.props.media.id
+        if(this.state.affiliatesData > -1) {
+             this.setState({
+                url: this.state.affiliatesData.affilateLink,
+                title: this.state.affiliatesData.title
+            })
+        }
+           
+    }
    UpdateAffiliateGallery(generatedKey) {
        base.fetch(`affiliates/${generatedKey}`, {
            context: this,
@@ -60,9 +71,31 @@ export default class PhotoContainer extends Component {
         state: 'affiliates'
     })
    }
-
-
-
+componentDidMount() {
+   
+   base.listenTo('affiliates', {
+       context: this,
+       then(affiliatesData) {
+           const id = this.props.media.id;
+           affiliatesData = affiliatesData[id]
+           this.setState({
+              affiliatesData
+            });
+            if(affiliatesData > -1) {
+                base.update(`updatedGallery/${id}`, {
+                    data: { affiliateLink: this.state.affiliatesData.affiliateLink, title: this.state.affiliatesData.title}, 
+                    then(err) {
+                        console.log('error updating updatedGallery')
+                        if(!err) {
+                            console.log('updated updatedGallery');
+                        }
+                    }
+                })
+            }
+        }
+    })
+    
+}
 //   fetchUrl() {
 //     if(!this.state.generatedKey){
 //     // let affiliateLinked;
@@ -83,11 +116,14 @@ export default class PhotoContainer extends Component {
         data: { affiliateLink: url, title: title },
         then(err) {
             if(!err) {
-                
+               
                 console.log('successfully updated gallery');
             }
         }
-    });
+        
+    })
+    // this.setState({title: this.props.media.title})
+    // this.props.media.title = this.state.title
   }
 
 //    fetchUrl() {
@@ -125,26 +161,26 @@ export default class PhotoContainer extends Component {
      });
 
      /* unique push key */
-    const generatedKey = dataRef.key;
-    this.newInfo = base.fetch(`affiliates/${this.props.media.id}`, {
-        context: this,
-        asArray: true,
-        then(data) {
-            console.log(data.title);
+    // const generatedKey = dataRef.key;
+    // this.newInfo = base.fetch(`affiliates/${this.props.media.id}`, {
+    //     context: this,
+    //     asArray: true,
+    //     then(data) {
+    //         console.log(data.title);
             
-            this.props.media.affiliateLink = data['0'];
-            this.props.media.timestamp = data['1'];
-            this.props.media.id = data['2'];
-            this.props.media.src = data['3'];
-            this.props.media.title = data['4']
-            console.log(this.props.media);
-        }
+    //         this.props.media.affiliateLink = data['0'];
+    //         this.props.media.timestamp = data['1'];
+    //         this.props.media.id = data['2'];
+    //         this.props.media.src = data['3'];
+    //         this.props.media.title = data['4']
+    //         console.log(this.props.media);
+    //     }
         
-    })
-    this.props.media.newInfo = {...this.newInfo}
-    this.props.media.generatedKey = generatedKey;
-    this.setState({ generatedKey: generatedKey });
-    this.UpdateAffiliateGallery(`${generatedKey}`)
+    // })
+    // // this.props.media.newInfo = {...this.newInfo}
+    // this.props.media.generatedKey = generatedKey;
+    // this.setState({ generatedKey: generatedKey });
+    // this.UpdateAffiliateGallery(`${generatedKey}`)
     
    
 }
@@ -180,8 +216,9 @@ export default class PhotoContainer extends Component {
             revised: false,
         });
      }
-     this.enterData();
+    
      this.updateGallery();
+      this.enterData();
    }; 
 
     updateLink(e) {
@@ -278,6 +315,8 @@ export default class PhotoContainer extends Component {
 //     return newTitle;
 // }
     render() {    
+    const data = { ...this.state.affiliatesData};
+      console.log (data)
     //    this.getMediaTitle();
       return (   
         
@@ -336,9 +375,9 @@ export default class PhotoContainer extends Component {
 
                     <div className="media-body"> 
                     <ReactTooltip place="top" type="light" effect="float"/>
-                    { this.state.filled 
+                    { this.state.filled
                     ? <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
-                        <h3><b>{this.state.title}</b></h3>  
+                        <h3><b>{this.state.affiliatesData.title || this.state.title}</b></h3>  
                       </div>
                     : !this.state.editing 
                      ? <h5><input 
@@ -349,9 +388,14 @@ export default class PhotoContainer extends Component {
                         /></h5>
                     : !this.state.edited && !this.state.filled 
                     ?  <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
-                        <h3><b>{this.props.media.title}</b></h3>  
+                        <h3><b>{this.state.affiliatesData.title || this.props.media.title}</b></h3>  
                        </div>
                     
+                    : this.state.affiliatesData.title 
+                    
+                    ?  <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
+                        <h3><b>{this.this.state.affliliatesData.title}</b></h3>  
+                      </div>
                     : <h5><input 
                             style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  
                             disabled={this.state.filled} 

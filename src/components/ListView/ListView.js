@@ -86,7 +86,7 @@ class ListView extends Component {
 }
    
     componentWillUnMount() {
-      // base.removeBinding(this.galleryRef);
+      base.removeBinding(this.galleryRef);
       base.removeBinding(this.slidesRef)
      }
     
