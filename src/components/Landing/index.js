@@ -66,19 +66,19 @@ import SideBar2 from '../SideBar/SideBar2'
         context: this,
         state: 'image'
       })
-       base.listenTo('updatedGallery', {
-        context: this,
-        then(updatedGalleryData) {
-         let newData = Object.values(updatedGalleryData);
-         this.setState({
-            newData
-        })
-         console.log(newData)
+    //    base.listenTo('updatedGallery', {
+    //     context: this,
+    //     then(updatedGalleryData) {
+    //      let newData = Object.values(updatedGalleryData);
+    //      this.setState({
+    //         newData
+    //     })
+    //      console.log(newData)
         
-         return newData  
-      }
+    //      return newData  
+    //   }
      
-    })
+    // })
    
   }
 
@@ -88,7 +88,7 @@ import SideBar2 from '../SideBar/SideBar2'
         });
       };
       render() {
-          const  imgUrls  =  {...this.state.newData} ;
+          const  imgUrls  =  {...this.state.image} ;
        return(
          <div className="App" >
        <Header/>

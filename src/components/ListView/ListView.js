@@ -115,7 +115,7 @@ class ListView extends Component {
         <div className='list'>
           { 
           Object.keys(gallery).map((media) => {
-              return <PhotoContainer updateGallery={this.updateGallery} media={gallery[media]} key={gallery[media].id} />;
+              return <PhotoContainer updateGallery={this.updateGallery} media={gallery[media]} key={gallery[media].id} id={gallery[media].id} />;
             })
           }
         </div>

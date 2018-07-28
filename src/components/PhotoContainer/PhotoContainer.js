@@ -29,7 +29,7 @@ export default class PhotoContainer extends Component {
         slides:{},
         listView: '',
         revised: false,
-      
+        
         generatedKeys:[]
     }
     this.checkFilled = this.checkFilled.bind(this);
@@ -66,7 +66,8 @@ export default class PhotoContainer extends Component {
     //        context: this,
     //        state: 'slides'
     //    })
-    base.bindToState('affiliates', {
+    // this.galleryRef = base.syncState('gallery/')
+    base.syncState('affiliates', {
         context: this,
         state: 'affiliates'
     })
@@ -82,33 +83,17 @@ componentDidMount() {
               affiliatesData
             });
             if(affiliatesData > -1) {
-                base.update(`updatedGallery/${id}`, {
-                    data: { affiliateLink: this.state.affiliatesData.affiliateLink, title: this.state.affiliatesData.title}, 
-                    then(err) {
-                        console.log('error updating updatedGallery')
-                        if(!err) {
-                            console.log('updated updatedGallery');
-                        }
-                    }
+                base.syncState('updatedGallery', {
+                    context: this,
+                    state: 'affiliatesData'
                 })
+              }
             }
-        }
-    })
+        })
+    }
     
-}
-//   fetchUrl() {
-//     if(!this.state.generatedKey){
-//     // let affiliateLinked;
-//     const id = Object.keys(this.state.generatedKeys).filter(key => {
-//         if (this.props.media.id === key) {
-//           return key;
-//         }
-   
-//         console.log(id)
-//         return id;
-//     })
-// }
-// }
+
+
   updateGallery() {
       const id = this.props.media.id;
       const {url, title} = this.state;
@@ -161,7 +146,8 @@ componentDidMount() {
      });
 
      /* unique push key */
-    // const generatedKey = dataRef.key;
+    const generatedKey = dataRef.key;
+    this.setState({generatedKey})
     // this.newInfo = base.fetch(`affiliates/${this.props.media.id}`, {
     //     context: this,
     //     asArray: true,
@@ -261,9 +247,9 @@ componentDidMount() {
              data: { affiliateLink: value },
              then(err) {
                  if(!err) {
-                    this.updateGallery();
-                    this.setState({ url : value, editing: false, edited: false, filled: false, revised: true });
-                    this.props.media.affiliateLink = value;
+                    // this.updateGallery();
+                    // this.setState({ url :'', editing: false, edited: false, filled: false, revised: true });
+                    console.log('updated affiliates gallery');
                  }
              }
            
@@ -388,13 +374,13 @@ componentDidMount() {
                         /></h5>
                     : !this.state.edited && !this.state.filled 
                     ?  <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
-                        <h3><b>{this.state.affiliatesData.title || this.props.media.title}</b></h3>  
+                        <h3><b>{ this.props.media.title}</b></h3>  
                        </div>
                     
                     : this.state.affiliatesData.title 
                     
                     ?  <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
-                        <h3><b>{this.this.state.affliliatesData.title}</b></h3>  
+                        <h3><b>{this.state.affliliatesData.title}</b></h3>  
                       </div>
                     : <h5><input 
                             style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  
