@@ -16,7 +16,7 @@
 .breadcrumb {
 
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
   top: 0;
   background-color: lightcyan;
  
@@ -54,7 +54,7 @@
   border: 1px solid;
   border-color: rgba(64, 224, 208, 0.644);
   background-size: cover;
-
+  box-sizing: border-box;
   background-repeat: no-repeat;
   width:175px;
   height: 85px;

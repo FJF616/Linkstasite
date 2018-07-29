@@ -11,6 +11,7 @@ import { db, base } from '../rebaseConfig/firebase'
 // import ProgressBar from '../Graph/ProgressBar'
 import Bitlink from '../../util/BitlyHelper';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import UrlError from '../ErrorBoundary/UrlError';
 // import Graph from '../Graph/Graph';
 /**
  * 
@@ -21,33 +22,36 @@ export default class PhotoContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        url: '',
-        title: '',
+        // url: '',
+        // title: '',
         editing: false,
         edited: false,
         filled: false,
         slides:{},
         listView: '',
         revised: false,
+        clearAll: false
         
-        generatedKeys:[]
     }
+    this.checkTitle = this.checkTitle.bind(this)
     this.checkFilled = this.checkFilled.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
     this.updateLink = this.updateLink.bind(this);
     this.handleClear = this.handleClear.bind(this);
     this.handleChange= this.handleChange.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.updateGallery = this.updateGallery.bind(this);
+    this.update = this.update.bind(this);
     this.checkLinked = this.checkLinked.bind(this);
     // this.checkDb = this.checkDb.bind(this);
     // this.getMediaTitle = this.getMediaTitle.bind(this);
     this.updateState = this.updateState.bind(this);
     }
-    
+    fetchMediaId = () => {
+        return this.props.id;
+    }
     updateState() {
-        const id = this.props.media.id
-        if(this.state.affiliatesData > -1) {
+        
+        if(this.state.affiliatesData) {
              this.setState({
                 url: this.state.affiliatesData.affilateLink,
                 title: this.state.affiliatesData.title
@@ -55,34 +59,38 @@ export default class PhotoContainer extends Component {
         }
            
     }
-   UpdateAffiliateGallery(generatedKey) {
-       base.fetch(`affiliates/${generatedKey}`, {
-           context: this,
-           state: 'generatedKeys'
-       })
-   }
+//    UpdateAffiliateGallery(generatedKey) {
+//        base.fetch(`affiliates/${generatedKey}`, {
+//            context: this,
+//            state: 'generatedKeys'
+//        })
+//    }
    componentWillMount() {
+      
     //  this.slidesRef =  base.syncState('slides', {
     //        context: this,
     //        state: 'slides'
     //    })
     // this.galleryRef = base.syncState('gallery/')
-    base.syncState('affiliates', {
-        context: this,
-        state: 'affiliates'
-    })
+    // base.syncState('affiliates', {
+    //     context: this,
+    //     state: 'affiliates'
+    // })
+   }
+   clearToggle() {
+       this.setState({ clearAll: !this.state.clearAll })
    }
 componentDidMount() {
    
    base.listenTo('affiliates', {
        context: this,
        then(affiliatesData) {
-           const id = this.props.media.id;
+           const id = this.props.id;
            affiliatesData = affiliatesData[id]
            this.setState({
               affiliatesData
             });
-            if(affiliatesData > -1) {
+            if(affiliatesData) {
                 base.syncState('updatedGallery', {
                     context: this,
                     state: 'affiliatesData'
@@ -90,11 +98,12 @@ componentDidMount() {
               }
             }
         })
+        this.updateState();
     }
     
 
 
-  updateGallery() {
+  update() {
       const id = this.props.media.id;
       const {url, title} = this.state;
       base.update(`gallery/${id}`, {
@@ -132,12 +141,12 @@ componentDidMount() {
 
     /*create a gallery in firebase and create a unique key */
     enterData (){
-        const { url, title } = this.state;
+        const { url } = this.state;
         const  src = this.props.media.src;
         const timestamp = Date.now();
         // const id = this.this.props.media.id;
         const dataRef = base.post(`affiliates/${this.props.media.id}`, {
-            data: {affiliateLink: url, title: title, src: src, id: `${this.props.media.id}`, dateLinked: `${timestamp}` },
+            data: {affiliateLink: url, title: `${this.state.title}`, src: src, id: `${this.props.media.id}`, dateLinked: `${timestamp}` },
             then(err){
                 if(!err) {  
                     console.log('success adding affiliate link');
@@ -203,7 +212,7 @@ componentDidMount() {
         });
      }
     
-     this.updateGallery();
+     this.updateState();
       this.enterData();
    }; 
 
@@ -240,20 +249,23 @@ componentDidMount() {
         value = null;
         this.setState({
             url: value,
-            edited: false
+            edited: false,
+            // [name]: value
         });
       
          base.update(`affiliates/${this.props.media.id}`, {
              data: { affiliateLink: value },
              then(err) {
+                 console.log('affiliates gallery does not exist!');
                  if(!err) {
-                    // this.updateGallery();
-                    // this.setState({ url :'', editing: false, edited: false, filled: false, revised: true });
+                    
                     console.log('updated affiliates gallery');
                  }
              }
            
         });
+        this.setState({ url :'', editing: false, edited: false, filled: false, revised: true });
+
     }
 
     handleChange(e) {
@@ -267,7 +279,20 @@ componentDidMount() {
         e.preventDefault();
       this.props.media.title = this.state.title;
     }
-
+    checkTitle() {
+      if (this.state.affiliatesData) {
+        this.setState({ title: this.state.affiliatesData[this.props.id].title });
+        return this.state.title;
+      } else {
+          if (this.props.title) {
+            this.setState({ title: this.props.title });
+            return this.state.title;
+        };           
+    };
+   if (!this.state.title){ 
+       return this.state.affiliatesData[this.props.id].title
+   }
+}
     handleCopy() {   
         this.setState({
             edited: true,
@@ -301,8 +326,7 @@ componentDidMount() {
 //     return newTitle;
 // }
     render() {    
-    const data = { ...this.state.affiliatesData};
-      console.log (data)
+   
     //    this.getMediaTitle();
       return (   
         
@@ -324,12 +348,13 @@ componentDidMount() {
                                     : this.state.edited
                                         ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
                                         // : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
-                                    : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
+                                        : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                 }
                                      
                             <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.edited || !this.state.url } style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
                             <button onClick={this.handleClear} className="controls" type="button" disabled={!this.state.edited} data-tip="Remove affiliate Link" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                             <button  className="controls" onClick={this.handleEdit} disabled={ !this.state.filled} type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>
+                            <button className="controls" onClick={this.handleClear} style={{ backgroundColor: 'transparent', boxSizing: 'borderBox', color: 'blue', padding: '6px', width: '35px', height: '35px', }}><Icon className= "icon" icon={ICONS.REFRESH} color={"paleturquoise"} size={55} style={{marginTop: '5px'}} /></button>
                             <button onClick={this.checkFilled} disabled={(this.state.filled && !this.state.revised) || ( !this.state.url || this.props.media.affiliateLink) || ( !this.state.edited && !this.state.editing && !this.state.revised)} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
                            
                            
@@ -363,10 +388,11 @@ componentDidMount() {
                     <ReactTooltip place="top" type="light" effect="float"/>
                     { this.state.filled
                     ? <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
-                        <h3><b>{this.state.affiliatesData.title || this.state.title}</b></h3>  
+                        <h3><b>{this.checkTitle}</b></h3>  
                       </div>
                     : !this.state.editing 
                      ? <h5><input 
+                            
                             style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}    
                             onChange={this.handleChange} 
                             placeholder="title" 
@@ -377,7 +403,7 @@ componentDidMount() {
                         <h3><b>{ this.props.media.title}</b></h3>  
                        </div>
                     
-                    : this.state.affiliatesData.title 
+                    : this.state.affiliatesData.title && !this.state.editing
                     
                     ?  <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
                         <h3><b>{this.state.affliliatesData.title}</b></h3>  
@@ -396,7 +422,7 @@ componentDidMount() {
                             <div>
                            <ErrorBoundary>
                                 <MicrolinkCard 
-                                    url={this.state.url } 
+                                    url={this.state.url} 
                                     size='medium' 
                                     contrast='false' 
                                     target='_blank' 
@@ -411,7 +437,6 @@ componentDidMount() {
                     </div>
                 </div>
               
-
             </div>        
         );
       }

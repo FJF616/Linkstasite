@@ -25,13 +25,12 @@ const withAuthorization = (condition) => (Component) => {
       return (
         <AuthUserContext.Consumer>
           {authUser => authUser 
-          
+         
                
               
-                  ?  <Component />
+                  ? <Component />
                   :  null}
            
-         
         </AuthUserContext.Consumer>
       );
     }

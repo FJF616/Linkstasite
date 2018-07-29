@@ -1,9 +1,9 @@
 import React from 'react';
 
 const InstagramContext = React.createContext({
-    gallery: [],
-    listView: null,
-    userProfile: [],
+    // gallery: [],
+    // listView: null,
+    // userProfile: [],
     // getMedias: () => null,
 });
 

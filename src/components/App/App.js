@@ -19,28 +19,33 @@ import AccountSettings from '../AccountSettings/AccountSettings'
 //import AccountPage from '../Account';
 import withAuthentication from '../Session/withAuthentication';
 import * as routes from '../constants/routes';
-import InstagramConsumer from '../Session/InstagramProvider';
+// import InstagramConsumer from '../Session/InstagramProvider';
 import PictureList from '../Pictures/PictureList';
 const App = () =>
 
-  <Router>
+ 
+    <Router>
     <div>
       <Navigation />
 
       
+  
+ 
      
       <Route exact path={routes.LANDING} component={() => <LandingPage />} />
       <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
       <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
       <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
-      <Route exact path={routes.HOME} component={() => <HomePage />} />
+      <Route exact path={routes.HOME} component={() => <HomePage  />} />
       <Route exact path={routes.ACCOUNT} component={() => <AccountSettings />} />
       <Route exact path={routes.BILLING} component={() => <Billing />} />
       <Route exact path={routes.GRID_VIEW} component={() => <GridView />} />
       <Route exact path={routes.LIST_VIEW} component={() => <ListView />} />
       <Route exact path={routes.INSTAGRAM_FEED} component={() => <PictureList />} />
      
+     
     </div>
-  </Router>
+    </Router>
+  
 
 export default withAuthentication(App);

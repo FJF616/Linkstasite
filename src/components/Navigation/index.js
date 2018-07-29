@@ -25,13 +25,11 @@ const Navigation = () =>
 
 const NavigationAuth = () =>
 
-    <InstagramConsumer>
-      { userProfile => { 
-        return ( 
-        <HomePage value={{ userProfile }} />
-        )}
-      }
-    </InstagramConsumer>
+      <InstagramConsumer>
+          
+          { userProfile =>  <HomePage userProfile={{ state: userProfile }}/> }
+      
+      </InstagramConsumer>
 
 const NavigationNonAuth = () =>
     

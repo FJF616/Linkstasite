@@ -6,8 +6,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { base } from '../rebaseConfig/firebase'
-// import IconButton from '@material-ui/core/IconButton';
-// import InfoIcon from '@material-ui/icons/Info';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
 // import tileData from './tileData';
 
 const styles = theme => ({
@@ -26,14 +26,17 @@ const styles = theme => ({
     color: 'rgba(255, 255, 255, 0.54)',
   },
 });
-
+// base.syncState('image', {
+//   context: this,
+//   state: 'tileData'
+// })
 /**
  * The example data is structured as follows:
  *
  * import image from 'path/to/image.jpg';
  * [etc...]
  *
- * const tileData = [
+ 
  *   {
  *     img: image,
  *     title: 'Image',

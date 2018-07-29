@@ -1,7 +1,7 @@
 import React from 'react';
 import InstagramContext from './InstagramContext';
 import InstagramLogin from '../../util/InstagramLogin';
-import Media from '../Media/Media';
+// import Media from '../Media/Media';
 
 export const InstagramConsumer = InstagramContext.Consumer;
 export default class InstagramProvider extends React.Component {
@@ -10,7 +10,7 @@ export default class InstagramProvider extends React.Component {
         this.state = {
             gallery: [],
             userProfile: [],
-            // listView: null,
+            
             accountName: ''
         };
     }
@@ -22,16 +22,11 @@ export default class InstagramProvider extends React.Component {
             accountName: instagramUser.user['0'].userName,
         }));
     }
-    // getMedias = (mediasResult) => (
-    //     this.state.mediasResult.map(media => {
-    //         return  (           
-    //             <Media media={media} key={media.id} />
-    //     )})
-    // );
+ 
     render() {
         const { gallery, userProfile, accountName } = this.state;
         return (
-            <InstagramContext.Provider  value={{ gallery, userProfile, accountName }} >
+            <InstagramContext.Provider  value={{ gallery, userProfile, accountName}} >
                 {this.props.children}
             </InstagramContext.Provider>
         );

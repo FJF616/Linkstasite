@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
+import Plot from '../Graph/Plot';
+import Bar from '../Graph/Bar';
 import InstagramLogin from '../../util/InstagramLogin';
 // import ProgressBar from '../Graph/ProgressBar';
 // import{ BrowserRouter } from 'react-router-dom';
 // import Header from '../Header/Header';
 import Graph from '../Graph/Graph'
+import MarkSeries from '../Graph/MarkSeries';
 // import InstagramLogin from '../../util/InstagramLogin'
 import withAuthorization from '../Session/withAuthorization';
 import  { firebase, auth, db } from '../rebaseConfig';
 import SideBar2 from '../SideBar/SideBar2';
 // import { base } from '../rebaseConfig/firebase';
-// import InstagramConsumer from '../Session/InstagramProvider'
+import InstagramConsumer from '../Session/InstagramProvider'
 // import AvatarEditor from 'react-avatar-editor'
 import Header from '../Header/Header'
 // import ClickGraph from '../Graph/ClickGraph'
@@ -102,16 +105,27 @@ class HomePage extends Component {
    const { users } = this.state;
 
     return (
+    
+    
+      
+    
       <div className="App" >
       <div className="home__page">
-     
-     <Header/>
-      <SideBar2/>
-     <Graph/>
- 
-      </div>
-      </div>
     
+    <Header />
+   
+      <SideBar2/>
+      <MarkSeries/>
+      <Bar/>
+       <Graph/>
+       <Plot/>
+     </div>
+     </div>
+     
+   
+      
+   
+   
      
       
    

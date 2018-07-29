@@ -16,10 +16,11 @@ class GridView extends Component {
     super(props);
     this.state = {
       gallery: [],
-      userProfile: [],
-      accountName:'loading' 
+      // userProfile: [],
+   
     };
     // this.onListChange = this.onListChange.bind(this);
+    this.deleteMedia = this.deleteMedia.bind(this); 
   }
 
 
@@ -58,6 +59,7 @@ class GridView extends Component {
         // asArray: true
         
     });
+   
   }
   
 
@@ -81,6 +83,7 @@ class GridView extends Component {
     //   this.setState({ gallery: newState });
     // }
     deleteMedia = id => {
+      id = this.state.gallery[id]
       this.setState(prevState => {
         return { gallery: prevState.gallery.filter(media => media.id !==id) };
       });

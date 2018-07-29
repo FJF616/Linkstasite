@@ -8,19 +8,20 @@ import Icon from '../Icons/Icon'
 import ICONS from '../Icons/constants';
 import * as routes from '../constants/routes';
 import { Link } from 'react-router-dom'
-import { base } from '../rebaseConfig';
+import { base } from '../rebaseConfig/firebase';
 // import ListView from '../ListView/ListView'
 // import Imager from '../Imager/Imager'
 // import MicrolinkCard from 'react-microlink'
 export default class SideBar2 extends Component {
-    state = {
+    constructor() {
+        super();
+        this.state = {
         listView: ''
     }
-    switchView() {
-        this.setState({
-            listView: !this.props.listView
-        })
-    }
+}
+   
+    
+    
     render(){
       return(
      
