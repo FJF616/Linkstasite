@@ -49,6 +49,7 @@ export default class PhotoContainer extends Component {
     // this.checkDb = this.checkDb.bind(this);
     // this.getMediaTitle = this.getMediaTitle.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.clearToggle=this.clearToggle.bind(this);
     }
     fetchMediaId = () => {
         return this.props.id;
@@ -58,7 +59,8 @@ export default class PhotoContainer extends Component {
         if(this.state.affiliatesData) {
              this.setState({
                 url: this.state.affiliatesData.affilateLink,
-                title: this.state.affiliatesData.title
+                title: this.state.affiliatesData.title,
+                clearAll: false
             })
         }
            
@@ -82,7 +84,17 @@ export default class PhotoContainer extends Component {
     // })
    }
    clearToggle() {
-       this.setState({ clearAll: !this.state.clearAll })
+    
+    this.handleClear;
+    this.props.media.affiliateLink = ''
+       this.setState({ 
+           clearAll: !this.state.clearAll,
+           affiliatesData: '',
+           edited: true,
+           filled: true,
+         })
+      
+      
    }
 componentDidMount() {
    
@@ -148,6 +160,7 @@ componentDidMount() {
 
     /*create a gallery in firebase and create a unique key */
     enterData (){
+        if(!this.state.clearAll && this.state.affiliateLink !== '') {
         const { url } = this.state;
         const  src = this.props.media.src;
         const timestamp = Date.now();
@@ -160,7 +173,7 @@ componentDidMount() {
                 }
             }
      });
-
+    
      /* unique push key */
     const generatedKey = dataRef.key;
     this.setState({generatedKey})
@@ -183,7 +196,17 @@ componentDidMount() {
     // this.props.media.generatedKey = generatedKey;
     // this.setState({ generatedKey: generatedKey });
     // this.UpdateAffiliateGallery(`${generatedKey}`)
-    
+    } 
+    // else {
+    //     base.update(`affiliates/${this.props.id}`, {
+    //         data: null
+    //     }).then(() => {
+    //         console.log('cleared all data');
+    //     }).catch(err => {
+    //         console.log('error', err);
+    //     })
+    //     this.update;
+    // }
    
 }
    
@@ -263,14 +286,17 @@ componentDidMount() {
             url: value,
             title: value,
             edited: false,
+            filled: false,
+            revised: true,
+            editing: false
             // [name]: value
         });
-        base.syncState(`affiliates/${this.props.media.id}`, {
-            context: this,
-            state: 'affiliatesData'
-        })
+        // base.syncState(`affiliates/${this.props.media.id}`, {
+        //     context: this,
+        //     state: 'affiliatesData'
+        // })
         //  base.update(`affiliates/${this.props.media.id}`, {
-        //      data: { affiliateLink: value },
+        //     data:{ data: null},
         //      then(err) {
         //          console.log('affiliates gallery does not exist!');
         //          if(!err) {
@@ -280,7 +306,7 @@ componentDidMount() {
         //      }
            
         // });
-        this.setState({ url :'', editing: false, edited: false, filled: false, revised: true });
+      
 
     }
 
@@ -364,30 +390,37 @@ componentDidMount() {
                         <div className="input-group-append" >
                             {/* check if url has been entered. if it has, return associated link with image by making it clickable */}
                             {   
-                                !this.state.edited 
-                                    ? this.props.media.affiliateLink || this.state.revised && this.state.url
+                                !this.state.affiliatesData
+                                ? <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
+                                :  this.state.affiliatesData.affiliateLink
                                        ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.props.media.affiliateLink}</b></h6></a>
-                                       : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
-                                    : this.state.url
-                                        ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
+                                            :(this.state.edited && this.state.filled) 
+                                            ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
                                         // : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                         : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                 }
                                      
-                            <button className="controls" data-tip="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.edited || !this.state.url || this.props.media.affiliateLink} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
+                            <button className="controls" data-tip="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={!this.state.url  } style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
                            
                             
-                            <button onClick={this.checkFilled} disabled={(this.state.filled && !this.state.revised) ||  ( !this.state.edited && !this.state.editing && !this.state.revised)} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
+                            <button onClick={this.checkFilled} disabled={(this.state.filled && !this.state.revised && !this.state.clearAll) ||  ( !this.state.edited && !this.state.editing && !this.state.revised && !this.state.clearAll)} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
                            
-                            <button className="controls" data-tip="clear all" onClick={this.handleClear} style={{ backgroundColor: 'transparent', boxSizing: 'borderBox',  padding: '6px', width: '32px', height: '32px', }}><Icon className= "icon" icon={ICONS.REFRESH} color={"turquoise"} size={45} style={{marginTop: '5px'}} /></button>
-                          
+                            <button className="controls" data-tip="clear all" onClick={this.clearToggle} style={{ backgroundColor: 'transparent', boxSizing: 'borderBox',  padding: '6px', width: '32px', height: '32px', }}><Icon className= "icon" icon={ICONS.REFRESH} color={"turquoise"} size={45} style={{marginTop: '5px'}} /></button>
+                            <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Switch data-tip="Link Preview" style={{paddingLeft: '10px', marginLeft: '10px', position: 'right'}} checked={this.state.linkPreview} onChange={this.handlePreview} aria-label="LinkPreviewSwitch" />
+                      }
+                       label={this.state.linkPreview ? 'On' : 'Off'}
+                    />
+                  </FormGroup>
                            
                             </div>
                     </div>
                 </div>
             </div>
             <div className="media" >
-              { this.state.edited || (!this.state.edited && this.state.url)
+              {  (!this.state.edited && this.state.url)
                 ?  <a href={this.state.url}>
                     <Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
@@ -401,8 +434,8 @@ componentDidMount() {
                         className="mr-3" 
                         src={this.props.media.src} 
                     /></a>
-                    : (this.state.filled)
-                    ? <a href={this.state.url}>
+                    : (this.state.filled && !this.state.clearAll )
+                    ? <a href={this.state.url }>
                     <Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
                         className="mr-3" 
@@ -416,14 +449,7 @@ componentDidMount() {
                     
 
                     <div className="media-body"> 
-                    <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Switch data-tip="Link Preview" style={{marginLeft: '10px', position: 'right'}} checked={this.state.linkPreview} onChange={this.handlePreview} aria-label="LinkPreviewSwitch" />
-                      }
-                       label={this.state.linkPreview ? 'On' : 'Off'}
-                    />
-                  </FormGroup>
+                  
                     <ReactTooltip place="top" type="light" effect="float"/>
                     { ((!this.state.filled && !this.state.edited) && this.checkTitle)
                     ? <div className="title" style={{color: 'Blue', marginTop: 2, marginLeft: 10}}>
@@ -462,7 +488,7 @@ componentDidMount() {
                         /></h5>}
                         <br/>
                         {/* if a link has been added to the image, generate a link preview */}
-                        {this.state.linkPreview || this.state.edited  ?
+                        {this.state.linkPreview  ?
                             <div>
                            <ErrorBoundary>
                                 <MicrolinkCard 
@@ -472,7 +498,7 @@ componentDidMount() {
                                     target='_blank' 
                                     prerender="false" 
                                     image={['screenshot', 'image', 'video']} 
-                                    style={{ display: 'inline-flex', border: '3px ridge', paddingBottom: '10px', width: 370, marginTop: 3, marginLeft: 3, height: 120, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}
+                                    style={{ display: 'inline-flex', border: '3px ridge', paddingBottom: '10px', width: 370, marginTop: 3, marginLeft: 3, height: 140, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}
                                     />
                                     </ErrorBoundary>
                                     </div>

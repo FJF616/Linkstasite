@@ -75,7 +75,7 @@ render() {
       <div className='image-grid' > 
         { this.props.media.affiliateLink && !this.state.completed
             ?  <div>
-                  <span className="media-title">{this.props.media.title}</span>
+                  <span className="media-title"><h5>{this.props.media.title}</h5></span>
                   <a href={this.props.media.affiliateLink} ><Imager  onClick={this.handleClicks} data-tip={this.props.media.affiliateLink} className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
                   <ProgressBar data={this.state.stats} />
                   <ReactTooltip place="top" type="light" effect="float"/>
