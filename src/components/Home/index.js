@@ -9,16 +9,15 @@ import Graph from '../Graph/Graph'
 import MarkSeries from '../Graph/MarkSeries';
 // import InstagramLogin from '../../util/InstagramLogin'
 import withAuthorization from '../Session/withAuthorization';
-import  { firebase, auth, db } from '../rebaseConfig';
+import  { db } from '../rebaseConfig';
 import SideBar2 from '../SideBar/SideBar2';
 // import { base } from '../rebaseConfig/firebase';
-import InstagramConsumer from '../Session/InstagramProvider'
+// import InstagramConsumer from '../Session/InstagramProvider'
 // import AvatarEditor from 'react-avatar-editor'
 import Header from '../Header/Header'
 // import ClickGraph from '../Graph/ClickGraph'
 // import EditableTable from '../FormInputs/EditableTable'
 import { base } from '../rebaseConfig/firebase';
-import Bitlink from '../../util/BitlyHelper';
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -72,23 +71,12 @@ class HomePage extends Component {
       // userProfile: instagramUser.user['0'],
       // instagramUserID: instagramUser.user.instagramUserID,
       image: instagramUser.image
-    }));
-    Bitlink.fetchClicks(`http://bit.ly/2L9BFIy`).then(clicks => this.setState({
-      clicks: clicks.link_clicks,
-      clickData: clicks
     }))
     .catch(error => {
       if(error) {
         console.log('error fetching instagramUser', error);
       };
     })
-    .catch(error => {
-      if(error) {
-        console.log('error retrieving link metrics', error);
-      };
-    });
-    
-
   }
   // componentWillUnmount() {
     // base.removeBinding(this.galleryRef);
@@ -105,30 +93,16 @@ class HomePage extends Component {
    const { users } = this.state;
 
     return (
-    
-    
-      
-    
       <div className="App" >
-      <div className="home__page">
-    
-    <Header />
-   
-      <SideBar2/>
-      <MarkSeries/>
-      <Bar/>
-       <Graph/>
-       <Plot/>
-     </div>
-     </div>
-     
-   
-      
-   
-   
-     
-      
-   
+        <div className="home__page">
+          <Header />
+          <SideBar2/>
+          <MarkSeries/>
+          <Bar/>
+          <Graph/>
+          <Plot/>
+        </div>
+       </div>
     );
   }
 }
