@@ -12,6 +12,9 @@ import { db, base } from '../rebaseConfig/firebase'
 import Bitlink from '../../util/BitlyHelper';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import UrlError from '../ErrorBoundary/UrlError';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 // import Graph from '../Graph/Graph';
 /**
  * 
@@ -30,7 +33,8 @@ export default class PhotoContainer extends Component {
         slides:{},
         listView: '',
         revised: false,
-        clearAll: false
+        clearAll: false,
+        linkPreview: false
         
     }
     this.checkTitle = this.checkTitle.bind(this)
@@ -87,14 +91,17 @@ componentDidMount() {
        then(affiliatesData) {
            const id = this.props.id;
            affiliatesData = affiliatesData[id]
-           this.setState({
-              affiliatesData
-            });
+          
             if(affiliatesData) {
                 base.syncState('updatedGallery', {
                     context: this,
                     state: 'affiliatesData'
                 })
+                this.setState({ 
+                    url: affiliatesData.affiliateLink,
+                    title: affiliatesData.title,
+                    affiliatesData
+                  });
               }
             }
         })
@@ -245,25 +252,34 @@ componentDidMount() {
         const target = e.target;
         let value = target.value;
         // const name = target.type;
-       
-        value = null;
+       if(this.state.affiliatesData) {
+        this.setState({
+            affiliatesData: ''
+        })
+        this.props.media.affiliateLink = ''
+       }
+        value = '';
         this.setState({
             url: value,
+            title: value,
             edited: false,
             // [name]: value
         });
-      
-         base.update(`affiliates/${this.props.media.id}`, {
-             data: { affiliateLink: value },
-             then(err) {
-                 console.log('affiliates gallery does not exist!');
-                 if(!err) {
+        base.syncState(`affiliates/${this.props.media.id}`, {
+            context: this,
+            state: 'affiliatesData'
+        })
+        //  base.update(`affiliates/${this.props.media.id}`, {
+        //      data: { affiliateLink: value },
+        //      then(err) {
+        //          console.log('affiliates gallery does not exist!');
+        //          if(!err) {
                     
-                    console.log('updated affiliates gallery');
-                 }
-             }
+        //             console.log('updated affiliates gallery');
+        //          }
+        //      }
            
-        });
+        // });
         this.setState({ url :'', editing: false, edited: false, filled: false, revised: true });
 
     }
@@ -278,21 +294,28 @@ componentDidMount() {
         })
         e.preventDefault();
       this.props.media.title = this.state.title;
+      this.setState({ affiliatesData: { title: this.state.title }})
     }
+
     checkTitle() {
-      if (this.state.affiliatesData) {
-        this.setState({ title: this.state.affiliatesData[this.props.id].title });
-        return this.state.title;
-      } else {
-          if (this.props.title) {
-            this.setState({ title: this.props.title });
-            return this.state.title;
-        };           
-    };
-   if (!this.state.title){ 
-       return this.state.affiliatesData[this.props.id].title
-   }
-}
+    
+          return (this.state.title !== null && this.state.url);
+    //   } else {
+    //   if (this.state.affiliatesData.title) {
+    //     this.setState({ title: this.state.affiliatesData.title });
+    //     return this.state.title;
+    //   } else {
+    //       if (this.props.title !== null) {
+    //         this.setState({ title: this.props.title });
+    //         return this.state.title;
+    //     };           
+    // };
+    }
+    handlePreview = (event, checked) => {
+        this.setState({ linkPreview: checked });
+      };
+
+  
     handleCopy() {   
         this.setState({
             edited: true,
@@ -342,42 +365,50 @@ componentDidMount() {
                             {/* check if url has been entered. if it has, return associated link with image by making it clickable */}
                             {   
                                 !this.state.edited 
-                                    ? this.props.media.affiliateLink 
+                                    ? this.props.media.affiliateLink || this.state.revised && this.state.url
                                        ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.props.media.affiliateLink}</b></h6></a>
                                        : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} /> 
-                                    : this.state.edited
+                                    : this.state.url
                                         ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.url}</b></h6></a>
                                         // : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                         : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                 }
                                      
-                            <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.edited || !this.state.url } style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
-                            <button onClick={this.handleClear} className="controls" type="button" disabled={!this.state.edited} data-tip="Remove affiliate Link" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
-                            <button  className="controls" onClick={this.handleEdit} disabled={ !this.state.filled} type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>
-                            <button className="controls" onClick={this.handleClear} style={{ backgroundColor: 'transparent', boxSizing: 'borderBox', color: 'blue', padding: '6px', width: '35px', height: '35px', }}><Icon className= "icon" icon={ICONS.REFRESH} color={"paleturquoise"} size={55} style={{marginTop: '5px'}} /></button>
-                            <button onClick={this.checkFilled} disabled={(this.state.filled && !this.state.revised) || ( !this.state.url || this.props.media.affiliateLink) || ( !this.state.edited && !this.state.editing && !this.state.revised)} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
+                            <button className="controls" data-tip="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.edited || !this.state.url || this.props.media.affiliateLink} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
                            
+                            
+                            <button onClick={this.checkFilled} disabled={(this.state.filled && !this.state.revised) ||  ( !this.state.edited && !this.state.editing && !this.state.revised)} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
+                           
+                            <button className="controls" data-tip="clear all" onClick={this.handleClear} style={{ backgroundColor: 'transparent', boxSizing: 'borderBox',  padding: '6px', width: '32px', height: '32px', }}><Icon className= "icon" icon={ICONS.REFRESH} color={"turquoise"} size={45} style={{marginTop: '5px'}} /></button>
+                          
                            
                             </div>
                     </div>
                 </div>
             </div>
             <div className="media" >
-              { this.state.edited 
+              { this.state.edited || (!this.state.edited && this.state.url)
                 ?  <a href={this.state.url}>
                     <Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
                         className="mr-3" 
                         src={this.props.media.src} 
                     /></a>
-                    : (this.props.media.affiliateLink || this.state.filled)
+                    : (this.props.media.affiliateLink && this.state.revised || this.state.filled && this.state.url)
                     ?  <a href={this.props.media.affiliateLink }>
                     <Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
                         className="mr-3" 
                         src={this.props.media.src} 
                     /></a>
-                    :<Imager 
+                    : (this.state.filled)
+                    ? <a href={this.state.url}>
+                    <Imager 
+                        style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
+                        className="mr-3" 
+                        src={this.props.media.src} 
+                    /></a>
+                    : <Imager 
                         style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}}
                         className="mr-3" src={this.props.media.src}  
                     />
@@ -385,31 +416,44 @@ componentDidMount() {
                     
 
                     <div className="media-body"> 
+                    <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Switch data-tip="Link Preview" style={{marginLeft: '10px', position: 'right'}} checked={this.state.linkPreview} onChange={this.handlePreview} aria-label="LinkPreviewSwitch" />
+                      }
+                       label={this.state.linkPreview ? 'On' : 'Off'}
+                    />
+                  </FormGroup>
                     <ReactTooltip place="top" type="light" effect="float"/>
-                    { this.state.filled
-                    ? <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
-                        <h3><b>{this.checkTitle}</b></h3>  
+                    { ((!this.state.filled && !this.state.edited) && this.checkTitle)
+                    ? <div className="title" style={{color: 'Blue', marginTop: 2, marginLeft: 10}}>
+                        <h4><b>{this.state.title}</b></h4>  
                       </div>
                     : !this.state.editing 
                      ? <h5><input 
                             
-                            style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}    
+                            style={{width: 370, marginTop: 2, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}    
                             onChange={this.handleChange} 
                             placeholder="title" 
                             type="title" 
                         /></h5>
                     : !this.state.edited && !this.state.filled 
-                    ?  <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
-                        <h3><b>{ this.props.media.title}</b></h3>  
+                    ?  <div className="title" style={{color: 'Blue', marginTop: 2, marginLeft: 10}}>
+                        <h4><b>{ this.props.media.title}</b></h4>  
                        </div>
                     
                     : this.state.affiliatesData.title && !this.state.editing
                     
-                    ?  <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
-                        <h3><b>{this.state.affliliatesData.title}</b></h3>  
+                    ?  <div className="title" style={{color: 'Blue', marginTop: 2, marginLeft: 10}}>
+                        <h4><b>{this.state.affliliatesData.title}</b></h4>  
                       </div>
+                    : this.state.title && this.state.url 
+                      ? <div className="title" style={{color: 'Blue', marginTop: 2, marginLeft: 10}}>
+                            <h4><b>{this.state.affliliatesData.title}</b></h4>  
+                        </div>
+                    
                     : <h5><input 
-                            style={{width: 370, marginTop: 10, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  
+                            style={{width: 370, marginTop: 2, borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15}}  
                             disabled={this.state.filled} 
                             value={this.state.title} 
                             onChange={this.handleChange} 
@@ -418,17 +462,17 @@ componentDidMount() {
                         /></h5>}
                         <br/>
                         {/* if a link has been added to the image, generate a link preview */}
-                        {this.state.edited ?
+                        {this.state.linkPreview || this.state.edited  ?
                             <div>
                            <ErrorBoundary>
                                 <MicrolinkCard 
-                                    url={this.state.url} 
+                                    url={ this.state.url } 
                                     size='medium' 
                                     contrast='false' 
                                     target='_blank' 
                                     prerender="false" 
                                     image={['screenshot', 'image', 'video']} 
-                                    style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 8, marginLeft: 3, height: 135, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}
+                                    style={{ display: 'inline-flex', border: '3px ridge', paddingBottom: '10px', width: 370, marginTop: 3, marginLeft: 3, height: 120, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}
                                     />
                                     </ErrorBoundary>
                                     </div>

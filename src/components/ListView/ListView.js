@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import BitlyHeader from '../Header/BitlyHeader';
 import '../App/App.css';
-import { withRouter } from 'react-router-dom';
-// import Navigation from '../Navigation';
-// import MediaList from '../MediaList/MediaList.js';
 import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
-// import withAuthentication from '../Session/withAuthentication'
 import { base } from '../rebaseConfig/firebase'
-// import Graph from '../Graph/Graph'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
 import withAuthentication from '../Session/withAuthentication'
-import ICONS from '../Icons/constants';
-import Icon from '../Icons/Icon';
+// import ICONS from '../Icons/constants';
+// import Icon from '../Icons/Icon';
 // import Graph from '../Graph/Graph'
+import MediaGrid from '../MediaList/MediaGrid'
+import InstagramContext from '../Session/InstagramContext';
+
 class ListView extends Component {
   constructor(props) {
     super(props);
@@ -120,6 +118,7 @@ class ListView extends Component {
    MediaLists = ({ gallery, updateGallery })  => {
       gallery = {...this.galleryRef.context.state.gallery};
       return (
+      
         <div className='list'>
           { 
           Object.keys(gallery).map((media) => {
@@ -137,17 +136,25 @@ class ListView extends Component {
             })
           }
         </div>
+      
+        
+        
       );
     }
-   
+ 
     render() {
-    return (
-      <div className="App" style={{display: 'inline-flex'}}>
+        return(
+   
+        <div className="App" style={{display: 'inline-flex'}}>
+
         <BitlyHeader/>
         <SideBar2/>
+     
           {this.MediaLists(this.galleryRef.context.state.gallery)}
-      </div>
-    );
+          </div>
+     
+       
+    )
   }
 }
 export default withAuthentication(ListView);

@@ -86,11 +86,7 @@ render() {
                     <Imager  onClick={this.handleClicks} data-tip="upgrade to pro for unlimited clicks" className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
                     <ReactTooltip place="top" type="light" effect="float"/>
                 </div>
-            :  <div>
-            <span className="media-title">{this.props.media.title}</span>
-              <Imager  onClick={this.handleClicks} data-tip="link has ben removed/ no link associated with image" className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
-            <ReactTooltip place="top" type="light" effect="float"/>
-        </div>
+            : ''
             }
         </div>   
       );
