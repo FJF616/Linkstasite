@@ -15,7 +15,7 @@ import UrlError from '../ErrorBoundary/UrlError';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-
+import ShortenLink from '../../util/Bitly'
 /**
  * 
  * 
@@ -55,10 +55,10 @@ export default class PhotoContainer extends Component {
 
    async  getLinkStats () {
         let url =  this.props.media.affiliateLink;
+        if (this.state.url) {
         await  Bitlink.fetchClicks(`${url}`).then(clicks => 
             this.setState({
                  clicks: clicks.link_clicks,
-
             }),
             console.log(this.state.clicks)
             )
@@ -69,6 +69,7 @@ export default class PhotoContainer extends Component {
             });
             
         }
+    }
 
     fetchMediaId = () => {
         return this.props.id;
@@ -93,7 +94,7 @@ export default class PhotoContainer extends Component {
   
    clearToggle() {
     
-    this.handleClear;
+    this.handleClear();
     this.props.media.affiliateLink = ''
        this.setState({ 
            clearAll: !this.state.clearAll,
@@ -108,7 +109,7 @@ componentDidMount() {
        context: this,
        then(affiliatesData) {
            const id = this.props.id;
-           affiliatesData = affiliatesData[id]
+        //    affiliatesData = affiliatesData[id]
           
             if(affiliatesData) {
                 base.syncState('updatedGallery', {
@@ -229,7 +230,7 @@ componentDidMount() {
                 [name]: value  
             })  
             // base.push('affilates', {
-            //     data: {affiliatedLink: value}
+            //     data: {affiliateLink: value}
             // }).then(() => {
             //     console.log('updated affiliate Link');
             // }).catch(err => {
@@ -243,15 +244,17 @@ componentDidMount() {
 
     handleClear(e) {
         
-        const target = e.target;
-        let value = target.value;
+        
         // const name = target.type;
         if(this.state.affiliatesData) {
         this.setState({
-            affiliatesData: ''
+            affiliatesData: '',
+            clicks: ''
         })
         this.props.media.affiliateLink = ''
        }
+       const target = e.target;
+        let value = target.value;
         value = '';
         this.setState({
             url: value,
@@ -262,21 +265,21 @@ componentDidMount() {
             editing: false
             // [name]: value
         });
-        // base.syncState(`affiliates/${this.props.media.id}`, {
-        //     context: this,
-        //     state: 'affiliatesData'
-        // })
-        //  base.update(`affiliates/${this.props.media.id}`, {
-        //     data:{ data: null},
-        //      then(err) {
-        //          console.log('affiliates gallery does not exist!');
-        //          if(!err) {
+        base.syncState(`affiliates/${this.props.media.id}`, {
+            context: this,
+            state: 'affiliatesData'
+        })
+         base.update(`affiliates/${this.props.media.id}`, {
+            data:{ data: null},
+             then(err) {
+                 console.log('affiliates gallery does not exist!');
+                 if(!err) {
                     
-        //             console.log('updated affiliates gallery');
-        //          }
-        //      }
+                    console.log('updated affiliates gallery');
+                 }
+             }
            
-        // });
+        });
       
 
     }
@@ -291,7 +294,7 @@ componentDidMount() {
         })
         e.preventDefault();
         this.props.media.title = this.state.title;
-        this.setState({ affiliatesData: { title: this.state.title }})
+        // this.setState({ affiliatesData: { title: this.state.title }})
     }
 
     checkTitle() {
@@ -343,9 +346,9 @@ componentDidMount() {
                                         // : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                         : <input data-tip="Please enter a valid url" style={{padding: 10, color: 'blue', width: 335, height: 31, borderRadius: '5%',  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}} type="url" onChange={this.updateLink} />
                                 }      
-                            <button className="controls"  onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={!this.state.url  } style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
+                            <button className="controls"  onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={  !this.state.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>
                             <button onClick={this.checkFilled} disabled={(this.state.filled && !this.state.revised && !this.state.clearAll) ||  ( !this.state.edited && !this.state.editing && !this.state.revised && !this.state.clearAll)} className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px' }}><i className="fa fa-save"/></button>
-                            <button className="controls" data-tip="clear all" disabled={this.state.clickedSave} onClick={this.clearToggle} style={{ backgroundColor: 'transparent', boxSizing: 'borderBox',  padding: '6px', width: '32px', height: '32px', }}><Icon className= "icon" icon={ICONS.REFRESH} color={"turquoise"} size={45} style={{marginTop: '5px'}} /></button>
+                            <button className="controls" data-tip="clear all" disabled={ this.state.clicks > 0 } onClick={this.clearToggle} style={{ backgroundColor: 'transparent', boxSizing: 'borderBox',  padding: '6px', width: '32px', height: '32px', }}><Icon className= "icon" icon={ICONS.REFRESH} color={"turquoise"} size={45} style={{marginTop: '5px'}} /></button>
                             <FormGroup>
                                 <FormControlLabel
                                     control={
@@ -434,8 +437,8 @@ componentDidMount() {
                                     />
                                     </ErrorBoundary>
                                     </div>
-                            : this.state.clicks > 0 
-                                ? <div style={{ color: 'blue', border: '3px  outset', padding:'5px', margin: '10px'}}><h3><b>clicks: {this.state.clicks}</b></h3><p><b>timestamp: {this.state.affiliatesData.dateLinked}</b></p><p><b>id: {this.state.affiliatesData.id}</b></p></div>
+                            // : (this.state.url && this.state.clicks > 0) || (this.state.url === this.props.media.affiliateLink) 
+                            //     ? <div style={{ color: 'blue', border: '3px  outset', padding:'5px', margin: '10px'}}><h3><b>{this.state.clicks ? `clicks: ${this.state.clicks}`: null}</b></h3><p><b>{this.state.affiliatesData? `timestamp: ${this.state.affiliatesData.dateLinked}` : null}</b></p><p><b>id: {this.state.affiliatesData? this.state.affiliatesData.id : this.props.id}</b></p></div>
                                 : null
                             } 
                         </div>

@@ -5,7 +5,7 @@ import { FirestoreProvider } from 'react-firestore';
 import ReactDOM from 'react-dom';
 // import ShortenLink from '../src/util/Bitly'
 import './index.css';
-import Bitlink from './util/BitlyHelper'
+// import Bitlink from './util/BitlyHelper'
 import InstagramProvider from './components/Session/InstagramProvider';
 // import EditableTable from './components/FormInputs/EditableTable'
 import App from './components/App/App.js';
@@ -20,8 +20,8 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <FirestoreProvider firebase={firebase}>
-    <InstagramProvider>
-        <App/>
+        <InstagramProvider>
+            <App/>
         </InstagramProvider>
     </FirestoreProvider>,
      document.getElementById('root'));

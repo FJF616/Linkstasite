@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BitlyHeader from '../Header/BitlyHeader';
+import Header from '../Header/Header';
 import '../App/App.css';
 import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
@@ -91,7 +92,7 @@ class ListView extends Component {
   } catch (error) {
       console.log(error);
     }
-  this.removeGallery;
+  this.removeGallery();
   this.updatedGalleryRef = base.syncState('updatedGallery', {
     context: this,
     state: 'updatedGallery',
@@ -118,43 +119,33 @@ class ListView extends Component {
    MediaLists = ({ gallery, updateGallery })  => {
       gallery = {...this.galleryRef.context.state.gallery};
       return (
-      
         <div className='list'>
           { 
           Object.keys(gallery).map((media) => {
-
               return <PhotoContainer 
-                          updateGallery={this.removeGallery} 
-                          refresh={this.updateEachGallery}
-                          media={gallery[media]} 
-                          key={gallery[media].id} 
-                          id={gallery[media].id} 
-                          title={gallery[media].title}
-                          gallery={this.galleryRef}
-                          />;
-  
-            })
-          }
-        </div>
-      
-        
-        
-      );
-    }
+                        updateGallery={this.removeGallery} 
+                        refresh={this.updateEachGallery}
+                        media={gallery[media]} 
+                        key={gallery[media].id} 
+                        id={gallery[media].id} 
+                        title={gallery[media].title}
+                        gallery={this.galleryRef}
+                       />;
+                    })
+                 }
+            </div>
+          );
+      }
  
     render() {
         return(
    
         <div className="App" style={{display: 'inline-flex'}}>
-
-        <BitlyHeader/>
-        <SideBar2/>
-     
+          <BitlyHeader/>
+          <SideBar2/>
           {this.MediaLists(this.galleryRef.context.state.gallery)}
-          </div>
-     
-       
-    )
+        </div> 
+      );
+    }
   }
-}
 export default withAuthentication(ListView);
