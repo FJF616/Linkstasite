@@ -56,16 +56,7 @@
     width: calc(100% - 1px);
   }
 }
-.trash__container {
-  display: flex;
-}
-.trash__container:hover {
-  position: relative;
-  display: flex;
- 
-  filter: opacity(50%);
-  cursor: pointer;
-}
+
 
 // span .grid-label {
 // background: rgba(102,102,102,0.55);
@@ -97,7 +88,7 @@
   background-size: contain;
   padding: 10px;
   margin: 5px 0px 0px 12px;
-  display:block;
+  display:inline-flex;
   height: 55px;
 }
 
@@ -112,7 +103,7 @@
  background-position:center;
  background-size: contain;
 
-display:block;
+display:inline-flex;
 height: 55px;
 
 }

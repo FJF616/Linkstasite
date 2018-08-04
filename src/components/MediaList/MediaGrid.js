@@ -5,6 +5,7 @@ import { base } from '../rebaseConfig/firebase';
 import MediaGridComponent from '../Media/MediaGridComponent';
 import Icon from '../Icons/Icon';
 import ICONS from '../Icons/constants';
+import PhotoContainer from '../PhotoContainer/PhotoContainer';
 // import ProgressBar from '../Graph/ProgressBar'
 // import ReactTooltip from 'react-tooltip';
 // import withAuthorization from '../Session/withAuthorization';
@@ -16,14 +17,14 @@ class MediaGrid extends React.Component {
     constructor() {
     super();
     this.state = {
-     gallery: []
+    gallery:''
    }
   }
    componentDidMount() {
-   this.affiliatesRef =  base.syncState('affiliates', {
+   this.galleryRef =  base.syncState('gallery', {
        context: this,
        state: 'gallery',
-       asArray: true
+      // asArray:true
      }) 
    }
    
@@ -36,13 +37,14 @@ class MediaGrid extends React.Component {
   //   this.setState({ gallery });
   // };
   render () {
+    const { gallery } = this.state;
     return (
       <div className='list'>
-      { Object.keys(this.state.gallery).map((key, id) => {
+      { Object.keys(gallery).map((key, id) => {
             return (
                   <div className="delete" key={key}>
                     <MediaGridComponent  media={this.state.gallery[key]}  />
-                      {this.state.gallery[key].affiliateLink &&
+                      {gallery[key].affiliateLink &&
                       <Button 
                         // className="remove-btn"
                         type="button"
@@ -53,6 +55,7 @@ class MediaGrid extends React.Component {
                            this.setState(state => ({
                             gallery: gallery.filter(key => key.id !== id)
                           })); 
+                          // this.props.deleteMedia(id)
                         }}
                       >
                       <Icon   
@@ -75,4 +78,4 @@ class MediaGrid extends React.Component {
 // const authCondition = (authUser) => !!authUser;
 
 
-export default withAuthentication(MediaGrid);
+export default MediaGrid;

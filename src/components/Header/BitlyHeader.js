@@ -22,10 +22,13 @@ class BitlyHeader extends React.Component {
     userProfile: []
   }
   componentDidMount = () => {
-    base.syncState('userProfile', {
+    this.userRef = base.syncState('userProfile', {
       context: this,
       state: 'userProfile'
     })
+  }
+  componentWillUnmount() {
+    base.removeBinding(this.userRef);
   }
   
   render () {

@@ -23,30 +23,8 @@ class ListView extends Component {
       accountName:'loading',
       listView:''
     };
-    this.removeGallery = this.removeGallery.bind(this); 
     
   }
-  // makeGallery = () => {
-  //   let newGallery ={};
-  //   const newGalleryKeys = Object.keys(this.galleryRef.context.state.gallery).map(key => {
-  //     const newKey  = this.state.gallery[key].id;
-  //     newGallery[newKey]= this.state.gallery[key];
-  //     return newGallery;
-  // });
-  // let updatedGallery = newGalleryKeys['0'];
-  // return updatedGallery;  
-  // }
-
-  //  updateRebase =  () => {
-  //       const updatedGallery = {...this.makeGallery()};
-  //       this.setState({gallery: updatedGallery})
-  //   }
-    updateEachGallery = (key, updatedKey) => {
-      const gallery =  { ...this.state.gallery };
-      gallery[key] = updatedKey;
-      this.setState({ gallery });
-    };
-
   componentDidMount() {
     InstagramLogin.fetchUserInfo().then(instagramUser => {
       let newGallery ={};
@@ -71,60 +49,30 @@ class ListView extends Component {
       
     }
 
-    componentWillMount() {
-      this.galleryRef = base.syncState('gallery', {
-        context: this,
-        state: 'gallery',
-    });
-  //  base.syncState('slides', {
-  //     context: this,
-  //     state: 'slides',
-      
-  //   });
-  try {
-    base.listenTo('affiliates', {
-      context: this,
-      then(data) {
-        this.setState({ gallery: {...data} })
-        }
-      })
-      throw new Error('Request failed!');
-  } catch (error) {
-      console.log(error);
-    }
-  this.removeGallery();
-  this.updatedGalleryRef = base.syncState('updatedGallery', {
-    context: this,
-    state: 'updatedGallery',
-  });
-}
-   
-    componentWillUnMount() {
-      base.removeBinding(this.galleryRef);
-      base.removeBinding(this.slidesRef);
-      base.removeBinding(this.updatedGalleryRef);
-     }
-    
-     removeGallery() {
-      const id = this.state.gallery.id;
-      console.log(id)
+  componentWillMount() {
+    this.galleryRef = base.syncState('gallery', {
+       context: this,
+       state: 'gallery',
+       
+   });
+  this.slidesRef = base.syncState('slides', {
+     context: this,
+     state: 'slides',
      
-        base.remove(`gallery/${id}`, function(err) {
-            if(!err) {
-                console.log('successfully updated gallery');
-              }
-          })
-      }
+   });
+ }
   
-   MediaLists = ({ gallery, updateGallery })  => {
+   
+
+    MediaLists = ({ gallery})  => {
       gallery = {...this.galleryRef.context.state.gallery};
       return (
-        <div className='list'>
+        <div key={gallery.id} className='list'>
           { 
           Object.keys(gallery).map((media) => {
               return <PhotoContainer 
-                        updateGallery={this.removeGallery} 
-                        refresh={this.updateEachGallery}
+                        // updateGallery={this.removeGallery} 
+                        // refresh={this.updateEachGallery}
                         media={gallery[media]} 
                         key={gallery[media].id} 
                         id={gallery[media].id} 
@@ -136,16 +84,21 @@ class ListView extends Component {
             </div>
           );
       }
- 
-    render() {
-        return(
-   
-        <div className="App" style={{display: 'inline-flex'}}>
-          <BitlyHeader/>
-          <SideBar2/>
-          {this.MediaLists(this.galleryRef.context.state.gallery)}
-        </div> 
-      );
-    }
-  }
+   // console.log(this.state.userProfile)
+   // console.log(this.galleryRef.context.state.gallery)
+   componentWillUnMount() {
+    base.removeBinding(this.galleryRef);
+    base.removeBinding(this.slidesRef)
+   }
+   render() {
+   return (
+     <div className="App">
+       <Header/>
+       <SideBar2/>
+         {this.MediaLists(this.state.gallery)}
+     </div>
+   );
+ }
+}
+
 export default withAuthentication(ListView);

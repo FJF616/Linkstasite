@@ -37,7 +37,7 @@
     margin: 10;
     position:relative;
     background-size: cover;
-    width: 685;
+    width: 715;
     border: 6px outset;
     // background-color: blueViolet;
     border-color: rgba(129, 35, 124, 0.438); 
@@ -119,13 +119,14 @@
     height: 365; 
     margin: 15; 
     padding: 10;  
-    width: 685
+    width:715
 }
 .input-group .input-group-prepend .input_group_text {
-    background-color: turquoise;
+    // background-color: turquoise;
     height: 31; 
     width: 110;   
-    box-shadow: 0 3px 4px 0 hsla(0, 5%, 5%, .75)
+    box-shadow: 0 3px 4px 0 hsla(0, 5%, 5%, .75);
+    padding-top: 10px;
 
 }
 .landing__container{

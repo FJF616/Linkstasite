@@ -7,7 +7,7 @@ import withAuthentication from '../Session/withAuthentication';
 import SideBar2 from '../SideBar/SideBar2';
 // import withAuthentication from '../Session/withAuthentication'
 // import Media from '../Media/Media'
-import MediaGrid from '../MediaList/MediaGrid'
+import MediaGridComponent from '../Media/MediaGridComponent'
 // import MediaGridCompnpm startonent from '../Media/MediaGridComponent';
 import { base } from '../rebaseConfig/firebase'
 import Header from '../Header/Header';
@@ -20,24 +20,10 @@ class GridView extends Component {
    
     };
     // this.onListChange = this.onListChange.bind(this);
-    this.deleteMedia = this.deleteMedia.bind(this); 
+    // this.deleteMedia = this.deleteMedia.bind(this); 
   }
 
 
-  // componentDidMount() {
-  //   InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
-  //         gallery: instagramUser.gallery,
-  //         userProfile: instagramUser.user['0'],
-  //         accountName: instagramUser.user['0'].userName,
-          
-  //       })).catch(error => {
-  //         if (error) {
-  //           console.log("error fetching instagramUser")
-  //         }
-  //       })
-  //     }
-  //     });
-  //   }
     // onListChange (id, updatedList) {
     //   const { gallery } = this.state;
       
@@ -52,22 +38,8 @@ class GridView extends Component {
     //     })
     //   });
     // }
-    componentWillMount() {
-    this.galleryRef = base.syncState('gallery', {
-        context: this,
-        state: 'gallery',
-        // asArray: true
-        
-    });
-   
-  }
-  
 
-
-    componentWillUnMount() {
-      base.removeBinding(this.galleryRef);
-    }
-    // removeFromGallery(media) {
+     // removeFromGallery(media) {
     //   const gallery = {...this.state.gallery};
     //   delete gallery[media];
     //   this.setState({ gallery });
@@ -82,38 +54,59 @@ class GridView extends Component {
   
     //   this.setState({ gallery: newState });
     // }
-    deleteMedia = id => {
-      id = this.state.gallery[id]
-      this.setState(prevState => {
-        return { gallery: prevState.gallery.filter(media => media.id !==id) };
-      });
-    };
+   
 
     //  renderMediaList = media =>
     //  <MediaGrid key={media.id} media={media} onClick={this.deleteMedia} />
+    componentWillMount() {
+    this.galleryRef = base.syncState('gallery', {
+        context: this,
+        state: 'gallery',
+        // asArray: true
+        
+    });
+   
+  }
+
+  deleteMedia = id => {
+    id = this.state.gallery[id]
+    this.setState(prevState => {
+      return { gallery: prevState.gallery.filter(media => media.id !==id) };
+    });
+  };
+
+  MediaLists = ({ gallery, deleteMedia })  => {
+    gallery = {...this.galleryRef.context.state.gallery};
+    return (
+      <div key={gallery.id} className='list'>
+        { 
+        Object.keys(gallery).map((media) => {
+            return <MediaGridComponent
+                      // updateGallery={this.removeGallery} 
+                      refresh={this.deleteMedia}
+                      media={gallery[media]} 
+                      key={gallery[media].id} 
+                      id={gallery[media].id} 
+                      title={gallery[media].title}
+                      gallery={this.galleryRef}
+                     />;
+                  })
+               }
+          </div>
+        );
+    }
+
+    componentWillUnMount() {
+      base.removeBinding(this.galleryRef);
+    }
+   
   render() {
-    // const MediaGrid = ({ gallery, removeImage}) => {
-    //   return (
-    //     <div className='list'>
-    //     {
-    //       this.state.gallery.map(media => {
-    //         return <MediaGridComponent   media={media} key={media.id} />;
-    //       })
-    //     }
-    //   </div>
-    //   );
-    // }
-  
-    // console.log(this.state.userProfile)
-    // // console.log(this.galleryRef.context.state.gallery)
-    // const galleryFeed = this.galleryRef.context.state.gallery
-    // // const linkstaFeed =  this.linkstaFeedRef.context.state.gallery
-    // console.log(galleryFeed)
+   
     return (
       <div className="App"> 
       <Header />
        <SideBar2/>
-       <MediaGrid  />
+       {this.MediaLists(this.state.gallery)}
       </div>
     );
   }

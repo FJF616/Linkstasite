@@ -6,6 +6,7 @@ import withAuthorization from '../Session/withAuthorization';
 import SideBar2 from '../SideBar/SideBar2'
 import AvatarEditor from 'react-avatar-editor'
 import Header from '../Header/Header'
+
  class AccountSettings extends Component { 
    state = {
      userProfile: []

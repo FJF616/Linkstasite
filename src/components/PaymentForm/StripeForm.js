@@ -2,8 +2,11 @@ import  React  from  'react' ;
 import  StripeCheckout  from  'react-stripe-checkout' ;
 import './StripeForm.scss';
 class  StripeForm  extends  React.Component  { 
+
+  
   onToken ( token )  { 
-    console.log ( token ); 
+    console.log ( token )
+    
   } 
   render ()  { 
     return  ( 

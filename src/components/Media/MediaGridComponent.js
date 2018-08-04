@@ -25,19 +25,24 @@ export default class MediaGridComponent extends Component {
 //     state: 'gallery'
 //   });
 // }
-// componentWillMount() {
-//   this.statsRef = base.syncState('stats', {
-//     context: this,
-//     state: 'stats',
-   
-//   })
-// }
-// componentWillUnmount() {
-//   base.removeBinding(this.statsRef);
-// }
+componentWillMount() {
+  this.statsRef = base.syncState('stats', {
+    context: this,
+    state: 'stats'
+  })
+  this.galleryRef = base.syncState(`gallery/${this.props.media.id}`, {
+    context: this,
+    state:'gallery'
+  })
+}
+componentWillUnmount() {
+  base.removeBinding(this.statsRef);
+  base.removeBinding(this.galleryRef);
+}
 updateClicks = () => {
-  base.update(`affiliates/${this.props.media.key}`, {
-    data: { clicks: this.state.stats.clicks},
+  const { clicks } = this.state.gallery;
+  base.post(`gallery`, {
+    data: { clicks: clicks},
     then(err) {
       if(!err){
         console.log('success tracking clicks')
@@ -45,24 +50,24 @@ updateClicks = () => {
     }
   })
 }
-handleClicks = () => {
-//  const  key  = this.props.media.key;
- const clicks  = this.state.stats.clicks;
- let amount = clicks + 25;
- if (amount === 100) {
-   this.setState({completed : true})
- } else {
- this.setState({
-    stats: { 
-      link: this.props.media.affiliateLink, 
-      clicks: amount 
-    }
- });
-}
- this.updateClicks();
+clickLimit = () => {
+  const limit = 25;
+  const current =  this.state.gallery.clicks;
+  let clicksRemaining =  limit - this.state.gallery.clicks;
+  switch(clicksRemaining) {
+    case '10' : 
+      alert('There are 10 clicks remaining for your trial period. Upgrade to Pro subscription and receive unlimited clicks as well as access to the entire instagram gallery.')
+      break;
+    case '0': 
+      alert('You have reached the limit of clicks for this affiliate link. You may continue to use the service with a different link, however, all links are limited to 25 clicks and may not be reused.')
+      break;
+    default:
+      return clicksRemaining; 
+  }
+  
 }
 getClicks= () => {
-  base.fetch(`affiliates/${this.props.media.key}`,{
+  base.fetch(`gallery`,{
     context: this,
     asArray: true,
     then(data){
@@ -73,17 +78,17 @@ getClicks= () => {
 render() {
   return (
       <div className='image-grid' > 
-        { this.props.media.affiliateLink && !this.state.completed
+        { this.props.media.url && !this.state.completed
             ?  <div>
-                  <span className="media-title"><h5>{this.props.media.title}</h5></span>
-                  <a href={this.props.media.affiliateLink} ><Imager  onClick={this.handleClicks} data-tip={this.props.media.affiliateLink} className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
-                  <ProgressBar data={this.state.stats} />
+                  <span className="media-title"><h5>{this.state.gallery.title}</h5> </span>
+                  <a href={this.state.gallery.url} ><Imager  data-tip={this.state.gallery.url} className="mr-3" src={this.state.gallery.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
+                 {/* <ProgressBar data={this.state.stats} />*/}
                   <ReactTooltip place="top" type="light" effect="float"/>
                 </div>
                 : this.state.completed 
                 ? <div>
-                    <span className="media-title">{this.props.media.title}<p>{this.state.stats.clicks}</p></span>
-                    <Imager  onClick={this.handleClicks} data-tip="upgrade to pro for unlimited clicks" className="mr-3" src={this.props.media.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
+                    <span className="media-title">{this.state.gallery.title}</span>
+                    <Imager   data-tip="upgrade to pro for unlimited clicks" className="mr-3" src={this.state.gallery.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
                     <ReactTooltip place="top" type="light" effect="float"/>
                 </div>
             : ''

@@ -10,3 +10,16 @@
   position: relative;
  
 }
+
+.trash__container {
+  display: flex;
+  z-index: 2;
+}
+.trash__container:hover {
+  position: relative;
+  display: flex;
+  z-index: 2;
+ 
+  filter: opacity(30%);
+  cursor: pointer;
+}

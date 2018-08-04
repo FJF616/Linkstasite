@@ -48,7 +48,7 @@ const InstagramLogin = {
       var errorCode = error.code;
       var errorMessage = error.message;
       if(error) {
-        console.log('error signing in with custom token', error.code)
+        console.log(errorMessage, errorCode)
       }
       // ...
     });
@@ -78,6 +78,7 @@ const InstagramLogin = {
         jsonResponse = await response.json();
         instagramUser.user = jsonResponse.data.map(info => ({
           id: info.id,
+          accountStatus: 'trial',
           // image: info.images.standard_resolution.url,
           instagramUserID: info.user.id,
           url: info.link,
@@ -91,10 +92,10 @@ const InstagramLogin = {
         }));
           instagramUser.gallery = jsonResponse.data.map(info => ({
             src: info.images.standard_resolution.url,
-            title: info.caption ? info.caption.text : '',
+            // title: info.caption ? info.caption.text : '',
             id: info.id,
-            url: info.link,
-           
+            // url: '',
+            affiliated: false,
             editing: false,
             edited: false,
             filled: false

@@ -30,7 +30,7 @@ const CreditCard= () => (
         active
       }) => {
         return (
-          <form onSubmit={handleSubmit}>
+          <form style={{marginTop: '25px', height: '795px', border: '5px ridge', borderColor: 'pink'}} onSubmit={handleSubmit}>
              <Card
                number={values.number || ''}
                name={values.name || ''}
@@ -74,7 +74,7 @@ const CreditCard= () => (
                 format={formatCVC}
               />
             </div>
-            {/*<div className="buttons">
+            <div className="buttons">
               <button type="submit" disabled={submitting}>
                 Submit
               </button>
@@ -86,8 +86,9 @@ const CreditCard= () => (
                 Reset
               </button>
             </div>
-            <h2>Values</h2>
-        <pre>{JSON.stringify(values, 0, 2)}</pre>*/}
+           
+        <pre>{JSON.stringify(values, 0, 2)}</pre>
+        <h3>Upgrade to Pro Subscription and receive access to full Instagram gallery and unlimited clicks on affiliate links!</h3>
           </form>
         )
       }}
