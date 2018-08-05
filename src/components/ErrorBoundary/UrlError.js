@@ -1,5 +1,5 @@
 import React from 'react';
-export default class ErrorBoundary extends React.Component {
+export default class UrlError extends React.Component {
     constructor(props) {
       super(props);
       this.state = { hasError: false };
@@ -15,7 +15,7 @@ export default class ErrorBoundary extends React.Component {
     render() {
       if (this.state.hasError) {
         // You can render any custom fallback UI
-        return <h1>"Uh oh, something happened trying to find affiliate url"</h1>;
+        return <h1>"There was a problem generating your short link, please make sure you have entered the full address correctly."</h1>;
       }
       return this.props.children;
     }

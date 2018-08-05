@@ -182,7 +182,7 @@ constructor(props) {
         base.removeBinding(this.galleryRef);
     }
     
-    
+   
     
     render() {    
       return (   
@@ -203,14 +203,14 @@ constructor(props) {
                                 {
                                      !this.state.mediaData.edited  
                                         ? (this.state.mediaData.url ? !this.state.mediaData.url.length : !this.state.mediaData.url)
-                                            ? <ShortenLink mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/>
+                                            ? <UrlError><ShortenLink mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/></UrlError>
                                             : <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.mediaData.url}</b></h6></a> 
-                                        : <ShortenLink mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/>
+                                        : <UrlError><ShortenLink mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/></UrlError>
                                 }
                                {/* <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.mediaData.edited || this.state.mediaData.url ? this.state.mediaData.url.length : !this.state.mediaData.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>*/}
-                                <button onClick={this.handleClear} className="controls" type="button" disabled={ this.state.mediaData.url ? !this.state.mediaData.url.length : !this.state.mediaData.url} data-tip="Remove affiliate Link" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
+                                <button onClick={this.handleClear} className="controls" type="button" disabled={ this.state.mediaData.url ? !this.state.mediaData.url.length : !this.state.mediaData.url} data-tip="Remove affiliate Link" style={{color: 'purple', paddingLeft: '5px', padding: '5px', width: '40px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                                 {/*<button  className="controls" onClick={this.handleEdit} disabled={ !this.state.mediaData.affiliated } type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>*/}
-                                <button onClick={this.checkFilled} disabled={ (!this.state.mediaData.editing || this.state.mediaData.affiliated) || (this.state.mediaData.editing && this.state.mediaData.affiliated ) } className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginLeft: '2px'}}><i className="fa fa-save"/></button>
+                                <button onClick={this.checkFilled} disabled={ (!this.state.mediaData.editing || this.state.mediaData.affiliated) || (this.state.mediaData.editing && this.state.mediaData.affiliated ) } className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '40px', height: '31px', marginLeft: '2px'}}><i className="fa fa-save"/></button>
                                 <ReactTooltip place="top" type="light" effect="float"/>
                                 <FormGroup>
                                 <FormControlLabel style={{paddingLeft: '5px', marginLeft: '5px', marginRight: '-10px'}}
@@ -226,7 +226,7 @@ constructor(props) {
                 </div>
               <div className="media" >
               { 
-                this.state.mediaData.url ? 
+                this.state.mediaData.url && this.state.mediaData.clicks <= '30'? 
                  <a href={this.state.mediaData.url}><Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
                  : <Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
                     }
@@ -249,10 +249,10 @@ constructor(props) {
                                 {
                                     this.state.linkPreview && this.state.mediaData.url?
                                     <h5>Link Preview 
-                                        <MicrolinkCard url={this.state.mediaData.url} size='medium' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 370, marginTop: 10, marginLeft: 3, height: 120, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
+                                        <MicrolinkCard url={this.state.mediaData.url} size='medium' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 400, marginTop: 4, marginLeft: 3, height: 133, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
                                     </h5>
                                     : (this.state.mediaData.url && this.state.mediaData.clicks > 0) || (this.state.mediaData.url === this.props.media.url) 
-                                ? <div style={{ color: 'blue', border: '3px  inset', padding:'5px', margin: '5px'}}><h4><b>{this.state.mediaData.clicks ? `Clicks: ${this.state.mediaData.clicks}`: 'Link activity will be displayed here'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
+                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{this.state.mediaData.clicks ? `Clicks Remaining: ${'30' - this.state.mediaData.clicks}`: 'Enter affiliate link to get stats'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
                                 : null
                                     } 
                         </div>

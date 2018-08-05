@@ -84,7 +84,7 @@ export default class ShortenLink extends Component {
              {/* enter longUrl, convert it to short, then copy shortUrl to clipboard, clear local state  to enter another LongUrl*/}
                 {this.state.shortUrl 
                 ? <div>
-                    <label className="affiliate" type="url" style={{width: 295,  verticalAlign: 'middle', borderRadius: '6%', color: 'Blue', paddingLeft: 15, marginBottom: '20px', height: 32, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline' }} disabled={!this.state.copied} value={this.state.shortUrl} />
+                    <label className="affiliate" type="url" style={{width: 335,  verticalAlign: 'middle', borderRadius: '6%', color: 'Blue', paddingLeft: 15, marginBottom: '20px', height: 32, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline' }} disabled={!this.state.copied} value={this.state.shortUrl} />
                     <CopyToClipboard
                         style={{  borderRadius: '6%',  color: 'blue', paddingLeft: '12px', paddingTop: '5px', marginRight: '5px', height: '31px', }}
                         text={this.state.shortUrl}

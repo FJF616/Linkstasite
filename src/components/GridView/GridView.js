@@ -67,7 +67,25 @@ class GridView extends Component {
     });
    
   }
-
+  clicksRemaining = (limit) => {
+    limit =  limit > '0' ? limit : '100';
+    const clicks = this.state.mediaData.clicks;
+    const remaining = limit - clicks;
+    switch(remaining) {
+     case '10' :
+     case '5': 
+       alert('There are 10 clicks remaining for your trial period. Upgrade to Pro subscription and receive unlimited clicks as well as access to the entire instagram gallery.')
+       break;
+     case '0': 
+       alert('You have reached the limit of clicks for this affiliate link. You may continue to use the service with a different link, however, all links are limited to 25 clicks and may not be reused.')
+       break;
+     default:
+       return remaining; 
+   }
+   return this.setState({
+         clicksRemaining: remaining > '0' ? remaining : remaining === '0' ? 'completed' : remaining,
+     })
+  }
   deleteMedia = id => {
     id = this.state.gallery[id]
     this.setState(prevState => {
@@ -81,7 +99,8 @@ class GridView extends Component {
       <div key={gallery.id} className='list'>
         { 
         Object.keys(gallery).map((media) => {
-            return <MediaGridComponent
+            return <MediaGridComponent 
+                      clicksRemaining={this.clicksRemaining}
                       // updateGallery={this.removeGallery} 
                       refresh={this.deleteMedia}
                       media={gallery[media]} 

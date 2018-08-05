@@ -194,3 +194,10 @@
       opacity: 0.25;
   }
 
+ .stats {
+     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );
+     filter: opacity(45%);
+ }
+ .stats:hover {
+     filter: opacity(85%);
+ }
