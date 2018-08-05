@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import { base } from '../rebaseConfig/firebase';
 // import Media from '../Media/Media';
 import './Landing.scss';
-import '../Gallery/ModalGallery/Modal.scss';
+// import '../Gallery/ModalGallery/Modal.scss';
 // import InstagramProvider from '../Session/InstagramProvider'
 // import TitlebarGridList from '../GridList/GridList'
 import Header from "../Header/Header";
@@ -67,19 +67,6 @@ import SideBar2 from '../SideBar/SideBar2'
         context: this,
         state: 'image'
       })
-    //    base.listenTo('updatedGallery', {
-    //     context: this,
-    //     then(updatedGalleryData) {
-    //      let newData = Object.values(updatedGalleryData);
-    //      this.setState({
-    //         newData
-    //     })
-    //      console.log(newData)
-        
-    //      return newData  
-    //   }
-     
-    // })
    
   }
 

@@ -10,12 +10,7 @@ grid/list view: grid will show linked pics, list will be for editing mode.
 stripe integration.  
 Firebase integration for state management , realtime database
 
-Todo:
-begin/finish paralax landing page
-create user account types
-routing
-delete item function
-linked pics gallery view
+
 
 
 This project was scrapped during capstone phase at Lambdaschool.  Since there were many particular aspects about it that I found interesting/challenging, I have kept working on it in my freetime. 

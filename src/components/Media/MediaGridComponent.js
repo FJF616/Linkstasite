@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './Media.scss';
 import Imager from '../Imager/Imager';
-import ICONS from '../Icons/constants';
-import Icon from '../Icons/Icon';
+// import ICONS from '../Icons/constants';
+// import Icon from '../Icons/Icon';
 import { base } from '../rebaseConfig/firebase';
 import ReactTooltip from 'react-tooltip';
-import ProgressBar from '../Graph/ProgressBar';
+// import ProgressBar from '../Graph/ProgressBar';
 // import { withRouter } from 'react-router-dom'
 export default class MediaGridComponent extends Component { 
   state = {
@@ -16,15 +16,7 @@ export default class MediaGridComponent extends Component {
     
     }
   }
-//    state = {
-//      gallery:[]
-//    }
-//  componentDidMount() {
-//   base.syncState('gallery', {
-//     context: this,
-//     state: 'gallery'
-//   });
-// }
+
 componentWillMount() {
   this.statsRef = base.syncState('stats', {
     context: this,
