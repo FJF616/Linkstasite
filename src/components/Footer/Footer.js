@@ -6,8 +6,8 @@ export default class Footer extends Component {
             <footer className="d-flex d-inline-flex flex-wrap" style={{backgroundColor: 'rgb(124, 65, 135)'}}>
             <div className="row">
             <div className="col-sm-6 col-md-4 footer-navigation">
-                <h3><a href="#">Linksta<span>Site</span></a></h3>
-                <p className="links"><a href="#">Home</a><strong> · </strong><a href="#">Blog</a><strong> · </strong><a href="#">Pricing</a><strong> · </strong><a href="#">About</a><strong> · </strong><a href="#">Faq</a><strong> · </strong><a href="#">Contact</a></p>
+                <h3><a>Linksta<span>Site</span></a></h3>
+                <p className="links"><a >Home</a><strong> · </strong><a >Blog</a><strong> · </strong><a >Pricing</a><strong> · </strong><a >About</a><strong> · </strong><a >Faq</a><strong> · </strong><a >Contact</a></p>
                 <p className="company-name">LinkstaSite © 2018</p>
             </div>
             <div className="col-sm-6 col-md-4 footer-contacts">
@@ -18,7 +18,7 @@ export default class Footer extends Component {
                 <p className="footer-center-info email text-left"> +1 555 123456</p>
                 </div>
                 <div><i className="fa fa-envelope footer-contacts-icon" style={{backgroundColor: 'rgb(84, 149, 190)'}} />
-                <p> <a href="#" target="_blank">support@linkstasite.com</a></p>
+                <p> <a target="_blank">support@linkstasite.com</a></p>
                 </div>
             </div>
             <div className="clearfix" />
@@ -26,8 +26,8 @@ export default class Footer extends Component {
                 <h4>About the company</h4>
                 <p>Linkstasite aims to help you make the most out of your Instagram account, whether its gaining exposure, directing traffic and analytics, or advertising and driving up your revenue. &nbsp;The concept is simple, select pictures from your
                 gallery, add an affiliate link and title to them, and then place your linkstasite profile url on your actual Instagram account.&nbsp;</p>
-                <div className="social-links social-icons"><a href="#" style={{backgroundColor: 'rgb(84, 149, 190)'}}><i className="fa fa-facebook" /></a><a href="#" style={{backgroundColor: 'rgb(84, 149, 190)'}}><i className="fa fa-twitter" /></a><a href="#" style={{backgroundColor: 'rgb(84, 149, 190)'}}><i className="fa fa-linkedin" /></a>
-                <a href="#" style={{backgroundColor: 'rgb(84, 149, 190)'}}><i className="fa fa-github" /></a>
+                <div className="social-links social-icons"><a  style={{backgroundColor: 'rgb(84, 149, 190)'}}><i className="fa fa-facebook" /></a><a style={{backgroundColor: 'rgb(84, 149, 190)'}}><i className="fa fa-twitter" /></a><a  style={{backgroundColor: 'rgb(84, 149, 190)'}}><i className="fa fa-linkedin" /></a>
+                <a  style={{backgroundColor: 'rgb(84, 149, 190)'}}><i className="fa fa-github" /></a>
                 </div>
             </div>
             </div>

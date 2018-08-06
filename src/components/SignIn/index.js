@@ -4,9 +4,9 @@ import './SignIn.scss'
 import 'bootstrap/dist/css/bootstrap.css';
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
-import  { firebase, auth, db } from '../rebaseConfig';
+import  {  auth } from '../rebaseConfig';
 import * as routes from '../constants/routes';
-import Imager from '../Imager/Imager'
+// import Imager from '../Imager/Imager'
 const SignInPage = ({ history }) =>
   <div>
     

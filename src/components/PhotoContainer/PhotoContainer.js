@@ -54,10 +54,12 @@ constructor(props) {
                             data: { clicks: `${clicks}`, url:  `${url}`, timestamp: `${timestamp}`},
                             then(err) {
                                 if(!err) {
-                                    console.log('updated bitlyData')
+                                    console.log('updated bitlyData', data.key)
                                 }
                             }
                         });
+                        const bitlyRef = data.key;
+                        this.setState({ bitlyRef });
                     }
                 });
             

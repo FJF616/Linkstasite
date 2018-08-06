@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import AuthUserContext from './AuthUserContext';
 // import InstagramLogin from '../../util/InstagramLogin';
-import { firebase, auth } from '../rebaseConfig';
+import { firebase } from '../rebaseConfig';
 import * as routes from '../../constants/routes';
 // import InstagramConsumer from '../Session/InstagramProvider'
 const withAuthorization = (condition) => (Component) => {

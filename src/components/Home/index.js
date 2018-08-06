@@ -87,7 +87,7 @@ class HomePage extends Component {
 
  
   render() {
-    const { users } = this.state;
+    // const { users } = this.state;
     return (
       <div className="App" >
         <div className="home__page">
@@ -103,16 +103,16 @@ class HomePage extends Component {
   }
 }
 
-const UserList = ({ users }) =>
-  <div>
-    <h2>List of Usernames of Users</h2>
-    <p>(Saved on Sign Up in Firebase Database)</p>
+// {/*const UserList = ({ users }) =>
+//   <div>
+//     <h2>List of Usernames of Users</h2>
+//     <p>(Saved on Sign Up in Firebase Database)</p>
 
-    {Object.keys(users).map(key =>
-      <div key={key}>{users[key].username}</div>
-    )}
-  </div>
-
+//     {Object.keys(users).map(key =>
+//       <div key={key}>{users[key].username}</div>
+//     )}
+//   </div>
+//   */}
 const authCondition = (authUser) => !!authUser;
 
 export default withAuthorization(authCondition)(HomePage);

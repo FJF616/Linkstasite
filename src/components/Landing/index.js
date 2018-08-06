@@ -5,10 +5,6 @@ import './Landing.scss';
 import Header from "../Header/Header";
 import SideBar2 from '../SideBar/SideBar2';
 
-let match;
-let title;
-let key;
-let value;
 /**
  * 
  * 
@@ -87,33 +83,33 @@ let value;
       base.removeBinding(this.imageRef);
     }
 
-    getMapKeyValueByIndex = (obj, idx) => {
-      var key = Object.keys(obj)[idx];
-      return { key: key, value: obj[key] };
-   }
-   getMedia = () => {
-    const match = this.state.showModal ? this.state.url : '';
-    const o = {...this.state.image};
-    let idx;
-    let prop = Object.keys(o)[idx]
-    let value = o[prop];
-    let results =[];
-    if (this.state.showModal) {
-      for (idx = 0; idx < o.length; idx++) {
-          const result = (this.getMapKeyValueByIndex(o, match));
-          results.push(result);
-      }
-      return results;
-    }
+  //   getMapKeyValueByIndex = (obj, idx) => {
+  //     var key = Object.keys(obj)[idx];
+  //     return { key: key, value: obj[key] };
+  //  }
+  //  getMedia = () => {
+  //   const match = this.state.showModal ? this.state.url : '';
+  //   const o = {...this.state.image};
+  //   let idx;
+  //   let prop = Object.keys(o)[idx]
+  //   let value = o[prop];
+  //   let results =[];
+  //   if (this.state.showModal) {
+  //     for (idx = 0; idx < o.length; idx++) {
+  //         const result = (this.getMapKeyValueByIndex(o, match));
+  //         results.push(result);
+  //     }
+  //     return results;
+  //   }
    
-   }
+  //  }
     deleteMedia = id => {
         this.setState(prevState => {
           return { gallery: prevState.gallery.filter(media => media.id !==id) };
         });
       };
       render() {
-          console.log(this.getMedia())
+         
           const  imgUrls  =  {...this.state.image} ;
           return(
             <div className="App" >

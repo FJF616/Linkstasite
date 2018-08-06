@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import  { firebase, auth, db }  from '../rebaseConfig';
+import  { auth }  from '../rebaseConfig';
 import * as routes from '../../constants/routes';
 const PasswordForgetPage = () =>
   <div>

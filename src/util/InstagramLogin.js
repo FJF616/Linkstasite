@@ -1,5 +1,5 @@
-const createFirebaseAccount = require('../components/rebaseConfig/createFirebaseAccount');
-const signInFirebaseTemplate = require('../components/rebaseConfig/signInFirebaseTemplate');
+// const createFirebaseAccount = require('../components/rebaseConfig/createFirebaseAccount');
+// const signInFirebaseTemplate = require('../components/rebaseConfig/signInFirebaseTemplate');
 const firebase = require('firebase');
 const redirectURI = "http://localhost:3000/"
 const client_id = "0d744e65869b4acc8dde4d6e3c6a58e2";

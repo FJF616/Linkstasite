@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'mdbreact'
+// import Button from 'mdbreact'
 import {
   XYPlot,
   XAxis,
@@ -18,7 +18,7 @@ export default class Bar extends React.Component {
   render() {
     const {useCanvas} = this.state;
     const BarSeries = useCanvas ? HorizontalBarSeriesCanvas : HorizontalBarSeries;
-    const content = useCanvas ? 'TOGGLE TO SVG' : 'TOGGLE TO CANVAS';
+    // const content = useCanvas ? 'TOGGLE TO SVG' : 'TOGGLE TO CANVAS';
     return (
       <div>
        {/*// <button
