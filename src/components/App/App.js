@@ -1,10 +1,10 @@
 
-  import React from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
-// import InstagramFeed from '../InstagramFeed/InstagramFeed'
+import NewPara from '../NewPara/NewPara';
 import ListView from '../ListView/ListView'
 import GridView from '../GridView/GridView'
 import Billing from '../Billing/Billing'
@@ -17,12 +17,12 @@ import HomePage from '../Home';
 import AccountSettings from '../AccountSettings/AccountSettings'
 import withAuthentication from '../Session/withAuthentication';
 import * as routes from '../constants/routes';
-import PictureList from '../Pictures/PictureList';
-// import InstagramProvider from '../Session/InstagramProvider'
+
 const App = () =>
     <Router>
       <div>
         <Navigation />
+          <Route exact path={routes.PARALLAX} component={() => <NewPara />} />
           <Route exact path={routes.LANDING} component={() => <LandingPage />} />
           <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
           <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
@@ -32,7 +32,6 @@ const App = () =>
           <Route exact path={routes.BILLING} component={() => <Billing />} />
           <Route exact path={routes.GRID_VIEW} component={() => <GridView />} />
           <Route exact path={routes.LIST_VIEW} component={() => <ListView />} />
-          <Route exact path={routes.INSTAGRAM_FEED} component={() => <PictureList />} />
       </div>
     </Router>
 export default withAuthentication(App);

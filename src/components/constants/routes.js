@@ -11,6 +11,7 @@ export const MEDIA = '/media';
 export const LIST_EDIT_VIEW = '/listeditview';
 export const BILLING = '/billing';
 export const LIST_VIEW ='/listview';
+export const PARALLAX = '/parallax';
 
 // export const GALLERY = '/gallery';
 

@@ -15,7 +15,7 @@ export default class ErrorBoundary extends React.Component {
     render() {
       if (this.state.hasError) {
         // You can render any custom fallback UI
-        return <h1>Please upgrade to Pro Subscription to Enable this feature.</h1>;
+        return <h4><b>There was an error creating affiliate link.  Please make sure the original url is valid and entered correctly.</b></h4>;
       }
       return this.props.children;
     }

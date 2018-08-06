@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import '../App/App.css';
 import withAuthentication from '../Session/withAuthentication';
-// import Navigation from '../Navigation';
-// import MediaGrid from '../MediaList/MediaGrid';
-// import InstagramLogin from '../../util/InstagramLogin';
+
 import SideBar2 from '../SideBar/SideBar2';
-// import withAuthentication from '../Session/withAuthentication'
-// import Media from '../Media/Media'
+
 import MediaGridComponent from '../Media/MediaGridComponent'
-// import MediaGridCompnpm startonent from '../Media/MediaGridComponent';
 import { base } from '../rebaseConfig/firebase'
 import Header from '../Header/Header';
 class GridView extends Component {

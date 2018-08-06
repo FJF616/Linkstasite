@@ -6,16 +6,14 @@ import ICONS from '../Icons/constants';
 import Icon from '../Icons/Icon';
 import MicrolinkCard from 'react-microlink';
 import ReactTooltip from 'react-tooltip';
-// import {Card, Col, Row } from 'reactstrap';
-import { db, base } from '../rebaseConfig/firebase'
-// import ProgressBar from '../Graph/ProgressBar'
+import {  base } from '../rebaseConfig/firebase'
 import Bitlink from '../../util/BitlyHelper';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import UrlError from '../ErrorBoundary/UrlError';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-import ShortenLink from '../../util/Bitly'
+import ShortenLink from '../../util/Bitly';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 /**
  * 
  * 
@@ -38,23 +36,34 @@ constructor(props) {
     
      getLinkStats = async () => {
         let url =  this.state.mediaData.url;
+        let clicks;
         if (this.state.mediaData.url) {
-        await  Bitlink.fetchClicks(`${url}`).then(clicks => 
-            this.setState({
-                mediaData: {
-                 clicks: clicks.link_clicks,
-                }
-            }),
-            console.log(this.state.mediaData.clicks)
-            )
-            .catch(error => {
-                if(error) {
+            await  Bitlink.fetchClicks(`${url}`).then(clicks => 
+                this.setState({
+                    mediaData: {
+                        clicks: clicks.link_clicks
+                    },
+                    clickData: clicks
+                }))
+                .catch(error => {
+                    if(error) {
                       console.log('error retrieving link metrics', error);
-                };
-            });
+                    } else {
+                        const timestamp = Date.now();
+                        let data = base.push(`bitlyData/${this.props.media.id}`, {
+                            data: { clicks: `${clicks}`, url:  `${url}`, timestamp: `${timestamp}`},
+                            then(err) {
+                                if(!err) {
+                                    console.log('updated bitlyData')
+                                }
+                            }
+                        });
+                    }
+                });
             
+            }
         }
-    }
+
    componentWillMount() {
      this.slidesRef =  base.syncState('slides', {
            context: this,
@@ -186,17 +195,14 @@ constructor(props) {
     
     render() {    
       return (   
-        
         <div className="cardContainer">
-      
-            <meta charSet="utf-8" />
+          <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
               <div className="card" style={{backgroundColor: 'plum', border: '4px  outset', borderColor: 'pink', height: 405, margin: 25, padding: 10,  width: 700}}>
                 <div className="card-header" style={{ marginTop: '5px', color: 'rgb(176,196,215)',  paddingTop: 10}}>
                     <div className="input-group">
                       <div className="input-group-prepend">
                        <span className="input-group-text" style={{backgroundColor: 'turquoise', height: 31, width: 110,   boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}>Affiliate Link</span>
-                      
                         <div className="input-group-append" >
                             {/* check if url has been entered. if it has, return associated link with image by making it clickable */}
                                
@@ -208,12 +214,12 @@ constructor(props) {
                                         : <UrlError><ShortenLink mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/></UrlError>
                                 }
                                {/* <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.mediaData.edited || this.state.mediaData.url ? this.state.mediaData.url.length : !this.state.mediaData.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>*/}
-                                <button onClick={this.handleClear} className="controls" type="button" disabled={ this.state.mediaData.url ? !this.state.mediaData.url.length : !this.state.mediaData.url} data-tip="Remove affiliate Link" style={{color: 'purple', paddingLeft: '5px', padding: '5px', width: '40px', height: '31px', marginBottom: '16px', marginLeft: '2px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
+                                <button onClick={this.handleClear} className="controls" type="button" disabled={ this.state.mediaData.url ? !this.state.mediaData.url.length : !this.state.mediaData.url} data-tip="Remove affiliate Link" style={{color: 'purple', paddingLeft: '5px', padding: '5px', width: '40px', height: '31px', marginBottom: '16px', marginLeft: '1px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                                 {/*<button  className="controls" onClick={this.handleEdit} disabled={ !this.state.mediaData.affiliated } type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>*/}
                                 <button onClick={this.checkFilled} disabled={ (!this.state.mediaData.editing || this.state.mediaData.affiliated) || (this.state.mediaData.editing && this.state.mediaData.affiliated ) } className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '40px', height: '31px', marginLeft: '2px'}}><i className="fa fa-save"/></button>
                                 <ReactTooltip place="top" type="light" effect="float"/>
                                 <FormGroup>
-                                <FormControlLabel style={{paddingLeft: '5px', marginLeft: '5px', marginRight: '-10px'}}
+                                <FormControlLabel style={{paddingLeft: '1px', marginLeft: '5px', marginRight: '-10px'}}
                                     control={
                                         <Switch data-tip="Link Preview"  checked={this.state.linkPreview} onChange={this.handlePreview} aria-label="LinkPreviewSwitch" />
                                         }
@@ -226,7 +232,7 @@ constructor(props) {
                 </div>
               <div className="media" >
               { 
-                this.state.mediaData.url && this.state.mediaData.clicks <= '30'? 
+                this.state.mediaData.url ? 
                  <a href={this.state.mediaData.url}><Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
                  : <Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
                     }
@@ -248,10 +254,12 @@ constructor(props) {
                                 {/* if a link has been added to the image, generate a link preview */}
                                 {
                                     this.state.linkPreview && this.state.mediaData.url?
+                                    <ErrorBoundary>
                                     <h5>Link Preview 
                                         <MicrolinkCard url={this.state.mediaData.url} size='medium' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 400, marginTop: 4, marginLeft: 3, height: 133, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
                                     </h5>
-                                    : (this.state.mediaData.url && this.state.mediaData.clicks > 0) || (this.state.mediaData.url === this.props.media.url) 
+                                    </ErrorBoundary>
+                                    : (this.state.mediaData.url && this.state.mediaData.clicks > '0') || (this.state.mediaData.url === this.props.media.url) 
                                 ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{this.state.mediaData.clicks ? `Clicks Remaining: ${'30' - this.state.mediaData.clicks}`: 'Enter affiliate link to get stats'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
                                 : null
                                     } 
@@ -259,7 +267,6 @@ constructor(props) {
                     </div>
                 </div>
             </div>
-           
         );
       }
     }

@@ -96,12 +96,13 @@ export default class NewPara extends Component {
                 <div className="parallax-layer scroll-level-base">
                   <div className="title">
                     <p>Base layer</p>
-
                     <Footer/>
+                    
                   </div>
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
       );

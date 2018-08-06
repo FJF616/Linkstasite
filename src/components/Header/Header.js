@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.scss';
 import { NavItem } from 'mdbreact'
-import Menupanel from './Menupanel'
+// import Menupanel from './Menupanel'
 import  'bootstrap/dist/css/bootstrap.css';
 import * as routes from '../constants/routes'
 // import instaUser from '../../util/instaUser'
@@ -19,7 +19,7 @@ import DropDown from './DropDown'
 // import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 // import IconButton from '@material-ui/core/IconButton';
 // import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+// import AccountCircle from '@material-ui/icons/AccountCircle';
 // import MenuItem from '@material-ui/core/MenuItem';
 // import Menu from '@material-ui/core/Menu';
 // import InstagramConsumer from '../Session/InstagramProvider';

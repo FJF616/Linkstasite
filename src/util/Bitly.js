@@ -84,7 +84,7 @@ export default class ShortenLink extends Component {
              {/* enter longUrl, convert it to short, then copy shortUrl to clipboard, clear local state  to enter another LongUrl*/}
                 {this.state.shortUrl 
                 ? <div>
-                    <label className="affiliate" type="url" style={{width: 335,  verticalAlign: 'middle', borderRadius: '6%', color: 'Blue', paddingLeft: 15, marginBottom: '20px', height: 32, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline' }} disabled={!this.state.copied} value={this.state.shortUrl} />
+                    <label className="affiliate" type="url" style={{width: 335,  verticalAlign: 'middle', borderRadius: '6%', color: 'Blue', paddingLeft: 10, marginBottom: '20px', height: 32, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline' }} disabled={!this.state.copied} value={this.state.shortUrl} />
                     <CopyToClipboard
                         style={{  borderRadius: '6%',  color: 'blue', paddingLeft: '12px', paddingTop: '5px', marginRight: '5px', height: '31px', }}
                         text={this.state.shortUrl}
@@ -100,7 +100,7 @@ export default class ShortenLink extends Component {
                       }
                   </div>
                 : <div>
-                    <input   style={{width: 295,  backgroundColor: 'paleturqoise', verticalAlign: 'middle', borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15, marginBottom: '20px' }} type="url" placeholder="enter a url" onChange={this.handleChange.bind(this)} className="urlInput"></input><button className="controls" hint="add affiliate link" onClick={this.shortenLink.bind(this)} type="button" data-tip="Add affiliate Link"  style={{  borderRadius: '6%',  color: 'blue', paddingLeft: '12px', paddingTop: '5px', marginRight: '5px', width: '45px', height: '31px', }}><Icon  style={{marginLeft: '10px'}} icon={ICONS.BITLINK} color={"blue"} size={35} /></button>
+                    <input   style={{width: 295,  backgroundColor: 'paleturqoise', verticalAlign: 'middle', borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 15, marginBottom: '20px' }} type="url" placeholder="enter a url" onChange={this.handleChange.bind(this)} className="urlInput"></input><button className="controls" hint="add affiliate link" onClick={this.shortenLink.bind(this)} type="button" data-tip="Add affiliate Link"  style={{  borderRadius: '6%',  color: 'blue', paddingLeft: '10px', paddingTop: '5px', marginRight: '5px', width: '40px', height: '31px', }}><Icon  style={{marginLeft: '10px'}} icon={ICONS.BITLINK} color={"blue"} size={35} /></button>
                   </div>
                 }
             </div> 

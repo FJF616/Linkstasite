@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BitlyHeader from '../Header/BitlyHeader';
+// import BitlyHeader from '../Header/BitlyHeader';
 import Header from '../Header/Header';
 import '../App/App.css';
 import InstagramLogin from '../../util/InstagramLogin';
@@ -10,8 +10,8 @@ import withAuthentication from '../Session/withAuthentication'
 // import ICONS from '../Icons/constants';
 // import Icon from '../Icons/Icon';
 // import Graph from '../Graph/Graph'
-import MediaGrid from '../MediaList/MediaGrid'
-import InstagramContext from '../Session/InstagramContext';
+// import MediaGrid from '../MediaList/MediaGrid'
+// import InstagramContext from '../Session/InstagramContext';
 
 class ListView extends Component {
   constructor(props) {
@@ -62,8 +62,6 @@ class ListView extends Component {
    });
  }
   
-   
-
     MediaLists = ({ gallery})  => {
       gallery = {...this.galleryRef.context.state.gallery};
       return (
@@ -97,8 +95,8 @@ class ListView extends Component {
        <SideBar2/>
          {this.MediaLists(this.state.gallery)}
      </div>
-   );
- }
+    );
+  }
 }
 
 export default withAuthentication(ListView);

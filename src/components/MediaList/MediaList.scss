@@ -1,0 +1,25 @@
+.list {
+  display: inline-flex;
+  // padding-top: 10px;
+  position: relative;
+  margin: 20px;
+  flex-wrap: wrap;
+}
+.delete {
+  margin: 0 70px 0px 105px;
+  position: relative;
+ 
+}
+
+.trash__container {
+  display: flex;
+  z-index: 2;
+}
+.trash__container:hover {
+  position: relative;
+  display: flex;
+  z-index: 2;
+ 
+  filter: opacity(30%);
+  cursor: pointer;
+}

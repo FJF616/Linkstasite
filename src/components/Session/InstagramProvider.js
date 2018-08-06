@@ -10,7 +10,6 @@ export default class InstagramProvider extends React.Component {
         this.state = {
             gallery: [],
             userProfile: [],
-            
             accountName: ''
         };
     }

@@ -87,11 +87,7 @@ class HomePage extends Component {
 
  
   render() {
-    
-    
- 
-   const { users } = this.state;
-
+    const { users } = this.state;
     return (
       <div className="App" >
         <div className="home__page">

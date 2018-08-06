@@ -14,6 +14,7 @@ export default class Bar extends React.Component {
   state = {
     useCanvas: false
   }
+  
   render() {
     const {useCanvas} = this.state;
     const BarSeries = useCanvas ? HorizontalBarSeriesCanvas : HorizontalBarSeries;
@@ -29,8 +30,8 @@ export default class Bar extends React.Component {
           stackBy="x">
           <VerticalGridLines />
           <HorizontalGridLines />
-          <XAxis />
-          <YAxis />
+          <XAxis title="Clicks"/>
+          <YAxis title="Affiliate Link" />
           <BarSeries
             data={[
               {y: 2, x: 10},
