@@ -1,0 +1,41 @@
+
+
+
+.test-footer {
+    color:white;
+    filter: opacity(85%);
+    //  cursor: pointer;
+    position: absolute;
+    background: -moz-linear-gradient(top, rgba(0,0,0,6.95) 0%, rgba(0,0,0,3.63) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0,0,0,5.65) 0%,rgba(0,0,0,2.24) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0,0,0,2.35) 0%,rgba(0,0,0,1.15) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+    width: 100%;
+    // margin-left: 2px;
+    // padding-left: 4px;
+    overflow: hidden;
+    z-index: 2;
+    background-position:baseline;
+    background-size: contain;
+    padding: 10px;
+    // margin: 5px 0px 0px 12px;
+    display:inline-flex;
+    height: 55px;
+    vertical-align: baseline;
+  }
+  
+  // .test-footer:hover {
+  //   filter: opacity(75%);
+  //   color: aquamarine;
+  //   position: absolute;
+ 
+    
+   
+  //  overflow: hidden;
+  //  background-position:center;
+  //  background-size: contain;
+  
+  // display:inline-block;
+  // height: 55px;
+  
+  // }

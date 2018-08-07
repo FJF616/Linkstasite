@@ -36,33 +36,32 @@ constructor(props) {
     
      getLinkStats = async () => {
         let url =  this.state.mediaData.url;
-        let clicks;
+        // let clicks;
         if (this.state.mediaData.url) {
             await  Bitlink.fetchClicks(`${url}`).then(clicks => 
                 this.setState({
-                    mediaData: {
-                        clicks: clicks.link_clicks
+                    bitlyDataRef: {
+                        clicks: clicks.link_clicks,
+                        url: `${url}`
                     },
                     clickData: clicks
                 }))
-                .catch(error => {
-                    if(error) {
-                      console.log('error retrieving link metrics', error);
-                    } else {
-                        const timestamp = Date.now();
-                        let data = base.push(`bitlyData/${this.props.media.id}`, {
-                            data: { clicks: `${clicks}`, url:  `${url}`, timestamp: `${timestamp}`},
-                            then(err) {
-                                if(!err) {
-                                    console.log('updated bitlyData', data.key)
-                                }
-                            }
-                        });
-                        const bitlyRef = data.key;
-                        this.setState({ bitlyRef });
-                    }
-                });
-            
+                // const timestamp = Date.now();
+                // const dataRef =  base.push(`bitlyData`, {
+                //     data: { clicks: `${this.state.mediaData.clicks}`, url:  `${url}`, timestamp: `${timestamp}`},
+                //     then(err) {
+                //         if(!err) {
+                //             console.log('updated bitlyData')
+                //         }
+                       
+                //     }
+                   
+                // })
+                // const bitlyRef =  dataRef.key;
+                // this.setState({ 
+                //     bitlyRef 
+                // })
+                
             }
         }
 
@@ -75,7 +74,12 @@ constructor(props) {
            context: this,
            state: 'mediaData'
        })
-   }
+   
+     this.bitlyDataRef = base.syncState(`bitlyData/${this.props.media.id}`, {
+         context: this,
+         state: 'bitlyDataRef'
+     })
+    }  
    updateRebase = () => {
     const { url, title, edited, editing, filled } = this.state.mediaData;
     if(this.state.mediaData.url) {
@@ -176,7 +180,6 @@ constructor(props) {
         this.setState({
             mediaData:{
                 edited: false,
-               
             }
         });
     };
@@ -188,13 +191,12 @@ constructor(props) {
     }
     
     componentWillUnmount() {
-        
+        base.removeBinding(this.bitlyDataRef);
         base.removeBinding(this.slidesRef);
         base.removeBinding(this.galleryRef);
     }
     
    
-    
     render() {    
       return (   
         <div className="cardContainer">

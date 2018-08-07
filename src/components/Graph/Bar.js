@@ -1,4 +1,5 @@
 import React from 'react';
+
 // import Button from 'mdbreact'
 import {
   XYPlot,
@@ -14,8 +15,7 @@ export default class Bar extends React.Component {
   state = {
     useCanvas: false
   }
-  
-  render() {
+    render() {
     const {useCanvas} = this.state;
     const BarSeries = useCanvas ? HorizontalBarSeriesCanvas : HorizontalBarSeries;
     // const content = useCanvas ? 'TOGGLE TO SVG' : 'TOGGLE TO CANVAS';
@@ -30,8 +30,8 @@ export default class Bar extends React.Component {
           stackBy="x">
           <VerticalGridLines />
           <HorizontalGridLines />
-          <XAxis title="Clicks"/>
-          <YAxis title="Affiliate Link" />
+          <XAxis title="Total Clicks"/>
+          <YAxis title="Total Links" />
           <BarSeries
             data={[
               {y: 2, x: 10},

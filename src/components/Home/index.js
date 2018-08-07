@@ -17,6 +17,7 @@ import SideBar2 from '../SideBar/SideBar2';
 import Header from '../Header/Header'
 // import ClickGraph from '../Graph/ClickGraph'
 // import EditableTable from '../FormInputs/EditableTable'
+import TestFooter from '../TestFooter/TestFooter';
 import { base } from '../rebaseConfig/firebase';
 class HomePage extends Component {
   constructor(props) {
@@ -42,6 +43,14 @@ class HomePage extends Component {
     } catch (error) {
       console.log('no imageUrls database!!')
     }
+    
+      this.bitlyDataRef = base.syncState('bitlyData', {
+        context: this,
+        state: 'graphData'
+      })
+   
+    
+  
   //   this.proGalleryRef = base.syncState('linkstasite', {
   //     context: this,
   //     state: 'proGallery'
@@ -78,27 +87,25 @@ class HomePage extends Component {
       };
     })
   }
-  // componentWillUnmount() {
-    // base.removeBinding(this.galleryRef);
-    // base.removeBinding(this.slidesRef);
-    // base.removeBinding(this.userRef);
-    // base.removeBinding(this.proGalleryRef)
-  // }
-
- 
+  componentWillUnmount() {
+    base.removeBinding(this.bitlyDataRef);
+  }
   render() {
     // const { users } = this.state;
     return (
+      <div style={{backgroundColor: 'paleturquoise'}}>
       <div className="App" >
         <div className="home__page">
           <Header />
           <SideBar2/>
           <MarkSeries/>
-          <Bar/>
+          <Bar graphData={this.state.graphData}/>
           <Graph/>
           <Plot/>
         </div>
        </div>
+      <TestFooter/>
+      </div>
     );
   }
 }

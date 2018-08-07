@@ -1,10 +1,11 @@
 // const createFirebaseAccount = require('../components/rebaseConfig/createFirebaseAccount');
 // const signInFirebaseTemplate = require('../components/rebaseConfig/signInFirebaseTemplate');
 const firebase = require('firebase');
-const redirectURI = "http://localhost:3000/"
+
+const redirectURI = `http://localhost:3000/`;
 const client_id = "0d744e65869b4acc8dde4d6e3c6a58e2";
 const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
-const log_out_url = `http://instagram.com/accounts/logout/`
+const log_out_url = `http://instagram.com/accounts/logout/`;
 let accessToken;
 const instagramToken = /^(\d+)/gm.test(accessToken);
 let jsonResponse;
