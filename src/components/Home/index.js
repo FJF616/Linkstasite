@@ -17,7 +17,6 @@ import SideBar2 from '../SideBar/SideBar2';
 import Header from '../Header/Header'
 // import ClickGraph from '../Graph/ClickGraph'
 // import EditableTable from '../FormInputs/EditableTable'
-import TestFooter from '../TestFooter/TestFooter';
 import { base } from '../rebaseConfig/firebase';
 class HomePage extends Component {
   constructor(props) {
@@ -104,7 +103,6 @@ class HomePage extends Component {
           <Plot/>
         </div>
        </div>
-      <TestFooter/>
       </div>
     );
   }

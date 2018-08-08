@@ -6,12 +6,13 @@ import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import  {  auth } from '../rebaseConfig';
 import * as routes from '../constants/routes';
+import TestFooter from '../TestFooter/TestFooter';
 // import Imager from '../Imager/Imager'
 const SignInPage = ({ history }) =>
   <div>
     
     <SignInForm history={history} />
-    
+    <TestFooter/>
    
   </div>
 

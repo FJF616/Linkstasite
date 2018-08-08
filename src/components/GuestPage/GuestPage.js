@@ -117,7 +117,7 @@ import { base } from '../rebaseConfig/firebase';
               <HeaderNonAuth/>
               
                 <div refs='gallery-container' className='container-fluid gallery-container'>
-                  <h3>Your Instagram Gallery</h3>
+                  <h3>Thanks For Visiting Linkstasite!</h3>
                   <br/>
                     <div className='row'>
                     {
@@ -126,7 +126,7 @@ import { base } from '../rebaseConfig/firebase';
                             <div  key={url} className='gallery-card'>
                               <GalleryImage className='gallery-thumbnail' key={url}  src={imgUrls[index].src} alt={'Image number ' + (index + 1)} />
       
-                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal(imgUrls[index].src, imgUrls[index].title, imgUrls[index].url, e)}><p>clicks: {imgUrls[index].clicks}</p></span>
+                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal(imgUrls[index].src, imgUrls[index].title, imgUrls[index].url, e)}></span>
                             </div>
                         </div>
                       })

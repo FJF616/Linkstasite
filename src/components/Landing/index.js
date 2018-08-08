@@ -4,7 +4,7 @@ import { base } from '../rebaseConfig/firebase';
 import './Landing.scss';
 import Header from "../Header/Header";
 import SideBar2 from '../SideBar/SideBar2';
-
+import withAuthorization from '../Session/withAuthorization';
 /**
  * 
  * 
@@ -133,6 +133,7 @@ import SideBar2 from '../SideBar/SideBar2';
                 </div>
       
               <GalleryModal imgUrls={imgUrls} isOpen={this.state.showModal} onClick={this.closeModal} src={this.state.url} title={this.state.title} link={this.state.link}/> 
+              
             </div>
           </div>
         )
@@ -158,4 +159,6 @@ import SideBar2 from '../SideBar/SideBar2';
        })
       };
   }
-export default LandingPage;
+  const authCondition = (authUser) => !!authUser;
+
+  export default withAuthorization(authCondition)(LandingPage);

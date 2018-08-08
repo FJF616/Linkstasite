@@ -14,9 +14,9 @@ class HeaderNonAuth extends React.Component {
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button> 
-          <ul className="navbar-nav ml-auto float float-right" style={{paddingTop: 85}} >
-            <li className="nav-link" style={{ marginTop: '-8px', marginLeft: '-85px'}}><Link to={routes.LANDING}><Icon   icon={ICONS.COMPASS} size={125} mode={"contain"} color={"gold"}/></Link></li>
-            <li className="nav-link" style={{ marginTop: '-8px', marginLeft: '-64px'}}><Link to={routes.SIGN_IN}><Icon   icon={ICONS.LOGIN} size={105} mode={"contain"} color={"goldenrod"}/></Link></li>
+          <ul className="showHide navbar-nav ml-auto float float-right" style={{paddingTop: 85, overFlow: 'hidden'}} id="rightside" >
+            <li className="nav-link" style={{ marginTop: '-8px', marginLeft: '-85px'}}><Link to={routes.LANDING}><Icon   icon={ICONS.COMPASS} size={125} mode={"contain"} color={"darkorchid"}/></Link></li>
+            <li className="nav-link" style={{ marginTop: '-8px', marginLeft: '-64px'}}><Link to={routes.SIGN_IN}><Icon   icon={ICONS.LOGIN} size={105} mode={"contain"} color={"darkorchid"}/></Link></li>
           </ul> 
         </div>
       </nav> 
