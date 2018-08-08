@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TestFooter from '../TestFooter/TestFooter';
 import HeaderNonAuth from '../Header/HeaderNonAuth';
+import MicrolinkCard from 'react-microlink';
 
 
 import { base } from '../rebaseConfig/firebase';
@@ -37,7 +38,7 @@ import { base } from '../rebaseConfig/firebase';
        <div className='modal-body'>
         <a className='modal-close' onClick={this.props.onClick}><span className='fa fa-times'></span></a>
         <span className="modal-title">
-          <a href={this.props.link}><h1><b>{this.props.title}</b></h1></a>
+          <a href={this.props.link}><h1><b>{this.props.title}</b></h1></a><MicrolinkCard url={this.props.link} size="small" style={{ position: 'relative', marginLeft: 55, width: 110 }}/>
         </span>
       
         <img src={this.props.src} alt='1'/>
@@ -103,11 +104,11 @@ import { base } from '../rebaseConfig/firebase';
   //   }
    
   //  }
-    deleteMedia = id => {
-        this.setState(prevState => {
-          return { gallery: prevState.gallery.filter(media => media.id !==id) };
-        });
-      };
+    // deleteMedia = id => {
+    //     this.setState(prevState => {
+    //       return { gallery: prevState.gallery.filter(media => media.id !==id) };
+    //     });
+    //   };
       render() {
          
           const  imgUrls  =  {...this.state.image} ;
@@ -125,18 +126,20 @@ import { base } from '../rebaseConfig/firebase';
                         return <div className='col-sm-6 col-md-3 col-xl-2'>
                             <div  key={url} className='gallery-card'>
                               <GalleryImage className='gallery-thumbnail' key={url}  src={imgUrls[index].src} alt={'Image number ' + (index + 1)} />
-      
+                              
                               <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal(imgUrls[index].src, imgUrls[index].title, imgUrls[index].url, e)}></span>
                             </div>
                         </div>
                       })
                     }
                 </div>
-      
-              <GalleryModal imgUrls={imgUrls} isOpen={this.state.showModal} onClick={this.closeModal} src={this.state.url} title={this.state.title} link={this.state.link}/> 
+               
+              <GalleryModal imgUrls={imgUrls} isOpen={this.state.showModal} onClick={this.closeModal} src={this.state.url} title={this.state.title} link={this.state.link} /> 
+              
             </div>
           </div>
           <TestFooter/>
+         
           </div> 
         )
       }
