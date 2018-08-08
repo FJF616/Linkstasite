@@ -92,7 +92,7 @@ class HomePage extends Component {
   render() {
     // const { users } = this.state;
     return (
-      <div style={{backgroundColor: 'paleturquoise'}}>
+     
       <div className="App" >
         <div className="home__page">
           <Header />
@@ -103,7 +103,7 @@ class HomePage extends Component {
           <Plot/>
         </div>
        </div>
-      </div>
+   
     );
   }
 }
