@@ -12,6 +12,6 @@ export const LIST_EDIT_VIEW = '/listeditview';
 export const BILLING = '/billing';
 export const LIST_VIEW ='/listview';
 export const PARALLAX = '/parallax';
-
+export const GUEST_PAGE='/guestpage';
 // export const GALLERY = '/gallery';
 
