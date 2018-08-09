@@ -7,6 +7,7 @@ import { base } from '../rebaseConfig/firebase';
 import ReactTooltip from 'react-tooltip';
 // import ProgressBar from '../Graph/ProgressBar';
 // import { withRouter } from 'react-router-dom'
+// import Bar from '../Graph/Bar'
 export default class MediaGridComponent extends Component { 
   state = {
     completed: false,
@@ -67,6 +68,7 @@ render() {
                     </a>
                  {/* <ProgressBar data={this.state.stats} />*/}
                   <ReactTooltip place="top" type="light" effect="float"/>
+                
                 </div>
                 : (this.props.clicksRemaining === 'completed' ) && this.state.gallery.url 
                 ? <div>

@@ -43,10 +43,7 @@ class HomePage extends Component {
       console.log('no imageUrls database!!')
     }
     
-      this.bitlyDataRef = base.syncState('bitlyData', {
-        context: this,
-        state: 'graphData'
-      })
+      
    
     
   
@@ -86,19 +83,19 @@ class HomePage extends Component {
       };
     })
   }
-  componentWillUnmount() {
-    base.removeBinding(this.bitlyDataRef);
-  }
-  render() {
+   render() {
     // const { users } = this.state;
     return (
      
       <div className="App" >
+      
         <div className="home__page">
+        
           <Header />
           <SideBar2/>
+          
           <MarkSeries/>
-          <Bar graphData={this.state.graphData}/>
+          <Bar />
           <Graph/>
           <Plot/>
         </div>

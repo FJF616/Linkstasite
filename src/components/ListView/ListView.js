@@ -12,7 +12,7 @@ import withAuthentication from '../Session/withAuthentication'
 // import Graph from '../Graph/Graph'
 // import MediaGrid from '../MediaList/MediaGrid'
 // import InstagramContext from '../Session/InstagramContext';
-
+// import Bar from '../Graph/Bar'
 class ListView extends Component {
   constructor(props) {
     super(props);
@@ -65,8 +65,12 @@ class ListView extends Component {
     MediaLists = ({ gallery})  => {
       gallery = {...this.galleryRef.context.state.gallery};
       return (
+        
         <div key={gallery.id} className='list'>
+        
+
           { 
+
           Object.keys(gallery).map((media) => {
               return <PhotoContainer 
                         // updateGallery={this.removeGallery} 
@@ -77,8 +81,11 @@ class ListView extends Component {
                         title={gallery[media].title}
                         gallery={this.galleryRef}
                        />;
+                       
                     })
+                   
                  }
+                
             </div>
           );
       }
@@ -94,6 +101,7 @@ class ListView extends Component {
        <Header/>
        <SideBar2/>
          {this.MediaLists(this.state.gallery)}
+        
      </div>
     );
   }

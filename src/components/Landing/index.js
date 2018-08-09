@@ -69,7 +69,7 @@ import withAuthorization from '../Session/withAuthorization';
       })
     }
     componentDidMount() {
-      base.listenTo('gallery', {
+      this.baseRef = base.listenTo('gallery', {
         context: this,
         asArray: true,
         then(galleryData) {
@@ -81,6 +81,7 @@ import withAuthorization from '../Session/withAuthorization';
 
     componentWillUnmount() {
       base.removeBinding(this.imageRef);
+      base.removeBinding(this.baseRef);
     }
 
   //   getMapKeyValueByIndex = (obj, idx) => {

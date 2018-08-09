@@ -5,11 +5,14 @@ import * as routes from '../constants/routes'
 import ICONS from '../Icons/constants'
 import Icon from '../Icons/Icon'
 import { Link } from 'react-router-dom'
+// import ActionOpacity from 'material-ui/SvgIcon';
 class HeaderNonAuth extends React.Component {
   render () {
     return (
       <div className="header">
-        <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95, }} className="navbar navbar-expand-lg  fixed-top">
+      
+        <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95,}} className="navbar navbar-expand-lg  fixed-top">
+        <h2 style={{color: 'skyblue', marginLeft: 65 }}><b>𝓣𝓱𝓪𝓷𝓴 𝔂𝓸𝓾 𝓯𝓸𝓻 𝓿𝓲𝓼𝓲𝓽𝓲𝓷𝓰 𝓛𝓲𝓷𝓴𝓼𝓽𝓪𝓢𝓲𝓽𝓮 !!</b></h2>
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />

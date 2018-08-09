@@ -24,7 +24,7 @@
     position: relative; 
     /* Old browsers */
     background: -moz-linear-gradient(-45deg, #1e5799 0%, #681062 61%, #f2a982 75%); /* FF3.6-15*/
-     background: -webkit-linear-gradient(-45deg, #1e5799 0%,#681062 61%,#f2a982 55%); /*Chrome10-25,Safari5.1-6 */
+    background: -webkit-linear-gradient(-45deg, #1e5799 0%,#681062 61%,#f2a982 55%); /*Chrome10-25,Safari5.1-6 */
     background: linear-gradient(135deg, #1e5799 0%,#681062 61%,#f2a982 100%); /*W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#f2a982',GradientType=1 ); /*IE6-9 fallback on horizontal gradientIE6-9 fallback on horizontal gradient   */
      
@@ -42,7 +42,7 @@
     // background-color: blueViolet;
     border-color: rgba(129, 35, 124, 0.438); 
     background-position: center;
-    
+    box-shadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)';
     background-repeat: no-repeat;
     background-image: url("../images/linkstasite2.png");
     

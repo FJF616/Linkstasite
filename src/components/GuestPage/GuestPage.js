@@ -38,7 +38,7 @@ import { base } from '../rebaseConfig/firebase';
        <div className='modal-body'>
         <a className='modal-close' onClick={this.props.onClick}><span className='fa fa-times'></span></a>
         <span className="modal-title">
-          <a href={this.props.link}><h1><b>{this.props.title}</b></h1></a><MicrolinkCard url={this.props.link} size="small" style={{ position: 'relative', marginLeft: 55, width: 110 }}/>
+          <a href={this.props.link}><h2><b>{this.props.title}</b></h2></a><MicrolinkCard url={this.props.link} size="small" style={{ position: 'relative', marginLeft: 55, width: 325 }}/>
         </span>
       
         <img src={this.props.src} alt='1'/>
@@ -118,7 +118,7 @@ import { base } from '../rebaseConfig/firebase';
               <HeaderNonAuth/>
               
                 <div refs='gallery-container' className='container-fluid gallery-container'>
-                  <h3>Thanks For Visiting Linkstasite!</h3>
+                  <h5 style={{marginLeft: 95}}>Add affiliate links to your instagram gallery images!</h5>
                   <br/>
                     <div className='row'>
                     {

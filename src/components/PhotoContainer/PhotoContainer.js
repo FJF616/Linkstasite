@@ -14,6 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import ShortenLink from '../../util/Bitly';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+// import Bar from '../Graph/Bar'
 /**
  * 
  * 
@@ -44,7 +45,10 @@ constructor(props) {
                         clicks: clicks.link_clicks,
                         url: `${url}`
                     },
-                    clickData: clicks
+                    clickData: clicks.link_clicks,
+                    mediaData: {
+                        clicks: clicks.link_clicks
+                    }
                 }))
                 // const timestamp = Date.now();
                 // const dataRef =  base.push(`bitlyData`, {
@@ -198,7 +202,7 @@ constructor(props) {
     
    
     render() {    
-      return (   
+      return (  
         <div className="cardContainer">
           <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -263,14 +267,16 @@ constructor(props) {
                                         <MicrolinkCard url={this.state.mediaData.url} size='medium' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 400, marginTop: 4, marginLeft: 3, height: 133, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
                                     </h5>
                                     </ErrorBoundary>
-                                    : (this.state.mediaData.url && this.state.mediaData.clicks > '0') || (this.state.mediaData.url === this.props.media.url) 
-                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{this.state.mediaData.clicks ? `Clicks Remaining: ${'30' - this.state.mediaData.clicks}`: 'Enter affiliate link to get stats'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
-                                : null
+                                    : (this.state.mediaData.url && this.state.clickData > '0') || (this.state.mediaData.url === this.props.media.url) 
+                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{ this.state.clickData ? `Clicks Remaining: ${'30' - this.state.clickData }`: 'Enter affiliate link to get stats'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
+                                :  null
                                     } 
                         </div>
                     </div>
-                </div>
+                </div>   
             </div>
+           
+            
         );
       }
     }
