@@ -20,6 +20,16 @@ componentWillMount() {
     context: this,
     state: 'graphData',
   })
+  this.graphTotalsRef = base.syncState('graphTotals/clicks', {
+    context: this,
+    state: 'clickTotal',
+    asArray: true
+  });
+  this.graphTotalRef = base.syncState('graphTotals/links', {
+    context: this,
+    state: 'linkTotal',
+    asArray: true
+  })
  
 }
 
@@ -38,10 +48,12 @@ totalClicks = async () => {
     } catch (error) {
       console.log(error)
   }
+  this.setState({ clickTotal: total })
   
 }
 
 totalLinks = async () => {
+  let total;
   try {
     let linksArr =[];
     const { graphData } = this.state;
@@ -50,24 +62,26 @@ totalLinks = async () => {
       linksArr.push(key.url);
       return links
     });
-    let total = await linksArr.length;
+    total = await linksArr.length;
     console.log('total links:', total)
     return total;
   } catch (error) {
     console.log(error)
   }
+  this.setState({ linkTotal: total })
 }
  
   componentWillUnmount() {
     base.removeBinding(this.bitlyDataRef);
+    base.removeBinding(this.graphTotalsRef);
+    base.removeBinding(this.graphTotalRef);
   }
   
   
   
 
     render() {
-    console.log(this.totalLinks())
-    console.log(this.totalClicks())
+    
     const {useCanvas} = this.state;
     const BarSeries = useCanvas ? HorizontalBarSeriesCanvas : HorizontalBarSeries;
     // const content = useCanvas ? 'TOGGLE TO SVG' : 'TOGGLE TO CANVAS';
