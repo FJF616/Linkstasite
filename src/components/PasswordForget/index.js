@@ -5,8 +5,8 @@ import  { auth }  from '../rebaseConfig';
 import * as routes from '../../constants/routes';
 import TestFooter from '../TestFooter/TestFooter'
 const PasswordForgetPage = () =>
-  <div>
-    <h1>PasswordForget</h1>
+  <div style={{marginTop: 50}}>
+   
     <PasswordForgetForm />
   </div>
 
@@ -49,7 +49,9 @@ class PasswordForgetForm extends Component {
     const isInvalid = email === '';
 
     return (
-      <div>
+      <div className="App" style={{paddingTop:55, paddingBottom: 460}}>
+      
+      
       <form onSubmit={this.onSubmit}>
         <input
           value={this.state.email}
@@ -63,7 +65,7 @@ class PasswordForgetForm extends Component {
 
         { error && <p>{error.message}</p> }
       </form>
-      <div style={{marginTop: 412}}>
+      <div style={{marginTop: 490, width: '100%', position: 'absolute'}}>
           <TestFooter/>
           </div>
         </div>

@@ -80,8 +80,9 @@ const SignUpPage = ({ history }) =>
         email === '';
   
       return (
-        <div>
+        <div className="App" style={{paddingBottom: 331}}>
         <form onSubmit={this.onSubmit}>
+        <p><h1>Sign Up</h1></p>
           <input
             value={username}
             onChange={event => this.setState(updateByPropertyName('username', event.target.value))}
@@ -112,7 +113,7 @@ const SignUpPage = ({ history }) =>
         
           { error && <p>{error.message}</p> }
         </form>
-        <div style={{marginTop: 412}}>
+        <div style={{ paddingTop: 425, position: 'absolute', width: '100%'}}>
           <TestFooter/>
           </div>
         </div>
