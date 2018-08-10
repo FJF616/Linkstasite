@@ -7,7 +7,7 @@ import Icon from '../Icons/Icon'
 import ICONS from '../Icons/constants';
 import * as routes from '../constants/routes';
 import { Link } from 'react-router-dom'
-import { Blink } from 'react-blink';
+// import { Blink } from 'react-blink';
 export default class SideBar2 extends Component {
     constructor() {
         super();

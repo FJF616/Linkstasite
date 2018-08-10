@@ -126,7 +126,7 @@ import withAuthorization from '../Session/withAuthorization';
                             <div  key={url} className='gallery-card'>
                               <GalleryImage className='gallery-thumbnail' key={url}  src={imgUrls[index].src} alt={'Image number ' + (index + 1)} />
       
-                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal(imgUrls[index].src, imgUrls[index].title, imgUrls[index].url, e)}><p>clicks: {imgUrls[index].clicks}</p></span>
+                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks < '30' ? imgUrls[index].src : alert('You have reached the limit on clicks for this image')), imgUrls[index].title, imgUrls[index].url, e)}><p>clicks: {imgUrls[index].clicks}</p></span>
                             </div>
                         </div>
                       })

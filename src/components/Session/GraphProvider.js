@@ -50,7 +50,7 @@ class GraphProvider extends Component {
         }).then(graphData => {
             this.setState({
                 graphData
-            });
+            })
             console.log('successfully fetched graphData')
         }).catch(error => {
             console.log('error fetching graphData', error)

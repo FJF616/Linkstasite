@@ -1,8 +1,9 @@
 import React from 'react';
-import { base } from '../rebaseConfig/firebase';
+// import { base } from '../rebaseConfig/firebase';
 // import Button from 'mdbreact'
 
-
+// import GraphProvider from '../Session/GraphProvider';
+// import GraphContext from '../Session/GraphContext';
 import {
   XYPlot,
   XAxis,
@@ -20,42 +21,42 @@ export default class Bar extends React.Component {
 }
 
 
-// totalClicks = async () => {
-//   let total;
-//   try {
-//     const reducer = (accumulator, currentValue) => accumulator + currentValue;
-//     const  graphData  = {...this.props.graphData};
-//     const clicks = await Object.keys(graphData).map(key => {
-//       key = graphData[key];
-//       return key.clicks;
-//     });
-//      total = await clicks.reduce(reducer);
-//      console.log('total clicks', total)
-//       return (total);
-//     } catch (error) {
-//       console.log(error)
-//   }
+totalClicks = async () => {
+  let total;
+  try {
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const  graphData  = {...this.props.graphData};
+    const clicks = await Object.keys(graphData).map(key => {
+      key = graphData[key];
+      return key.clicks;
+    });
+     total = await clicks.reduce(reducer);
+     console.log('total clicks', total)
+      return (total);
+    } catch (error) {
+      console.log(error)
+  }
   
-// }
+}
 
-// totalLinks = async () => {
-//   let total;
-//   try {
-//     let linksArr =[];
-//     const  graphData  = {...this.props.graphData};
-//     const links = await Object.keys(graphData).map(key => {
-//       key = graphData[key];
-//       linksArr.push(key.url);
-//       return links
-//     });
-//     total = await linksArr.length;
-//     console.log('total links:', total)
-//     return total;
-//   } catch (error) {
-//     console.log(error)
-//   }
-  // this.setState({ linkTotal: total })
-
+totalLinks = async () => {
+  let total;
+  try {
+    let linksArr =[];
+    const  graphData  = {...this.props.graphData};
+    const links = await Object.keys(graphData).map(key => {
+      key = graphData[key];
+      linksArr.push(key.url);
+      return links
+    });
+    total = await linksArr.length;
+    console.log('total links:', total)
+    return total;
+  } catch (error) {
+    console.log(error)
+  }
+ 
+}
   
 
 
@@ -67,6 +68,7 @@ export default class Bar extends React.Component {
     const BarSeries = useCanvas ? HorizontalBarSeriesCanvas : HorizontalBarSeries;
     // const content = useCanvas ? 'TOGGLE TO SVG' : 'TOGGLE TO CANVAS';
     return (
+     
       <div>
        {/*// <button
         //   onClick={() => this.setState({useCanvas: !useCanvas})}
@@ -78,10 +80,10 @@ export default class Bar extends React.Component {
           <VerticalGridLines />
           <HorizontalGridLines />
           <XAxis title="Total Clicks"/>
-          <YAxis title="Total Links" />
-          <BarSeries
+          <YAxis title="Total Links" position="start"/>
+          <BarSeries 
+           
             data={[
-              {y: 2, x: 10},
               {y: 4, x: 5},
               {y: 5, x: 15}
             ]}
@@ -94,6 +96,7 @@ export default class Bar extends React.Component {
             ]}/>
         </XYPlot>
       </div>
+   
     );
   }
 }
