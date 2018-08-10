@@ -1,6 +1,8 @@
 import React from 'react';
-// import { base } from '../rebaseConfig/firebase';
+import { base } from '../rebaseConfig/firebase';
 // import Button from 'mdbreact'
+
+
 import {
   XYPlot,
   XAxis,
@@ -13,11 +15,50 @@ import {
 
 export default class Bar extends React.Component {
   state = {
-    useCanvas: false
+    useCanvas: false,
+   
 }
 
- 
+
+// totalClicks = async () => {
+//   let total;
+//   try {
+//     const reducer = (accumulator, currentValue) => accumulator + currentValue;
+//     const  graphData  = {...this.props.graphData};
+//     const clicks = await Object.keys(graphData).map(key => {
+//       key = graphData[key];
+//       return key.clicks;
+//     });
+//      total = await clicks.reduce(reducer);
+//      console.log('total clicks', total)
+//       return (total);
+//     } catch (error) {
+//       console.log(error)
+//   }
   
+// }
+
+// totalLinks = async () => {
+//   let total;
+//   try {
+//     let linksArr =[];
+//     const  graphData  = {...this.props.graphData};
+//     const links = await Object.keys(graphData).map(key => {
+//       key = graphData[key];
+//       linksArr.push(key.url);
+//       return links
+//     });
+//     total = await linksArr.length;
+//     console.log('total links:', total)
+//     return total;
+//   } catch (error) {
+//     console.log(error)
+//   }
+  // this.setState({ linkTotal: total })
+
+  
+
+
   
 
     render() {

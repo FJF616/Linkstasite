@@ -67,6 +67,7 @@
     "react-avatar": "^3.0.2",
     "react-avatar-editor": "^11.0.4",
     "react-awesome-button": "^4.2.1",
+    "react-blink": "^1.0.3",
     "react-bootstrap": "^0.32.1",
     "react-chartist": "^0.13.1",
     "react-copy-to-clipboard": "^5.0.1",

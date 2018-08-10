@@ -13,6 +13,7 @@ import withAuthentication from '../Session/withAuthentication'
 // import MediaGrid from '../MediaList/MediaGrid'
 // import InstagramContext from '../Session/InstagramContext';
 // import Bar from '../Graph/Bar'
+
 class ListView extends Component {
   constructor(props) {
     super(props);
@@ -27,42 +28,7 @@ class ListView extends Component {
   }
  
 
-totalClicks = async () => {
-  let total;
-  try {
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    const { graphData } = this.state;
-    const clicks = await Object.keys(graphData).map(key => {
-      key = graphData[key];
-      return key.clicks;
-    });
-     total = await clicks.reduce(reducer);
-     console.log('total clicks', total)
-      return (total);
-    } catch (error) {
-      console.log(error)
-  }
-  
-}
 
-totalLinks = async () => {
-  let total;
-  try {
-    let linksArr =[];
-    const { graphData } = this.state;
-    const links = await Object.keys(graphData).map(key => {
-      key = graphData[key];
-      linksArr.push(key.url);
-      return links
-    });
-    total = await linksArr.length;
-    console.log('total links:', total)
-    return total;
-  } catch (error) {
-    console.log(error)
-  }
-  // this.setState({ linkTotal: total })
-}
  
   
   
@@ -101,20 +67,6 @@ totalLinks = async () => {
      state: 'slides',
      
    });
-   this.bitlyDataRef = base.syncState(`bitlyData`, {
-    context: this,
-    state: 'graphData',
-  })
-  this.graphTotalsRef = base.syncState('graphTotals/clicks', {
-    context: this,
-    state: 'clickTotal',
-    asArray: true
-  });
-  this.graphTotalRef = base.syncState('graphTotals/links', {
-    context: this,
-    state: 'linkTotal',
-    asArray: true
-  })
  
 }
  
@@ -151,18 +103,17 @@ totalLinks = async () => {
    componentWillUnMount() {
     base.removeBinding(this.galleryRef);
     base.removeBinding(this.slidesRef);
-    base.removeBinding(this.bitlyDataRef);
-    base.removeBinding(this.graphTotalsRef);
-    base.removeBinding(this.graphTotalRef);
    }
    render() {
    return (
      <div className="App">
+    
        <Header/>
        <SideBar2/>
          {this.MediaLists(this.state.gallery)}
         
      </div>
+
     );
   }
 }

@@ -117,7 +117,7 @@ import withAuthorization from '../Session/withAuthorization';
               <Header/>
               <SideBar2/>
                 <div refs='gallery-container' className='container-fluid gallery-container'>
-                  <h3>Your Instagram Gallery</h3>
+                  <h3><b>Instagram Gallery With Affiliate Links and Click Stats</b></h3>
                   <br/>
                     <div className='row'>
                     {

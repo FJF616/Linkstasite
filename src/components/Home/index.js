@@ -18,6 +18,8 @@ import Header from '../Header/Header'
 // import ClickGraph from '../Graph/ClickGraph'
 // import EditableTable from '../FormInputs/EditableTable'
 import { base } from '../rebaseConfig/firebase';
+import GraphProvider from '../Session/GraphProvider';
+import GraphContext from '../Session/GraphContext';
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -87,20 +89,23 @@ class HomePage extends Component {
     // const { users } = this.state;
     return (
      
-      <div className="App" >
-      
-        <div className="home__page">
-        
-          <Header />
-          <SideBar2/>
-          
-          <MarkSeries/>
-          <Bar />
-          <Graph/>
-          <Plot/>
+      <GraphProvider>
+        <GraphContext.Consumer>
+        { (value ) =>
+          <div className="App" >
+            <div className="home__page">
+              <Header />
+              <SideBar2/>
+              <MarkSeries/>
+                <Bar graphData={value.graphData} totalClicks={value.totalClicks} totalLinks={value.totalLinks} /> 
+              <Graph/>
+              <Plot/> 
+            </div>
         </div>
-       </div>
-   
+        }
+      </GraphContext.Consumer>
+    </GraphProvider>  
+      
     );
   }
 }

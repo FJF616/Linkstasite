@@ -21,7 +21,7 @@ import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render(
     <FirestoreProvider firebase={firebase}>
         <InstagramProvider>
-            <App/>
+            <App />
         </InstagramProvider>
     </FirestoreProvider>,
      document.getElementById('root'));
