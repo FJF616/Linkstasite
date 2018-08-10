@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TestFooter from '../TestFooter/TestFooter';
 import HeaderNonAuth from '../Header/HeaderNonAuth';
 import MicrolinkCard from 'react-microlink';
+import AvatarEditor from 'react-avatar-editor'
 
 
 import { base } from '../rebaseConfig/firebase';
@@ -38,11 +39,19 @@ import { base } from '../rebaseConfig/firebase';
        <div className='modal-body'>
         <a className='modal-close' onClick={this.props.onClick}><span className='fa fa-times'></span></a>
         <span className="modal-title">
-          <a href={this.props.link}><h2><b>{this.props.title}</b></h2></a><MicrolinkCard url={this.props.link} size="small" style={{ position: 'relative', marginLeft: 55, width: 325 }}/>
-        </span>
-      
+          <a href={this.props.link}><h2><b>{this.props.title}</b></h2></a><MicrolinkCard url={this.props.link} size="small" style={{ position: 'relative', marginLeft: 55, width: 325 }}/></span>
+          <div><a href="https://www.instagram.com/linkstasite"><AvatarEditor className="avatar__img"
+          style={{borderRadius: '50%', position: 'absolute', bottom: '0', left: '0', border: '2px double', marginLeft: 10, marginBottom: 10, borderColor:'skyblue'}}
+          image={this.props.userProfile.profilePic}
+          width={95}
+          height={95}
+          border={6}
+          color={[185, 253, 255, 0.074]} // RGBA
+          scale={1.35}
+          rotate={1}
+          /></a>
         <img src={this.props.src} alt='1'/>
-        
+        </div>
        </div>
       </div>
      )
@@ -68,6 +77,11 @@ import { base } from '../rebaseConfig/firebase';
         context: this,
         state: 'image'
       })
+      this.profileRef = base.syncState('userProfile', {
+        context: this,
+        state: 'userProfile'
+      })
+    
     }
     componentDidMount() {
       this.galleryRef = base.listenTo('gallery', {
@@ -83,6 +97,7 @@ import { base } from '../rebaseConfig/firebase';
     componentWillUnmount() {
       base.removeBinding(this.imageRef);
       base.removeBinding(this.galleryRef)
+      base.removeBinding(this.profileRef);
     }
 
   //   getMapKeyValueByIndex = (obj, idx) => {
@@ -127,15 +142,15 @@ import { base } from '../rebaseConfig/firebase';
                         return <div className='col-sm-6 col-md-3 col-xl-2'>
                             <div  key={url} className='gallery-card'>
                               <GalleryImage className='gallery-thumbnail' key={url}  src={imgUrls[index].src} alt={'Image number ' + (index + 1)} />
-                              
-                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks < '30' ? imgUrls[index].src : alert('There is no affiliate link for this image')), imgUrls[index].title, imgUrls[index].url, e)}></span>
+                             
+                              <span className='card-icon-open fa fa-expand'  value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks < '30' ? imgUrls[index].src : alert('There is no affiliate link for this image')), imgUrls[index].title, imgUrls[index].url, e)}></span>
                             </div>
                         </div>
                       })
                     }
                 </div>
                
-              <GalleryModal imgUrls={imgUrls} isOpen={this.state.showModal} onClick={this.closeModal} src={this.state.url} title={this.state.title} link={this.state.link} /> 
+              <GalleryModal userProfile={this.state.userProfile} imgUrls={imgUrls} isOpen={this.state.showModal} onClick={this.closeModal} src={this.state.url} title={this.state.title} link={this.state.link} /> 
               
             </div>
           </div>
