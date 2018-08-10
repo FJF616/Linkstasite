@@ -67,7 +67,7 @@ class SignInForm extends Component {
       email === '';
 
     return (
-      <div>
+      <div className="App" style={{paddingTop:80, paddingBottom: 32}}>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     

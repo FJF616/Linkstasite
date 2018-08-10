@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 class HeaderNonAuth extends React.Component {
   render () {
     return (
-      <div className="header">
+      <div className="header" style={{marginBottom:-70}}>
       
         <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95,}} className="navbar navbar-expand-lg  fixed-top">
         <h2 style={{color: 'skyblue', marginLeft: 65 }}><b>𝓣𝓱𝓪𝓷𝓴 𝔂𝓸𝓾 𝓯𝓸𝓻 𝓿𝓲𝓼𝓲𝓽𝓲𝓷𝓰 𝓛𝓲𝓷𝓴𝓼𝓽𝓪𝓢𝓲𝓽𝓮 !!</b></h2>

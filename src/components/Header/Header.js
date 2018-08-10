@@ -48,7 +48,7 @@ class Header extends React.Component {
     // const open = Boolean(anchorEl);
     return (
       <div className="header">
-      <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95, }} className="navbar navbar-expand-lg  fixed-top">
+      <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95, marginBottom: 55 }} className="navbar navbar-expand-lg  fixed-top">
       <div className="collapse navbar-collapse" id="navbarResponsive">
       <div  className="navbar  float float-left"  aria-label="Left Align">
           <Card className="profile"  >

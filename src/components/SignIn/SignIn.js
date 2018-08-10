@@ -3,7 +3,7 @@ import './SignIn.scss'
 export default class SignIn extends Component {
     render() {
       return (
-        <div>
+        <div style={{paddingTop: 35}}>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <div className="login-card"><img src="url(./avatar__2x.png)" className="profile-img-card" alt="1"/>

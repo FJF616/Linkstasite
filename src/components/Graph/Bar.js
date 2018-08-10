@@ -1,5 +1,5 @@
 import React from 'react';
-import { base } from '../rebaseConfig/firebase';
+// import { base } from '../rebaseConfig/firebase';
 // import Button from 'mdbreact'
 import {
   XYPlot,

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import AuthUserContext from './AuthUserContext';
 // import InstagramLogin from '../../util/InstagramLogin';
 import { firebase } from '../rebaseConfig';
-import * as routes from '../../constants/routes';
+import * as routes from '../constants/routes';
 // import InstagramConsumer from '../Session/InstagramProvider'
 const withAuthorization = (condition) => (Component) => {
   class WithAuthorization extends React.Component {
@@ -11,7 +11,7 @@ const withAuthorization = (condition) => (Component) => {
       firebase.auth.onAuthStateChanged(authUser => {
     
         if (!condition(authUser)) {
-          this.props.history.push(routes.SIGN_IN);
+          this.props.history.push(routes.GUEST_PAGE);
         }
       });
     }
