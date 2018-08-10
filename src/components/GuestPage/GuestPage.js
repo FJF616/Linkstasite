@@ -70,7 +70,7 @@ import { base } from '../rebaseConfig/firebase';
       })
     }
     componentDidMount() {
-      base.listenTo('gallery', {
+      this.galleryRef = base.listenTo('gallery', {
         context: this,
         asArray: true,
         then(galleryData) {
@@ -82,6 +82,7 @@ import { base } from '../rebaseConfig/firebase';
 
     componentWillUnmount() {
       base.removeBinding(this.imageRef);
+      base.removeBinding(this.galleryRef)
     }
 
   //   getMapKeyValueByIndex = (obj, idx) => {

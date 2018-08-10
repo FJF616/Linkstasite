@@ -3,6 +3,7 @@ import {
   Link,
   withRouter,
 } from 'react-router-dom';
+import TestFooter from '../TestFooter/TestFooter'
 
 import { auth, db } from '../rebaseConfig';
 import * as routes from '../../constants/routes';
@@ -79,6 +80,7 @@ const SignUpPage = ({ history }) =>
         email === '';
   
       return (
+        <div>
         <form onSubmit={this.onSubmit}>
           <input
             value={username}
@@ -107,9 +109,13 @@ const SignUpPage = ({ history }) =>
           <button disabled={isInvalid} type="submit">
             Sign Up
           </button>
-  
+        
           { error && <p>{error.message}</p> }
         </form>
+        <div style={{marginTop: 412}}>
+          <TestFooter/>
+          </div>
+        </div>
       );
     }
   }

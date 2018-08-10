@@ -6,7 +6,7 @@ const TestFooter = () => {
     return (
         <div className="test-footer">
             <span>
-                <p>Linkstasite</p>
+                <p><h4><b>Linkstasite</b></h4></p>
                 <div className="col-md-4 footer-about">
                 <h4>About the company</h4>
                 <p>Linkstasite aims to help you make the most out of your Instagram account, whether its gaining exposure, directing traffic and analytics, or advertising and driving up your revenue. &nbsp;The concept is simple, select pictures from your
