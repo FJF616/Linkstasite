@@ -13,7 +13,7 @@ export default class Plot extends React.Component {
   render() {
     return (
       <XYPlot
-        width={300}
+        width={650}
         height={300}>
         <VerticalGridLines />
         <HorizontalGridLines />

@@ -15,8 +15,8 @@ export default class Example extends React.Component {
   render() {
     return (
       <XYPlot
-        width={300}
-        height={300}>
+        width={700}
+        height={350}>
         <HorizontalGridLines />
         <VerticalGridLines />
         <XAxis title="X Axis" position="start"/>

@@ -20,6 +20,9 @@ import Header from '../Header/Header'
 import { base } from '../rebaseConfig/firebase';
 import GraphContext from '../Session/GraphContext';
 import GraphProvider from '../Session/GraphProvider';
+import SubscriptionProvider from '../Session/SubscriptionProvider';
+import SubscriptionConsumer from '../Session/SubscriptionProvider';
+
 // import ShortenLink from '../../util/Bitly';
 class HomePage extends Component {
   constructor(props) {
@@ -27,11 +30,11 @@ class HomePage extends Component {
 
     this.state = {
       users: {},
-      gallery: [] ,
-      slides: [],   
-      userProfile:[],
-      proGallery:[],
-      newGallery:{}
+      // gallery: [] ,
+      // slides: [],   
+      userProfile:{},
+      // proGallery:[],
+      // newGallery:{}
     };
   }
   
@@ -77,7 +80,7 @@ class HomePage extends Component {
       context: this,
       then(data) {
         console.log('found user profile in firebase', data)
-        this.setState({ data })
+        this.setState({ userProfile: data })
       },
       onFailure(error){
         console.log('instagram user does not exist, please log into instagram before using linkstasite')
@@ -100,25 +103,39 @@ class HomePage extends Component {
    render() {
     // const { users } = this.state;
     return (
+  
       <GraphProvider>
         <GraphContext.Consumer>
         { (value ) =>
       
           <div className="App" >
-            <div className="home__page">
+            <div className="home__page" >
+            
               <Header />
-              <SideBar2/>
+                 <SideBar2  userProfile={this.state.userProfile}/> 
+               
+              <div style={{marginTop: 25}} >
+              <p><h1><b>Dashboard</b></h1><h3><i>coming soon</i></h3>
+              <ul>
+                <li>affiliate link analytics</li>
+                <li>keep track of your most active links</li>
+                <li>see locations of activity</li>
+                <li>data updated in realtime</li>
+              </ul></p></div>
+              <div style={{position: 'relative', display: 'inlineFlex', marginTop: 17}}>
               <MarkSeries/>
                 <Bar graphData={value.graphData} />    
               <Graph/>
               <Plot/> 
+              
             </div>
-            
+            </div>
         </div>
       
       }
       </GraphContext.Consumer>
-    </GraphProvider>  
+    </GraphProvider> 
+ 
     );
   }
 }

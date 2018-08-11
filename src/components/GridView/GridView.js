@@ -63,6 +63,16 @@ class GridView extends Component {
     });
    
   }
+  componentDidMount() {
+    base.fetch('stripe', {
+      context:this,
+      then(data) {
+        this.setState({
+            stripeData: data
+        })
+      }
+    })
+  }
   clicksRemaining = (limit) => {
     limit =  limit > '0' ? limit : '100';
     const clicks = this.state.mediaData.clicks;
@@ -96,6 +106,7 @@ class GridView extends Component {
         { 
         Object.keys(gallery).map((media) => {
             return <MediaGridComponent 
+                      stripeData={this.state.stripeData}
                       clicksRemaining={this.clicksRemaining}
                       // updateGallery={this.removeGallery} 
                       refresh={this.deleteMedia}

@@ -130,11 +130,11 @@ import { base } from '../rebaseConfig/firebase';
           const  imgUrls  =  {...this.state.image} ;
           return(
               <div  >
-            <div className="App">
+            <div className="App" style={{paddingBottom: 35}} >
               <HeaderNonAuth/>
               
                 <div refs='gallery-container' className='container-fluid gallery-container'>
-                  <h5 style={{marginLeft: 95}}>Add affiliate links to your instagram gallery images!</h5>
+                  <h3 style={{marginLeft: 95}}><b>Add affiliate links to your instagram gallery images!</b></h3>
                   <br/>
                     <div className='row'>
                     {

@@ -74,7 +74,7 @@ totalLinks = async () => {
         //   onClick={() => this.setState({useCanvas: !useCanvas})}
        //   buttonContent={content}/>}*/}
         <XYPlot
-          width={300}
+          width={850}
           height={300}
           stackBy="x">
           <VerticalGridLines />

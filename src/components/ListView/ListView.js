@@ -57,6 +57,14 @@ class ListView extends Component {
           });
       }
     })
+    base.fetch('stripe', {
+      context: this,
+      then(data) {
+        this.setState({
+          stripeData: data
+        })
+      }
+    })
     
       
     }
@@ -84,6 +92,7 @@ class ListView extends Component {
           Object.keys(gallery).map((media) => {
               return (
                   <PhotoContainer 
+                        stripeData={this.state.stripeData}
                         media={gallery[media]} 
                         key={gallery[media].id} 
                         id={gallery[media].id} 

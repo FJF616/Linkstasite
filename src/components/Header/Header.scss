@@ -6,7 +6,31 @@
   overflow: hidden;
   position: top;
   // border: 6px solid;
-
+  .banner  {
+    span:nth-child(2) {
+      color: #4c68d7;
+    }
+    
+    span:nth-child(3) {
+      color: #cd486b;
+    }
+    
+    span:nth-child(4) {
+      color: #fbad50;
+    }
+    
+    span:nth-child(5) {
+      color: #fccc63;
+    }
+    
+    span:nth-child(6) {
+      color: #bc2a8d;
+    }
+    
+    span:nth-child(7) {
+      color: #e95950;
+    }
+  } 
 .nav {
   min-height: 100px;
   max-height: 105px;

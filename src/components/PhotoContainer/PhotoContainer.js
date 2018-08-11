@@ -230,7 +230,7 @@ constructor(props) {
                                 <FormControlLabel style={{paddingLeft: '1px', marginLeft: '5px', marginRight: '-10px'}}
                                     
                                     control={ 
-                                        this.state.clickData < '30' 
+                                        this.state.clickData < '30' || this.props.stripeData
                                         ? <Switch data-tip="Link Preview"   checked={this.state.linkPreview} onChange={this.handlePreview} aria-label="LinkPreviewSwitch" />
                                         : <Switch disabled={true} />
                                         }
@@ -243,7 +243,7 @@ constructor(props) {
                 </div>
               <div className="media" >
               { 
-                this.state.mediaData.url && (this.state.clickData < '30') ? 
+                ((this.props.stripeData && this.state.mediaData.url) || (this.state.clickData < '30')) ? 
                  <a href={this.state.mediaData.url}><Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
                  : <Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
                     }
@@ -271,7 +271,7 @@ constructor(props) {
                                     </h5>
                                     </ErrorBoundary>
                                     : (this.state.mediaData.url && this.state.clickData > '0') || (this.state.mediaData.url === this.props.media.url) 
-                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{ this.state.clickData ? `Clicks Remaining: ${'30' - this.state.clickData }`: 'Enter affiliate link to get stats'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
+                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{ this.props.stripeData ? `Total Clicks: ${this.state.clickData}`  :  this.state.clickData ? `Clicks Remaining: ${'30' - this.state.clickData }`: 'Enter affiliate link to get stats'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
                                 :  null
                                     } 
                         </div>

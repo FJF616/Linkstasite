@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import StickyBox from 'react-sticky-box'; 
-import './SideBar.scss'
+import './SideBar.scss';
 import  'bootstrap/dist/css/bootstrap.css';
 import StripeForm from '../PaymentForm/StripeForm';
 import Icon from '../Icons/Icon'
 import ICONS from '../Icons/constants';
 import * as routes from '../constants/routes';
-import { Link } from 'react-router-dom';
-import { base } from '../rebaseConfig/firebase';
+import { Link } from 'react-router-dom'
 // import { Blink } from 'react-blink';
-export default class SideBar2 extends Component {
+export default class ProSidBar extends Component {
     constructor() {
         super();
         this.state = {
-        
+        view: ''
     }
     this.gridView.bind(this);
     this.listView.bind(this);
-    }
+}
     listView() {
         this.setState({
             view: 'listView'
@@ -27,16 +26,6 @@ export default class SideBar2 extends Component {
     gridView() {
         this.setState({
             view: 'gridView'
-        })
-    }
-    componentDidMount() {
-        base.fetch('stripe', {
-            context: this,
-            then(data) {
-                this.setState({
-                   stripeData: data
-                })
-            }
         })
     }
 
@@ -53,17 +42,9 @@ export default class SideBar2 extends Component {
                         <li  ><Link to={routes.GRID_VIEW}><Icon className="listItem" icon={ICONS.GRID} size={95} mode={"contain"} color={"white"}/></Link></li> 
                        {/* <li><a href="https://instagram.com/accounts/logout/" width="0" height="0" title="logout" >Logout of Instagram</a></li>*/}
                     </ul>
-                    { !this.state.stripeData 
-                        ?
-                        <div >
-                            <h6 style={{paddingTop: '65px', paddingBottom: '100px', color: 'grey',}}><b>Upgrade to Pro Subscription  For Only $9.99!</b></h6>
-                            <br/>
-                            <StripeForm />
-                        </div>
-                        :
-                        null
-                        }
-                    
+                    <h6 style={{paddingTop: '65px', paddingBottom: '100px', color: 'grey'}}><b>Upgrade to Pro Subscription  For Only $9.99!</b></h6>
+                    <br/>
+                    <StripeForm />
                 </div>
             </StickyBox>
           

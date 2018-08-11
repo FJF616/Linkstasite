@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 // import ShortenLink from '../src/util/Bitly'
 import './index.css';
 // import Bitlink from './util/BitlyHelper'
-import InstagramProvider from './components/Session/InstagramProvider';
+// import InstagramProvider from './components/Session/InstagramProvider';
 // import EditableTable from './components/FormInputs/EditableTable'
 import App from './components/App/App.js';
 import registerServiceWorker from './registerServiceWorker';
@@ -20,9 +20,9 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <FirestoreProvider firebase={firebase}>
-        <InstagramProvider>
+       
             <App />
-        </InstagramProvider>
+       
     </FirestoreProvider>,
      document.getElementById('root'));
     registerServiceWorker();
