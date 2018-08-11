@@ -81,17 +81,16 @@ class ListView extends Component {
           { 
 
           Object.keys(gallery).map((media) => {
-              return <PhotoContainer 
-                        // updateGallery={this.removeGallery} 
-                        // refresh={this.updateEachGallery}
+              return (
+                  <PhotoContainer 
                         media={gallery[media]} 
                         key={gallery[media].id} 
                         id={gallery[media].id} 
                         title={gallery[media].title}
                         gallery={this.galleryRef}
-                       />;
-                       
-                    })
+                       />
+                     
+                    )})
                    
                  }
                 

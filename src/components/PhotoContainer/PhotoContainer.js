@@ -228,8 +228,11 @@ constructor(props) {
                                 <ReactTooltip place="top" type="light" effect="float"/>
                                 <FormGroup>
                                 <FormControlLabel style={{paddingLeft: '1px', marginLeft: '5px', marginRight: '-10px'}}
-                                    control={
-                                        <Switch data-tip="Link Preview"  checked={this.state.linkPreview} onChange={this.handlePreview} aria-label="LinkPreviewSwitch" />
+                                    
+                                    control={ 
+                                        this.state.clickData < '30' 
+                                        ? <Switch data-tip="Link Preview"   checked={this.state.linkPreview} onChange={this.handlePreview} aria-label="LinkPreviewSwitch" />
+                                        : <Switch disabled={true} />
                                         }
                                         label={this.state.linkPreview ? 'On' : 'Off'}
                                         />

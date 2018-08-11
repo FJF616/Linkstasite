@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import TestFooter from '../TestFooter/TestFooter';
 import HeaderNonAuth from '../Header/HeaderNonAuth';
 import MicrolinkCard from 'react-microlink';
-import AvatarEditor from 'react-avatar-editor'
-
+import AvatarEditor from 'react-avatar-editor';
+import {withRouter} from 'react-router-dom';
 
 import { base } from '../rebaseConfig/firebase';
 
@@ -41,7 +41,7 @@ import { base } from '../rebaseConfig/firebase';
         <span className="modal-title">
           <a href={this.props.link}><h2><b>{this.props.title}</b></h2></a><MicrolinkCard url={this.props.link} size="small" style={{ position: 'relative', marginLeft: 55, width: 325 }}/></span>
           <div><a href="https://www.instagram.com/linkstasite"><AvatarEditor className="avatar__img"
-          style={{borderRadius: '50%', position: 'absolute', bottom: '0', left: '0', border: '2px double', marginLeft: 10, marginBottom: 10, borderColor:'skyblue'}}
+          style={{borderRadius: '50%', boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', position: 'absolute', bottom: '0', left: '0', border: '2px outset', marginLeft: 10, marginBottom: 10, borderColor:'skyblue'}}
           image={this.props.userProfile.profilePic}
           width={95}
           height={95}
@@ -88,7 +88,7 @@ import { base } from '../rebaseConfig/firebase';
         context: this,
         asArray: true,
         then(galleryData) {
-          console.log(galleryData)
+          console.log('successfuly fetched image gallery from firebase')
           this.setState({ image: galleryData })
         }
       })
@@ -180,4 +180,4 @@ import { base } from '../rebaseConfig/firebase';
        })
       };
   }
-export default GuestPage;
+export default withRouter(GuestPage);

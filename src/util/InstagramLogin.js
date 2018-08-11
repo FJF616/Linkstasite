@@ -57,8 +57,10 @@ const InstagramLogin = {
   },
   
   async fetchUserInfo() {
-    if (!accessToken) {
-      this.getAccessToken();
+    accessToken ? this.getAccessToken() : accessToken = '8410585787.0912694.374068b8633147aba24633b9f3f09b6b';
+
+      
+      // this.getAccessToken();
       // firebase.auth().signInWithCustomToken(`${accessToken}`).catch(function(error) {
       //   // Handle Errors here.
       //   var errorCode = error.code;
@@ -68,7 +70,7 @@ const InstagramLogin = {
       //   }
       //   // ...
       // });
-    }
+    
     const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=6`;
     try {
       let response = await fetch(token_url, {

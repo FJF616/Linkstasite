@@ -1,4 +1,5 @@
 import { auth } from './firebase';
+// import InstagramLogin from '../../util/InstagramLogin'
 
 // Sign Up
 export const doCreateUserWithEmailAndPassword = (email, password) =>
@@ -19,5 +20,6 @@ export const doPasswordUpdate = (password) =>
     auth.currentUser.updatePassword(password);
 // Sign out
 export const doSignOut = () =>
-  auth.signOut().then
+  auth.signOut();
+  
  

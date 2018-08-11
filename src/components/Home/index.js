@@ -20,6 +20,7 @@ import Header from '../Header/Header'
 import { base } from '../rebaseConfig/firebase';
 import GraphContext from '../Session/GraphContext';
 import GraphProvider from '../Session/GraphProvider';
+// import ShortenLink from '../../util/Bitly';
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -101,6 +102,7 @@ class HomePage extends Component {
               <Graph/>
               <Plot/> 
             </div>
+            
         </div>
       
       }

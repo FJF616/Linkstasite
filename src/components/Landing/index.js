@@ -73,7 +73,7 @@ import withAuthorization from '../Session/withAuthorization';
         context: this,
         asArray: true,
         then(galleryData) {
-          console.log(galleryData)
+          // console.log(galleryData)
           this.setState({ image: galleryData })
         }
       })
