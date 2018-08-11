@@ -17,9 +17,10 @@ const Navigation = () =>
 const NavigationAuth = () =>
     <InstagramProvider>
       <InstagramConsumer>
-          { (userProfile, proSubscription) =>  <HomePage userProfile={{ state: {userProfile, proSubscription} }}/> }
+          { (userProfile) =>  <HomePage userProfile={{ state: {userProfile} }}/> }
       </InstagramConsumer>
-      </InstagramProvider>
+    </InstagramProvider>
+
 const NavigationNonAuth = () =>
       <HeaderNonAuth />
       

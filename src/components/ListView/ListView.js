@@ -20,39 +20,44 @@ class ListView extends Component {
     this.state = {
       gallery: {},
       // userProfile: [],
-      slides:[],
-      accountName:'loading',
-      listView:''
+      // slides:[],
+      // accountName:'loading',
+      // listView:''
     };
     
   }
  
-
-
- 
-  
-  
   componentDidMount() {
-    InstagramLogin.fetchUserInfo().then(instagramUser => {
-      let newGallery ={};
-      const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
-      const newKey  = instagramUser.gallery[key].id;
-      newGallery[newKey]= instagramUser.gallery[key];
-      return newGallery;
-    });
-      let updatedGallery = newGalleryKeys['0'];
-      this.setState({
-        gallery: updatedGallery,
-        slides: instagramUser.slides,
-        userProfile: instagramUser.user['0'],
-        instagramUserID: instagramUser.user.instagramUserID
-      });  
+    base.fetch('gallery', {
+      context:this,
+      then(data) {
+        console.log('instagram user gallery found in firebase', data)
+      },
+      onFailure(error) {
+        console.log('instagram gallery does not exist in firebase. fetching gallery from instagram', error)
+        InstagramLogin.fetchUserInfo().then(instagramUser => {
+          let newGallery ={};
+          const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
+          const newKey  = instagramUser.gallery[key].id;
+          newGallery[newKey]= instagramUser.gallery[key];
+          return newGallery;
+        });
+          let updatedGallery = newGalleryKeys['0'];
+          this.setState({
+            gallery: updatedGallery,
+            slides: instagramUser.slides,
+            userProfile: instagramUser.user['0'],
+            instagramUserID: instagramUser.user.instagramUserID
+          });  
+        })
+        .catch(error => {
+              if (error) {
+                console.log("error fetching instagramUser")
+              }
+          });
+      }
     })
-    .catch(error => {
-          if (error) {
-            console.log("error fetching instagramUser")
-          }
-      });
+    
       
     }
 
@@ -62,11 +67,11 @@ class ListView extends Component {
        state: 'gallery',
        
    });
-  this.slidesRef = base.syncState('slides', {
-     context: this,
-     state: 'slides',
+  // this.slidesRef = base.syncState('slides', {
+  //    context: this,
+  //    state: 'slides',
      
-   });
+  //  });
  
 }
  
@@ -74,12 +79,8 @@ class ListView extends Component {
     MediaLists = ({ gallery})  => {
       gallery = {...this.galleryRef.context.state.gallery};
       return (
-        
         <div key={gallery.id} className='list'>
-        
-
           { 
-
           Object.keys(gallery).map((media) => {
               return (
                   <PhotoContainer 
@@ -101,7 +102,7 @@ class ListView extends Component {
    // console.log(this.galleryRef.context.state.gallery)
    componentWillUnMount() {
     base.removeBinding(this.galleryRef);
-    base.removeBinding(this.slidesRef);
+    // base.removeBinding(this.slidesRef);
    }
    render() {
    return (

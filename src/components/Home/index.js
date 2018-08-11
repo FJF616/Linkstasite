@@ -73,18 +73,29 @@ class HomePage extends Component {
     db.onceGetUsers().then(snapshot =>
       this.setState(() => ({ users: snapshot.val() }))
     );
-    InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
-      // gallery: instagramUser.gallery,
-      // slides: instagramUser.slides,
-      // userProfile: instagramUser.user['0'],
-      // instagramUserID: instagramUser.user.instagramUserID,
-      image: instagramUser.image
-    }))
-    .catch(error => {
-      if(error) {
-        console.log('error fetching instagramUser', error);
-      };
+    base.fetch('userProfile', {
+      context: this,
+      then(data) {
+        console.log('found user profile in firebase', data)
+        this.setState({ data })
+      },
+      onFailure(error){
+        console.log('instagram user does not exist, please log into instagram before using linkstasite')
+        InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
+          // gallery: instagramUser.gallery,
+          // slides: instagramUser.slides,
+          // userProfile: instagramUser.user['0'],
+          // instagramUserID: instagramUser.user.instagramUserID,
+          image: instagramUser.image
+        }))
+        .catch(error => {
+          if(error) {
+            console.log('error fetching instagramUser', error);
+          };
+        })
+      }
     })
+   
   }
    render() {
     // const { users } = this.state;

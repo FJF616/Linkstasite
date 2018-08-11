@@ -26,15 +26,35 @@ import DropDown from './DropDown'
 // import ShortenLink from '../../util/Bitly'
 class Header extends React.Component {
   state = {
+   
     userProfile: [],
     // auth: true,
     // anchorEl: null,
   }
   componentDidMount = () => {
-    base.syncState('userProfile', {
+    this.userProfileRef = base.syncState('userProfile', {
       context: this,
-      state: 'userProfile'
-    })
+      state: 'userProfile',
+    });
+    this.stripeRef = base.listenTo('stripe', {
+      context: this,
+      state: 'stripe',
+      then(subscriptionData) {
+        console.log('user profile elveated to pro subscription', subscriptionData)
+        this.setState({
+          userProfile: {
+            proSubscription: true
+          }
+        });
+      },
+      onFailure(error){
+        console.log('failed to upgrade to pro subscription!')
+      }
+    });
+  }
+  componentWillUnmount() {
+    base.removeBinding(this.userProfileRef);
+    base.removeBinding(this.stripeRef);
   }
   // handleMenu = event => {
   //   this.setState({ anchorEl: event.currentTarget });

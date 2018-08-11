@@ -38,7 +38,7 @@ export default class InstagramProvider extends React.Component {
                 // gallery: instagramUser.gallery,
                 userProfile: instagramUser.user['0'],
                 accountName: instagramUser.user['0'].userName,
-                proSubscription: false
+                
             }))
             .catch(error => {
                 console.log('error fetching instagram profile');
