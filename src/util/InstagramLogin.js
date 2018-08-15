@@ -13,6 +13,7 @@ let instagramUser = {
   user: {
     instagramToken:`${instagramToken}`,
   },
+  proGallery:{},
   gallery:{},
   slides: {},
   image:{},
@@ -57,19 +58,9 @@ const InstagramLogin = {
   },
   
   async fetchUserInfo() {
-    accessToken ? this.getAccessToken() : accessToken = '8410585787.0912694.374068b8633147aba24633b9f3f09b6b';
-
-      
-      // this.getAccessToken();
-      // firebase.auth().signInWithCustomToken(`${accessToken}`).catch(function(error) {
-      //   // Handle Errors here.
-      //   var errorCode = error.code;
-      //   var errorMessage = error.message;
-      //   if(error) {
-      //     console.log('error signing in with custom token', error.code)
-      //   }
-      //   // ...
-      // });
+    if(!accessToken) {
+      this.getAccessToken();
+    }
     
     const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=6`;
     try {
@@ -81,7 +72,7 @@ const InstagramLogin = {
         jsonResponse = await response.json();
         instagramUser.user = jsonResponse.data.map(info => ({
           id: info.id,
-          accountStatus: 'trial',
+          
           // image: info.images.standard_resolution.url,
           instagramUserID: info.user.id,
           url: info.link,
@@ -124,6 +115,40 @@ const InstagramLogin = {
     // createFirebaseAccount(instagramUser.user.instagramUserID, instagramUser.user.userName, instagramUser.user.profilePic, instagramUser.user.access_token)
     //   .then(token => {signInFirebaseTemplate(token,  instagramUser.user.userName, instagramUser.user.profilePic, instagramUser.user.access_token)})
   },
+  async getProGallery() {
+    if(!accessToken) {
+      this.getAccessToken();
+    }
+    
+    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=20`;
+    try {
+      let response = await fetch(token_url, {
+        method: 'GET'
+      });
+      if (response.ok) {
+        console.log(response);
+        jsonResponse = await response.json();
+        instagramUser.proGallery = jsonResponse.data.map(info => ({
+          src: info.images.standard_resolution.url,
+          // title: info.caption ? info.caption.text : '',
+          id: info.id,
+          // url: '',
+          affiliated: false,
+          editing: false,
+          edited: false,
+          filled: false
+        }));
+      
+          return instagramUser;
+
+      }
+      throw new Error('Request failed!');
+    } catch (error) {
+      console.log(error);
+    }
+  },
+    
+
   logout() {
     const Match = window.location.href.match(/access_token=([^&]*)/);
     if (Match) {

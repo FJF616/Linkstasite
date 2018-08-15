@@ -65,7 +65,7 @@ class PasswordForgetForm extends Component {
 
         { error && <p>{error.message}</p> }
       </form>
-      <div style={{marginTop: 490, width: '100%', position: 'absolute'}}>
+      <div style={{paddingTop: 799, width: '100%', position: 'absolute', display: 'inline'}}>
           <TestFooter/>
           </div>
         </div>

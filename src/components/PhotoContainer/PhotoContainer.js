@@ -14,6 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import ShortenLink from '../../util/Bitly';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+// import MediaGridComponent from '../Media/MediaGridComponent';
 // import Bar from '../Graph/Bar'
 /**
  * 
@@ -24,6 +25,7 @@ export default class PhotoContainer extends Component {
 constructor(props) {
     super(props);
     this.state = {
+        
         linkPreview: false,
     }
     this.checkFilled = this.checkFilled.bind(this);
@@ -86,10 +88,10 @@ constructor(props) {
     }  
    updateRebase = () => {
     const { url, title, edited, editing, filled } = this.state.mediaData;
-    if(this.state.mediaData.url) {
+    if(this.state.mediaData.url.length) {
         const timestamp = Date.now();
         base.update(`gallery/${this.props.media.id}`, {
-            data: {url: url, title: title, affiliated: true, edited: edited, editing: editing, filled: filled, timestamp:`${timestamp}` },
+            data: {url: url, title: title, affiliated: true, edited: edited, editing:false, filled: true, timestamp:`${timestamp}` },
             then(err) {
                 if(!err) {
                     console.log('successfully updated gallery from mediaData')
@@ -111,38 +113,43 @@ constructor(props) {
    };
    
     checkFilled() {
-     if (this.state.mediaData.title.length) {
+   if (this.state.mediaData.url ) {
         this.setState({
             mediaData: {
+            
                 filled: true,
-                editing: true,
-                edited: true
-            }
-        });
-       this.updateRebase();
-     }
-   };
+                editing: false,
+                edited: true,
+               }
+        })
+       this.updateRebase()
+    } else { 
+        alert('error updating firebase')
     
+   
+    } 
+}
     updateLink(e) {
         const target = e.target;
         const value =  target.value;
         const name = target.type;
         if (!value) {
-            console.log("error");
+            alert("error");
         } else {
             this.setState ({
                 mediaData: {
                     [name]: value,
-                    filled: true  
+                    filled: true,
+                    
                 }
             })
         }
         
                 
 
-        e.preventDefault();        
+        // e.preventDefault();        
             
-        this.props.media.affiliateLink = this.state.mediaData.url;   
+        // this.props.media.affiliateLink = this.state.mediaData.url;   
         
      }
     
@@ -156,10 +163,13 @@ constructor(props) {
         this.setState({
            mediaData: {
                url: value,
+               filled: false,
                timestamp: null,
                edited: false,
                clicks: null,
-               title: value
+               title: '',
+               affiliated: false,
+               editing: false,
             }
         });
         
@@ -174,7 +184,8 @@ constructor(props) {
         this.setState({
             mediaData: {
                 [name]: value,
-                editing: true
+                editing: true,
+                
             }
         })
     //     e.preventDefault();
@@ -190,6 +201,13 @@ constructor(props) {
     handlePreview = (event, checked) => {
         this.setState({ linkPreview: checked });
       };
+    // notPristine = () => {
+    //     this.setState({
+    //         mediaData: {
+    //         pristine: false
+    //         }
+    //     })
+    // }
     componentDidMount() {
         this.getLinkStats();
     }
@@ -216,15 +234,16 @@ constructor(props) {
                                
                                 {
                                      !this.state.mediaData.edited  
-                                        ? (this.state.mediaData.url ? !this.state.mediaData.url.length : !this.state.mediaData.url)
-                                            ? <UrlError><ShortenLink mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/></UrlError>
-                                            : <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.mediaData.url}</b></h6></a> 
+                                        ? this.state.mediaData.url 
+                                         ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.mediaData.url}</b></h6></a>
+                                           : <UrlError><ShortenLink onChange={this.notPristine} mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/></UrlError>
+                                             
                                         : <UrlError><ShortenLink mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/></UrlError>
                                 }
                                {/* <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.mediaData.edited || this.state.mediaData.url ? this.state.mediaData.url.length : !this.state.mediaData.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>*/}
                                 <button onClick={this.handleClear} className="controls" type="button" disabled={ this.state.mediaData.url ? !this.state.mediaData.url.length : !this.state.mediaData.url } data-tip="Remove affiliate Link" style={{color: 'purple', paddingLeft: '5px', padding: '5px', width: '40px', height: '31px', marginBottom: '16px', marginLeft: '1px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                                 {/*<button  className="controls" onClick={this.handleEdit} disabled={ !this.state.mediaData.affiliated } type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>*/}
-                                <button onClick={this.checkFilled} disabled={ (!this.state.mediaData.editing || this.state.mediaData.affiliated) || (this.state.mediaData.editing && this.state.mediaData.affiliated ) } className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '40px', height: '31px', marginLeft: '2px'}}><i className="fa fa-save"/></button>
+                                <button onClick={this.checkFilled} disabled={ (this.state.mediaData.affiliated) || (this.state.pristine || this.state.mediaData.filled ) } className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '40px', height: '31px', marginLeft: '2px'}}><i className="fa fa-save"/></button>
                                 <ReactTooltip place="top" type="light" effect="float"/>
                                 <FormGroup>
                                 <FormControlLabel style={{paddingLeft: '1px', marginLeft: '5px', marginRight: '-10px'}}
@@ -243,15 +262,17 @@ constructor(props) {
                 </div>
               <div className="media" >
               { 
-                ((this.props.stripeData && this.state.mediaData.url) || (this.state.clickData < '30')) ? 
+                ((this.props.stripeData || this.state.clickData < '30' ) && this.state.mediaData.url )? 
                  <a href={this.state.mediaData.url}><Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
                  : <Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
-                    }
+                }
+                  
                     <div className="media-body"> 
                     
                     { 
                     this.state.mediaData.filled  ? 
-                    <h5><input style={{width: 395, marginTop: 10, marginLeft: '5px', borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 25}}    onChange={this.handleChange} placeholder="title" type="title" /></h5>
+                        <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}> <h3><b>{this.state.mediaData.title}</b></h3>  
+                            </div>
                    
                             : !this.state.mediaData.filled && !this.state.mediaData.edited && this.state.mediaData.editing ?
                             <h5><input style={{width: 395, marginTop: 10, marginLeft: '5px', borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 25}}    value={this.state.mediaData.title} onChange={this.handleChange} placeholder="title" type="title" /></h5>
@@ -271,7 +292,7 @@ constructor(props) {
                                     </h5>
                                     </ErrorBoundary>
                                     : (this.state.mediaData.url && this.state.clickData > '0') || (this.state.mediaData.url === this.props.media.url) 
-                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{ this.props.stripeData ? `Total Clicks: ${this.state.clickData}`  :  this.state.clickData ? `Clicks Remaining: ${'30' - this.state.clickData }`: 'Enter affiliate link to get stats'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
+                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{ this.state.mediaData.affiliated && this.state.mediaData.clicks === '0' ? `click stats will appear here` : this.props.stripeData && this.state.clickData ? `Total Clicks: ${this.state.clickData}`  :  this.state.clickData ? `Clicks Remaining: ${'30' - this.state.clickData }`: 'Enter affiliate link to get stats'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
                                 :  null
                                     } 
                         </div>

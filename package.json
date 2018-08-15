@@ -95,6 +95,7 @@
     "react-select": "^1.2.1",
     "react-simple-charts": "0.0.19",
     "react-slick": "^0.23.1",
+    "react-social-login-buttons": "^2.1.2",
     "react-spring": "^5.3.18",
     "react-sticky-box": "^0.6.2",
     "react-stripe-checkout": "^2.6.3",

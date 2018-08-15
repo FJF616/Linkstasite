@@ -19,7 +19,7 @@ export default class SubscriptionProvider extends Component {
         .then(data => {
             this.setState({
                 data,
-                proTheme: true
+               
             });
         })
         .catch(error => {

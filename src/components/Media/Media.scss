@@ -1,6 +1,8 @@
 .image-grid {
   display: inline-block;
-  margin-top: 11px;
+  margin-top: 13px;
+  margin-right: 45px;
+  margin-left: 10px;
 }
  
 
@@ -60,3 +62,15 @@ height: 55px;
 // http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.65+0,0+100;Neutral+Density
 // @include filter-gradient(#a6000000, #00000000, vertical); // IE6-9
 // @include background-image(linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%));
+// .grid-pics {
+//   background: #f09433; 
+// background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+// background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+// background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+// margin-left: 55px;
+// margin-top: 35px; 
+// border: 3px double;
+// background: goldenrod;
+// border-color: peru;
+// }

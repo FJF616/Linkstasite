@@ -12,22 +12,25 @@ import ICONS from '../Icons/constants';
 // import withAuthentication from '../Session/withAuthentication';
 // import { withRouter } from 'react-router-dom'
 // import Media from '../Media/Media.js'
+import { Button } from 'react-bootstrap';
 
 class MediaGrid extends React.Component {
     constructor() {
     super();
     this.state = {
-    gallery:''
+    gallery:[],
    }
   }
    componentDidMount() {
    this.galleryRef =  base.syncState('gallery', {
        context: this,
        state: 'gallery',
-      // asArray:true
+      
      }) 
    }
-   
+  // componentWillUnmount() {
+  //   base.removeBinding(this.galleryRef)
+  // }
   
   render () {
     const { gallery } = this.state;
@@ -36,18 +39,23 @@ class MediaGrid extends React.Component {
       { Object.keys(gallery).map((key, id) => {
             return (
                   <div className="delete" key={key}>
-                    <MediaGridComponent  media={this.state.gallery[key]}  />
-                      {gallery[key].affiliateLink &&
+                    <MediaGridComponent  media={gallery[key]}  />
+                      {gallery[key].url &&
                       <Button 
                         // className="remove-btn"
                         type="button"
                         style={{width: 35, height: 35, marginBottom: 115, marginLeft: -85, position: 'relative', backgroundColor: 'transparent'}}
                         onClick={() => {
-                          const gallery = [...this.state.gallery];
-                           id = gallery[key].id; 
+                         
+                         
+                          
+                          //  id = gallery[key]; 
+                         
+                           console.log(id, key[id], key.id, key, gallery[key].id)
                            this.setState(state => ({
-                            gallery: gallery.filter(key => key.id !== id)
+                            gallery: Object.keys(gallery).filter(key => gallery[key].id !== id)
                           })); 
+                        
                           // this.props.deleteMedia(id)
                         }}
                       >

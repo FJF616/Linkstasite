@@ -31,30 +31,34 @@ class ListView extends Component {
     base.fetch('gallery', {
       context:this,
       then(data) {
+        if(Object.keys(data).length > 1) {
         console.log('instagram user gallery found in firebase', data)
+        } else {
+          InstagramLogin.fetchUserInfo().then(instagramUser => {
+            let newGallery ={};
+            const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
+            const newKey  = instagramUser.gallery[key].id;
+            newGallery[newKey]= instagramUser.gallery[key];
+            return newGallery;
+          });
+            let updatedGallery = newGalleryKeys['0'];
+            this.setState({
+              gallery: updatedGallery,
+              slides: instagramUser.slides,
+              userProfile: instagramUser.user['0'],
+              instagramUserID: instagramUser.user.instagramUserID
+            });  
+          })
+          .catch(error => {
+                if (error) {
+                  console.log("error fetching instagramUser")
+                }
+            });
+        }
       },
       onFailure(error) {
         console.log('instagram gallery does not exist in firebase. fetching gallery from instagram', error)
-        InstagramLogin.fetchUserInfo().then(instagramUser => {
-          let newGallery ={};
-          const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
-          const newKey  = instagramUser.gallery[key].id;
-          newGallery[newKey]= instagramUser.gallery[key];
-          return newGallery;
-        });
-          let updatedGallery = newGalleryKeys['0'];
-          this.setState({
-            gallery: updatedGallery,
-            slides: instagramUser.slides,
-            userProfile: instagramUser.user['0'],
-            instagramUserID: instagramUser.user.instagramUserID
-          });  
-        })
-        .catch(error => {
-              if (error) {
-                console.log("error fetching instagramUser")
-              }
-          });
+       
       }
     })
     base.fetch('stripe', {
@@ -73,6 +77,7 @@ class ListView extends Component {
     this.galleryRef = base.syncState('gallery', {
        context: this,
        state: 'gallery',
+    
        
    });
   // this.slidesRef = base.syncState('slides', {

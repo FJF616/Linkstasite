@@ -16,6 +16,7 @@ import AvatarEditor from 'react-avatar-editor'
 import { Link } from 'react-router-dom'
 import { base } from '../rebaseConfig/firebase'
 import DropDown from './DropDown'
+import Delay from 'react-delay';
 // import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 // import IconButton from '@material-ui/core/IconButton';
 // import MenuIcon from '@material-ui/icons/Menu';
@@ -31,30 +32,34 @@ class Header extends React.Component {
     // auth: true,
     // anchorEl: null,
   }
+
+  checkSubscriptionStatus() {
+   this.state.subscriptionData
+      ?  this.setState({ proSubscription: true }) 
+      :  this.stripeRef = base.listenTo('stripe', {
+          context: this,
+          state: 'stripe',
+            then(subscriptionData) {
+            if(subscriptionData !== null) {
+                this.setState({ subscriptionData })
+            } else {
+              console.log('failed to get subscription status')
+            }
+          }
+        })
+    }
   componentDidMount = () => {
     this.userProfileRef = base.syncState('userProfile', {
       context: this,
       state: 'userProfile',
+      // asArray: true
     });
-    this.stripeRef = base.listenTo('stripe', {
-      context: this,
-      state: 'stripe',
-      then(subscriptionData) {
-        console.log('user profile elveated to pro subscription', subscriptionData)
-        this.setState({
-          userProfile: {
-            proSubscription: true
-          }
-        });
-      },
-      onFailure(error){
-        console.log('failed to upgrade to pro subscription!')
-      }
-    });
+    this.checkSubscriptionStatus();
+      
   }
   componentWillUnmount() {
     base.removeBinding(this.userProfileRef);
-    base.removeBinding(this.stripeRef);
+    // base.removeBinding(this.stripeRef);
   }
   // handleMenu = event => {
   //   this.setState({ anchorEl: event.currentTarget });
@@ -71,6 +76,7 @@ class Header extends React.Component {
       <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95, marginBottom: 55 }} className="navbar navbar-expand-lg  fixed-top">
       <div className="collapse navbar-collapse" id="navbarResponsive">
       <div  className="navbar  float float-left"  aria-label="Left Align">
+      <Delay wait={600}>
           <Card className="profile"  >
           <Row className="profile__container">
               <AvatarEditor className="avatar__img"
@@ -87,6 +93,7 @@ class Header extends React.Component {
               </Col>            
           </Row>  
         </Card>
+        </Delay>
           </div>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon" />

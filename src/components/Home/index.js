@@ -20,9 +20,10 @@ import Header from '../Header/Header'
 import { base } from '../rebaseConfig/firebase';
 import GraphContext from '../Session/GraphContext';
 import GraphProvider from '../Session/GraphProvider';
-import SubscriptionProvider from '../Session/SubscriptionProvider';
-import SubscriptionConsumer from '../Session/SubscriptionProvider';
+// import SubscriptionProvider from '../Session/SubscriptionProvider';
+// import SubscriptionConsumer from '../Session/SubscriptionProvider';
 
+// import Delay from 'react-delay';
 // import ShortenLink from '../../util/Bitly';
 class HomePage extends Component {
   constructor(props) {
@@ -30,11 +31,8 @@ class HomePage extends Component {
 
     this.state = {
       users: {},
-      // gallery: [] ,
-      // slides: [],   
+      accountStatus:'trial',
       userProfile:{},
-      // proGallery:[],
-      // newGallery:{}
     };
   }
   
@@ -81,6 +79,11 @@ class HomePage extends Component {
       then(data) {
         console.log('found user profile in firebase', data)
         this.setState({ userProfile: data })
+        const { userProfile } = this.state;
+          if (userProfile.hasOwnProperty('proSubscription') && userProfile.proSubscription === true) {
+            this.setState({accountStatus: 'pro'})
+          }
+        
       },
       onFailure(error){
         console.log('instagram user does not exist, please log into instagram before using linkstasite')
@@ -110,10 +113,12 @@ class HomePage extends Component {
       
           <div className="App" >
             <div className="home__page" >
-            
+          
               <Header />
-                 <SideBar2  userProfile={this.state.userProfile}/> 
-               
+           
+             
+                 <SideBar2  accountStatus={this.state.accountStatus}/> 
+             
               <div style={{marginTop: 25}} >
               <p><h1><b>Dashboard</b></h1><h3><i>coming soon</i></h3>
               <ul>

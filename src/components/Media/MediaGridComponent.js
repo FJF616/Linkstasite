@@ -25,7 +25,8 @@ componentWillMount() {
   })
   this.galleryRef = base.syncState(`gallery/${this.props.media.id}`, {
     context: this,
-    state:'gallery'
+    state:'gallery',
+    // asArray: true
   })
 }
 
@@ -60,76 +61,50 @@ render() {
   return (
 
       <div className='image-grid' >
-        { this.props.media.clicks >= '30' 
-              ? !this.props.stripeData 
-              ? <div>
-                  <span className="media-title">{this.state.gallery.title}</span>
-                    <Imager   
-                        data-tip="upgrade to pro for unlimited clicks" 
-                        className="mr-3" src={this.state.gallery.src} 
-                        style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} 
-                        />
-                    <ReactTooltip place="top" type="light" effect="float"/>
-                </div> 
-                : this.props.media.url && !this.state.completed 
-                   ?  <div>
-                        <span className="media-title" onClick={this.props.clicksRemaining}><h5>{this.state.gallery.title}</h5> </span>
-                        <a href={this.state.gallery.url} >
-                          <Imager  
-                              data-tip={this.state.gallery.url} 
-                              className="mr-3" src={this.state.gallery.src} 
-                              style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
-                              />
-                          </a>
-                    {/* <ProgressBar data={this.state.stats} />*/}
-                      <ReactTooltip place="top" type="light" effect="float"/>
-                    </div>
-                : (this.props.clicksRemaining === 'completed' ) && this.state.gallery.url 
-                ? <div>
-                    <span className="media-title">{this.state.gallery.title}</span>
-                      <Imager   
-                          data-tip="upgrade to pro for unlimited clicks" 
-                          className="mr-3" src={this.state.gallery.src} 
-                          style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} 
-                          />
-                      <ReactTooltip place="top" type="light" effect="float"/>
-                  </div>
-                : this.props.media.clicks >= '30' 
-                ? <div>
-                <span className="media-title">{this.state.gallery.title}</span>
+        { ( !this.state.gallery.affiliated || this.state.completed ) && (this.state.gallery.url && this.state.gallery.clicks >= '30')
+          ? <div>
+              <span className="media-title">{this.state.gallery.title}</span>
                   <Imager   
                       data-tip="upgrade to pro for unlimited clicks" 
-                      className="mr-3" src={this.state.gallery.src} 
-                      style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} 
+                      className="mr-3" src={this.props.media.src} 
+                      style={{
+                          width: 225, 
+                          height: 225, 
+                          margin: 10, 
+                          border: '7px ridge', 
+                          padding: 5,  
+                          boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', 
+                          borderColor: 'pink'}} 
                       />
-                  <ReactTooltip place="top" type="light" effect="float"/>
-              </div>
-              :  this.props.stripeData
-              ?  <div>
-                  <span className="media-title" onClick={this.props.clicksRemaining}><h5>{this.state.gallery.title}</h5> </span>
+              <ReactTooltip place="top" type="light" effect="float"/>
+          </div> 
+      : this.state.gallery.filled || this.state.gallery.clicks < '30'
+      
+          /**
+           * 
+           * 
+           * linked
+           */
+      ?   <div>
+              <span className="media-title" onClick={this.props.clicksRemaining}>
+                  <h5>{this.state.gallery.title}</h5> </span>
                   <a href={this.state.gallery.url} >
-                    <Imager  
-                        data-tip={this.state.gallery.url} 
-                        className="mr-3" src={this.state.gallery.src} 
-                        style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
-                        />
-                    </a>
-              {/* <ProgressBar data={this.state.stats} />*/}
-                <ReactTooltip place="top" type="light" effect="float"/>
-              </div>
-              : ''
-            :<div>
-            <span className="media-title" onClick={this.props.clicksRemaining}><h5>{this.state.gallery.title}</h5> </span>
-            <a href={this.state.gallery.url} >
-              <Imager  
-                  data-tip={this.state.gallery.url} 
-                  className="mr-3" src={this.state.gallery.src} 
-                  style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} 
-                  />
-              </a>
-        {/* <ProgressBar data={this.state.stats} />*/}
-          <ReactTooltip place="top" type="light" effect="float"/>
-        </div>
+                  <Imager  
+                      data-tip={this.state.gallery.url} 
+                      className="mr-3" src={this.props.media.src} 
+                      style={{
+                          width: 225, 
+                          height: 225,
+                          margin: 10, 
+                          border: '7px ridge', 
+                          padding: 5,  
+                          boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', 
+                          borderColor: 'gold'}} 
+                      />
+                  </a>
+              <ReactTooltip place="top" type="light" effect="float"/>
+          </div>
+      :''
               }
         </div>   
       );

@@ -130,7 +130,7 @@ import { base } from '../rebaseConfig/firebase';
           const  imgUrls  =  {...this.state.image} ;
           return(
               <div  >
-            <div className="App" style={{paddingBottom: 35}} >
+            <div className="App" >
               <HeaderNonAuth/>
               
                 <div refs='gallery-container' className='container-fluid gallery-container'>

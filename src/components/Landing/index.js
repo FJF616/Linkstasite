@@ -5,6 +5,7 @@ import './Landing.scss';
 import Header from "../Header/Header";
 import SideBar2 from '../SideBar/SideBar2';
 import withAuthorization from '../Session/withAuthorization';
+import InstagramLogin from '../../util/InstagramLogin';
 /**
  * 
  * 
@@ -69,6 +70,12 @@ import withAuthorization from '../Session/withAuthorization';
       })
     }
     componentDidMount() {
+      // InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
+        
+      //     image: instagramUser.gallery,
+      //     userProfile: instagramUser.user['0'],
+      //     accountName: instagramUser.user['0'].userName,
+      // }))
       this.baseRef = base.listenTo('gallery', {
         context: this,
         asArray: true,

@@ -11,7 +11,7 @@ import './index.css';
 import App from './components/App/App.js';
 import registerServiceWorker from './registerServiceWorker';
 // import NewPara from './components/NewPara/NewPara'
-
+import SubscriptionProvider from './components/Session/SubscriptionProvider';
 // const config = {
 //   projectId: 'linkstasite-dev',
 //   apiKey: 'AIzaSyDkT8JAvL8ZK7CtnhKI7rJUbvtRrvDJou0' 
@@ -20,9 +20,9 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <FirestoreProvider firebase={firebase}>
-       
+       <SubscriptionProvider>
             <App />
-       
+            </SubscriptionProvider>
     </FirestoreProvider>,
      document.getElementById('root'));
     registerServiceWorker();

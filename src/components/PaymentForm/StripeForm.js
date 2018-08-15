@@ -8,15 +8,29 @@ class  StripeForm  extends  React.Component  {
   constructor(props) {
     super(props);
    this.state = {
-      stripe:'',
+     
       disableButton:false
   }
 }
   componentWillMount(){
-    this.stripeRef = base.syncState('stripe', {
+    this.stripeRef = base.fetch('stripe', {
       context: this,
-      state: 'stripe'
+      then(stripeData) {
+        //check for empty object
+        if(Object.keys(stripeData).length === 0 && stripeData.constructor === Object) {
+          base.update('userProfile', {
+            data: { proSubscription: false }
+          })
+          this.setState({ proSubscription: false })
+        } else {
+          base.update('userProfile', {
+            data: { proSubscription: true }
+          })
+          this.setState({ proSubscription: true })
+        } 
+      }
     })
+    
   } 
   componentWillUnmount() {
     base.removeBinding(this.stripeRef);
@@ -26,15 +40,14 @@ class  StripeForm  extends  React.Component  {
     console.log ( token )
     
     base.update('stripe', {
-      data: { token, proSubcription: true },
+      data: { token, proSubscription: true },
       then(err) {
+        console.log('could not enter stripe details into firebase!', err)
         if(!err) {
-          console.log('stripe data enterd into firebase');
-          
+          console.log('updated stripe account info in firebase')   
         }
       }
-    })
-   
+    })   
   } 
   render ()  { 
     return  ( 

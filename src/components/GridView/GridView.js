@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Card } from '@material-ui/core';
 import '../App/App.css';
 import withAuthentication from '../Session/withAuthentication';
 
 import SideBar2 from '../SideBar/SideBar2';
-
+// import MediaGrid from '../MediaList/MediaGrid';
 import MediaGridComponent from '../Media/MediaGridComponent'
 import { base } from '../rebaseConfig/firebase'
 import Header from '../Header/Header';
@@ -132,7 +133,11 @@ class GridView extends Component {
       <div className="App"> 
       <Header />
        <SideBar2/>
+       <div  >
+      
        {this.MediaLists(this.state.gallery)}
+      
+       </div>
       </div>
     );
   }

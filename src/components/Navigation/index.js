@@ -6,20 +6,26 @@ import InstagramProvider from '../Session/InstagramProvider';
 import InstagramConsumer from '../Session/InstagramProvider'
 import HeaderNonAuth from '../Header/HeaderNonAuth'
 import HomePage from '../Home'
+// import SubscriptionProvider from '../Session/SubscriptionProvider'
+// import SubscriptionConsumer from '../Session/SubscriptionProvider'
 const Navigation = () =>
   <AuthUserContext.Consumer>
     {authUser => authUser
-      ? <NavigationAuth/>
+      ? <NavigationAuth authUser={authUser}/>
       : <NavigationNonAuth />
     }
   </AuthUserContext.Consumer>
 
 const NavigationAuth = () =>
-    <InstagramProvider>
+
+    <InstagramProvider >
       <InstagramConsumer>
-          { (userProfile) =>  <HomePage userProfile={{ state: {userProfile} }}/> }
+    
+          { (userProfile) =>  <HomePage userProfile={{ state: {userProfile} }} /> }
+     
       </InstagramConsumer>
     </InstagramProvider>
+ 
 
 const NavigationNonAuth = () =>
       <HeaderNonAuth />
