@@ -5,6 +5,15 @@ import { withRouter } from 'react-router-dom';
 import { base } from '../rebaseConfig/firebase';
 // import SideBar2 from '../SideBar/ProSideBar';
 
+/**
+ * 
+ * 
+ * 
+ * 
+ * HOC to store stripe and subscription info for sidebar, sidebar will use props from this HOC to render two different views based on the
+ * subscription status.  when status is trial mode, the sidebar will show stripe payment logo and stripe checkout payment button.  
+ * when the status is "pro", these two components will not be rendered
+ */
 const withSubscription = (Component)  => {
     class WithSubscription extends React.Component {
         state = {

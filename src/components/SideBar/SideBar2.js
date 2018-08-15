@@ -20,13 +20,20 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
     constructor() {
         super();
         this.state = {
-        // stripe:{},
-        // status:''
+        subscription:'trial'
+       
     }
     this.gridView.bind(this);
     this.listView.bind(this);
     }
 
+    checkStatus() {
+        const { stripeData } = this.props;
+        const proStatus = ((stripeData || {}).stripe || {}).proSubscription;
+        if(proStatus === true) {
+            this.setState({ subscription: 'pro' });
+        }
+    }
     // checkSub = () => {
     //     if(!this.props.subscriptionStatus) {
     //     base.fetch('stripe', {
@@ -80,12 +87,11 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
             view: 'gridView'
         })
     }
-    // componentDidMount() {
-    //   if (!Object.keys(this.state.stripe).length === 0 && this.state.stripe.constructor === Object) {
-    //        this.checkSub();
-    //   }
+    componentDidMount() {
+      this.checkStatus();
+      }
         
-    // }
+    
   
     render(){
       
@@ -103,7 +109,7 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                        {/* <li><a href="https://instagram.com/accounts/logout/" width="0" height="0" title="logout" >Logout of Instagram</a></li>*/}
                     </ul>
                     </Delay> 
-                    {!(this.props.accountStatus === 'pro')  
+                    {(this.state.subscription === 'trial')  
                         ?
                         <div >
                             <h6 style={{paddingTop: '5px', paddingBottom: '10px', color: 'blue',}}><b>Upgrade to Pro Subscription  For Only $9.99!</b></h6>
