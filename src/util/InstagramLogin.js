@@ -112,8 +112,7 @@ const InstagramLogin = {
     } catch (error) {
       console.log(error);
     }
-    // createFirebaseAccount(instagramUser.user.instagramUserID, instagramUser.user.userName, instagramUser.user.profilePic, instagramUser.user.access_token)
-    //   .then(token => {signInFirebaseTemplate(token,  instagramUser.user.userName, instagramUser.user.profilePic, instagramUser.user.access_token)})
+   
   },
   async getProGallery() {
     if(!accessToken) {

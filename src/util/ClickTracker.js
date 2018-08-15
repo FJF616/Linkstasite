@@ -4,7 +4,12 @@ import { base } from '../components/rebaseConfig/firebase'
 import {RebaseProvider } from 'react-rebase';
 
 
-
+/**
+ * 
+ * 
+ * these components can be used to track the amount of links and store the value on firebase,
+ * however we will be implementing the bitly api which will take care of click stats.  
+ */
 
 const TrackLink = ({ link, count, updateCount}) => (
     <div>

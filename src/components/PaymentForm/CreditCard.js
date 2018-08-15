@@ -18,7 +18,7 @@ const onSubmit = async values => {
 
 const CreditCard= () => (
   <Styles>
-   
+  
     <Form
       onSubmit={onSubmit}
       render={({
@@ -31,7 +31,8 @@ const CreditCard= () => (
       }) => {
         return (
           <form style={{marginTop: '25px', height: '795px', border: '5px ridge', borderColor: 'pink'}} onSubmit={handleSubmit}>
-             <Card
+          <h3> Save Payment Info </h3>
+          <Card
                number={values.number || ''}
                name={values.name || ''}
                expiry={values.expiry || ''}
@@ -39,6 +40,7 @@ const CreditCard= () => (
                focused={active}
             />
             <div>
+
               <Field
                 name="number"
                 component="input"
@@ -87,7 +89,7 @@ const CreditCard= () => (
               </button>
             </div>
            
-        <pre>{JSON.stringify(values, 0, 2)}</pre>
+       
         <h3>Upgrade to Pro Subscription and receive access to full Instagram gallery and unlimited clicks on affiliate links!</h3>
           </form>
         )

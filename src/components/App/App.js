@@ -8,7 +8,7 @@ import GuestPage from '../GuestPage/GuestPage';
 import NewPara from '../NewPara/NewPara';
 import ListView from '../ListView/ListView';
 import GridView from '../GridView/GridView';
-import Billing from '../Billing/Billing'
+import BillingPage from '../Billing/BillingPage'
 import Navigation from '../Navigation';
 import LandingPage from '../Landing';
 import SignUpPage from '../SignUp';
@@ -31,7 +31,7 @@ const App = () =>
           <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
           <Route exact path={routes.HOME} component={() => <HomePage  />} />
           <Route exact path={routes.ACCOUNT} component={() => <AccountSettings />} />
-          <Route exact path={routes.BILLING} component={() => <Billing />} />
+          <Route exact path={routes.BILLING_PAGE} component={() => <BillingPage />} />
           <Route exact path={routes.GRID_VIEW} component={() => <GridView />} />
           <Route exact path={routes.LIST_VIEW} component={() => <ListView />} />
       </div>

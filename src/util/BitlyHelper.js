@@ -1,4 +1,15 @@
-
+/**
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * These are the helper methods for fetching a shortened url as well as getting the click stats for the shortened url, 
+ * first use shortlink and use the return value for the input value on fetchlink method. these will be used during the 
+ * lifecycle methods 
+ */
 const access_token = process.env.REACT_APP_BITLY_ACCESS_TOKEN;
 
 
@@ -15,9 +26,7 @@ async shortenLink(longUrl)  {
                 console.log(response);     
                 let bitly  =   await response.json();
                 let shortUrl = await bitly.data
-                // this.setState({ 
-                //     shortUrl: shortUrl.url
-                // })
+               
                 return shortUrl;
                 } 
                 throw new Error('Request failed!');  
@@ -38,9 +47,7 @@ async fetchClicks(url)   {
             console.log(response);     
             let bitly  =   await response.json();
             let clicks = await bitly.data;
-            // this.setState({ 
-            //     clicks: clicks.link_clicks 
-            // });
+           
                 return clicks;
                 } 
                 throw new Error('Request failed!');  

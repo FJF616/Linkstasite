@@ -87,7 +87,7 @@ constructor(props) {
      })
     }  
    updateRebase = () => {
-    const { url, title, edited, editing, filled } = this.state.mediaData;
+    const { url, title, edited} = this.state.mediaData;
     if(this.state.mediaData.url.length) {
         const timestamp = Date.now();
         base.update(`gallery/${this.props.media.id}`, {
