@@ -23,10 +23,15 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
         subscription:'trial'
        
     }
-    this.gridView.bind(this);
-    this.listView.bind(this);
+    // this.gridView.bind(this);
+    // this.listView.bind(this);
+    this.checkStatus = this.checkStatus.bind(this);
     }
 
+    /***
+     * 
+     * check account status and set state to pro if stripe payment info is found
+     */
     checkStatus() {
         const { stripeData } = this.props;
         const proStatus = ((stripeData || {}).stripe || {}).proSubscription;
@@ -34,60 +39,19 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
             this.setState({ subscription: 'pro' });
         }
     }
-    // checkSub = () => {
-    //     if(!this.props.subscriptionStatus) {
-    //     base.fetch('stripe', {
-    //         context: this,
-    //         then(data) {
-    //             this.setState({ stripe: data })
-    //             const { stripe } = this.state;
-    //             if (typeof stripe!== undefined) {
-    //                 base.update('subscription', {
-    //                     data: { status: 'pro' },
-    //                     then(err) {
-    //                         if(!err) {
-    //                             console.log('subscription status: pro');
-    //                         }
-    //                     }
-    //                 }) 
-    //             }
-    //         }
+   
+    // listView() {
+    //     this.setState({
+    //         view: 'listView'
     //     })
-    // } else {
-    //     const { stripe } = this.state;
-    //     if ( stripe ) {
-    //         stripe.hasOwnProperty('proSubscription' ) 
-    //         ? base.post('subscription', {
-    //             data: { status: 'pro' },
-    //             then(err) {
-    //                 if(!err) {
-    //                     console.log('subscription status: pro');
-    //                 }
-    //             }
-    //         }) 
-    //         : base.post('subscription', {
-    //             data: { status: 'trial' },
-    //             then(err) {
-    //                 if(!err) {
-    //                     console.log('subscription status: trial')
-    //                 }
-    //             }
-    //         })
-    //     }
     // }
-    // }
-    listView() {
-        this.setState({
-            view: 'listView'
-        })
-    }
 
-    gridView() {
-        this.setState({
-            view: 'gridView'
-        })
-    }
-    componentDidMount() {
+    // gridView() {
+    //     this.setState({
+    //         view: 'gridView'
+    //     })
+    // }
+    componentWillMount() {
       this.checkStatus();
       }
         
@@ -106,9 +70,10 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                         <li><Link to={routes.ACCOUNT}><Icon className="listItem" icon={ICONS.SETTINGS} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li ><Link  to={routes.LIST_VIEW}><Icon className="listItem" icon={ICONS.THLIST2} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li  ><Link to={routes.GRID_VIEW}><Icon className="listItem" icon={ICONS.GRID} size={95} mode={"contain"} color={"white"}/></Link></li> 
+                     
                        {/* <li><a href="https://instagram.com/accounts/logout/" width="0" height="0" title="logout" >Logout of Instagram</a></li>*/}
                     </ul>
-                    </Delay> 
+                    
                     {(this.state.subscription === 'trial')  
                         ?
                         <div >
@@ -118,9 +83,11 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                             <StripeForm />
                             </div>                           
                         </div>
-                        :
-                        null
-                        }                     
+                        :<div style={{marginLeft: 35, cursor:'pointer'}}>
+                        <Icon   className="listItem" icon={ICONS.REFRESH} size={125} mode={"contain"} color={"white"}/>
+                        </div>
+                        }   
+                        </Delay>                   
                 </div>
              </StickyBox>
            
