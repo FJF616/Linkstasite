@@ -76,9 +76,10 @@ class Header extends React.Component {
       <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95, marginBottom: 55 }} className="navbar navbar-expand-lg  fixed-top">
       <div className="collapse navbar-collapse" id="navbarResponsive">
       <div  className="navbar  float float-left"  aria-label="Left Align">
-      <Delay wait={600}>
+     
           <Card className="profile"  >
           <Row className="profile__container">
+          
               <AvatarEditor className="avatar__img"
               image={this.state.userProfile.profilePic}
               width={55}
@@ -88,12 +89,15 @@ class Header extends React.Component {
               scale={1.25}
               rotate={1}
               /> 
+             
               <Col style={{backgroundColor: 'transparent'}}> 
+              
               <DropDown />
+         
               </Col>            
           </Row>  
         </Card>
-        </Delay>
+        
           </div>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon" />

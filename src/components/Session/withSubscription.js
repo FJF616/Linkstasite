@@ -17,78 +17,95 @@ import { base } from '../rebaseConfig/firebase';
 const withSubscription = (Component)  => {
     class WithSubscription extends React.Component {
         state = {
-            // subscription:'',
-            stripe:''
+            subscription:'',
+            stripe:{},
+            synced:'',
         }
-    //   componentWillMount() {
-    //       if (!this.state.subscription.length) {
-    //         base.fetch('subscription', {
-    //             context: this,
-    //             then(data) {
-    //                 this.setState({ subscription: data });
-    //             }
-    //         })
-    //     } else {
-    //         if ( this.state.subscription.hasOwnProperty('pro')) {
-    //           this.setState({ subscription: 'pro'}); 
-    //       } else {
-    //           this.setState({ subscription: 'trial' });
-    //       }
-    //     }
-    //   }
-     checkSub() {
-        if(Object.keys(this.state.stripe).length === 0 && this.state.stripe.constructor === Object) {  
-        base.fetch('stripe', {
-            context: this,
-            then(data) {
-                this.setState({ stripe: data })
-                const { stripe } = this.state;
-                if (typeof stripe!== undefined) {
-                    base.push('subscription', {
-                        data: { status: 'pro' },
-                        then(err) {
-                            if(!err) {
-                                console.log('subscription status: pro');
-                            }
-                        }
-                    }) 
+        checkStripe() {
+            const { stripe } = this.state;
+            if (Object.keys(stripe).length === 0 && stripe.constructor === Object) {  
+                this.stripeRef = base.syncState('stripe', {
+                    context: this,
+                    state: 'stripe'
+                })
+                .then(state => { 
+                    this.setState({ 
+                        synced: true 
+                    })
+                })
+                .catch(err => { 
+                    console.log('error syncing with stripe database', err) 
+                });
+                } else {
+                    stripe.hasOwnProperty('proSubscription' ) 
+                      ? base.push('subscription', {
+                            data: { status: 'pro' },
+                        })
+                        .then(() => { 
+                            console.log('subscription status: pro')
+                        })
+                        .catch(err => { 
+                            console.log('error updating subscription status in firebase', err)
+                        })           
+                      : base.push('subscription', {
+                            data: { status: 'trial' },
+                        })
+                        .then(() => { 
+                            console.log('subscription status: trial')
+                        })
+                        .catch(err => { 
+                            console.log('error updating subscription status in firebase', err)
+                        })           
+                    }
+                }
+       
+        checkSub() {
+            const { subscription } = this.state;
+            if (!subscription.length) {
+                base.fetch('subscription', {
+                    context: this,
+                })
+                .then(data => {
+                    this.setState({ 
+                        subscription: data 
+                    });
+                    this.checkStripe();
+                }) 
+                .catch(err => {
+                    console.log('error fetching subscription data from firebase', err);
+                });       
+                } else {
+                    if ( subscription.hasOwnProperty('pro')) {
+                        this.setState({ 
+                            subscription: 'pro'
+                        }); 
+                    } else {
+                        this.setState({ 
+                            subscription: 'trial'
+                         });
+                    }
                 }
             }
-        })
-    } else {
-        const { stripe } = this.state;
-        if ( stripe ) {
-            stripe.hasOwnProperty('proSubscription' ) 
-            ? base.push('subscription', {
-                data: { status: 'pro' },
-                then(err) {
-                    if(!err) {
-                        console.log('subscription status: pro');
-                    }
-                }
-            }) 
-            : base.push('subscription', {
-                data: { status: 'trial' },
-                then(err) {
-                    if(!err) {
-                        console.log('subscription status: trial')
-                    }
-                }
-            })
-        }
-      }
-    }
+
+    /**
+     * 
+     * 
+     * 
+     * 
+     * check the stripe subscription status by checking if stripe user info exists in firebase
+     * update the subscription status to 'pro' in local state if it exists, if not set a flag 
+     * in firebase as 'trial' for reference in future logins
+     */
+     
+        
     componentDidMount() {
-        if (!Object.keys(this.state.stripe).length === 0 && this.state.stripe.constructor === Object) {
-             this.checkSub();
-        } else{
-            this.stripeRef = base.syncState('stripe', {
-                context: this,
-                state:'stripe'
-            })
-        }
-          
+        this.checkSub();
       }
+
+    componentWillUnmount() {
+        base.removeBinding(this.stripeRef);
+    }
+    
       render() {
           return (
              

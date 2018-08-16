@@ -120,14 +120,18 @@ class ListView extends Component {
    }
    render() {
    return (
-     <div className="App">
+    <div className="App" style={{position: 'fixed', overflowY: 'scroll'}}>
+    <Header/>
+       <SideBar2 />
+    <div className="list__view" style={{display: 'inline-flex', alignContent:'row'}} >
+   
+     
     
-       <Header/>
-       <SideBar2/>
+       
          {this.MediaLists(this.state.gallery)}
-        
+         </div>
      </div>
-
+    
     );
   }
 }

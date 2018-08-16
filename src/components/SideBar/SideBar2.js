@@ -7,7 +7,7 @@ import Icon from '../Icons/Icon'
 import ICONS from '../Icons/constants';
 import * as routes from '../constants/routes';
 import { Link } from 'react-router-dom';
-// import { base } from '../rebaseConfig/firebase';
+import { base } from '../rebaseConfig/firebase';
 import Imager from '../Imager/Imager';
 // import { url } from 'inspector';
 // import { Blink } from 'react-blink';
@@ -25,20 +25,36 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
     }
     // this.gridView.bind(this);
     // this.listView.bind(this);
-    this.checkStatus = this.checkStatus.bind(this);
+    // this.checkStatus = this.checkStatus.bind(this);
     }
 
     /***
      * 
      * check account status and set state to pro if stripe payment info is found
      */
-    checkStatus() {
+      checkStatus = async () => {
         const { stripeData } = this.props;
-        const proStatus = ((stripeData || {}).stripe || {}).proSubscription;
-        if(proStatus === true) {
-            this.setState({ subscription: 'pro' });
-        }
+        const proStatus =  await ((stripeData || {}).stripe || {}).proSubscription;
+        this.setState({ subscription: proStatus ? 'pro' : 'trial' }) 
     }
+        //     else {
+        // const userProfileStatus = base.fetch('userProfile', {
+        //     context: this,
+        // })
+        // .then(data => {
+        //     data.hasOwnProperty('prosubScription') 
+        //         ? data.proSubscription === true 
+        //             ? this.setState({ subscription: 'pro'}) 
+        //             : this.setState({ subscription: 'trial'})
+        //         : this.setState({ subscription:  proStatus === true ? 'pro' : 'trial'})
+        //     return;
+        // })
+        // .catch(error => {
+        //     console.log('error fetching subscription status', error);
+        // });
+        // return userProfileStatus;
+        // }
+    // }
    
     // listView() {
     //     this.setState({
@@ -51,19 +67,19 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
     //         view: 'gridView'
     //     })
     // }
-    componentWillMount() {
-      this.checkStatus();
+    componentDidMount() {
+        this.checkStatus()
       }
         
     
   
     render(){
-      
+       
       return(
         
             <StickyBox className="sideBar" style={{  paddingTop: 45, border: '5px outset',  width: 215, borderColor: 'lightpink' }} >
                 <div className="sideItem">              
-                <Delay wait={600}>
+               
                     <ul className="sidelist" style={{listStyleType: 'none'}}>
                         <li ><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li><Link to={routes.BILLING_PAGE}><Icon className="listItem" icon={ICONS.CREDITCARD} size={95} mode={"contain"} color={"white"} /></Link></li>
@@ -73,9 +89,9 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                      
                        {/* <li><a href="https://instagram.com/accounts/logout/" width="0" height="0" title="logout" >Logout of Instagram</a></li>*/}
                     </ul>
-                    
-                    {(this.state.subscription === 'trial')  
-                        ?
+                    {
+                        (this.state &&  this.state.subscription === 'trial' )  
+                        ? <Delay wait={50}>
                         <div >
                             <h6 style={{paddingTop: '5px', paddingBottom: '10px', color: 'blue',}}><b>Upgrade to Pro Subscription  For Only $9.99!</b></h6>
                             <div>
@@ -83,16 +99,15 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                             <StripeForm />
                             </div>                           
                         </div>
+                        </Delay>     
                         :<div style={{marginLeft: 35, cursor:'pointer'}}>
                         <Icon   className="listItem" icon={ICONS.REFRESH} size={125} mode={"contain"} color={"white"}/>
                         </div>
-                        }   
-                        </Delay>                   
-                </div>
-             </StickyBox>
-           
-          
-      );
+                        }  
+                                      
+                    </div>
+             </StickyBox>    
+            )
+        }
     }
-}
 export default subscriptionWrapper(SideBar2);

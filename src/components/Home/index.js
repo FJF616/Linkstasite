@@ -22,7 +22,8 @@ import GraphContext from '../Session/GraphContext';
 import GraphProvider from '../Session/GraphProvider';
 // import SubscriptionProvider from '../Session/SubscriptionProvider';
 // import SubscriptionConsumer from '../Session/SubscriptionProvider';
-
+import InstagramImages from '../PhotoPicker/InstagramImages';
+import MergeGalleries from '../../util/MergeGalleries';
 // import Delay from 'react-delay';
 // import ShortenLink from '../../util/Bitly';
 class HomePage extends Component {
@@ -111,14 +112,11 @@ class HomePage extends Component {
         <GraphContext.Consumer>
         { (value ) =>
       
-          <div className="App" >
-            <div className="home__page" >
-          
-              <Header />
-           
-             
-                 <SideBar2  accountStatus={this.state.accountStatus}/> 
-             
+          <div className="App" style={{position: 'fixed', overflowY: 'scroll'}}>
+            <Header />
+              <SideBar2/> 
+              <InstagramImages/>
+              <div className="home__page" >
               <div style={{marginTop: 25}} >
               <p><h1><b>Dashboard</b></h1><h3><i>coming soon</i></h3>
               <ul>

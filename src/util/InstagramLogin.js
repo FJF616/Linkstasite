@@ -13,12 +13,13 @@ let instagramUser = {
   user: {
     instagramToken:`${instagramToken}`,
   },
-  proGallery:{},
+ 
   gallery:{},
   slides: {},
   image:{},
   
 };
+let  proGallery = {};
 // const createFirebaseAccount = require('./components/rebaseConfig/createFirebaseAccount')
 
 
@@ -71,18 +72,18 @@ const InstagramLogin = {
         console.log(response);
         jsonResponse = await response.json();
         instagramUser.user = jsonResponse.data.map(info => ({
-          id: info.id,
+          // id: info.id,
           
           // image: info.images.standard_resolution.url,
           instagramUserID: info.user.id,
-          url: info.link,
-          title: info.caption ? info.caption.text : '',
+          // url: info.link,
+          // title: info.caption ? info.caption.text : '',
           profilePic: info.user.profile_picture,
           userName:info.user.full_name,
           favorite: false,
           access_token: `${accessToken}`,
-          likes: info.likes.count,
-          tags: info.tags
+          // likes: info.likes.count,
+          // tags: info.tags
         }));
           instagramUser.gallery = jsonResponse.data.map(info => ({
             src: info.images.standard_resolution.url,
@@ -127,7 +128,7 @@ const InstagramLogin = {
       if (response.ok) {
         console.log(response);
         jsonResponse = await response.json();
-        instagramUser.proGallery = jsonResponse.data.map(info => ({
+        proGallery = jsonResponse.data.map(info => ({
           src: info.images.standard_resolution.url,
           // title: info.caption ? info.caption.text : '',
           id: info.id,
@@ -138,7 +139,7 @@ const InstagramLogin = {
           filled: false
         }));
       
-          return instagramUser;
+          return proGallery;
 
       }
       throw new Error('Request failed!');

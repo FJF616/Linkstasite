@@ -10,53 +10,57 @@ class WithSubscriptionProvider extends React.Component {
         super(props);
         this.state = {
             stripe: {},
-            subscription:'',
+            // subscription:'',
            
         };
     }
-    checkSub = () => {
-        if(!this.state.subscription) {
-        base.fetch('stripe', {
-            context: this,
-            then(data) {
-                this.setState({ stripe: data })
+    checkSub = async () => {
+            try{
                 const { stripe } = this.state;
-                if (typeof stripe!== undefined) {
-                    base.update('subscription', {
+                if ( stripe ) {
+                    stripe.hasOwnProperty('proSubscription' ) 
+                    ? base.post('subscription', {
                         data: { status: 'pro' },
                         then(err) {
                             if(!err) {
+                                this.stripeRef();
                                 console.log('subscription status: pro');
                             }
                         }
                     }) 
-                }
-            }
-        })
-    } else {
-        const { stripe } = this.state;
-        if ( stripe ) {
-            stripe.hasOwnProperty('proSubscription' ) 
-            ? base.post('subscription', {
-                data: { status: 'pro' },
-                then(err) {
-                    if(!err) {
-                        this.stripeRef();
-                        console.log('subscription status: pro');
+                : base.post('subscription', {
+                    data: { status: 'trial' },
+                    then(err) {
+                        if(!err) {
+                            console.log('subscription status: trial')
+                        }
                     }
-                }
-            }) 
-            : base.post('subscription', {
-                data: { status: 'trial' },
-                then(err) {
-                    if(!err) {
-                        console.log('subscription status: trial')
+                })
+            }
+        
+        } catch ( error ) {
+            throw error;
+            }
+        if (!this.state.subscription && !typeof this.state.stripe === undefined) {
+            await base.fetch('stripe', {
+                context: this,
+                then(data) {
+                    this.setState({ stripe: data })
+                    const { stripe } = this.state;
+                    if (typeof stripe!== undefined) {
+                        base.update('subscription', {
+                            data: { status: 'pro' },
+                            then(err) {
+                                if(!err) {
+                                    console.log('subscription status: pro');
+                                }
+                            }
+                        }) 
                     }
                 }
             })
         }
     }
-}
     componentWillMount() {
         this.stripeRef = base.syncState('stripe', {
             context: this,
@@ -67,25 +71,28 @@ class WithSubscriptionProvider extends React.Component {
         //     })
         // }
     })
-        if (!this.state.subscription.length) {
-          base.fetch('subscription', {
+        if (!this.state.subscription) {
+           base.fetch('subscription', {
               context: this,
               then(data) {
+                  if( data.length ) {
                   this.setState({ subscription: data });
               }
+            }
           })
-      } else {
-          if ( this.state.subscription.hasOwnProperty('pro')) {
-            this.setState({ subscription: 'pro'}); 
-        } else {
-            this.setState({ subscription: 'trial' });
-        }
-      }
+    //   } else {
+    //       if ( this.state.subscription.hasOwnProperty('pro')) {
+    //         this.setState({ subscription: 'pro'}); 
+    //     } else {
+    //         this.setState({ subscription: 'trial' });
+    //     }
+    //   }
     }
-    componentDidlMount() {
-        if (!Object.keys(this.state.stripe).length === 0 && this.state.stripe.constructor === Object) {
-            this.checkSub();
-       }
+}
+    // componentDidlMount() {
+    //     if (!Object.keys(this.state.stripe).length === 0 && this.state.stripe.constructor === Object) {
+    //         this.checkSub();
+    //    }
        
 
         // this.stripeRefs = base.listenTo('stripe', {
@@ -102,7 +109,7 @@ class WithSubscriptionProvider extends React.Component {
         //         console.log('error during stripe processing', error);
         //     }
         // });
-    } 
+    // } 
 
     componentWillUnmount() {
         base.removeBinding(this.stripeRef);
@@ -113,9 +120,8 @@ class WithSubscriptionProvider extends React.Component {
 
             <SubscriptionContext.Provider value={this.state}>
                 <SubscriptionContext.Consumer>
-                {  stripe => <Component {...this.props.children} stripeData={stripe} /> }
-                </SubscriptionContext.Consumer>
-              
+                {  stripe => <Component {...this.props.children} stripeData={ stripe } /> }
+                </SubscriptionContext.Consumer>       
             </SubscriptionContext.Provider>
         );
     }

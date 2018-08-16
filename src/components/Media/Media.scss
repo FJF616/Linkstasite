@@ -1,8 +1,9 @@
 .image-grid {
-  display: inline-block;
+  display: inline-flex;
   margin-top: 13px;
   margin-right: 45px;
   margin-left: 10px;
+ 
 }
  
 
@@ -35,8 +36,8 @@
   z-index: 2;
   background-position:center;
   background-size: contain;
-  padding: 10px;
-  margin: 5px 0px 0px 12px;
+  padding: 5px;
+  margin: 15px 0px 0px 15px;
   display:inline-flex;
   height: 55px;
 }

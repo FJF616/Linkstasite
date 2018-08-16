@@ -38,6 +38,7 @@ class BillingPage extends Component {
     render() {
       return (
         <div className="App" >
+       
         <Header/>
         <ProSideBar/>
 
@@ -96,11 +97,16 @@ class BillingPage extends Component {
 
             <StripeForm disabled={true}/>
             <Imager style={{ position:'bottom', marginTop: 75}} src={`https://stripe.com/img/v3/payments/shared/social.png`}  width={225} height={225} mode={'fit'} /> 
-
+          
             <div />
           </div>
         </div>
         <CreditCard/>
+        
+        <div>
+        <Imager style={{marginTop: 25, marginLeft: 100, border: '2px outset', borderColor: 'pink'}} src={`https://wptravelengine.com/wp-content/uploads/edd/2018/02/icon-logo-1-600x440.png`}  width={515} height={380} mode={'fit'} /> 
+
+        </div>
         </div>
       );
     }

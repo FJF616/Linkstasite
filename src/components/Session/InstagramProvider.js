@@ -2,6 +2,12 @@ import React from 'react';
 import InstagramContext from './InstagramContext';
 import InstagramLogin from '../../util/InstagramLogin';
 import { base } from '../rebaseConfig/firebase';
+/**
+ * 
+ * 
+ * 
+ * Context Provider gives access to instagram user imagegallery, and profile details
+ */
 
 export const InstagramConsumer = InstagramContext.Consumer;
 export default class InstagramProvider extends React.Component {
@@ -14,14 +20,24 @@ export default class InstagramProvider extends React.Component {
         };
     }
 
+/**
+ * 
+ * 
+ * checks for empty Objects
+ */
     isEmpty = (obj) =>  {
         for(var prop in obj) {
             if(obj.hasOwnProperty(prop))
                 return false;
         }
-        return JSON.stringify(obj) === JSON.stringify({});
+        return JSON.stringify(obj) === JSON.stringify({}); //should return true if empty object
     }
-
+ /**
+  * 
+  * 
+  *  get the userProfile from firebase and extract the user details, if the userProfile object doesn't
+  * exist get it from Instagram api
+  */
     componentDidMount() {
         try {
             base.fetch('userProfile', {
