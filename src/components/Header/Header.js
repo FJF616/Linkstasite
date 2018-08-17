@@ -17,6 +17,8 @@ import { Link } from 'react-router-dom'
 import { base } from '../rebaseConfig/firebase'
 import DropDown from './DropDown'
 import Delay from 'react-delay';
+import { InstagramLoginButton } from 'react-social-login-buttons';
+
 // import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 // import IconButton from '@material-ui/core/IconButton';
 // import MenuIcon from '@material-ui/icons/Menu';
@@ -29,11 +31,11 @@ class Header extends React.Component {
   state = {
    
     userProfile: [],
+    subscriptionData: {},
     // auth: true,
     // anchorEl: null,
   }
-
-  checkSubscriptionStatus() {
+    checkSubscriptionStatus() {
    this.state.subscriptionData
       ?  this.setState({ proSubscription: true }) 
       :  this.stripeRef = base.listenTo('stripe', {
@@ -96,7 +98,14 @@ class Header extends React.Component {
          
               </Col>            
           </Row>  
-        </Card>
+        </Card>{
+          this.state.proSubscription
+          ? <InstagramLoginButton style={{paddingLeft: 30, marginLeft: 245, width: 265, height:50}} >
+              <span><h3>𝕘𝕖𝕥 𝕚𝕞𝕒𝕘𝕖𝕤</h3></span>
+            </InstagramLoginButton>
+          :
+          null
+        }
         
           </div>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">

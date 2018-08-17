@@ -65,11 +65,7 @@ class WithSubscriptionProvider extends React.Component {
         this.stripeRef = base.syncState('stripe', {
             context: this,
             state:'stripe'
-        //     then(data) {
-        //         this.setState({
-        //             stripe: data,
-        //     })
-        // }
+    
     })
         if (!this.state.subscription) {
            base.fetch('subscription', {
@@ -80,37 +76,10 @@ class WithSubscriptionProvider extends React.Component {
               }
             }
           })
-    //   } else {
-    //       if ( this.state.subscription.hasOwnProperty('pro')) {
-    //         this.setState({ subscription: 'pro'}); 
-    //     } else {
-    //         this.setState({ subscription: 'trial' });
-    //     }
-    //   }
+   
     }
 }
-    // componentDidlMount() {
-    //     if (!Object.keys(this.state.stripe).length === 0 && this.state.stripe.constructor === Object) {
-    //         this.checkSub();
-    //    }
-       
-
-        // this.stripeRefs = base.listenTo('stripe', {
-        //     context: this,
-        //     state: 'stripe',
-        //     then(stripeData) {
-        //         console.log('updating profile with stripe data', stripeData);
-        //         this.setState({ 
-        //             stripe: stripeData, 
-        //             subscription: 'pro'
-        //         });
-        //     },
-        //     onFailure(error) {
-        //         console.log('error during stripe processing', error);
-        //     }
-        // });
-    // } 
-
+   
     componentWillUnmount() {
         base.removeBinding(this.stripeRef);
         // base.removeBinding(this.stripeRefs)

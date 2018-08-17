@@ -25,6 +25,8 @@ import GraphProvider from '../Session/GraphProvider';
 // import InstagramImages from '../PhotoPicker/InstagramImages';
 // import Delay from 'react-delay';
 // import ShortenLink from '../../util/Bitly';
+// import merge from 'deepmerge';
+import withInstagram from '../Session/withInstagram';
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -37,14 +39,14 @@ class HomePage extends Component {
     };
     
   }
-  
- 
-  componentWillMount() {
+   componentWillMount() {
     try {
       base.bindToState('imageUrls', {
         context: this,
-        state: 'image'
+        state: 'image',
+        asArray: true
       })
+      
     } catch (error) {
       console.log('no imageUrls database!!')
     }
@@ -113,6 +115,7 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
+   
     db.onceGetUsers().then(snapshot =>
       this.setState(() => ({ users: snapshot.val() }))
     ).then(() => {
@@ -122,6 +125,7 @@ class HomePage extends Component {
     }).catch(err => {
       console.log('user galleries dont exist', err)
     })
+  
   }
   
    render() {
@@ -176,4 +180,4 @@ class HomePage extends Component {
 //   */}
 const authCondition = (authUser) => !!authUser;
 
-export default withAuthorization(authCondition)(HomePage);
+export default withAuthorization(authCondition)(withInstagram(HomePage));

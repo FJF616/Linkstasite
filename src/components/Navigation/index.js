@@ -20,7 +20,7 @@ const NavigationAuth = () =>
 
     <InstagramProvider >
       <InstagramConsumer>
-          { (userProfile) =>  <HomePage userProfile={{ state: {userProfile} }} /> }
+          { (userProfile, trialGallery, proGallery, userName) =>  <HomePage userProfile={{ state: {userProfile, trialGallery, proGallery, userName } }} /> }
       </InstagramConsumer>
     </InstagramProvider>
  

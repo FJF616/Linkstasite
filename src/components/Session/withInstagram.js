@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import InstagramContext from './InstagramContext';
 import InstagramLogin from '../../util/InstagramLogin';
 import { base } from '../rebaseConfig/firebase';
+import { withRouter } from 'react-router-dom';
 /**
  * 
  * 
@@ -9,8 +10,8 @@ import { base } from '../rebaseConfig/firebase';
  * Context Provider gives access to instagram user imagegallery, and profile details
  */
 
-export const InstagramConsumer = InstagramContext.Consumer;
-export default class InstagramProvider extends React.Component {
+const withInstagram = (Component)  => {
+ class WithInstagramProvider extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -163,10 +164,22 @@ export default class InstagramProvider extends React.Component {
         
         return (
             <InstagramContext.Provider  value={this.state} >
-              {this.props.children}
+                <InstagramContext.Consumer >
+                { (trialGallery, proGallery, userProfile, userName) => 
+                    <Component 
+                       
+                        
+                        proGallery={proGallery}
+                        userProfile={userProfile}
+                        userName={userName} 
+                      />
+                    }
+                </InstagramContext.Consumer>
+                
             </InstagramContext.Provider>
         );
     }
   }
- 
-
+  return withRouter(WithInstagramProvider);
+}
+export default withInstagram;

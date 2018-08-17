@@ -7,14 +7,14 @@ import SideBar2 from '../SideBar/SideBar2';
 import { base } from '../rebaseConfig/firebase'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
 import withAuthentication from '../Session/withAuthentication'
-import ICONS from '../Icons/constants';
-import Icon from '../Icons/Icon';
+// import ICONS from '../Icons/constants';
+// import Icon from '../Icons/Icon';
 // import Graph from '../Graph/Graph'
 // import MediaGrid from '../MediaList/MediaGrid'
 // import InstagramContext from '../Session/InstagramContext';
 // import Bar from '../Graph/Bar'
-import { Button } from 'react-bootstrap';
-
+// import { Button } from 'react-bootstrap';
+// import withInstagram from '../Session/withInstagram';
 class ListView extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +28,8 @@ class ListView extends Component {
     
   }
  
-  componentDidMount() {
+
+  createGallery () {
     base.fetch('gallery', {
       context:this,
       then(data) {
@@ -56,12 +57,13 @@ class ListView extends Component {
                 }
             });
         }
-      },
-      onFailure(error) {
-        console.log('instagram gallery does not exist in firebase. fetching gallery from instagram', error)
-       
       }
-    })
+  })
+}
+
+  componentDidMount() {
+    
+    
     base.fetch('stripe', {
       context: this,
       then(data) {
