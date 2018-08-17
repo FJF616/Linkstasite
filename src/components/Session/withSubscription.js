@@ -1,6 +1,6 @@
 import React from 'react';
 // import SubscriptionProvider from './SubscriptionProvider';
-import SubscriptionConsumer from './SubscriptionWrapper';
+import SubscriptionConsumer from './subscriptionWrapper';
 import { withRouter } from 'react-router-dom';
 import { base } from '../rebaseConfig/firebase';
 // import SideBar2 from '../SideBar/ProSideBar';
@@ -21,6 +21,13 @@ const withSubscription = (Component)  => {
             stripe:{},
             synced:'',
         }
+
+        /**
+         * 
+         * 
+         * 
+         * check for stripe info in state, if not found, check for stripe info in database, verify subscritption status and update state 
+         */
         checkStripe() {
             const { stripe } = this.state;
             if (Object.keys(stripe).length === 0 && stripe.constructor === Object) {  
@@ -58,7 +65,12 @@ const withSubscription = (Component)  => {
                         })           
                     }
                 }
-       
+       /**
+        * 
+        * 
+        * 
+        *  this check if subscription flag exists on firebase then update state, if nothing is found double check for stripe info
+        */
         checkSub() {
             const { subscription } = this.state;
             if (!subscription.length) {

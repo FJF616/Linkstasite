@@ -46,12 +46,6 @@ class MediaGrid extends React.Component {
                         type="button"
                         style={{width: 35, height: 35, marginBottom: 115, marginLeft: -85, position: 'relative', backgroundColor: 'transparent'}}
                         onClick={() => {
-                         
-                         
-                          
-                          //  id = gallery[key]; 
-                         
-                           console.log(id, key[id], key.id, key, gallery[key].id)
                            this.setState(state => ({
                             gallery: Object.keys(gallery).filter(key => gallery[key].id !== id)
                           })); 

@@ -255,7 +255,7 @@ constructor(props) {
                                 !this.state.mediaData.edited  
                                 ? this.state.mediaData.url 
                                 ? <a className="affiliate" style={{backgroundColor: 'turquoise', padding: 10, color: 'blue', width: 335, height: 31, marginBottom: 5,  boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .55)', textDecoration: 'underline'}}><h6><b>{this.state.mediaData.url}</b></h6></a>
-                                : <UrlError><ShortenLink onChange={this.notPristine} mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/></UrlError>       
+                                : <UrlError><ShortenLink  mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/></UrlError>       
                                 : <UrlError><ShortenLink mediaData={this.state.mediaData} id={this.state.mediaData.id} updateLink={this.updateLink} style={{paddingBottom: '10px'}}/></UrlError>
                                 }
                                 {/* <button className="controls" hint="add affiliate link" onClick={this.handleCopy} type="button" data-tip="Add affiliate Link" disabled={this.state.mediaData.edited || this.state.mediaData.url ? this.state.mediaData.url.length : !this.state.mediaData.url} style={{ color: 'blue', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '10px', }}><Icon  icon={ICONS.LINK} color={"blue"} size={32} /></button>*/}
@@ -299,14 +299,14 @@ constructor(props) {
                             <br/>
                                 {/* if a link has been added to the image, generate a link preview */}
                                 {
-                                this.state.linkPreview && this.state.mediaData.url?
-                                <ErrorBoundary>
-                                <h5>Link Preview 
-                                    <MicrolinkCard url={this.state.mediaData.url} size='medium' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 400, marginTop: 4, marginLeft: 3, height: 133, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
-                                </h5>
-                                </ErrorBoundary>
+                                this.state.linkPreview && this.state.mediaData.url
+                                ?    <ErrorBoundary>
+                                        <h5>🅻🅸🅽🅺 🅿🆁🅴🆅🅸🅴🆆
+                                            <MicrolinkCard url={this.state.mediaData.url} size='medium' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 400, marginTop: 4, marginLeft: 3, height: 133, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
+                                        </h5>
+                                    </ErrorBoundary>
                                 : (this.state.mediaData.url && this.state.clickData > '0') || (this.state.mediaData.url === this.props.media.url) 
-                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{ this.state.mediaData.affiliated && this.state.mediaData.clicks === '0' ? `click stats will appear here` : this.props.stripeData && this.state.clickData ? `Total Clicks: ${this.state.clickData}`  :  this.state.clickData ? `Clicks Remaining: ${'30' - this.state.clickData }`: 'Enter affiliate link to get stats'}</b></h4><p><b>{this.state.mediaData.timestamp? `timestamp: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
+                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{ this.state.mediaData.affiliated && this.state.mediaData.clicks === '0' ? `ᶜˡⁱᶜᵏ ˢᵗᵃᵗˢ ʷⁱˡˡ ᵃᵖᵖᵉᵃʳ ʰᵉʳᵉ` : this.props.stripeData && this.state.clickData ? `ᵀᵒᵗᵃˡ ᶜˡⁱᶜᵏˢ: ${this.state.clickData}`  :  this.state.clickData ? `ᶜˡⁱᶜᵏˢ ʳᵉᵐᵃⁱⁿⁱⁿᵍ: ${'30' - this.state.clickData }`: ' ᴱⁿᵗᵉʳ ᵃᶠᶠⁱˡⁱᵃᵗᵉ ˡⁱⁿᵏ ᵗᵒ ᵍᵉᵗ ˢᵗᵃᵗˢ'}</b></h4><p><b>{this.state.mediaData.timestamp? `ᵀⁱᵐᵉˢᵗᵃᵐᵖ: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
                                 :  null
                                 } 
                         </div>

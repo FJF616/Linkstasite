@@ -22,22 +22,23 @@ import GraphContext from '../Session/GraphContext';
 import GraphProvider from '../Session/GraphProvider';
 // import SubscriptionProvider from '../Session/SubscriptionProvider';
 // import SubscriptionConsumer from '../Session/SubscriptionProvider';
-import InstagramImages from '../PhotoPicker/InstagramImages';
-import MergeGalleries from '../../util/MergeGalleries';
+// import InstagramImages from '../PhotoPicker/InstagramImages';
 // import Delay from 'react-delay';
 // import ShortenLink from '../../util/Bitly';
 class HomePage extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       users: {},
       accountStatus:'trial',
       userProfile:{},
+      image:{},
+      proGallery:{}
     };
+    
   }
   
-  
+ 
   componentWillMount() {
     try {
       base.bindToState('imageUrls', {
@@ -48,7 +49,7 @@ class HomePage extends Component {
       console.log('no imageUrls database!!')
     }
     
-      
+  
    
     
   
@@ -71,39 +72,58 @@ class HomePage extends Component {
   //     // asArray: true
   //   });
   }
+
+  getPro() {
+      InstagramLogin.getProGallery().then(proGallery => this.setState({ proGallery }))    
+  }  
+  getTrial(){
+    console.log('instagram user does not exist, please log into instagram before using linkstasite')
+    InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
+      gallery: instagramUser.gallery,
+      slides: instagramUser.slides,
+      userProfile: instagramUser.user['0'],
+      instagramUserID: instagramUser.user.instagramUserID,
+      image: instagramUser.image
+    }))
+    .catch(error => {
+      if(error) {
+        console.log('error fetching instagramUser', error);
+      };
+    })
+  }
+  getData = async () => {
+    var userData = await base.fetch('userProfile', {
+      context: this,
+    })
+    .then((data) => {
+        this.setState({ userProfile: data })
+        const { userProfile, proGallery } = this.state;
+          if (userProfile.hasOwnProperty('proSubscription') && userProfile.proSubscription === true) {
+            this.setState({accountStatus: 'pro'})
+            Object.keys(proGallery).length === 0 && proGallery.constructor === Object  
+              ? this.getPro() 
+              : typeof this.state.image === undefined
+                ? this.getTrial()
+                : console.log('pro gallery ready to enter into Firebase')   
+          }
+        return userData
+    }).catch(err => {
+      console.log('user does not exist')
+    })
+  }
+
   componentDidMount() {
     db.onceGetUsers().then(snapshot =>
       this.setState(() => ({ users: snapshot.val() }))
-    );
-    base.fetch('userProfile', {
-      context: this,
-      then(data) {
-        console.log('found user profile in firebase', data)
-        this.setState({ userProfile: data })
-        const { userProfile } = this.state;
-          if (userProfile.hasOwnProperty('proSubscription') && userProfile.proSubscription === true) {
-            this.setState({accountStatus: 'pro'})
-          }
-        
-      },
-      onFailure(error){
-        console.log('instagram user does not exist, please log into instagram before using linkstasite')
-        InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
-          // gallery: instagramUser.gallery,
-          // slides: instagramUser.slides,
-          // userProfile: instagramUser.user['0'],
-          // instagramUserID: instagramUser.user.instagramUserID,
-          image: instagramUser.image
-        }))
-        .catch(error => {
-          if(error) {
-            console.log('error fetching instagramUser', error);
-          };
-        })
-      }
+    ).then(() => {
+      this.getData()
+    }).catch(err =>{
+      console.log('user must create instagram profile and have images to use linkstasite', err)
+    }).catch(err => {
+      console.log('user galleries dont exist', err)
     })
-   
   }
+  
    render() {
     // const { users } = this.state;
     return (
@@ -114,8 +134,9 @@ class HomePage extends Component {
       
           <div className="App" style={{position: 'fixed', overflowY: 'scroll'}}>
             <Header />
-              <SideBar2/> 
-              <InstagramImages/>
+              <SideBar2  /> 
+            
+              {/*<InstagramImages/>*/}
               <div className="home__page" >
               <div style={{marginTop: 25}} >
               <p><h1><b>Dashboard</b></h1><h3><i>coming soon</i></h3>

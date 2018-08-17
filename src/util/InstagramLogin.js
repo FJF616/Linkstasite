@@ -13,13 +13,13 @@ let instagramUser = {
   user: {
     instagramToken:`${instagramToken}`,
   },
- 
+  
   gallery:{},
   slides: {},
   image:{},
   
 };
-let  proGallery = {};
+let proGallery = {};
 // const createFirebaseAccount = require('./components/rebaseConfig/createFirebaseAccount')
 
 
@@ -57,7 +57,39 @@ const InstagramLogin = {
     });
    
   },
-  
+  async getProGallery() {
+    if(!accessToken) {
+      this.getAccessToken();
+    }
+    
+    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=20`;
+    try {
+      let response = await fetch(token_url, {
+        method: 'GET'
+      });
+      if (response.ok) {
+        console.log(response);
+        jsonResponse = await response.json();
+        proGallery = jsonResponse.data.map(info =>  ({
+          src: info.images.standard_resolution.url,
+          // title: info.caption ? info.caption.text : '',
+          id: info.id,
+          // url: '',
+          affiliated: false,
+          editing: false,
+          edited: false,
+          filled: false
+          
+          }));
+      
+          return proGallery;
+
+      }
+      throw new Error('Request failed!');
+    } catch (error) {
+      console.log(error);
+    }
+  },
   async fetchUserInfo() {
     if(!accessToken) {
       this.getAccessToken();
@@ -105,8 +137,10 @@ const InstagramLogin = {
           instagramUser.image = jsonResponse.data.map(info => ({
             src: info.images.standard_resolution.url,
             // id: info.id
-          }));
-            return instagramUser;
+          }))
+         
+            
+          return instagramUser;
 
       }
       throw new Error('Request failed!');
@@ -115,38 +149,7 @@ const InstagramLogin = {
     }
    
   },
-  async getProGallery() {
-    if(!accessToken) {
-      this.getAccessToken();
-    }
-    
-    const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=20`;
-    try {
-      let response = await fetch(token_url, {
-        method: 'GET'
-      });
-      if (response.ok) {
-        console.log(response);
-        jsonResponse = await response.json();
-        proGallery = jsonResponse.data.map(info => ({
-          src: info.images.standard_resolution.url,
-          // title: info.caption ? info.caption.text : '',
-          id: info.id,
-          // url: '',
-          affiliated: false,
-          editing: false,
-          edited: false,
-          filled: false
-        }));
-      
-          return proGallery;
-
-      }
-      throw new Error('Request failed!');
-    } catch (error) {
-      console.log(error);
-    }
-  },
+ 
     
 
   logout() {

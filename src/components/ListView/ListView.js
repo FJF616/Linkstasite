@@ -7,12 +7,13 @@ import SideBar2 from '../SideBar/SideBar2';
 import { base } from '../rebaseConfig/firebase'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
 import withAuthentication from '../Session/withAuthentication'
-// import ICONS from '../Icons/constants';
-// import Icon from '../Icons/Icon';
+import ICONS from '../Icons/constants';
+import Icon from '../Icons/Icon';
 // import Graph from '../Graph/Graph'
 // import MediaGrid from '../MediaList/MediaGrid'
 // import InstagramContext from '../Session/InstagramContext';
 // import Bar from '../Graph/Bar'
+import { Button } from 'react-bootstrap';
 
 class ListView extends Component {
   constructor(props) {
@@ -80,14 +81,13 @@ class ListView extends Component {
     
        
    });
-  // this.slidesRef = base.syncState('slides', {
-  //    context: this,
-  //    state: 'slides',
-     
-  //  });
- 
 }
- 
+deleteMedia = id => {
+  id = this.galleryRef.context.state.gallery[id]
+  this.setState(prevState => {
+    return { gallery: prevState.gallery.filter(media => media.id !==id) };
+  });
+}; 
   
     MediaLists = ({ gallery})  => {
       gallery = {...this.galleryRef.context.state.gallery};
@@ -96,6 +96,7 @@ class ListView extends Component {
           { 
           Object.keys(gallery).map((media) => {
               return (
+                
                   <PhotoContainer 
                         stripeData={this.state.stripeData}
                         media={gallery[media]} 
@@ -104,19 +105,19 @@ class ListView extends Component {
                         title={gallery[media].title}
                         gallery={this.galleryRef}
                        />
-                     
+                      
+                  
                     )})
-                   
+                    
                  }
                 
             </div>
           );
       }
-   // console.log(this.state.userProfile)
-   // console.log(this.galleryRef.context.state.gallery)
+  
    componentWillUnMount() {
     base.removeBinding(this.galleryRef);
-    // base.removeBinding(this.slidesRef);
+   
    }
    render() {
    return (
