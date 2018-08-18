@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
  * 
  * 
  * 
- * Context Provider gives access to instagram user imagegallery, and profile details
+ * HOC for quick access to settings. context Provider gives access to instagram user imagegallery, and profile details
  */
 
 const withInstagram = (Component)  => {
@@ -134,7 +134,7 @@ const withInstagram = (Component)  => {
             this.proGalleryRef = base.syncState('proGallery', {
                 context: this,
                 state: 'proGallery',
-                asArray:true
+               
             })
         }
         
@@ -165,17 +165,8 @@ const withInstagram = (Component)  => {
         return (
             <InstagramContext.Provider  value={this.state} >
                 <InstagramContext.Consumer >
-                { (trialGallery, proGallery, userProfile, userName) => 
-                    <Component 
-                       
-                        
-                        proGallery={proGallery}
-                        userProfile={userProfile}
-                        userName={userName} 
-                      />
-                    }
+                 { (value) => <Component {...this.props.children} proGallery={value.proGallery} userProfile={value.userProfile}/> }
                 </InstagramContext.Consumer>
-                
             </InstagramContext.Provider>
         );
     }

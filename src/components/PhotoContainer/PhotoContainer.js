@@ -301,18 +301,50 @@ constructor(props) {
                                 {
                                 this.state.linkPreview && this.state.mediaData.url
                                 ?    <ErrorBoundary>
-                                        <h5>🅻🅸🅽🅺 🅿🆁🅴🆅🅸🅴🆆
+                                        <h5>𝕝𝕚𝕟𝕜 𝕡𝕣𝕖𝕧𝕚𝕖𝕨
                                             <MicrolinkCard url={this.state.mediaData.url} size='medium' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 400, marginTop: 4, marginLeft: 3, height: 133, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
                                         </h5>
                                     </ErrorBoundary>
                                 : (this.state.mediaData.url && this.state.clickData > '0') || (this.state.mediaData.url === this.props.media.url) 
-                                ? <div className="stats" style={{ backgroundColor: 'aliceblue', color: 'blue', border: '3px  inset', padding:'5px', margin: '5px', marginTop:'30px'}}><h4><b>{ this.state.mediaData.affiliated && this.state.mediaData.clicks === '0' ? `ᶜˡⁱᶜᵏ ˢᵗᵃᵗˢ ʷⁱˡˡ ᵃᵖᵖᵉᵃʳ ʰᵉʳᵉ` : this.props.stripeData && this.state.clickData ? `ᵀᵒᵗᵃˡ ᶜˡⁱᶜᵏˢ: ${this.state.clickData}`  :  this.state.clickData ? `ᶜˡⁱᶜᵏˢ ʳᵉᵐᵃⁱⁿⁱⁿᵍ: ${'30' - this.state.clickData }`: ' ᴱⁿᵗᵉʳ ᵃᶠᶠⁱˡⁱᵃᵗᵉ ˡⁱⁿᵏ ᵗᵒ ᵍᵉᵗ ˢᵗᵃᵗˢ'}</b></h4><p><b>{this.state.mediaData.timestamp? `ᵀⁱᵐᵉˢᵗᵃᵐᵖ: ${this.state.mediaData.timestamp}` : null}</b></p><p><b>id: {this.state.mediaData? this.state.mediaData.id : this.props.id}</b></p></div>
-                                :  null
-                                } 
-                        </div>
-                    </div>
-                </div>   
-            </div>  
-          );
-       }
-    }
+                                ? <div className="stats" 
+                                    style={{ 
+                                        backgroundColor: 'aliceblue', 
+                                        color: 'blue',
+                                        border: '3px  inset', 
+                                        padding:'5px',
+                                        margin: '5px', 
+                                        marginTop:'30px'
+                                    }}
+                                >
+                                <h4><b>
+                                    { 
+                                        this.state.mediaData.affiliated && this.state.mediaData.clicks === '0'
+                                         ? `ᶜˡⁱᶜᵏ ˢᵗᵃᵗˢ ʷⁱˡˡ ᵃᵖᵖᵉᵃʳ ʰᵉʳᵉ` 
+                                            :  this.props.clickData && typeof Object.keys(this.props.stripeData).length === undefined
+                                            ? `ᶜˡⁱᶜᵏˢ ʳᵉᵐᵃⁱⁿⁱⁿᵍ: ${'30' - this.state.clickData }`
+                                            : this.props.stripeData && this.state.clickData 
+                                            ? `ᵀᵒᵗᵃˡ ᶜˡⁱᶜᵏˢ: ${this.state.clickData}`  
+                                            : ' ᴱⁿᵗᵉʳ ᵃᶠᶠⁱˡⁱᵃᵗᵉ ˡⁱⁿᵏ ᵗᵒ ᵍᵉᵗ ˢᵗᵃᵗˢ'
+                                            }
+                                            </b></h4>
+                                                <p><b>
+                                                {
+                                                this.state.mediaData.timestamp
+                                                    ? `ᵀⁱᵐᵉˢᵗᵃᵐᵖ: ${this.state.mediaData.timestamp}` 
+                                                    : null}</b></p>
+                                                                <p><b>id: 
+                                                                        {
+                                                                        this.state.mediaData
+                                                                        ? this.state.mediaData.id 
+                                                                        : this.props.id
+                                                                        }
+                                                                        </b></p></div>
+                                                                :  null
+                                                                } 
+                                                        </div>
+                                                    </div>
+                                                </div>   
+                                            </div>  
+                                        );
+                                    }
+                                }

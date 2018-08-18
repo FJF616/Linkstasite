@@ -58,6 +58,10 @@
   .showHide  { display: block; }
   #rightside > ul  { display: none; }
 }
+  @media screen and ( max-width: 1100px) {
+    .showHide { display: none; }
+  #leftside > div { display: none; }
+}
 
 
 
@@ -83,8 +87,8 @@
   width:195px;
   height: 85px;
   margin: 25px;
-  
-  
+  padding-top: 10;
+
   box-shadow: 0 3px 4px 0 hsla(0, 5%, 5%, .55);
   
   .avatar__img {

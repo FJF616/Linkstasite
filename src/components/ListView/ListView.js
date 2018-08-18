@@ -15,6 +15,13 @@ import withAuthentication from '../Session/withAuthentication'
 // import Bar from '../Graph/Bar'
 // import { Button } from 'react-bootstrap';
 // import withInstagram from '../Session/withInstagram';
+
+/**
+ * 
+ * 
+ * 
+ * Component used to display each gallery image to be edited
+ */
 class ListView extends Component {
   constructor(props) {
     super(props);
@@ -25,9 +32,14 @@ class ListView extends Component {
       // accountName:'loading',
       // listView:''
     };
-    
   }
- 
+/**
+ * 
+ * 
+ * 
+ * 
+ * copies the image gallery and uses each image id as the key instead of index numbers
+ */
 
   createGallery () {
     base.fetch('gallery', {
@@ -54,87 +66,101 @@ class ListView extends Component {
           .catch(error => {
                 if (error) {
                   console.log("error fetching instagramUser")
-                }
+                };
             });
-        }
-      }
-  })
-}
+          }},
+        });
+      };
 
+/**
+ * 
+ * 
+ * 
+ * get stripe info from firebase and put it into state
+ */
   componentDidMount() {
-    
-    
     base.fetch('stripe', {
       context: this,
       then(data) {
         this.setState({
           stripeData: data
-        })
-      }
-    })
-    
-      
-    }
+        });
+      },
+    });   
+  }
+
+/**
+ * 
+ * 
+ * sync state with firebase gallery and update it with the gallery that we destructured with creategallery(),
+ * with the destructuring, only the edited images will show up in gridview when gridview selected from the sidebar menu.
+ * however since the landing page is listening for changes, it will show all the images including the ones not edited yet.
+ * if it is desired to have the landing page reflect only the images that have been edited, then a new gallery will be needed in firebase
+ * that is synced to the the gridview.
+ */
 
   componentWillMount() {
     this.galleryRef = base.syncState('gallery', {
        context: this,
-       state: 'gallery',
-    
-       
-   });
-}
-deleteMedia = id => {
-  id = this.galleryRef.context.state.gallery[id]
-  this.setState(prevState => {
-    return { gallery: prevState.gallery.filter(media => media.id !==id) };
-  });
-}; 
+       state: 'gallery'  
+    });
+  };
+
+  deleteMedia = id => {
+    id = this.galleryRef.context.state.gallery[id];
+    this.setState(prevState => {
+      return { gallery: prevState.gallery.filter(media => media.id !==id) };
+    });
+  }; 
   
-    MediaLists = ({ gallery})  => {
-      gallery = {...this.galleryRef.context.state.gallery};
-      return (
-        <div key={gallery.id} className='list'>
-          { 
-          Object.keys(gallery).map((media) => {
-              return (
-                
-                  <PhotoContainer 
-                        stripeData={this.state.stripeData}
-                        media={gallery[media]} 
-                        key={gallery[media].id} 
-                        id={gallery[media].id} 
-                        title={gallery[media].title}
-                        gallery={this.galleryRef}
-                       />
-                      
-                  
-                    )})
-                    
-                 }
-                
-            </div>
-          );
-      }
+
+  MediaLists = ({ gallery})  => {
+    gallery = {...this.galleryRef.context.state.gallery};
+    return (
+      <div key={gallery.id} className='list'>
+        { 
+        Object.keys(gallery).map((media) => {
+            return (             
+                <PhotoContainer 
+                  stripeData={this.state.stripeData}
+                  media={gallery[media]} 
+                  key={gallery[media].id} 
+                  id={gallery[media].id} 
+                  title={gallery[media].title}
+                  gallery={this.galleryRef}
+                  />
+                );
+            })};
+          </div>
+        );
+      };
   
    componentWillUnMount() {
     base.removeBinding(this.galleryRef);
-   
-   }
+   };
    render() {
+     const { MediaLists } = this.MediaLists;
+     const { gallery } = this.state;
    return (
-    <div className="App" style={{position: 'fixed', overflowY: 'scroll'}}>
-    <Header/>
-       <SideBar2 />
-    <div className="list__view" style={{display: 'inline-flex', alignContent:'row'}} >
-   
-     
-    
-       
-         {this.MediaLists(this.state.gallery)}
-         </div>
-     </div>
-    
+    <div 
+      className="App" 
+      style={{
+        position: 'fixed', 
+        overflowY: 'scroll'
+      }}
+      >
+      <Header/>
+      <SideBar2 />
+      <div 
+        className="list__view" 
+        style={{
+          display: 'inline-flex', 
+          alignContent:'row'
+        }} 
+      >
+      { MediaLists(gallery) }
+    </div>
+    </div>
     );
   }
 }

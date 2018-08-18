@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import SideBar2 from '../SideBar/SideBar2';
 import withAuthorization from '../Session/withAuthorization';
 import InstagramLogin from '../../util/InstagramLogin';
+import withInstagram from "../Session/withInstagram";
 /**
  * 
  * 
@@ -64,24 +65,23 @@ import InstagramLogin from '../../util/InstagramLogin';
       }
     
     componentWillMount() {
-      this.imageRef = base.syncState('imageUrls', {
+      this.imageRef = base.syncState('landingImages', {
         context: this,
         state: 'image'
       })
     }
     componentDidMount() {
-      // InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({
-        
+      // InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({  
       //     image: instagramUser.gallery,
       //     userProfile: instagramUser.user['0'],
       //     accountName: instagramUser.user['0'].userName,
       // }))
-      this.baseRef = base.listenTo('gallery', {
+      this.baseRef = base.listenTo('editedImages', {
         context: this,
         asArray: true,
-        then(galleryData) {
+        then(editedData) {
           // console.log(galleryData)
-          this.setState({ image: galleryData })
+          this.setState({ image: editedData })
         }
       })
     }
@@ -169,4 +169,4 @@ import InstagramLogin from '../../util/InstagramLogin';
   }
   const authCondition = (authUser) => !!authUser;
 
-  export default withAuthorization(authCondition)(LandingPage);
+  export default withAuthorization(authCondition)(withInstagram(LandingPage));

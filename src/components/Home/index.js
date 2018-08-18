@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Plot from '../Graph/Plot';
 import Bar from '../Graph/Bar';
-import InstagramLogin from '../../util/InstagramLogin';
+// import InstagramLogin from '../../util/InstagramLogin';
 // import ProgressBar from '../Graph/ProgressBar';
 // import{ BrowserRouter } from 'react-router-dom';
 // import Header from '../Header/Header';
@@ -26,16 +26,17 @@ import GraphProvider from '../Session/GraphProvider';
 // import Delay from 'react-delay';
 // import ShortenLink from '../../util/Bitly';
 // import merge from 'deepmerge';
+
 import withInstagram from '../Session/withInstagram';
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: {},
-      accountStatus:'trial',
-      userProfile:{},
+      // users: {},
+      // accountStatus:'trial',
+      // userProfile:{},
       image:{},
-      proGallery:{}
+      // proGallery:{}
     };
     
   }
@@ -51,10 +52,6 @@ class HomePage extends Component {
       console.log('no imageUrls database!!')
     }
     
-  
-   
-    
-  
   //   this.proGalleryRef = base.syncState('linkstasite', {
   //     context: this,
   //     state: 'proGallery'
@@ -75,58 +72,59 @@ class HomePage extends Component {
   //   });
   }
 
-  getPro() {
-      InstagramLogin.getProGallery().then(proGallery => this.setState({ proGallery }))    
-  }  
-  getTrial(){
-    console.log('instagram user does not exist, please log into instagram before using linkstasite')
-    InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
-      gallery: instagramUser.gallery,
-      slides: instagramUser.slides,
-      userProfile: instagramUser.user['0'],
-      instagramUserID: instagramUser.user.instagramUserID,
-      image: instagramUser.image
-    }))
-    .catch(error => {
-      if(error) {
-        console.log('error fetching instagramUser', error);
-      };
-    })
-  }
-  getData = async () => {
-    var userData = await base.fetch('userProfile', {
-      context: this,
-    })
-    .then((data) => {
-        this.setState({ userProfile: data })
-        const { userProfile, proGallery } = this.state;
-          if (userProfile.hasOwnProperty('proSubscription') && userProfile.proSubscription === true) {
-            this.setState({accountStatus: 'pro'})
-            Object.keys(proGallery).length === 0 && proGallery.constructor === Object  
-              ? this.getPro() 
-              : typeof this.state.image === undefined
-                ? this.getTrial()
-                : console.log('pro gallery ready to enter into Firebase')   
-          }
-        return userData
-    }).catch(err => {
-      console.log('user does not exist')
-    })
-  }
+  // getPro() {
+  //     InstagramLogin.getProGallery().then(proGallery => this.setState({ proGallery }))    
+  // }  
+  // getTrial(){
+  //   console.log('instagram user does not exist, please log into instagram before using linkstasite')
+  //   InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
+  //     gallery: instagramUser.gallery,
+  //     slides: instagramUser.slides,
+  //     userProfile: instagramUser.user['0'],
+  //     instagramUserID: instagramUser.user.instagramUserID,
+  //     image: instagramUser.image
+  //   }))
+  //   .catch(error => {
+  //     if(error) {
+  //       console.log('error fetching instagramUser', error);
+  //     };
+  //   })
+  // }
+  // getData = async () => {
+  //   var userData = await base.fetch('userProfile', {
+  //     context: this,
+  //   })
+  //   .then((data) => {
+  //       this.setState({ userProfile: data })
+  //       const { userProfile, proGallery } = this.state;
+  //         if (userProfile.hasOwnProperty('proSubscription') && userProfile.proSubscription === true) {
+  //           this.setState({accountStatus: 'pro'})
+  //           Object.keys(proGallery).length === 0 && proGallery.constructor === Object  
+  //             ? this.getPro() 
+  //             : typeof this.state.image === undefined
+  //               ? this.getTrial()
+  //               : console.log('pro gallery ready to enter into Firebase')   
+  //         }
+  //       return userData
+  //   }).catch(err => {
+  //     console.log('user does not exist')
+  //   })
+  // }
 
-  componentDidMount() {
+  // componentDidMount() {
    
-    db.onceGetUsers().then(snapshot =>
-      this.setState(() => ({ users: snapshot.val() }))
-    ).then(() => {
-      this.getData()
-    }).catch(err =>{
-      console.log('user must create instagram profile and have images to use linkstasite', err)
-    }).catch(err => {
-      console.log('user galleries dont exist', err)
-    })
+  //   db.onceGetUsers().then(snapshot =>
+  //     this.setState(() => ({ users: snapshot.val() }))
+  //   )
+    // .then(() => {
+    //   this.getData()
+    // }).catch(err =>{
+    //   console.log('user must create instagram profile and have images to use linkstasite', err)
+    // }).catch(err => {
+    //   console.log('user galleries dont exist', err)
+    // })
   
-  }
+  
   
    render() {
     // const { users } = this.state;
@@ -179,5 +177,4 @@ class HomePage extends Component {
 //   </div>
 //   */}
 const authCondition = (authUser) => !!authUser;
-
 export default withAuthorization(authCondition)(withInstagram(HomePage));

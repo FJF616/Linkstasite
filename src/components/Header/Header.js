@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom'
 import { base } from '../rebaseConfig/firebase'
 import DropDown from './DropDown'
 import Delay from 'react-delay';
+import withInstagram from '../Session/withInstagram'
 import { InstagramLoginButton } from 'react-social-login-buttons';
 
 // import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
@@ -100,9 +101,11 @@ class Header extends React.Component {
           </Row>  
         </Card>{
           this.state.proSubscription
-          ? <InstagramLoginButton style={{paddingLeft: 30, marginLeft: 245, width: 265, height:50}} >
-              <span><h3>𝕘𝕖𝕥 𝕚𝕞𝕒𝕘𝕖𝕤</h3></span>
-            </InstagramLoginButton>
+          ? <div id="leftside">
+                <InstagramLoginButton style={{paddingLeft: 30, marginLeft: 245, width: 265, height:50}} >
+                <span><h3>𝕘𝕖𝕥 𝕚𝕞𝕒𝕘𝕖𝕤</h3></span>
+               </InstagramLoginButton>
+            </div>
           :
           null
         }
@@ -125,4 +128,4 @@ class Header extends React.Component {
 
 
 
-export default Header;
+export default withInstagram(Header);
