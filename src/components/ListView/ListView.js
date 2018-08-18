@@ -33,12 +33,39 @@ class ListView extends Component {
       // listView:''
     };
   }
+
+
+
+
+  /**
+ * 
+ * 
+ * sync state with firebase gallery and set the gallery in state, do not pull it in as an array because we will destructure to rename the keys
+ * this will be done with MediaLists method 
+ * 
+*/
+  componentWillMount() {
+    this.galleryRef = base.syncState('gallery', {
+      context: this,
+      state: 'gallery'  
+    });
+  };
 /**
  * 
  * 
  * 
  * 
- * copies the image gallery and uses each image id as the key instead of index numbers
+ * copies the image gallery and uses each image id as the key instead of index numbers,
+ * we do this so that the mediagridcomponent can reference these keys from the media prop id.
+ * this allows the grid view to only display the images that have been edited.  this will
+ * let us display to our guest as well, only the images we have put affiliate links on.
+ * There is probably a more efficient way to do this so  lets just put a reminder for that:
+ * *******reminder*******
+ * TODO- find a better way to create a shared gallery that reflects changes to images as 
+ * well as displays only those images and not ones that haven't been edited yet.
+ * 
+ * NOTE: since we have created the Instagram HOC we most likely can refactor this whole component further.
+ * check the HOC for anything we can use here before refactoring this component or this method below.
  */
 
   createGallery () {
@@ -76,9 +103,12 @@ class ListView extends Component {
  * 
  * 
  * 
- * get stripe info from firebase and put it into state
+ * get stripe info from firebase and put it into state, this will be used as a way for the mediagridcomponent
+ * to determine whether or not a user has upgraded to pro.  if the user has no stripe data or the stripe data
+ * comes back as an empty object, then the mediagridcomponent will know to place a click limit on the affiliate link
  */
   componentDidMount() {
+    this.createGallery().then(() => {
     base.fetch('stripe', {
       context: this,
       then(data) {
@@ -86,25 +116,14 @@ class ListView extends Component {
           stripeData: data
         });
       },
-    });   
+    }); 
+  })
+  .catch(err => {
+    console.log('no user info found in database. please log into instagram to retrieve image gallery', err)
+  })
   }
 
-/**
- * 
- * 
- * sync state with firebase gallery and update it with the gallery that we destructured with creategallery(),
- * with the destructuring, only the edited images will show up in gridview when gridview selected from the sidebar menu.
- * however since the landing page is listening for changes, it will show all the images including the ones not edited yet.
- * if it is desired to have the landing page reflect only the images that have been edited, then a new gallery will be needed in firebase
- * that is synced to the the gridview.
- */
 
-  componentWillMount() {
-    this.galleryRef = base.syncState('gallery', {
-       context: this,
-       state: 'gallery'  
-    });
-  };
 
   deleteMedia = id => {
     id = this.galleryRef.context.state.gallery[id];
@@ -113,16 +132,24 @@ class ListView extends Component {
     });
   }; 
   
+/**
+ * 
+ * 
+ * makes copy of gallery that is synced to state/firebase, and feeds the images to PhotoContainer 
+ * this allows the user to edit each instagram image.  
+ * 
+ */
 
-  MediaLists = ({ gallery})  => {
+  MediaLists = ({ gallery, proSubscription })  => {
     gallery = {...this.galleryRef.context.state.gallery};
+    proSubscription = this.state.stripeData.stripe.proSubscription;
     return (
       <div key={gallery.id} className='list'>
         { 
         Object.keys(gallery).map((media) => {
             return (             
                 <PhotoContainer 
-                  stripeData={this.state.stripeData}
+                  proSubscription={proSubscription}
                   media={gallery[media]} 
                   key={gallery[media].id} 
                   id={gallery[media].id} 
@@ -158,7 +185,7 @@ class ListView extends Component {
           alignContent:'row'
         }} 
       >
-      { MediaLists(gallery) }
+      { MediaLists(gallery) }  
     </div>
     </div>
     );

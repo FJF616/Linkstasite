@@ -320,9 +320,9 @@ constructor(props) {
                                     { 
                                         this.state.mediaData.affiliated && this.state.mediaData.clicks === '0'
                                          ? `ᶜˡⁱᶜᵏ ˢᵗᵃᵗˢ ʷⁱˡˡ ᵃᵖᵖᵉᵃʳ ʰᵉʳᵉ` 
-                                            :  this.props.clickData && typeof Object.keys(this.props.stripeData).length === undefined
+                                            :  this.props.clickData && this.props.proSubscription
                                             ? `ᶜˡⁱᶜᵏˢ ʳᵉᵐᵃⁱⁿⁱⁿᵍ: ${'30' - this.state.clickData }`
-                                            : this.props.stripeData && this.state.clickData 
+                                            : this.props.proSubscription && this.state.clickData 
                                             ? `ᵀᵒᵗᵃˡ ᶜˡⁱᶜᵏˢ: ${this.state.clickData}`  
                                             : ' ᴱⁿᵗᵉʳ ᵃᶠᶠⁱˡⁱᵃᵗᵉ ˡⁱⁿᵏ ᵗᵒ ᵍᵉᵗ ˢᵗᵃᵗˢ'
                                             }
