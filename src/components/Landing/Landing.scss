@@ -64,7 +64,7 @@ body {
  color: #fff;
  cursor: pointer;
  opacity: 0;
- transform: translate(-30%, -30%);
+ transform: translate(-50%, -50%);
  transition: $transition;
  
  &:focus,
@@ -98,7 +98,7 @@ body {
  padding: 0;
  overflow: auto;
  border-radius: $radius;
- transform: translate(-30%, -30%);
+ transform: translate(-50%, -50%);
 }
 
 .modal-close {

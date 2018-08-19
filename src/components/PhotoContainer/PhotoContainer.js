@@ -26,6 +26,8 @@ constructor(props) {
     super(props);
     this.state = { 
         linkPreview: false,
+        toggleClear: false,
+        saved: false
     }
     this.checkFilled = this.checkFilled.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
@@ -79,6 +81,10 @@ constructor(props) {
          state: 'bitlyDataRef'
      })
     }  
+
+    toggleClear = () => {
+        this.setState({ toggleClear: !this.state.toggleClear })
+    }
 /**
  * 
  * 
@@ -128,11 +134,14 @@ constructor(props) {
                 filled: true,
                 editing: false,
                 edited: true,
-               }
+               },
+               saved: true,
+               toggleClear: this.state.toggleClear === true ? false : false
         })
-       this.updateRebase()
+        
+        this.updateRebase()
     } else { 
-        alert('error updating firebase') 
+        alert('error updating firebase, please be sure all fields have been filled in properly') 
     } 
 }
 /**
@@ -154,6 +163,7 @@ constructor(props) {
                     filled: true,                   
                 }
             })
+           
         }
      }
 /**
@@ -176,9 +186,11 @@ constructor(props) {
                title: '',
                affiliated: false,
                editing: false,
-            }
+            },
+            toggleClear: this.state.toggleClear === false ? true : false
         });  
         this.props.media.url = null;
+        
     };
 
 /**
@@ -266,7 +278,7 @@ constructor(props) {
                                 <FormGroup>
                                 <FormControlLabel style={{paddingLeft: '1px', marginLeft: '5px', marginRight: '-10px'}}
                                     control={ 
-                                        this.state.clickData < '30' || this.props.stripeData
+                                        this.state.clickData < '30' || this.props.proSubscription
                                         ? <Switch data-tip="Link Preview"   checked={this.state.linkPreview} onChange={this.handlePreview} aria-label="LinkPreviewSwitch" />
                                         : <Switch disabled={true} />
                                         }
@@ -279,7 +291,7 @@ constructor(props) {
                 </div>
               <div className="media" >
               { 
-                ((this.props.stripeData || this.state.clickData < '30' ) && this.state.mediaData.url )
+                ((this.props.proSubscription || this.state.clickData < '30' ) && this.state.mediaData.url )
                 ? <a href={this.state.mediaData.url}><Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 3px 6px 0 hsla(0, 5%, 5%, .75)', borderColor: 'gold'}} /></a>
                 : <Imager  className="mr-3" src={this.state.mediaData.src} style={{width: 225, height: 225, margin: 10, border: '7px ridge', padding: 5,  boxShadow: '0 5px 8px 0 hsla(0, 5%, 5%, .75)', borderColor: 'pink'}} />
                     }
@@ -305,7 +317,7 @@ constructor(props) {
                                             <MicrolinkCard url={this.state.mediaData.url} size='medium' contrast='true' target='_blank' prerender="auto" image={['screenshot', 'image', 'video']} style={{ display: 'inline-flex', border: '3px ridge', width: 400, marginTop: 4, marginLeft: 3, height: 133, boxShadow: '0 3px 4px 0 hsla(0, 5%, 5%, .75)'}}/>
                                         </h5>
                                     </ErrorBoundary>
-                                : (this.state.mediaData.url && this.state.clickData > '0') || (this.state.mediaData.url === this.props.media.url) 
+                                : ( this.state.mediaData.url && this.state.clickData > '0') || (this.state.mediaData.url === this.props.media.url ) 
                                 ? <div className="stats" 
                                     style={{ 
                                         backgroundColor: 'aliceblue', 
@@ -318,12 +330,14 @@ constructor(props) {
                                 >
                                 <h4><b>
                                     { 
-                                        this.state.mediaData.affiliated && this.state.mediaData.clicks === '0'
+                                        ( (this.state.saved && this.state.mediaData.affiliated ) || this.state.mediaData.clicks === '0' )
                                          ? `ᶜˡⁱᶜᵏ ˢᵗᵃᵗˢ ʷⁱˡˡ ᵃᵖᵖᵉᵃʳ ʰᵉʳᵉ` 
-                                            :  this.props.clickData && this.props.proSubscription
+                                            : ( this.props.clickData && typeof Object.keys(this.props.stripeData).length === undefined )
                                             ? `ᶜˡⁱᶜᵏˢ ʳᵉᵐᵃⁱⁿⁱⁿᵍ: ${'30' - this.state.clickData }`
-                                            : this.props.proSubscription && this.state.clickData 
+                                            :  this.state.clickData 
                                             ? `ᵀᵒᵗᵃˡ ᶜˡⁱᶜᵏˢ: ${this.state.clickData}`  
+                                            : this.state.toggleClear === true
+                                            ?' ᴱⁿᵗᵉʳ ᵃᶠᶠⁱˡⁱᵃᵗᵉ ˡⁱⁿᵏ ᵗᵒ ᵍᵉᵗ ˢᵗᵃᵗˢ'
                                             : ' ᴱⁿᵗᵉʳ ᵃᶠᶠⁱˡⁱᵃᵗᵉ ˡⁱⁿᵏ ᵗᵒ ᵍᵉᵗ ˢᵗᵃᵗˢ'
                                             }
                                             </b></h4>

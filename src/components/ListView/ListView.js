@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 // import BitlyHeader from '../Header/BitlyHeader';
 import Header from '../Header/Header';
 import '../App/App.css';
-import InstagramLogin from '../../util/InstagramLogin';
+import _ from 'lodash';
+// import deepmerge from 'deepmerge';
+// import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
 import { base } from '../rebaseConfig/firebase'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
@@ -14,7 +16,8 @@ import withAuthentication from '../Session/withAuthentication'
 // import InstagramContext from '../Session/InstagramContext';
 // import Bar from '../Graph/Bar'
 // import { Button } from 'react-bootstrap';
-// import withInstagram from '../Session/withInstagram';
+import withInstagram from '../Session/withInstagram';
+import InstagramLoginButton from 'react-social-login-buttons';
 
 /**
  * 
@@ -27,6 +30,7 @@ class ListView extends Component {
     super(props);
     this.state = {
       gallery: {},
+      stripeData:{}
       // userProfile: [],
       // slides:[],
       // accountName:'loading',
@@ -67,37 +71,80 @@ class ListView extends Component {
  * NOTE: since we have created the Instagram HOC we most likely can refactor this whole component further.
  * check the HOC for anything we can use here before refactoring this component or this method below.
  */
+  // galleryNotFound() {
+  
+  //   InstagramLogin.fetchUserInfo().then(instagramUser => {
+  //     let newGallery ={};
+  //     const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
+  //     const newKey  = instagramUser.gallery[key].id;
+  //     newGallery[newKey]= instagramUser.gallery[key];
+  //     return newGallery;
+  //   });
+  //     let updatedGallery = newGalleryKeys['0'];
+  //     this.setState({
+  //       gallery: updatedGallery,
+  //       slides: instagramUser.slides,
+  //       userProfile: instagramUser.user['0'],
+  //       instagramUserID: instagramUser.user.instagramUserID
+  //     });  
+  //   })
+  //   .catch(error => {
+  //         if (error) {
+  //           console.log("error fetching instagramUser")
+  //         };
+  //     });
+  //   } 
 
-  createGallery () {
-    base.fetch('gallery', {
+  /**
+   * 
+   * 
+   * 
+   * destructures progallery and renames the keys with each images unique id number, then does a deep merge with the trial gallery .
+   */
+  combineGalleries () {
+   
+    let newProGallery={};
+    let proGallery = {...this.props.proGallery};
+    const proGalleryKeys = Object.keys(proGallery).map(key => {
+        const newKey = proGallery[key].id;
+        newProGallery[newKey] = proGallery[key];
+        return newProGallery;
+    })
+    var updatedKeys = proGalleryKeys['0'];
+    const gallery = {...this.galleryRef.context.state.gallery}
+    // const objectAssignDeep = require('object-assign-deep');
+    console.log(gallery)
+    const combinedGallery = _.merge({}, updatedKeys, gallery )
+    this.setState({ gallery: combinedGallery })
+    console.log(combinedGallery); 
+    return combinedGallery;
+  }
+  /**
+   * 
+   * syncs with firebase gallery then destructures it and renames each key with each images unique id number
+   */
+
+  createGalleryfromFirebase = async () => {
+    const { stripeData } =  this.state;
+     await base.fetch('gallery', {
       context:this,
       then(data) {
-        if(Object.keys(data).length > 1) {
-        console.log('instagram user gallery found in firebase', data)
-        } else {
-          InstagramLogin.fetchUserInfo().then(instagramUser => {
-            let newGallery ={};
-            const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
-            const newKey  = instagramUser.gallery[key].id;
-            newGallery[newKey]= instagramUser.gallery[key];
-            return newGallery;
-          });
-            let updatedGallery = newGalleryKeys['0'];
-            this.setState({
-              gallery: updatedGallery,
-              slides: instagramUser.slides,
-              userProfile: instagramUser.user['0'],
-              instagramUserID: instagramUser.user.instagramUserID
-            });  
-          })
-          .catch(error => {
-                if (error) {
-                  console.log("error fetching instagramUser")
-                };
-            });
-          }},
-        });
-      };
+        
+        let newGallery ={};
+        const newGalleryKeys = Object.keys(data).map(key => {
+        const newKey  = data[key].id;
+        newGallery[newKey]= data[key];
+        return newGallery;
+    })
+      let updatedGallery = newGalleryKeys['0'];
+     
+      Object.keys(stripeData).length !== undefined 
+      ? this.combineGalleries()
+      :  this.setState({gallery: updatedGallery });
+      return updatedGallery;
+    }
+  })
+  }
 
 /**
  * 
@@ -108,29 +155,29 @@ class ListView extends Component {
  * comes back as an empty object, then the mediagridcomponent will know to place a click limit on the affiliate link
  */
   componentDidMount() {
-    this.createGallery().then(() => {
+    
     base.fetch('stripe', {
       context: this,
-      then(data) {
+    })
+    .then(data => {
         this.setState({
-          stripeData: data
+         stripeData: data
         });
-      },
-    }); 
-  })
-  .catch(err => {
-    console.log('no user info found in database. please log into instagram to retrieve image gallery', err)
-  })
-  }
+      })
+      .then(() => {
+        this.createGalleryfromFirebase();
+      });
+    }
+  
 
 
 
-  deleteMedia = id => {
-    id = this.galleryRef.context.state.gallery[id];
-    this.setState(prevState => {
-      return { gallery: prevState.gallery.filter(media => media.id !==id) };
-    });
-  }; 
+  // deleteMedia = id => {
+  //   id = this.galleryRef.context.state.gallery[id];
+  //   this.setState(prevState => {
+  //     return { gallery: prevState.gallery.filter(media => media.id !==id) };
+  //   });
+  // }; 
   
 /**
  * 
@@ -140,16 +187,16 @@ class ListView extends Component {
  * 
  */
 
-  MediaLists = ({ gallery, proSubscription })  => {
+  MediaLists = ({ gallery })  => {
     gallery = {...this.galleryRef.context.state.gallery};
-    proSubscription = this.state.stripeData.stripe.proSubscription;
+    // proSubscription = this.state.stripeData.stripe.proSubscription;
     return (
       <div key={gallery.id} className='list'>
         { 
         Object.keys(gallery).map((media) => {
             return (             
                 <PhotoContainer 
-                  proSubscription={proSubscription}
+                  proSubscription={this.state.stripeData ? this.state.stripeData.proSubscription : ''}
                   media={gallery[media]} 
                   key={gallery[media].id} 
                   id={gallery[media].id} 
@@ -166,8 +213,7 @@ class ListView extends Component {
     base.removeBinding(this.galleryRef);
    };
    render() {
-     const { MediaLists } = this.MediaLists;
-     const { gallery } = this.state;
+   const { gallery } = this.state;
    return (
     <div 
       className="App" 
@@ -176,20 +222,22 @@ class ListView extends Component {
         overflowY: 'scroll'
       }}
       >
-      <Header/>
-      <SideBar2 />
-      <div 
-        className="list__view" 
-        style={{
-          display: 'inline-flex', 
-          alignContent:'row'
-        }} 
+    <Header/>
+    <SideBar2 />
+    <div 
+      className="list__view" 
+      style={{
+        display: 'inline-flex', 
+        alignContent:'row'
+      }} 
       >
-      { MediaLists(gallery) }  
+      { this.MediaLists(gallery) }  
+     
     </div>
+   
     </div>
     );
   }
 }
 
-export default withAuthentication(ListView);
+export default withAuthentication(withInstagram(ListView));

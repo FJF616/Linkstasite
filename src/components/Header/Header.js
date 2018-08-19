@@ -16,9 +16,9 @@ import AvatarEditor from 'react-avatar-editor'
 import { Link } from 'react-router-dom'
 import { base } from '../rebaseConfig/firebase'
 import DropDown from './DropDown'
-import Delay from 'react-delay';
+// import Delay from 'react-delay';
 import withInstagram from '../Session/withInstagram'
-import { InstagramLoginButton } from 'react-social-login-buttons';
+// import { InstagramLoginButton } from 'react-social-login-buttons';
 
 // import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 // import IconButton from '@material-ui/core/IconButton';
@@ -99,16 +99,7 @@ class Header extends React.Component {
          
               </Col>            
           </Row>  
-        </Card>{
-          this.state.proSubscription
-          ? <div id="leftside">
-                <InstagramLoginButton style={{paddingLeft: 30, marginLeft: 245, width: 265, height:50}} >
-                <span><h3>𝕘𝕖𝕥 𝕚𝕞𝕒𝕘𝕖𝕤</h3></span>
-               </InstagramLoginButton>
-            </div>
-          :
-          null
-        }
+        </Card>
         
           </div>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">

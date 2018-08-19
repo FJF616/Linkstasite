@@ -38,10 +38,10 @@ render() {
         <DropdownItem header>Profile: <b style={{color: 'goldenrod'}}>{this.state.userProfile.userName  || 'user'}</b></DropdownItem>
         <DropdownItem divider />
         <DropdownItem ><Link to={routes.HOME}>Home</Link></DropdownItem>
-        <DropdownItem><Link onClick={this.setListView.bind(this)} to={routes.LIST_VIEW}>Edit Images</Link></DropdownItem>
-        <DropdownItem><Link onClick={this.setGridView.bind(this)} to={routes.GRID_VIEW}>Gallery</Link></DropdownItem>
+        <DropdownItem><Link  to={routes.LIST_VIEW}>Edit Images</Link></DropdownItem>
+        <DropdownItem><Link  to={routes.GRID_VIEW}>Gallery</Link></DropdownItem>
         <DropdownItem><Link to={routes.ACCOUNT}>Account Settings</Link></DropdownItem>
-
+        <DropdownItem><Link to={routes.BILLING_PAGE}>Billing</Link></DropdownItem>
         <DropdownItem><a onClick={auth.doSignOut}>Log Out</a></DropdownItem>
      </DropdownMenu>
     </UncontrolledDropdown>

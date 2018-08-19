@@ -76,7 +76,7 @@ class GridView extends Component {
   }
   clicksRemaining = (limit) => {
     limit =  limit > '0' ? limit : '100';
-    const clicks = this.state.mediaData.clicks;
+    const clicks = this.state.gallery.clicks;
     const remaining = limit - clicks;
     switch(remaining) {
      case '10' :

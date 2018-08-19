@@ -5,7 +5,7 @@ import './Landing.scss';
 import Header from "../Header/Header";
 import SideBar2 from '../SideBar/SideBar2';
 import withAuthorization from '../Session/withAuthorization';
-import InstagramLogin from '../../util/InstagramLogin';
+// import InstagramLogin from '../../util/InstagramLogin';
 import withInstagram from "../Session/withInstagram";
 /**
  * 
@@ -65,30 +65,30 @@ import withInstagram from "../Session/withInstagram";
       }
     
     componentWillMount() {
-      this.imageRef = base.syncState('landingImages', {
+      this.imageRef = base.syncState('imageUrls', {
         context: this,
         state: 'image'
       })
-    }
-    componentDidMount() {
+    
+    // componentDidMount() {
       // InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({  
       //     image: instagramUser.gallery,
       //     userProfile: instagramUser.user['0'],
       //     accountName: instagramUser.user['0'].userName,
       // }))
-      this.baseRef = base.listenTo('editedImages', {
-        context: this,
-        asArray: true,
-        then(editedData) {
-          // console.log(galleryData)
-          this.setState({ image: editedData })
-        }
-      })
-    }
+    // }
+    // this.galleryRef = base.bindToState(`gallery/${this.state.gallery.media.id}`, {
+    //   context: this,
+    //   state:'editImages',
+    //   // asArray: true
+    // });
+    
+  };
+    
 
     componentWillUnmount() {
       base.removeBinding(this.imageRef);
-      base.removeBinding(this.baseRef);
+      // base.removeBinding(this.baseRef);
     }
 
   //   getMapKeyValueByIndex = (obj, idx) => {
@@ -110,8 +110,7 @@ import withInstagram from "../Session/withInstagram";
   //     return results;
   //   }
    
-  //  }
-    deleteMedia = id => {
+       deleteMedia = id => {
         this.setState(prevState => {
           return { gallery: prevState.gallery.filter(media => media.id !==id) };
         });
@@ -133,7 +132,7 @@ import withInstagram from "../Session/withInstagram";
                             <div  key={url} className='gallery-card'>
                               <GalleryImage className='gallery-thumbnail' key={url}  src={imgUrls[index].src} alt={'Image number ' + (index + 1)} />
       
-                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks < '30' ? imgUrls[index].src : alert('You have reached the limit on clicks for this image')), imgUrls[index].title, imgUrls[index].url, e)}><p>clicks: {imgUrls[index].clicks}</p></span>
+                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks < '30' ? imgUrls[index].src : alert('ERROR! There is either no affiliate link is associated with this image or the click limit has been reached ')), imgUrls[index].title, imgUrls[index].url, e)}><p>clicks: {imgUrls[index].clicks}</p></span>
                             </div>
                         </div>
                       })
@@ -166,7 +165,8 @@ import withInstagram from "../Session/withInstagram";
          link: ''
        })
       };
-  }
+    }
+
   const authCondition = (authUser) => !!authUser;
 
   export default withAuthorization(authCondition)(withInstagram(LandingPage));

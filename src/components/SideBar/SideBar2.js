@@ -14,7 +14,7 @@ import Imager from '../Imager/Imager';
 // import { Blink } from 'react-blink';
 import Delay from 'react-delay';
 // import withSubscription from '../Session/withSubscription';
-import InstagramLogin from '../../util/InstagramLogin';
+// import InstagramLogin from '../../util/InstagramLogin';
 // import { InstagramLoginButton } from 'react-social-login-buttons';
 import subscriptionWrapper from '../Session/subscriptionWrapper';
  class SideBar2 extends Component {
@@ -25,9 +25,9 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
         }
     }
 
-    fetchProGallery()  {
-            InstagramLogin.getProGallery().then(proGallery => this.setState({ proGallery }))    
-        }  
+    // fetchProGallery()  {
+    //         InstagramLogin.getProGallery().then(proGallery => this.setState({ proGallery }))    
+    //     }  
     /***
      * 
      * check account status and set state to pro if stripe payment info is found
@@ -40,22 +40,20 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
       
     componentDidMount() {
         this.checkStatus()
+        this.forceUpdate()
     }
     render(){
       return(
-            <StickyBox className="sideBar" style={{  paddingTop: 45, border: '5px outset',  width: 215, borderColor: 'lightpink' }} >
+            <StickyBox className="sideBar" style={{ marginLeft: 35, paddingTop: 45, border: '5px outset',  width: 215, borderColor: 'lightpink' }} >
                 <div className="sideItem">              
                     <ul className="sidelist" style={{listStyleType: 'none'}}>
                         <li ><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"white"}/></Link></li>
-                        <li><Link to={routes.BILLING_PAGE}><Icon className="listItem" icon={ICONS.CREDITCARD} size={95} mode={"contain"} color={"white"} /></Link></li>
-                        <li><Link to={routes.ACCOUNT}><Icon className="listItem" icon={ICONS.SETTINGS} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li ><Link  to={routes.LIST_VIEW}><Icon className="listItem" icon={ICONS.THLIST2} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li  ><Link to={routes.GRID_VIEW}><Icon className="listItem" icon={ICONS.GRID} size={95} mode={"contain"} color={"white"}/></Link></li> 
-                       {/* <li><a href="https://instagram.com/accounts/logout/" width="0" height="0" title="logout" >Logout of Instagram</a></li>*/}
                     </ul>
                     {
                         (this.state &&  this.state.subscription === 'trial' )  
-                        ? <Delay wait={50}>
+                        ? <Delay wait={20}>
                         <div >
                             <h6 style={{paddingTop: '5px', paddingBottom: '10px', color: 'blue',}}><b>Upgrade to Pro Subscription  For Only $9.99!</b></h6>
                             <div>

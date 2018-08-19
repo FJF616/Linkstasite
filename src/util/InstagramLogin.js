@@ -58,9 +58,9 @@ const InstagramLogin = {
    
   },
   async getProGallery() {
-    if(!accessToken) {
-      this.getAccessToken();
-    }
+    // if(!accessToken) {
+    //   this.getAccessToken();
+    // }
     
     const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=20`;
     try {
@@ -72,9 +72,9 @@ const InstagramLogin = {
         jsonResponse = await response.json();
         proGallery = jsonResponse.data.map(info =>  ({
           src: info.images.standard_resolution.url,
-          // title: info.caption ? info.caption.text : '',
+          title: info.caption ? info.caption.text : '',
           id: info.id,
-          // url: '',
+          url: '',
           affiliated: false,
           editing: false,
           edited: false,

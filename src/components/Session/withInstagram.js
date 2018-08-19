@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import InstagramContext from './InstagramContext';
 import InstagramLogin from '../../util/InstagramLogin';
 import { base } from '../rebaseConfig/firebase';
@@ -19,7 +19,7 @@ const withInstagram = (Component)  => {
             proGallery:{},
             userProfile: {},
             accountName: '', 
-            firstLogin: true     
+            firstLogin:''     
         };
     }
 /**
@@ -49,6 +49,20 @@ const withInstagram = (Component)  => {
             : this.setState({ firstLogin: false })
             return this.state.firstLogin;
     } 
+
+
+
+ /**
+     * 
+     * 
+     * 
+     * 
+     * fetch the maximum amount of instagram images (for pro subscription)
+     */
+    getPro() {
+        InstagramLogin.getProGallery().then(proGallery =>  this.setState({ proGallery }))
+    }
+
 /**
  * 
  * 
@@ -64,21 +78,16 @@ const withInstagram = (Component)  => {
             accountName: instagramUser.user['0'].userName,
             firstLogin: false    
         }))
-        .catch(err => {
-            console.log('error fetching user profile from instagram', err);
+        .then((userProfile) => {
+            userProfile = {...this.state.userProfile}
+            if (userProfile.proSubscription) {
+                this.getPro();
+            }
         })
+        
     }
 
-    /**
-     * 
-     * 
-     * 
-     * 
-     * fetch the maximum amount of instagram images (for pro subscription)
-     */
-    getPro() {
-        InstagramLogin.getProGallery().then(proGallery =>  this.setState({ proGallery }))
-    }
+   
 
     /**
      * 
@@ -88,26 +97,26 @@ const withInstagram = (Component)  => {
      * check for account status through the firebase stored profile, if not found, this must be first time logging in
      * if not, check if the user has pro subscription, then retrieve the progallery and set it to state
      */
-    checkIfPro() {
-        base.fetch('userProfile', {
-            context: this,
-        })
-        .then(userProfile => {
-            typeof userProfile === undefined 
-            ? this.setState({ firstLogin: true })
-            : this.setState({
-                    userProfile: userProfile,
-                    accountName: userProfile.userName
-                });
-                if (this.state.userProfile.proSubscription) { 
-                    return  this.getPro();
-                }  
-            })
-            .catch(err => {
-                console.log('error getting user profile from firebase', err)
-        })
-        console.log('successfully fetched user profile from firebase');
-    }
+    // checkIfPro() {
+    //     base.fetch('userProfile', {
+    //         context: this,
+    //     })
+    //     .then(userProfile => {
+    //         typeof userProfile === undefined 
+    //         ? this.setState({ firstLogin: true })
+    //         : this.setState({
+    //                 userProfile: userProfile,
+    //                 accountName: userProfile.userName
+    //             });
+    //             // if (this.state.userProfile.proSubscription) { 
+    //             //     return  this.getPro();
+    //             // }  
+    //         })
+    //         .catch(err => {
+    //             console.log('error getting user profile from firebase', err)
+    //     })
+    //     console.log('successfully fetched user profile from firebase');
+    // }
 /**
  * 
  * 
@@ -120,7 +129,7 @@ const withInstagram = (Component)  => {
             if(this.isEmpty(this.state.gallery) && this.isEmpty(this.state.userProfile)) {
                 this.trialGallery();
                 } else {
-                   this.checkIfPro();
+                   this.getPro();
                 }
             } catch (error) {
                 throw Error;
@@ -151,10 +160,12 @@ const withInstagram = (Component)  => {
   * exist get it from Instagram api
   */
     componentDidMount() {
-        this.checkFirstLogin() 
-        ? this.isFirstLogin()
-        : this.checkIfPro() 
+        if(typeof this.state.userProfile === undefined) {
+            this.trialGallery();
+        }
     }
+       
+       
 
     componentWillUnmount() {
         base.removeBinding(this.proGalleryRef);

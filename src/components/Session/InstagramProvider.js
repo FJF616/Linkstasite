@@ -150,9 +150,11 @@ export default class InstagramProvider extends React.Component {
   * exist get it from Instagram api
   */
     componentDidMount() {
+        if(this.statefirstLogin) {
         this.checkFirstLogin() 
         ? this.isFirstLogin()
         : this.checkIfPro() 
+        }
     }
 
     componentWillUnmount() {

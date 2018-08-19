@@ -14,9 +14,22 @@ export default class MediaGridComponent extends Component {
     stats: {
       link: '',
       clicks: 0,
-    
-    }
+    },
+    galleryImage:{},
   }
+  transferImage = () => {
+    const editedImage  = {...this.state.galleryImage}
+    const key = this.props.media.id
+    this.editedImagesRef.update(`editedImages/${key}`, {
+      data: { editedImage },
+      then(err) {
+        if(!err) {
+          console.log('transferred image')
+        }
+      }
+    })
+
+  } 
 /**
  * 
  * 
@@ -29,7 +42,12 @@ export default class MediaGridComponent extends Component {
  * so that the landing page will only display the images that have affiliate links etc which we can
  * eventually use in our guest gallery / final view that we want to show to outside world.
  */
-
+// updateGallery = () => {
+//   const { editedImages } = this.state;
+//   base.post(`editedImages/${this.props.media.id}`, {
+//     data: { editedImages },
+//   })
+// }
 componentWillMount() {
   this.statsRef = base.syncState('stats', {
     context: this,
@@ -37,21 +55,19 @@ componentWillMount() {
   });
   this.galleryRef = base.syncState(`gallery/${this.props.media.id}`, {
     context: this,
-    state:'gallery',
+    state:'galleryImage',
     // asArray: true
   });
-  this.editedImagesRef = base.syncState('editedImages', {
-    context: this,
-    state: 'gallery'
-  });
+  
+  
 };
 
-  
+
 
 componentWillUnmount() {
   base.removeBinding(this.statsRef);
   base.removeBinding(this.galleryRef);
-  base.removeBinding(this.editedImagesRef);
+  // base.removeBinding(this.editedImagesRef);
 }
 
 /**
@@ -62,12 +78,13 @@ componentWillUnmount() {
  * report back to firebase the number of clicks any new or previously used affiliate link has
  */
 updateClicks = () => {
-  const { clicks } = this.state.gallery;
-  base.post(`gallery`, {
-    data: { clicks: clicks},
+  const { clicks, url } = this.state.galleryImage;
+ 
+  base.update(`stats/${this.props.media.id}/`, {
+    data: { clicks: clicks,  link: url},
     then(err) {
       if(!err){
-        console.log('success tracking clicks')
+        console.log('success tracking clicks', clicks)
       }
     }
   })
@@ -97,7 +114,7 @@ getClicks= () => {
  */
 
 render() {
-  const { gallery } = this.state;
+  const { galleryImage } = this.state;
   const { media } = this.props;
   /**
    * 
@@ -107,9 +124,9 @@ render() {
    */
   return (
       <div className='image-grid' >
-        { (( !gallery.affiliated || this.state.completed ) && ( gallery.url && gallery.clicks >= '30' ))
+        { (( !galleryImage.affiliated || this.state.completed ) && ( galleryImage.url && galleryImage.clicks >= '30' ))
           ? <div>
-              <span className="media-title">{gallery.title}</span>
+              <span className="media-title">{galleryImage.title}</span>
                   <Imager   
                       data-tip="upgrade to pro for unlimited clicks"  //notification that shows when click limit is reached, each time cursor hovers over image
                       className="mr-3" src={media.src} 
@@ -129,7 +146,7 @@ render() {
                 effect="float"
                 />
             </div> 
-      : ( gallery.filled || gallery.clicks < '30' )
+      : ( galleryImage.filled || galleryImage.clicks < '30' )
       
           /**
            * 
@@ -139,12 +156,12 @@ render() {
            * for trial subscription.  This will be displayed in the edit view/listview component when the link preview is not
            * turned on. 
            */
-      ?   <div className = "image-grid"  onClick={this.props.clicksRemaining}>
+      ?   <div className = "image-grid"  onClick={this.updateClicks}>
               <span className="media-title">
-                  <h5>{gallery.title}</h5> </span>
-                  <a href={gallery.url} >
+                  <h5>{galleryImage.title}</h5> </span>
+                  <a href={galleryImage.url} >
                   <Imager  
-                      data-tip={gallery.url} 
+                      data-tip={galleryImage.url} 
                       className="mr-3" 
                       src={media.src} 
                       style={{
