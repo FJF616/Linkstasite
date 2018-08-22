@@ -21,6 +21,7 @@ async shortenLink(longUrl)  {
         let response =  await fetch(BITLY_URL, {
             method: 'GET', 
             'content-type': 'UTF-8'
+            
            });
             if (response.ok) {   
                 console.log(response);     
@@ -41,7 +42,10 @@ async fetchClicks(url)   {
     try {
         let response =  await fetch(BITLY_URL, {
             method: 'GET', 
-            'content-type': 'UTF-8'
+            'content-type': 'UTF-8',
+        
+           
+            
         });
         if (response.ok) {   
             console.log(response);     

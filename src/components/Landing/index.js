@@ -7,6 +7,7 @@ import SideBar2 from '../SideBar/SideBar2';
 import withAuthorization from '../Session/withAuthorization';
 // import InstagramLogin from '../../util/InstagramLogin';
 import withInstagram from "../Session/withInstagram";
+import subscriptionWrapper from '../Session/subscriptionWrapper'
 /**
  * 
  * 
@@ -169,4 +170,4 @@ import withInstagram from "../Session/withInstagram";
 
   const authCondition = (authUser) => !!authUser;
 
-  export default withAuthorization(authCondition)(withInstagram(LandingPage));
+  export default withAuthorization(authCondition)(subscriptionWrapper(LandingPage));

@@ -13,20 +13,26 @@ class ProgressBar extends Component {
     // componentWillMount() {
     //     base.bindToState('stats', {
     //         context: this,
-    //         state: 'data'
+    //         state: 'data',
+            
     //     });
     // }
 
     render() {
         return(
+           
+
+       
             <div>
             <Progress style={{width:'232px'}}
                 type="bar" 
-                percent={this.props.data.clicks }
+                percent={100 - this.props.clicks }
                 status="success"
                
                 />
                 </div> 
+        
+            
         );
     };
 }

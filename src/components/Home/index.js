@@ -7,7 +7,7 @@ import Bar from '../Graph/Bar';
 // import Header from '../Header/Header';
 import Graph from '../Graph/Graph'
 import MarkSeries from '../Graph/MarkSeries';
-// import InstagramLogin from '../../util/InstagramLogin'
+import InstagramLogin from '../../util/InstagramLogin'
 import withAuthorization from '../Session/withAuthorization';
 import  { db } from '../rebaseConfig';
 import SideBar2 from '../SideBar/SideBar2';
@@ -20,6 +20,8 @@ import Header from '../Header/Header'
 import { base } from '../rebaseConfig/firebase';
 import GraphContext from '../Session/GraphContext';
 import GraphProvider from '../Session/GraphProvider';
+import Pie from '../Graph/Pie';
+
 // import SubscriptionProvider from '../Session/SubscriptionProvider';
 // import SubscriptionConsumer from '../Session/SubscriptionProvider';
 // import InstagramImages from '../PhotoPicker/InstagramImages';
@@ -73,24 +75,24 @@ class HomePage extends Component {
   //   });
   // }
 
-  // getPro() {
-  //     InstagramLogin.getProGallery().then(proGallery => this.setState({ proGallery }))    
-  // }  
-  // getTrial(){
-  //   console.log('instagram user does not exist, please log into instagram before using linkstasite')
-  //   InstagramLogin.fetchUserInfo().then(instagramUser => this.setState ({
-  //     gallery: instagramUser.gallery,
-  //     slides: instagramUser.slides,
-  //     userProfile: instagramUser.user['0'],
-  //     instagramUserID: instagramUser.user.instagramUserID,
-  //     image: instagramUser.image
-  //   }))
-  //   .catch(error => {
-  //     if(error) {
-  //       console.log('error fetching instagramUser', error);
-  //     };
-  //   })
-  // }
+  getPro() {
+      InstagramLogin.getUserMedia(20).then(proGallery => this.setState({ proGallery }))    
+  }  
+  getTrial(){
+    console.log('instagram user does not exist, please log into instagram before using linkstasite')
+    InstagramLogin.getUserMedia(6).then(instagramUser => this.setState ({
+      gallery: instagramUser.gallery,
+      slides: instagramUser.slides,
+      userProfile: instagramUser.user['0'],
+      instagramUserID: instagramUser.user.instagramUserID,
+      // image: instagramUser.image
+    }))
+    .catch(error => {
+      if(error) {
+        console.log('error fetching instagramUser', error);
+      };
+    })
+  }
   getData = async () => {
     await base.fetch('userProfile', {
       context: this,
@@ -98,7 +100,7 @@ class HomePage extends Component {
     .then((data) => {
         this.setState({ userProfile: data })
         const { userProfile } = this.state;
-          if (userProfile.hasOwnProperty('proSubscription') && userProfile.proSubscription === true) {
+          if (userProfile.hasOwnProperty('proSubscription') || userProfile.proSubscription === true) {
             this.setState({accountStatus: 'pro'})
           
           }
@@ -107,15 +109,13 @@ class HomePage extends Component {
   }
    
   componentDidMount() {
-   
+    
+    // this.instaDialog.showDialog();
     db.onceGetUsers().then(snapshot =>
       this.setState(() => ({ users: snapshot.val() }))
     )
-    .then(() => {
-      this.getData()
-    }).catch(err =>{
-      console.log('user must create instagram profile and have images to use linkstasite', err)
-    }).catch(err => {
+   
+   .catch(err => {
       console.log('user galleries dont exist', err)
     })
   
@@ -132,22 +132,21 @@ class HomePage extends Component {
           <div className="App" style={{position: 'fixed', overflowY: 'scroll'}}>
             <Header />
               <SideBar2  /> 
-            
+             
               {/*<InstagramImages/>*/}
               <div className="home__page" >
               <div style={{marginTop: 25}} >
-              <p><h1><b>Dashboard</b></h1><h3><i>coming soon</i></h3>
+              <p><h1><b>Dashboard</b></h1>
               <ul>
                 <li>affiliate link analytics</li>
                 <li>keep track of your most active links</li>
-                <li>see locations of activity</li>
                 <li>data updated in realtime</li>
+                <li><i>More features to come!</i></li>
               </ul></p></div>
-              <div style={{position: 'relative', display: 'inlineFlex', marginTop: 17}}>
-              <MarkSeries/>
-                <Bar graphData={value.graphData} />    
-              <Graph/>
-              <Plot/> 
+              <div style={{position: 'relative', display: 'inlineFlex'}}>
+             
+                
+            <Pie data-tip="total clicks per links" graphData={value.graphData} />
               
             </div>
             </div>

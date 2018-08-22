@@ -4,6 +4,7 @@ import { base } from '../rebaseConfig/firebase'
 import { Link } from 'react-router-dom'
 import * as routes from '../constants/routes'
 import { auth } from '../rebaseConfig'
+import ReactTooltip from 'react-tooltip';
 export default class DropDown extends Component {
     state = {
         userProfile: [],
@@ -42,8 +43,9 @@ render() {
         <DropdownItem><Link  to={routes.GRID_VIEW}>Gallery</Link></DropdownItem>
         <DropdownItem><Link to={routes.ACCOUNT}>Account Settings</Link></DropdownItem>
         <DropdownItem><Link to={routes.BILLING_PAGE}>Billing</Link></DropdownItem>
-        <DropdownItem><a onClick={auth.doSignOut}>Log Out</a></DropdownItem>
-     </DropdownMenu>
+        <DropdownItem><a data-tip="Stop! once logged out you cannot log in with a different instagram account without first creating a developer account and getting approval!" disabled={true} onClick={auth.doSignOut}>Log Out</a></DropdownItem>
+       {/* <ReactTooltip place="right" type="dark" effect="float"/> */}
+        </DropdownMenu>
     </UncontrolledDropdown>
   );
  }

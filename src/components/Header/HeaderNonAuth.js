@@ -12,7 +12,7 @@ class HeaderNonAuth extends React.Component {
       <div className="header" style={{marginBottom:-70}}>
       
         <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95,}} className="navbar navbar-expand-lg  fixed-top">
-        <h2 className="banner" style={{ color: 'skyblue', marginLeft: 65 }}>𝓣𝓱𝓪𝓷𝓴 𝔂𝓸𝓾 𝓯𝓸𝓻 𝓿𝓲𝓼𝓲𝓽𝓲𝓷𝓰 𝓛𝓲𝓷𝓴𝓼𝓽𝓪𝓢𝓲𝓽𝓮 !!</h2>
+        <h4 className="banner" style={{ color: 'skyblue', marginLeft: 65 }}>𝓣𝓱𝓪𝓷𝓴 𝔂𝓸𝓾 𝓯𝓸𝓻 𝓿𝓲𝓼𝓲𝓽𝓲𝓷𝓰 𝓛𝓲𝓷𝓴𝓼𝓽𝓪𝓢𝓲𝓽𝓮 !!</h4>
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />

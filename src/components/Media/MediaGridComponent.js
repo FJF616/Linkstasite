@@ -77,33 +77,33 @@ componentWillUnmount() {
  * 
  * report back to firebase the number of clicks any new or previously used affiliate link has
  */
-updateClicks = () => {
-  const { clicks, url } = this.state.galleryImage;
- 
-  base.update(`stats/${this.props.media.id}/`, {
-    data: { clicks: clicks,  link: url},
-    then(err) {
-      if(!err){
-        console.log('success tracking clicks', clicks)
-      }
-    }
-  })
-}
+// updateClicks = () => {
+//   const { stats } = this.state;
+  
+//   // base.post(`stats/${this.props.media.id}`, {
+//   //   data: { clicks: clicks,  link: url},
+//   //   then(err) {
+//   //     if(!err){
+//   //       console.log('success tracking clicks', clicks)
+//   //     }
+//   //   }
+//   // })
+// }
 
 /**
  * 
  * 
  * check the number of clicks any associated affiliate link has for the current image
  */
-getClicks= () => {
-  base.fetch(`gallery`,{
-    context: this,
-    asArray: true,
-    then(data){
-      console.log(data);
-    }
-  })
-}
+// getClicks= () => {
+//   base.fetch(`gallery`,{
+//     context: this,
+//     asArray: true,
+//     then(data){
+//       console.log(data);
+//     }
+//   })
+// }
 
 /**
  * 
@@ -124,7 +124,7 @@ render() {
    */
   return (
       <div className='image-grid' >
-        { (( !galleryImage.affiliated || this.state.completed ) && ( galleryImage.url && galleryImage.clicks >= '30' ))
+        { (( this.props.proSubscription === false || !galleryImage.affiliated || this.state.completed ) && ( galleryImage.url && galleryImage.clicks >= '30' ))
           ? <div>
               <span className="media-title">{galleryImage.title}</span>
                   <Imager   
@@ -140,12 +140,12 @@ render() {
                           borderColor: 'pink'          //image will no longer have gold border
                         }} 
                       />
-              <ReactTooltip 
+             {/* <ReactTooltip 
                 place="top" 
                 type="light" 
                 effect="float"
-                />
-            </div> 
+             />*/}
+             </div> 
       : ( galleryImage.filled || galleryImage.clicks < '30' )
       
           /**
@@ -175,11 +175,11 @@ render() {
                         }} 
                       />
                   </a>
-              <ReactTooltip 
+             {/*} <ReactTooltip 
                 place="top" 
                 type="light" 
                 effect="float"
-             />
+                      /> */}
           </div>
       :''
       }

@@ -9,6 +9,7 @@
     "ajax": "0.0.4",
     "ajv": "^5.0.0",
     "antd": "^3.7.0",
+    "aphrodite": "^2.2.2",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
     "babel-core": "6.26.0",

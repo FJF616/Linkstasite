@@ -18,7 +18,9 @@ import { base } from '../rebaseConfig/firebase'
 import DropDown from './DropDown'
 // import Delay from 'react-delay';
 import withInstagram from '../Session/withInstagram'
-// import { InstagramLoginButton } from 'react-social-login-buttons';
+import { InstagramLoginButton } from 'react-social-login-buttons';
+import ReactTooltip from 'react-tooltip';
+// import  InstagramPhotoPicker  from '../PhotoPicker'
 
 // import {Navbar, FormGroup, FormControl, Button} from 'react-bootstrap';
 // import IconButton from '@material-ui/core/IconButton';
@@ -33,13 +35,14 @@ class Header extends React.Component {
    
     userProfile: [],
     subscriptionData: {},
-    // auth: true,
+    proSubscription: false,
+    galleryLink: 'https://ff47ae7f.ngrok.io/guestpage',
+    show: false
     // anchorEl: null,
   }
     checkSubscriptionStatus() {
-   this.state.subscriptionData
-      ?  this.setState({ proSubscription: true }) 
-      :  this.stripeRef = base.listenTo('stripe', {
+    
+        this.stripeRef = base.listenTo('stripe', {
           context: this,
           state: 'stripe',
             then(subscriptionData) {
@@ -51,6 +54,11 @@ class Header extends React.Component {
           }
         })
     }
+  showLink = () => {
+    this.setState ({
+      show: !this.state.show
+    })
+  }
   componentDidMount = () => {
     this.userProfileRef = base.syncState('userProfile', {
       context: this,
@@ -83,7 +91,7 @@ class Header extends React.Component {
           <Card className="profile"  >
           <Row className="profile__container">
           
-              <AvatarEditor className="avatar__img"
+              <a href="https://www.instagram.com/linkstasite"><AvatarEditor className="avatar__img"
               image={this.state.userProfile.profilePic}
               width={55}
               height={55}
@@ -91,17 +99,24 @@ class Header extends React.Component {
               color={[185, 253, 255, 0.074]} // RGBA
               scale={1.25}
               rotate={1}
-              /> 
+              /></a> 
              
               <Col style={{backgroundColor: 'transparent'}}> 
               
               <DropDown />
-         
               </Col>            
           </Row>  
         </Card>
+        <InstagramLoginButton style={{marginLeft: 100, paddingTop: 5}} onClick={this.showlink}>
+           <span> <h3><b>{this.state.userProfile.userName}</b></h3></span>
+        </InstagramLoginButton>
+        {
+          this.state.show === true
         
-          </div>
+         ? <h4 className="showHide" id="leftside" style={{marginLeft: 75, color: 'goldenrod'}}>Your LinkstaSite gallery link is: <b>{this.state.galleryLink}</b></h4>
+         : null
+        }  
+        </div>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon" />
             </button>
@@ -109,8 +124,10 @@ class Header extends React.Component {
           <ul className="showHide navbar-nav ml-auto float float-right" style={{paddingTop: 85, overFlow: 'hidden'}} id="rightside" >
             <NavItem className="nav-item active" style={{ marginTop: '-2px', marginLeft: '-55px'}}><Link to={routes.HOME}><span className="sr-only">(current)</span><Icon icon={ICONS.HOME} size={65} mode={"contain"} color={"gold"}/></Link></NavItem>
             <NavItem  className="nav-item" style={{ marginLeft: '5px'}}><Link to={routes.GUEST_PAGE}><Icon   icon={ICONS.INTERNET} size={125} mode={"contain"} color={"gold"}/></Link></NavItem>
-            <NavItem className="nav-item" style={{marginLeft: '-65px'}}><SignOutButton /></NavItem>
-          </ul>
+            <NavItem className="nav-item" data-tip="Stop! once logged out you cannot log in with a different instagram account without first creating a developer account and getting approval!" style={{marginLeft: '-65px'}}><SignOutButton /></NavItem>
+            <ReactTooltip place="bottom" type="dark" effect="float"/>
+
+            </ul>
         </nav> 
       </div>
     );

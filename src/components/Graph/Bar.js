@@ -41,6 +41,7 @@ totalClicks = async () => {
 
 totalLinks = async () => {
   let total;
+  
   try {
     let linksArr =[];
     const  graphData  = {...this.props.graphData};
@@ -57,7 +58,18 @@ totalLinks = async () => {
   }
  
 }
-  
+ graphInfo = () => {
+   const { graphData } = this.props;
+   const length =  Object.keys(graphData).length;
+   const plot = Object.keys(graphData).map(key => {
+    for ( let i=0; i<length; i++ ) {
+     return ({ y: i , x: `${key.clicks}` })
+    }
+    console.log(plot)
+    return plot
+   })
+   
+ }
 
 
   
@@ -81,16 +93,13 @@ totalLinks = async () => {
           <HorizontalGridLines />
           <XAxis title="Total Clicks"/>
           <YAxis title="Total Links" position="start"/>
-          <BarSeries 
+          
            
-            data={[
-              {y: 4, x: 5},
-              {y: 5, x: 15}
-            ]}
-          />
+           
+          
           <BarSeries
             data={[
-              {y: 2, x: 12},
+              {y: 'Link one', x: 12},
               {y: 4, x: 2},
               {y: 5, x: 11}
             ]}/>

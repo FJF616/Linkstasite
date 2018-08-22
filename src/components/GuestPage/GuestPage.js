@@ -65,13 +65,14 @@ import { base } from '../rebaseConfig/firebase';
           
             image:[] ,
             showModal: false,
-            url: ''
+            url: '',
+           
             // listView:false
         };
       this.openModal = this.openModal.bind(this);
       this.closeModal = this.closeModal.bind(this);
       }
-    
+   
     componentWillMount() {
       this.imageRef = base.syncState('imageUrls', {
         context: this,
@@ -84,6 +85,7 @@ import { base } from '../rebaseConfig/firebase';
     
     }
     componentDidMount() {
+      
       this.galleryRef = base.listenTo('gallery', {
         context: this,
         asArray: true,
@@ -143,7 +145,7 @@ import { base } from '../rebaseConfig/firebase';
                             <div  key={url} className='gallery-card'>
                               <GalleryImage className='gallery-thumbnail' key={url}  src={imgUrls[index].src} alt={'Image number ' + (index + 1)} />
                              
-                              <span className='card-icon-open fa fa-expand'  value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks < '30' ? imgUrls[index].src : alert('There is no affiliate link for this image')), imgUrls[index].title, imgUrls[index].url, e)}></span>
+                              <span className='card-icon-open fa fa-expand'  value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks < '100' ? imgUrls[index].src : alert('There is no affiliate link for this image')), imgUrls[index].title, imgUrls[index].url, e)}></span>
                             </div>
                         </div>
                       })

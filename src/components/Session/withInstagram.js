@@ -3,6 +3,7 @@ import InstagramContext from './InstagramContext';
 import InstagramLogin from '../../util/InstagramLogin';
 import { base } from '../rebaseConfig/firebase';
 import { withRouter } from 'react-router-dom';
+
 /**
  * 
  * 
@@ -15,11 +16,14 @@ const withInstagram = (Component)  => {
     constructor() {
         super();
         this.state = {
-            trialGallery: {},
-            proGallery:{},
+            // instagramImages: {},
+            // proGallery:{},
             userProfile: {},
-            accountName: '', 
-            firstLogin:''     
+            accountName: '',
+            paginationUrl:'', 
+            // firstLogin:'',
+            // accessToken:'' ,
+            gallery:[]    
         };
     }
 /**
@@ -50,8 +54,6 @@ const withInstagram = (Component)  => {
             return this.state.firstLogin;
     } 
 
-
-
  /**
      * 
      * 
@@ -59,9 +61,9 @@ const withInstagram = (Component)  => {
      * 
      * fetch the maximum amount of instagram images (for pro subscription)
      */
-    getPro() {
-        InstagramLogin.getProGallery().then(proGallery =>  this.setState({ proGallery }))
-    }
+    // getPro() {
+    //     InstagramLogin.getProGallery().then(proGallery =>  this.setState({ proGallery }))
+    // }
 
 /**
  * 
@@ -70,24 +72,65 @@ const withInstagram = (Component)  => {
  * 
  * fetch first 6 images from instagram gallery and set userprofile turn first login flag to false
  */
-    trialGallery() {
-        InstagramLogin.fetchUserInfo()
-        .then(instagramUser => this.setState({
-            trialGallery: instagramUser.gallery,
-            userProfile: instagramUser.user['0'],
-            accountName: instagramUser.user['0'].userName,
-            firstLogin: false    
-        }))
-        .then((userProfile) => {
-            userProfile = {...this.state.userProfile}
-            if (userProfile.proSubscription) {
-                this.getPro();
-            }
-        })
+    // trialGallery() {
+    //     InstagramLogin.fetchUserInfo()
+    //     .then(instagramUser => this.setState({
+    //         instagramImages: instagramUser.gallery,
+    //         userProfile: instagramUser.user['0'],
+    //         accountName: instagramUser.user['0'].userName,
+    //         firstLogin: false    
+    //     }))
+    //     .then((userProfile) => {
+    //         userProfile = {...this.state.userProfile}
+    //         if (userProfile.proSubscription) {
+    //             this.getPro();
+    //         }
+    //     })
         
-    }
-
-   
+    // }
+    checkIfNeedToDownload2 = () => {
+        // if (window.InstAuth.accessToken && this.state.instagramImages.length === 0) {
+          this.setState({ isDownloadingImages: true });
+          InstagramLogin.login(6)
+            .then((images) => {
+              this.setState({
+                instagramImages: images.data,
+                isDownloadingImages: false,
+                paginationUrl: images.pagination
+                  ? images.pagination.next_url
+                  : null,
+              });
+            })
+            .catch((error) => {
+              console.error(error);
+              this.setState({ isDownloadingImages: false });
+            });
+        // }
+      };
+    
+    checkIfNeedToDownload = () => {
+        if ( typeof Object.keys(this.state.userProfile.length === undefined)) {
+          this.setState({ isDownloadingImages: true });
+          InstagramLogin.getUserMedia(6)
+            .then((instagramUser) =>
+              this.setState({
+                instagramUser,
+                gallery: instagramUser.user.gallery,
+                userProfile: instagramUser.user,
+                accountName: instagramUser.user.userName,
+                isDownloadingImages: false,
+                accessToken: instagramUser.user.accessToken,
+                paginationUrl: instagramUser.user.pagination
+                  ? instagramUser.user.pagination.next_url
+                  : null,
+              }))
+            .catch((error) => {
+              console.error(error);
+              this.setState({ isDownloadingImages: false });
+            });
+        }
+        else return
+      };
 
     /**
      * 
@@ -124,25 +167,25 @@ const withInstagram = (Component)  => {
  * check for pro account subscription in firebase, and make sure local state is reflects the same thing
  * 
  */
-    isFirstLogin() {
-        try {
-            if(this.isEmpty(this.state.gallery) && this.isEmpty(this.state.userProfile)) {
-                this.trialGallery();
-                } else {
-                   this.getPro();
-                }
-            } catch (error) {
-                throw Error;
-            }
-        }  
+    // isFirstLogin() {
+    //     try {
+    //         if(this.isEmpty(this.state.gallery) && this.isEmpty(this.state.userProfile)) {
+    //             this.trialGallery();
+    //             } else {
+    //                this.getPro();
+    //             }
+    //         } catch (error) {
+    //             throw Error;
+    //         }
+    //     }  
 /**
  * 
  * store the full instagram gallery in local state (to be combined with trial gallery then uploaded to firebase later)
  */  
     componentWillMount() {
-            this.proGalleryRef = base.syncState('proGallery', {
+            this.galleryRef = base.syncState('gallery', {
                 context: this,
-                state: 'proGallery',
+                state: 'gallery',
                
             })
         }
@@ -160,15 +203,31 @@ const withInstagram = (Component)  => {
   * exist get it from Instagram api
   */
     componentDidMount() {
-        if(typeof this.state.userProfile === undefined) {
-            this.trialGallery();
-        }
-    }
+        // InstagramLogin.getUserMedia(20)
+        // .then((instagramUser) =>
+        //   this.setState({
+        //     gallery: instagramUser.user.gallery,
+        //     userProfile: instagramUser.user,
+        //     accountName: instagramUser.user.userName,
+        //     isDownloadingImages: false,
+        //     accessToken: instagramUser.user.accessToken,
+        //     paginationUrl: instagramUser.pagination
+        //       ? instagramUser.user.pagination.next_url
+        //       : null,
+        //   }))
+        // .catch((error) => {
+        //   console.error(error);
+        //   this.setState({ isDownloadingImages: false });
+        // });
+        
+           
+      this.checkIfNeedToDownload()  
        
+    }
        
 
     componentWillUnmount() {
-        base.removeBinding(this.proGalleryRef);
+        base.removeBinding(this.galleryRef);
     }
   
     render() {
@@ -176,7 +235,7 @@ const withInstagram = (Component)  => {
         return (
             <InstagramContext.Provider  value={this.state} >
                 <InstagramContext.Consumer >
-                 { (value) => <Component {...this.props.children} proGallery={value.proGallery} userProfile={value.userProfile}/> }
+                 { (value) => <Component {...this.props.children} gallery={value.gallery} paginationUrl={value.paginationUrl} userProfile={value.userProfile}/> }
                 </InstagramContext.Consumer>
             </InstagramContext.Provider>
         );

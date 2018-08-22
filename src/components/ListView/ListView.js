@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import '../App/App.css';
 import _ from 'lodash';
 // import deepmerge from 'deepmerge';
-// import InstagramLogin from '../../util/InstagramLogin';
+import InstagramLogin from '../../util/InstagramLogin';
 import SideBar2 from '../SideBar/SideBar2';
 import { base } from '../rebaseConfig/firebase'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
@@ -16,9 +16,9 @@ import withAuthentication from '../Session/withAuthentication'
 // import InstagramContext from '../Session/InstagramContext';
 // import Bar from '../Graph/Bar'
 // import { Button } from 'react-bootstrap';
-import withInstagram from '../Session/withInstagram';
-import InstagramLoginButton from 'react-social-login-buttons';
-
+// import withInstagram from '../Session/withInstagram';
+// import InstagramLoginButton from 'react-social-login-buttons';
+// import ProgressBar from '../Graph/ProgressBar'
 /**
  * 
  * 
@@ -71,29 +71,29 @@ class ListView extends Component {
  * NOTE: since we have created the Instagram HOC we most likely can refactor this whole component further.
  * check the HOC for anything we can use here before refactoring this component or this method below.
  */
-  // galleryNotFound() {
+  galleryNotFound() {
   
-  //   InstagramLogin.fetchUserInfo().then(instagramUser => {
-  //     let newGallery ={};
-  //     const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
-  //     const newKey  = instagramUser.gallery[key].id;
-  //     newGallery[newKey]= instagramUser.gallery[key];
-  //     return newGallery;
-  //   });
-  //     let updatedGallery = newGalleryKeys['0'];
-  //     this.setState({
-  //       gallery: updatedGallery,
-  //       slides: instagramUser.slides,
-  //       userProfile: instagramUser.user['0'],
-  //       instagramUserID: instagramUser.user.instagramUserID
-  //     });  
-  //   })
-  //   .catch(error => {
-  //         if (error) {
-  //           console.log("error fetching instagramUser")
-  //         };
-  //     });
-  //   } 
+    InstagramLogin.getUserMedia('6').then(instagramUser => {
+      let newGallery ={};
+      const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
+      const newKey  = instagramUser.gallery[key].id;
+      newGallery[newKey]= instagramUser.gallery[key];
+      return newGallery;
+    });
+      let updatedGallery = newGalleryKeys['0'];
+      this.setState({
+        gallery: updatedGallery,
+        slides: instagramUser.slides,
+        userProfile: instagramUser.user['0'],
+        instagramUserID: instagramUser.user.instagramUserID
+      });  
+    })
+    .catch(error => {
+          if (error) {
+            console.log("error fetching instagramUser")
+          };
+      });
+    } 
 
   /**
    * 
@@ -164,9 +164,10 @@ class ListView extends Component {
          stripeData: data
         });
       })
-      .then(() => {
-        this.createGalleryfromFirebase();
-      });
+      // .then(() => {
+      //   this.createGalleryfromFirebase();
+      // });
+   
     }
   
 
@@ -187,7 +188,7 @@ class ListView extends Component {
  * 
  */
 
-  MediaLists = ({ gallery })  => {
+  MediaLists = ({ gallery, ProgressBar})  => {
     gallery = {...this.galleryRef.context.state.gallery};
     // proSubscription = this.state.stripeData.stripe.proSubscription;
     return (
@@ -196,7 +197,7 @@ class ListView extends Component {
         Object.keys(gallery).map((media) => {
             return (             
                 <PhotoContainer 
-                  proSubscription={this.state.stripeData ? this.state.stripeData.proSubscription : ''}
+                  proSubscription={ this.state.stripeData.proSubscription || false}
                   media={gallery[media]} 
                   key={gallery[media].id} 
                   id={gallery[media].id} 
@@ -205,6 +206,7 @@ class ListView extends Component {
                   />
                 );
             })};
+            
           </div>
         );
       };
@@ -232,7 +234,7 @@ class ListView extends Component {
       }} 
       >
       { this.MediaLists(gallery) }  
-     
+      
     </div>
    
     </div>
@@ -240,4 +242,4 @@ class ListView extends Component {
   }
 }
 
-export default withAuthentication(withInstagram(ListView));
+export default withAuthentication(ListView);

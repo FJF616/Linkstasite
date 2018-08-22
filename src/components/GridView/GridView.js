@@ -13,6 +13,7 @@ class GridView extends Component {
     super(props);
     this.state = {
       gallery: [],
+      stripeData: {}
       // userProfile: [],
    
     };
@@ -107,7 +108,7 @@ class GridView extends Component {
         { 
         Object.keys(gallery).map((media) => {
             return <MediaGridComponent 
-                      stripeData={this.state.stripeData}
+                      proSubscription={this.state.stripeData.proSubscription || false}
                       clicksRemaining={this.clicksRemaining}
                       // updateGallery={this.removeGallery} 
                       refresh={this.deleteMedia}

@@ -15,7 +15,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import ShortenLink from '../../util/Bitly';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 // import MediaGridComponent from '../Media/MediaGridComponent';
-// import Bar from '../Graph/Bar'
+import ProgressBar from '../Graph/ProgressBar'
 /**
  * 
  * 
@@ -27,7 +27,8 @@ constructor(props) {
     this.state = { 
         linkPreview: false,
         toggleClear: false,
-        saved: false
+        saved: false,
+        bitlyDataRef:{}
     }
     this.checkFilled = this.checkFilled.bind(this);
     this.handleCopy = this.handleCopy.bind(this);
@@ -138,8 +139,8 @@ constructor(props) {
                saved: true,
                toggleClear: this.state.toggleClear === true ? false : false
         })
-        
-        this.updateRebase()
+        this.getLinkStats();
+        this.updateRebase();
     } else { 
         alert('error updating firebase, please be sure all fields have been filled in properly') 
     } 
@@ -253,7 +254,7 @@ constructor(props) {
     }    
     render() {    
       return (  
-        <div className="cardContainer column">
+        <div className="cardContainer">
           <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
               <div className="card" style={{backgroundColor: 'plum', border: '4px  outset', borderColor: 'pink', height: 405, margin: 25, padding: 10,  width: 700}}>
@@ -274,7 +275,7 @@ constructor(props) {
                                 <button onClick={this.handleClear} className="controls" type="button" disabled={ this.state.mediaData.url ? !this.state.mediaData.url.length : !this.state.mediaData.url } data-tip="Remove affiliate Link" style={{color: 'purple', paddingLeft: '5px', padding: '5px', width: '40px', height: '31px', marginBottom: '16px', marginLeft: '1px' }}><Icon className= "icon" icon={ICONS.UNLINK} color={"red"} size={31} style={{marginTop: '5px'}} /></button>
                                 {/*<button  className="controls" onClick={this.handleEdit} disabled={ !this.state.mediaData.affiliated } type="button" data-tip="Edit title" style={{color: 'purple', padding: '5px', width: '35px', height: '31px', marginBottom: '16px', marginLeft: '2px' }} hint="edit"><Icon className= "icon" icon={ICONS.PENCILSQUARE} color={"green"} size={31} margin={5} /></button>*/}
                                 <button onClick={this.checkFilled} disabled={ (this.state.mediaData.affiliated) || (this.state.pristine || this.state.mediaData.filled ) } className="controls" type="button"  data-tip="Save" style={{color: 'purple', padding: '5px', width: '40px', height: '31px', marginLeft: '2px'}}><i className="fa fa-save"/></button>
-                                <ReactTooltip place="top" type="light" effect="float"/>
+                                {/* <ReactTooltip place="top" type="light" effect="float"/>*/}
                                 <FormGroup>
                                 <FormControlLabel style={{paddingLeft: '1px', marginLeft: '5px', marginRight: '-10px'}}
                                     control={ 
@@ -308,7 +309,11 @@ constructor(props) {
                             </div>
                             : <h5><input style={{width: 395, marginTop: 10, marginLeft: '5px', borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 25}}    onChange={this.handleChange} placeholder="title" type="title" /></h5>
                             }
-                            <br/>
+                            <br/> {
+                                this.props.proSubscription === false  && this.props.clickData < '30'
+                                ? <ProgressBar clicks={this.props.clickData} />
+                                : null
+                                }
                                 {/* if a link has been added to the image, generate a link preview */}
                                 {
                                 this.state.linkPreview && this.state.mediaData.url
@@ -330,11 +335,14 @@ constructor(props) {
                                 >
                                 <h4><b>
                                     { 
-                                        ( (this.state.saved && this.state.mediaData.affiliated ) || this.state.mediaData.clicks === '0' )
+                                        ( (this.state.saved && this.state.mediaData.affiliated ) && (this.props.proSubscription === true && this.state.mediaData.clicks === '0' ))
                                          ? `ᶜˡⁱᶜᵏ ˢᵗᵃᵗˢ ʷⁱˡˡ ᵃᵖᵖᵉᵃʳ ʰᵉʳᵉ` 
-                                            : ( this.props.clickData && typeof Object.keys(this.props.stripeData).length === undefined )
-                                            ? `ᶜˡⁱᶜᵏˢ ʳᵉᵐᵃⁱⁿⁱⁿᵍ: ${'30' - this.state.clickData }`
-                                            :  this.state.clickData 
+                                         :  (this.state.clickData > '30' && this.props.proSubscription === false)
+                                         ? 'click limit has been reached. Please enter a new link or upgrade subscription'     
+                                            : ( this.props.clickData && this.props.proSubscription === false && this.props.clickData < '30' )
+                                            ? `ᶜˡⁱᶜᵏˢ ʳᵉᵐᵃⁱⁿⁱⁿᵍ: ${'30' - this.state.clickData }` 
+                                              
+                                            :    this.state.clickData 
                                             ? `ᵀᵒᵗᵃˡ ᶜˡⁱᶜᵏˢ: ${this.state.clickData}`  
                                             : this.state.toggleClear === true
                                             ?' ᴱⁿᵗᵉʳ ᵃᶠᶠⁱˡⁱᵃᵗᵉ ˡⁱⁿᵏ ᵗᵒ ᵍᵉᵗ ˢᵗᵃᵗˢ'

@@ -16,6 +16,8 @@ import Delay from 'react-delay';
 // import withSubscription from '../Session/withSubscription';
 // import InstagramLogin from '../../util/InstagramLogin';
 // import { InstagramLoginButton } from 'react-social-login-buttons';
+// import  InstagramPhotoPicker  from '../PhotoPicker'
+
 import subscriptionWrapper from '../Session/subscriptionWrapper';
  class SideBar2 extends Component {
     constructor() {
@@ -24,7 +26,9 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
             subscription:'trial'
         }
     }
-
+    // showDialog = () => {
+    //     this.instaDialog.showDialog();
+    //    }
     // fetchProGallery()  {
     //         InstagramLogin.getProGallery().then(proGallery => this.setState({ proGallery }))    
     //     }  
@@ -47,7 +51,7 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
             <StickyBox className="sideBar" style={{ marginLeft: 35, paddingTop: 45, border: '5px outset',  width: 215, borderColor: 'lightpink' }} >
                 <div className="sideItem">              
                     <ul className="sidelist" style={{listStyleType: 'none'}}>
-                        <li ><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"white"}/></Link></li>
+                        <li ><div onClick={this.showDialog}><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"white"}/></Link></div></li>
                         <li ><Link  to={routes.LIST_VIEW}><Icon className="listItem" icon={ICONS.THLIST2} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li  ><Link to={routes.GRID_VIEW}><Icon className="listItem" icon={ICONS.GRID} size={95} mode={"contain"} color={"white"}/></Link></li> 
                     </ul>
@@ -62,11 +66,10 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                             </div>                           
                         </div>
                         </Delay>     
-                        :<a style={{marginLeft: 35, cursor:'pointer'}}>
-                        <Icon   className="listItem" icon={ICONS.REFRESH} size={125} mode={"contain"} color={"white"}/>
-                    </a>
+                        :null
+                        }  
+                       
                         
-                        }               
                     </div>
              </StickyBox>    
             )

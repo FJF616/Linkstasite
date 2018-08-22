@@ -55,7 +55,7 @@ class GraphProvider extends Component {
         }).catch(error => {
             console.log('error fetching graphData', error)
         })
-        
+       
     }
 
    
