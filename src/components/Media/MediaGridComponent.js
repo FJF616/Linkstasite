@@ -124,7 +124,7 @@ render() {
    */
   return (
       <div className='image-grid' >
-        { (( this.props.proSubscription === false || !galleryImage.affiliated || this.state.completed ) && ( galleryImage.url && galleryImage.clicks >= '30' ))
+        { ((this.props.proSubscription === false && galleryImage.clicks === '30') ||  (this.state.completed  &&  galleryImage.url  ))
           ? <div>
               <span className="media-title">{galleryImage.title}</span>
                   <Imager   
@@ -140,14 +140,13 @@ render() {
                           borderColor: 'pink'          //image will no longer have gold border
                         }} 
                       />
-             {/* <ReactTooltip 
+              {/*<ReactTooltip 
                 place="top" 
                 type="light" 
                 effect="float"
-             />*/}
+              /> */}
              </div> 
-      : ( galleryImage.filled || galleryImage.clicks < '30' )
-      
+      : ( galleryImage.filled || galleryImage.clicks < '30' ) 
           /**
            * 
            * 

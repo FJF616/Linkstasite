@@ -36,6 +36,27 @@ async shortenLink(longUrl)  {
                 }
             },
 
+async expandLink(shortUrl) {
+    const BITLY_URL =  `https://api-ssl.bitly.com/v3/expand?access_token=${access_token}&shortUrl=${shortUrl}`;
+    try {
+        let response =  await fetch(BITLY_URL, {
+            method: 'POST', 
+            'content-type': 'UTF-8'
+            
+           });
+            if (response.ok) {   
+                console.log(response);     
+                let bitly  =   await response.json();
+                let longUrl = await bitly.data
+               
+                return longUrl;
+                } 
+                throw new Error('Request failed!');  
+            } catch  (error) {
+                console.log(error);
+                }
+            },
+
 
 async fetchClicks(url)   {
     const BITLY_URL = `https://api-ssl.bitly.com/v3/link/clicks?access_token=${access_token}&link=${url}`;

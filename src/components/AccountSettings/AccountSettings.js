@@ -11,7 +11,17 @@ import Header from '../Header/Header'
    state = {
      userProfile: []
    }
-     
+     handleChange = (e) => {
+       const target =  e.target;
+       const value = target.value;
+       const name = target.name;
+       this.setState ({
+         userProfile: {
+            [name]: value
+         }
+       })
+       
+     }
      componentDidMount() {
        base.syncState('userProfile', {
          context: this,
@@ -59,19 +69,19 @@ import Header from '../Header/Header'
                   <hr />
                   <div className="form-row">
                     <div className="col-sm-12 col-md-6">
-                      <div className="form-group"><label>First name </label><input className="form-control" type="text" name="firstname" /></div>
+                      <div className="form-group"><label>First name </label><input placeholder={this.state.userProfile.firstname} onChange={this.handleChange} className="form-control" type="text" name="firstname" /></div>
                     </div>
                     <div className="col-sm-12 col-md-6">
-                      <div className="form-group"><label>Last name </label><input className="form-control" type="text" name="lastname" /></div>
+                      <div className="form-group"><label>Last name </label><input placeholder={this.state.userProfile.lastname} onChange={this.handleChange} className="form-control" type="text" name="lastname" /></div>
                     </div>
                   </div>
-                  <div className="form-group"><label>Email </label><input className="form-control" type="email" autoComplete="off" required name="email" /></div>
+                  <div className="form-group"><label>Email </label><input placeholder={this.state.userProfile.email} onChange={this.handleChange} className="form-control" type="email" autoComplete="off" required name="email" /></div>
                   <div className="form-row">
                     <div className="col-sm-12 col-md-6">
-                      <div className="form-group"><label>Password </label><input className="form-control" type="password" name="password" autoComplete="off" required /></div>
+                      <div className="form-group"><label>Password </label><input onChange={this.handleChange} className="form-control" type="password" name="password" autoComplete="off" required /></div>
                     </div>
                     <div className="col-sm-12 col-md-6">
-                      <div className="form-group"><label>Confirm Password</label><input className="form-control" type="password" name="confirmpass" autoComplete="off" required /></div>
+                      <div className="form-group"><label>Confirm Password</label><input onChange={this.handleChange} className="form-control" type="password" name="confirmpass" autoComplete="off" required /></div>
                     </div>
                   </div>
                   <hr />

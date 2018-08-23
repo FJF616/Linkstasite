@@ -9,6 +9,7 @@ import SideBar2 from '../SideBar/SideBar2';
 import { base } from '../rebaseConfig/firebase'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
 import withAuthentication from '../Session/withAuthentication'
+import withInstagram from '../Session/withInstagram';
 // import ICONS from '../Icons/constants';
 // import Icon from '../Icons/Icon';
 // import Graph from '../Graph/Graph'
@@ -38,9 +39,6 @@ class ListView extends Component {
     };
   }
 
-
-
-
   /**
  * 
  * 
@@ -53,6 +51,10 @@ class ListView extends Component {
       context: this,
       state: 'gallery'  
     });
+    this.stripeRef = base.syncState('stripe', {
+      context: this,
+      state: 'stripeData'
+    })
   };
 /**
  * 
@@ -72,7 +74,6 @@ class ListView extends Component {
  * check the HOC for anything we can use here before refactoring this component or this method below.
  */
   galleryNotFound() {
-  
     InstagramLogin.getUserMedia('6').then(instagramUser => {
       let newGallery ={};
       const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
@@ -156,17 +157,9 @@ class ListView extends Component {
  */
   componentDidMount() {
     
-    base.fetch('stripe', {
-      context: this,
-    })
-    .then(data => {
-        this.setState({
-         stripeData: data
-        });
-      })
-      // .then(() => {
-      //   this.createGalleryfromFirebase();
-      // });
+   
+        this.createGalleryfromFirebase();
+    
    
     }
   
@@ -213,6 +206,7 @@ class ListView extends Component {
   
    componentWillUnMount() {
     base.removeBinding(this.galleryRef);
+    base.removeBinding(this.stripeRef)
    };
    render() {
    const { gallery } = this.state;
@@ -242,4 +236,4 @@ class ListView extends Component {
   }
 }
 
-export default withAuthentication(ListView);
+export default withAuthentication(withInstagram(ListView));

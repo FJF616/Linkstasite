@@ -21,7 +21,7 @@ import { base } from '../rebaseConfig/firebase';
 import GraphContext from '../Session/GraphContext';
 import GraphProvider from '../Session/GraphProvider';
 import Pie from '../Graph/Pie';
-
+import Line from '../Graph/Line';
 // import SubscriptionProvider from '../Session/SubscriptionProvider';
 // import SubscriptionConsumer from '../Session/SubscriptionProvider';
 // import InstagramImages from '../PhotoPicker/InstagramImages';
@@ -140,14 +140,16 @@ class HomePage extends Component {
               <ul>
                 <li>affiliate link analytics</li>
                 <li>keep track of your most active links</li>
-                <li>data updated in realtime</li>
+                <li>data graphs updated in realtime</li>
+                <li>total amount of clicks shown per link</li>
+                <li>each is link customised without duplicates</li>
                 <li><i>More features to come!</i></li>
               </ul></p></div>
-              <div style={{position: 'relative', display: 'inlineFlex'}}>
+              <div style={{position: 'relative', display: 'inlineBlock'}}>
              
                 
             <Pie data-tip="total clicks per links" graphData={value.graphData} />
-              
+              <Line graphData={value.graphData}/>
             </div>
             </div>
         </div>

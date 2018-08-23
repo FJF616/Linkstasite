@@ -51,9 +51,11 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
             <StickyBox className="sideBar" style={{ marginLeft: 35, paddingTop: 45, border: '5px outset',  width: 215, borderColor: 'lightpink' }} >
                 <div className="sideItem">              
                     <ul className="sidelist" style={{listStyleType: 'none'}}>
-                        <li ><div onClick={this.showDialog}><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"white"}/></Link></div></li>
+                        <li ><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li ><Link  to={routes.LIST_VIEW}><Icon className="listItem" icon={ICONS.THLIST2} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li  ><Link to={routes.GRID_VIEW}><Icon className="listItem" icon={ICONS.GRID} size={95} mode={"contain"} color={"white"}/></Link></li> 
+                        <li  ><Link to={routes.ABOUT}><Icon className="listItem" icon={ICONS.ABOUT} size={95} mode={"contain"} color={"white"}/></Link></li> 
+
                     </ul>
                     {
                         (this.state &&  this.state.subscription === 'trial' )  

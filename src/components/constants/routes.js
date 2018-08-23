@@ -13,5 +13,6 @@ export const BILLING_PAGE = '/billing_page';
 export const LIST_VIEW ='/listview';
 export const PARALLAX = '/parallax';
 export const GUEST_PAGE='/guestpage';
+export const ABOUT='/about';
 // export const GALLERY = '/gallery';
 

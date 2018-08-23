@@ -133,7 +133,7 @@ import subscriptionWrapper from '../Session/subscriptionWrapper'
                             <div  key={url} className='gallery-card'>
                               <GalleryImage className='gallery-thumbnail' key={url}  src={imgUrls[index].src} alt={'Image number ' + (index + 1)} />
       
-                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks < '30' ? imgUrls[index].src : alert('ERROR! There is either no affiliate link is associated with this image or the click limit has been reached ')), imgUrls[index].title, imgUrls[index].url, e)}><p>clicks: {imgUrls[index].clicks}</p></span>
+                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks === '30' ?   alert('ERROR! There is either no affiliate link is associated with this image or the click limit has been reached ') : imgUrls[index].src), imgUrls[index].title, imgUrls[index].url, e)}><p>clicks: {imgUrls[index].clicks}</p></span>
                             </div>
                         </div>
                       })
