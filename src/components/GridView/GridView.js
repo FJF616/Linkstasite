@@ -135,7 +135,7 @@ class GridView extends Component {
       <Header />
        <SideBar2/>
        <div  >
-      
+      <h2><b>Images that have been edited with affiliate links will appear in this gallery.</b></h2>
        {this.MediaLists(this.state.gallery)}
       
        </div>

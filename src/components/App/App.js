@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
 } from 'react-router-dom';
+import About from '../Linkstasite/About';
 import GuestPage from '../GuestPage/GuestPage';
 import NewPara from '../NewPara/NewPara';
 import ListView from '../ListView/ListView';
@@ -25,6 +26,8 @@ const App = () =>
         <Navigation />
           <Route exact path= {routes.GUEST_PAGE} component={() => <GuestPage />} />
           <Route exact path={routes.PARALLAX} component={() => <NewPara />} />
+          <Route exact path= {routes.ABOUT} component={() => <About />} />
+
           <Route exact path={routes.LANDING} component={() => <LandingPage />} />
           <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
           <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />

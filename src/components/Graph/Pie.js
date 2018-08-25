@@ -23,7 +23,7 @@ class Pie extends React.Component {
   for (let i = 0; i < shortLinks.length; i++) {
       newArr.push(BitlyHelper.expandLink(shortLinks[i]))
     }
-   console.log(newArr)
+  
     return newArr
   }  
   getClicks = () => {
@@ -38,7 +38,7 @@ class Pie extends React.Component {
     return clickArr;
   }
   componentDidMount() {
-    this.getLongLinks();
+    console.log(this.getLongLinks());
     
   }
   

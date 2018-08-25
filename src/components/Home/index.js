@@ -28,7 +28,7 @@ import Line from '../Graph/Line';
 // import Delay from 'react-delay';
 // import ShortenLink from '../../util/Bitly';
 // import merge from 'deepmerge';
-
+import InstagramPhotoPicker from 'react-instagram-photo-picker'
 import withInstagram from '../Session/withInstagram';
 class HomePage extends Component {
   constructor(props) {
@@ -109,11 +109,15 @@ class HomePage extends Component {
   }
    
   componentDidMount() {
-    
+   
+    // this.instaDialog.showDialog();
     // this.instaDialog.showDialog();
     db.onceGetUsers().then(snapshot =>
       this.setState(() => ({ users: snapshot.val() }))
     )
+    .then(() => {
+      this.getPro().then(proGallery => this.setState({ proGallery}))
+    })
    
    .catch(err => {
       console.log('user galleries dont exist', err)
@@ -152,6 +156,11 @@ class HomePage extends Component {
               <Line graphData={value.graphData}/>
             </div>
             </div>
+            <InstagramPhotoPicker
+              onPhotosPicked={photos => console.warn(photos)}
+              ref={ref => this.instaDialog = ref}
+              clientId={'0d744e65869b4acc8dde4d6e3c6a58e2'}
+            />
         </div>
       
       }

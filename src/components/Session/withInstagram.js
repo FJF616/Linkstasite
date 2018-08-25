@@ -20,7 +20,7 @@ const withInstagram = (Component)  => {
             proGallery:{},
             userProfile: {},
             accountName: '',
-            paginationUrl:'', 
+            
             firstLogin:'',
             // accessToken:'' ,
             gallery:[]    
@@ -222,7 +222,8 @@ const withInstagram = (Component)  => {
         // });
         
            
-     this.checkFirstLogin();
+     this.checkFirstLogin()
+     this.checkIfPro();
        
     }
        

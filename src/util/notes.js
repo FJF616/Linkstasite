@@ -261,3 +261,9 @@ function isIframe () {
       }
     }
   }
+maxID(gallery) {
+  const keys = Object.keys(gallery);
+  max_id = keys[keys.length - 1]
+  return max_id;
+}
+paginationUrl = 

@@ -105,6 +105,7 @@ class BillingPage extends Component {
         
         <div>
         <Imager style={{marginTop: 25, marginLeft: 100, border: '2px outset', borderColor: 'pink'}} src={`https://wptravelengine.com/wp-content/uploads/edd/2018/02/icon-logo-1-600x440.png`}  width={515} height={380} mode={'fit'} /> 
+        <Imager style={{marginTop: 25, marginLeft: 100, border: '2px outset', borderColor: 'pink'}} src={`https://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/69/19/a8/6919a85c-37e2-28dc-0d7d-4144e2948246/pr_source.png/200x0w.jpg`}  width={515} height={380} mode={'fit'} /> 
 
         </div>
         </div>

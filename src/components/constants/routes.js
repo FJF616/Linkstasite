@@ -14,5 +14,6 @@ export const LIST_VIEW ='/listview';
 export const PARALLAX = '/parallax';
 export const GUEST_PAGE='/guestpage';
 export const ABOUT='/about';
+export const PICS='/pics'
 // export const GALLERY = '/gallery';
 

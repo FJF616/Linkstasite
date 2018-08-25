@@ -10,6 +10,7 @@ import { base } from '../rebaseConfig/firebase'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
 import withAuthentication from '../Session/withAuthentication'
 import withInstagram from '../Session/withInstagram';
+import SwipeToDelete from 'react-swipe-to-delete-component';
 // import ICONS from '../Icons/constants';
 // import Icon from '../Icons/Icon';
 // import Graph from '../Graph/Graph'
@@ -31,14 +32,20 @@ class ListView extends Component {
     super(props);
     this.state = {
       gallery: {},
-      stripeData:{}
+      stripeData:{},
+      proGallery:{}
       // userProfile: [],
       // slides:[],
       // accountName:'loading',
       // listView:''
     };
   }
-
+ loadMore = () => {
+   InstagramLogin.loadMorePhotos(6).then(newPics => {
+    console.log(newPics) 
+    this.setState({  newPics })
+   })
+ }
   /**
  * 
  * 
@@ -54,6 +61,10 @@ class ListView extends Component {
     this.stripeRef = base.syncState('stripe', {
       context: this,
       state: 'stripeData'
+    })
+    this.proGalleryRef = base.syncState('proGallery', {
+      context: this,
+      state: 'proGallery'
     })
   };
 /**
@@ -74,7 +85,7 @@ class ListView extends Component {
  * check the HOC for anything we can use here before refactoring this component or this method below.
  */
   galleryNotFound() {
-    InstagramLogin.getUserMedia('6').then(instagramUser => {
+    InstagramLogin.getUserMedia('20').then(instagramUser => {
       let newGallery ={};
       const newGalleryKeys = Object.keys(instagramUser.gallery).map(key => {
       const newKey  = instagramUser.gallery[key].id;
@@ -105,7 +116,7 @@ class ListView extends Component {
   combineGalleries () {
    
     let newProGallery={};
-    let proGallery = {...this.props.proGallery};
+    let proGallery = {...this.state.proGallery};
     const proGalleryKeys = Object.keys(proGallery).map(key => {
         const newKey = proGallery[key].id;
         newProGallery[newKey] = proGallery[key];
@@ -157,7 +168,7 @@ class ListView extends Component {
  */
   componentDidMount() {
     
-   
+        this.galleryNotFound();
         this.createGalleryfromFirebase();
     
    
@@ -178,17 +189,16 @@ class ListView extends Component {
  * 
  * makes copy of gallery that is synced to state/firebase, and feeds the images to PhotoContainer 
  * this allows the user to edit each instagram image.  
- * 
  */
-
   MediaLists = ({ gallery, ProgressBar})  => {
     gallery = {...this.galleryRef.context.state.gallery};
     // proSubscription = this.state.stripeData.stripe.proSubscription;
     return (
-      <div key={gallery.id} className='list'>
+      <div key={gallery.key} className='list'>
         { 
         Object.keys(gallery).map((media) => {
-            return (             
+            return (     
+                
                 <PhotoContainer 
                   proSubscription={ this.state.stripeData.proSubscription || false}
                   media={gallery[media]} 
@@ -197,16 +207,30 @@ class ListView extends Component {
                   title={gallery[media].title}
                   gallery={this.galleryRef}
                   />
+               
                 );
             })};
             
           </div>
         );
       };
+  //     List = (gallery) => Object.keys(this.state.gallery).map(media => (
+  //       <SwipeToDelete key={this.state.gallery[media].id}>
+  //         <PhotoContainer 
+  //         proSubscription={ this.state.stripeData.proSubscription || false}
+  //         media={this.state.gallery[media]} 
+  //         key={this.state.gallery[media].id} 
+  //         id={this.state.gallery[media].id} 
+  //         title={this.state.gallery[media].title}
+  //         gallery={this.galleryRef}
+  //         />
+  //       </SwipeToDelete>
+  //     ))
   
    componentWillUnMount() {
     base.removeBinding(this.galleryRef);
-    base.removeBinding(this.stripeRef)
+    base.removeBinding(this.stripeRef);
+    base.removeBinding(this.proGalleryRef);
    };
    render() {
    const { gallery } = this.state;
@@ -227,10 +251,12 @@ class ListView extends Component {
         alignContent:'row'
       }} 
       >
-      { this.MediaLists(gallery) }  
-      
+     
+      { this.MediaLists(gallery)}  
+      <h4><b>Links and titles may be added or edited to your images here.</b></h4>
+
     </div>
-   
+
     </div>
     );
   }
