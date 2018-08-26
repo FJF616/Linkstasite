@@ -119,7 +119,17 @@ componentWillUnmount() {
 
 //   this.setState({ gallery: newState });
 // }
-
+updateGallery = (key, id) => {
+  id = this.props.media.id;
+  base
+  .remove(`gallery/${id}`)
+  .then((id) => {
+    alert('media has been permanently deleted', id)
+  })
+  .catch(error =>{
+    console.log('error updating media gallery')
+  })
+}
 deleteMedia = (key, id) => {
   // id = this.state.gallery[key].id
   this.setState(prevState => {
@@ -133,6 +143,8 @@ removeMedia = (key, id) => {
   .remove(`images/${id}`)
   .then((id) => {
     this.deleteMedia(id)
+  }).then((id) => {
+    this.updateGallery(id)
   })
   .catch(error => {
    console.log('error deleting from firebase', error)
