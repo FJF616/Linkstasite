@@ -43,15 +43,6 @@ class GridView extends Component {
     //   this.setState({ gallery });
     // }
     
-    // removeImage(id) {
-    //   const { newState } = this.state;
-    //   const index = newState.gallery.findIndex(media => media.id === id);
-      
-    //   if (index === -1) return;
-    //   newState.gallery.splice(index, 1);
-  
-    //   this.setState({ gallery: newState });
-    // }
    
 
     //  renderMediaList = media =>
@@ -74,6 +65,10 @@ class GridView extends Component {
         })
       }
     })
+    // base.syncState('editedImages', {
+    //   context: this,
+    //   state: 'gallery'
+    // })
   }
   clicksRemaining = (limit) => {
     limit =  limit > '0' ? limit : '100';
@@ -104,20 +99,21 @@ class GridView extends Component {
   MediaLists = ({ gallery, deleteMedia })  => {
     gallery = {...this.galleryRef.context.state.gallery};
     return (
-      <div key={gallery.id} className='list'>
+      <div key={gallery.key} className='list'>
         { 
         Object.keys(gallery).map((media) => {
             return <MediaGridComponent 
                       proSubscription={this.state.stripeData.proSubscription || false}
                       clicksRemaining={this.clicksRemaining}
                       // updateGallery={this.removeGallery} 
-                      refresh={this.deleteMedia}
+                      remove={this.removeImage}
                       media={gallery[media]} 
                       key={gallery[media].id} 
                       id={gallery[media].id} 
                       title={gallery[media].title}
                       gallery={this.galleryRef}
                      />;
+                     
                   })
                }
           </div>
@@ -136,9 +132,9 @@ class GridView extends Component {
        <SideBar2/>
        <div  >
       <h2><b>Images that have been edited with affiliate links will appear in this gallery.</b></h2>
-       {this.MediaLists(this.state.gallery)}
-      
-       </div>
+    
+      {this.MediaLists(this.state.gallery)}
+      </div>
       </div>
     );
   }

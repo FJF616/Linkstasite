@@ -108,7 +108,7 @@ class Header extends React.Component {
           </Row>  
         </Card>
         <InstagramLoginButton style={{marginLeft: 100, paddingTop: 5}} onClick={this.showlink}>
-           <span> <h3><b>{this.state.userProfile.userName}</b></h3></span>
+           <span> <h3><b>{this.state.userProfile.userName} Demo Profile</b></h3></span>
         </InstagramLoginButton>
         {
           this.state.show === true

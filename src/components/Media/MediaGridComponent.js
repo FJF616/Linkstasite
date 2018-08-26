@@ -5,6 +5,10 @@ import Imager from '../Imager/Imager';
 // import Icon from '../Icons/Icon';
 import { base } from '../rebaseConfig/firebase';
 import ReactTooltip from 'react-tooltip';
+import { Button } from 'react-bootstrap';
+import Icon from '../Icons/Icon';
+import ICONS from '../Icons/constants';
+
 // import ProgressBar from '../Graph/ProgressBar';
 // import { withRouter } from 'react-router-dom'
 // import Bar from '../Graph/Bar'
@@ -48,25 +52,42 @@ export default class MediaGridComponent extends Component {
 //     data: { editedImages },
 //   })
 // }
+
+checkAffiliates = () => {
+  base.fetch(`gallery/${this.props.media.id}`, {
+    context: this,
+    then(fetchData) {
+      this.setState({ galleryImage: fetchData })
+     if( fetchData.hasOwnProperty('affiliated') && fetchData.affiliated !== false) {
+        base.post(`images/${this.props.id}`, { data:  fetchData })
+        return
+      } else {
+       console.log('no affiliate link found for this image!')
+      }
+    }
+  })
+}
+
+
 componentWillMount() {
   this.statsRef = base.syncState('stats', {
     context: this,
     state: 'stats'
   });
-  this.galleryRef = base.syncState(`gallery/${this.props.media.id}`, {
-    context: this,
-    state:'galleryImage',
-    // asArray: true
-  });
-  
+  // this.editedRef = base.syncState(`editedGallery/${this.props.id}` ,{ 
+  //   context: this,
+  //   state: 'galleryImage'
+  //  })
   
 };
-
+componentDidMount() {
+  this.checkAffiliates();
+}
 
 
 componentWillUnmount() {
   base.removeBinding(this.statsRef);
-  base.removeBinding(this.galleryRef);
+  // base.removeBinding(this.editedRef);
   // base.removeBinding(this.editedImagesRef);
 }
 
@@ -89,7 +110,34 @@ componentWillUnmount() {
 //   //   }
 //   // })
 // }
+// removeImage = (id) => {
+//   const { newState } = this.state;
+//   const index = newState.findIndex(media => media.id === id);
+  
+//   if (index === -1) return;
+//   newState.splice(index, 1);
 
+//   this.setState({ gallery: newState });
+// }
+
+deleteMedia = (key, id) => {
+  // id = this.state.gallery[key].id
+  this.setState(prevState => {
+    return { galleryImage: Object.keys(prevState.galleryImage).filter(media => media.id !== id) };
+  });
+  // this.updateFb(id)
+};
+removeMedia = (key, id) => {
+  id = this.props.media.id;
+  base
+  .remove(`images/${id}`)
+  .then((id) => {
+    this.deleteMedia(id)
+  })
+  .catch(error => {
+   console.log('error deleting from firebase', error)
+  });
+}
 /**
  * 
  * 
@@ -124,12 +172,13 @@ render() {
    */
   return (
       <div className='image-grid' >
-        { ((this.props.proSubscription === false && galleryImage.clicks === '30') ||  (this.state.completed  &&  galleryImage.url  ))
+      
+        {((  galleryImage.url && galleryImage.clicks === '30') &&  (this.state.completed  &&  galleryImage.url  ))
           ? <div>
               <span className="media-title">{galleryImage.title}</span>
                   <Imager   
                       data-tip="upgrade to pro for unlimited clicks"  //notification that shows when click limit is reached, each time cursor hovers over image
-                      className="mr-3" src={media.src} 
+                      className="mr-3" src={galleryImage.src} 
                       style={{
                           width: '225px', 
                           height: '225px', 
@@ -146,7 +195,7 @@ render() {
                 effect="float"
               /> */}
              </div> 
-      : ( galleryImage.filled || galleryImage.clicks < '30' ) 
+      : ( galleryImage.filled || galleryImage.clicks < '30' ) && ( this.state.galleryImage.id)
           /**
            * 
            * 
@@ -156,9 +205,25 @@ render() {
            * turned on. 
            */
       ?   <div className = "image-grid"  onClick={this.updateClicks}>
-              <span className="media-title">
-                  <h5>{galleryImage.title}</h5> </span>
-                  <a href={galleryImage.url} >
+             
+                  <Button 
+                  // className="remove-btn"
+                  type="button"
+                  style={{width: 35, height: 35,  marginTop: 175, marginLeft: 15, padding: 2, position: 'absolute', backgroundColor: 'transparent'}}
+                  onClick={() =>
+                    this.removeMedia(this.props.media.id)
+                  }
+                >
+                <Icon   
+                  className="trash__icon"  
+                  icon={ICONS.BIN3} 
+                  color={"white"} 
+                  size={85} 
+                />
+                </Button>
+                <span className="media-title">
+                <h5>{galleryImage.title}</h5> </span>
+                <a href={galleryImage.url} >
                   <Imager  
                       data-tip={galleryImage.url} 
                       className="mr-3" 
@@ -174,13 +239,16 @@ render() {
                         }} 
                       />
                   </a>
-             {/*} <ReactTooltip 
+                
+              
+              <ReactTooltip 
                 place="top" 
                 type="light" 
                 effect="float"
-                      /> */}
+                      /> 
           </div>
-      :''
+                    
+      :null
       }
       </div>   
       );

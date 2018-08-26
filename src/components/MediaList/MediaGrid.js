@@ -18,24 +18,29 @@ class MediaGrid extends React.Component {
     constructor() {
     super();
     this.state = {
-    gallery:[],
+    gallery:{},
    }
   }
    componentDidMount() {
-   this.galleryRef =  base.syncState('gallery', {
+   this.galleryRef =  base.syncToState('gallery', {
        context: this,
        state: 'gallery',
-      
+   
      }) 
    }
-  // componentWillUnmount() {
-  //   base.removeBinding(this.galleryRef)
-  // }
-  
+  componentWillUnmount() {
+    base.removeBinding(this.galleryRef)
+  }
+  deleteMedia = (key, id) => {
+    id = this.state.gallery[key].id
+    this.setState(prevState => {
+      return { gallery: prevState.gallery.filter(media => media.id !== id) };
+    });
+  };
   render () {
     const { gallery } = this.state;
     return (
-      <div className='list'>
+      <div className='list' key={gallery.key}>
       { Object.keys(gallery).map((key, id) => {
             return (
                   <div className="delete" key={key}>
@@ -46,9 +51,8 @@ class MediaGrid extends React.Component {
                         type="button"
                         style={{width: 35, height: 35, marginBottom: 115, marginLeft: -85, position: 'relative', backgroundColor: 'transparent'}}
                         onClick={() => {
-                           this.setState(state => ({
-                            gallery: Object.keys(gallery).filter(key => gallery[key].id !== id)
-                          })); 
+                          this.deleteMedia(key, id)
+
                         
                           // this.props.deleteMedia(id)
                         }}

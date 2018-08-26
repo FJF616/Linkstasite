@@ -1,1 +1,13 @@
-@import "~react-vis/dist/style"
+@import "~react-vis/dist/style";
+.ct-series-a .ct-line,
+.ct-series-a .ct-point {
+  stroke: blue;
+  stroke-width:5px;
+}
+
+.ct-series-b .ct-line, 
+.ct-series-b .ct-point,
+.ct-series-h .ct-line {
+  stroke: green;
+  stroke-width: 25px;
+}

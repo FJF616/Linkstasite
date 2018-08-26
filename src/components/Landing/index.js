@@ -66,9 +66,10 @@ import subscriptionWrapper from '../Session/subscriptionWrapper'
       }
     
     componentWillMount() {
-      this.imageRef = base.syncState('imageUrls', {
+      this.imageRef = base.syncState('images', {
         context: this,
-        state: 'image'
+        state: 'image',
+        asArray: true
       })
     
     // componentDidMount() {
@@ -118,7 +119,7 @@ import subscriptionWrapper from '../Session/subscriptionWrapper'
       };
       render() {
          
-          const  imgUrls  =  {...this.state.image} ;
+          const  images  =  {...this.state.image} ;
           return(
             <div className="App" >
               <Header/>
@@ -128,19 +129,19 @@ import subscriptionWrapper from '../Session/subscriptionWrapper'
                   <br/>
                     <div className='row'>
                     {
-                      Object.keys(imgUrls).map((url, index) => {
+                      Object.keys(images).map((url, index) => {
                         return <div className='col-sm-6 col-md-3 col-xl-2'>
                             <div  key={url} className='gallery-card'>
-                              <GalleryImage className='gallery-thumbnail' key={url}  src={imgUrls[index].src} alt={'Image number ' + (index + 1)} />
+                              <GalleryImage className='gallery-thumbnail' key={url}  src={images[index].src} alt={'Image number ' + (index + 1)} />
       
-                              <span className='card-icon-open fa fa-expand' value={imgUrls[index].src} onClick={(e) => this.openModal((imgUrls[index].clicks === '30' ?   alert('ERROR! There is either no affiliate link is associated with this image or the click limit has been reached ') : imgUrls[index].src), imgUrls[index].title, imgUrls[index].url, e)}><p>clicks: {imgUrls[index].clicks}</p></span>
+                              <span className='card-icon-open fa fa-expand' value={images[index].src} onClick={(e) => this.openModal((images[index].clicks === '30' ?   alert('ERROR! There is either no affiliate link is associated with this image or the click limit has been reached ') : images[index].src), images[index].title, images[index].url, e)}><p>clicks: {images[index].clicks}</p></span>
                             </div>
                         </div>
                       })
                     }
                 </div>
       
-              <GalleryModal imgUrls={imgUrls} isOpen={this.state.showModal} onClick={this.closeModal} src={this.state.url} title={this.state.title} link={this.state.link}/> 
+              <GalleryModal images={images} isOpen={this.state.showModal} onClick={this.closeModal} src={this.state.url} title={this.state.title} link={this.state.link}/> 
               
             </div>
           </div>

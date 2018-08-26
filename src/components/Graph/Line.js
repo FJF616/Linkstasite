@@ -50,7 +50,10 @@ class Line extends React.Component {
       labels: dataLabels,
       series: [clickTotals]
     };
- 
+    var lineChartOptions = {
+      low: 0,
+      showArea: true
+    }
     var options = {
       high: Math.max.apply(this, clickTotals),
       low: Math.min.apply(this, clickTotals),
@@ -60,13 +63,14 @@ class Line extends React.Component {
         }, 
       
       }
+      
     };
  
     var type = 'Line'
  
     return (
       <div>
-        <ChartistGraph style={{display: 'flex', marginLeft: 95, marginTop: 30,  padding: 320, height: 580, width: 1080, minHeight: 55, minWidth: 205,border: '3.5px outset', borderColor:'gold'}} className={'ct-octave'} data={data} options={options} type={type} />
+        <ChartistGraph style={{display: 'flex', backgroundColor: 'white', marginLeft: 95, marginTop: 30,  padding: 220, paddingRight: 1000, height: 180, width:430, minHeight: 55, minWidth: 205,border: '3.5px outset', borderColor:'silver'}} className={'ct-series-g ct-line ct-octave'} data={data} options={lineChartOptions} type={type} />
       </div>
     )
   }

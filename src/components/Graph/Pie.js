@@ -18,10 +18,11 @@ class Pie extends React.Component {
       return linkArr;
     }
   getLongLinks = () => {
-   const shortLinks = this.getLinks();
+   const shortLinks=this.getLinks();
    var newArr=[];
   for (let i = 0; i < shortLinks.length; i++) {
-      newArr.push(BitlyHelper.expandLink(shortLinks[i]))
+      let shortlink = shortLinks[i]
+      newArr.push(BitlyHelper.expandLink(shortlink))
     }
   
     return newArr
@@ -39,11 +40,11 @@ class Pie extends React.Component {
   }
   componentDidMount() {
     console.log(this.getLongLinks());
-    
+    console.log(this.getLinks())
   }
   
   render() {
-   
+    
    
     const dataLabels = this.getLinks();
     const clickTotals = this.getClicks();
@@ -51,35 +52,38 @@ class Pie extends React.Component {
       labels: dataLabels,
       series: [clickTotals]
     };
- 
+  
     var options = {
       high: Math.max.apply(this, clickTotals),
       low: 0,
-      strokeWidth: '28px',
+      strokeWidth: '45px',
       axisX: {
         labelInterpolationFnc: function(value, index) {
           return index % 1 === 0 ? value : null;
         }, 
       },
+       
+      
      
     };
     
     var type = 'Bar'
  
     return (
-      <div className="ct-line">
+      <div >
         <ChartistGraph style={{
             display: 'flex', 
             margin: 67, 
             marginLeft: 95, 
             marginTop: 30,  
             height: 480, 
-            width:1080,
-            padding: '450 102 102 320',  
+            width:1230,
+            padding: '450 102 102 0',  
             minHeight: 55, 
             minWidth: 455, 
             border: '3.5px outset',
-            borderColor: 'goldenrod'
+            borderColor: 'silver',
+            backgroundColor: 'white'
           }} 
           responsiveOptions ={[
             ['screen and (max-width: 768px)', {
@@ -87,18 +91,15 @@ class Pie extends React.Component {
               }],
             ]}
        
-          className={'ct-octave'} 
+          className={'ct-series-f ct-line'} 
           data={data} 
           options={options} 
           type={type} 
         > 
       
-        <ChartistAccessibility
-          caption={'Clicks vs Links'}
-          summary={'Realtime analytics for each affiliate link'}
-          seriesHeader={'Total amount of clicks'}
-        />
+      
         </ChartistGraph>
+
       </div>
       
     )

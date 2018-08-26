@@ -5,7 +5,8 @@
     color:white;
     filter: opacity(85%);
     //  cursor: pointer;
-    position: absolute;
+    position: fixed;
+
     background: rgba(42, 3, 61, 0.822);
     // background: -moz-linear-gradient(top, rgba(0,0,0,6.95) 0%, rgba(0,0,0,3.63) 100%); /* FF3.6-15 */
     // background: -webkit-linear-gradient(top, rgba(0,0,0,5.65) 0%,rgba(0,0,0,2.24) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -14,7 +15,7 @@
     width: 100%;
     // margin-left: 2px;
     // padding-left: 4px;
-    overflow: hidden;
+    overflow: scroll-y;
     z-index: 2;
     background-position:baseline;
     background-size: contain;
@@ -23,7 +24,7 @@
     display:inline-block;
     height: 300px;
     vertical-align: baseline;
-    padding-top: 45;
+    padding-top: 545;
   }
   
   // .test-footer:hover {

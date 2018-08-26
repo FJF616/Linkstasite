@@ -46,6 +46,15 @@ class ListView extends Component {
     this.setState({  newPics })
    })
  }
+
+ isEmpty = (obj) =>  {
+  for(var prop in obj) {
+      if(obj.hasOwnProperty(prop))
+          return false;
+  }
+  return JSON.stringify(obj) === JSON.stringify({}); //should return true if empty object
+}   
+
   /**
  * 
  * 
@@ -138,6 +147,7 @@ class ListView extends Component {
 
   createGalleryfromFirebase = async () => {
     const { stripeData } =  this.state;
+     if (this.isEmpty(this.state.gallery)) {
      await base.fetch('gallery', {
       context:this,
       then(data) {
@@ -147,15 +157,15 @@ class ListView extends Component {
         const newKey  = data[key].id;
         newGallery[newKey]= data[key];
         return newGallery;
-    })
+      })
       let updatedGallery = newGalleryKeys['0'];
-     
       Object.keys(stripeData).length !== undefined 
       ? this.combineGalleries()
       :  this.setState({gallery: updatedGallery });
       return updatedGallery;
+      }
+    })
     }
-  })
   }
 
 /**
@@ -167,9 +177,10 @@ class ListView extends Component {
  * comes back as an empty object, then the mediagridcomponent will know to place a click limit on the affiliate link
  */
   componentDidMount() {
-    
+      if (this.isEmpty(this.state.gallery)) {  
         this.galleryNotFound();
         this.createGalleryfromFirebase();
+      }
     
    
     }
@@ -194,7 +205,7 @@ class ListView extends Component {
     gallery = {...this.galleryRef.context.state.gallery};
     // proSubscription = this.state.stripeData.stripe.proSubscription;
     return (
-      <div key={gallery.key} className='list'>
+      <div key={gallery.key} className='list' sytle={{display: 'inlineFlex'}}>
         { 
         Object.keys(gallery).map((media) => {
             return (     
@@ -253,7 +264,7 @@ class ListView extends Component {
       >
      
       { this.MediaLists(gallery)}  
-      <h4><b>Links and titles may be added or edited to your images here.</b></h4>
+      <h4><b>Links and titles may be added to or edited in your images here.</b></h4>
 
     </div>
 

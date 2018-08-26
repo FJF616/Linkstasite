@@ -74,9 +74,13 @@ import { base } from '../rebaseConfig/firebase';
       }
    
     componentWillMount() {
-      this.imageRef = base.syncState('imageUrls', {
+      this.imageRef = base.listenTo('images', {
         context: this,
-        state: 'image'
+        
+        asArray: true,
+        then(data) {
+          this.setState({ image: data})
+        }
       })
       this.profileRef = base.syncState('userProfile', {
         context: this,
@@ -84,21 +88,21 @@ import { base } from '../rebaseConfig/firebase';
       })
     
     }
-    componentDidMount() {
+    // componentDidMount() {
       
-      this.galleryRef = base.listenTo('gallery', {
-        context: this,
-        asArray: true,
-        then(galleryData) {
-          console.log('successfuly fetched image gallery from firebase')
-          this.setState({ image: galleryData })
-        }
-      })
-    }
+    //   this.galleryRef = base.listenTo('gallery', {
+    //     context: this,
+    //     asArray: true,
+    //     then(galleryData) {
+    //       console.log('successfuly fetched image gallery from firebase')
+    //       this.setState({ image: galleryData })
+    //     }
+    //   })
+    // }
 
     componentWillUnmount() {
       base.removeBinding(this.imageRef);
-      base.removeBinding(this.galleryRef)
+      // base.removeBinding(this.galleryRef)
       base.removeBinding(this.profileRef);
     }
 
@@ -156,7 +160,7 @@ import { base } from '../rebaseConfig/firebase';
               
             </div>
           </div>
-          <TestFooter/>
+          <TestFooter />
          
           </div> 
         )
