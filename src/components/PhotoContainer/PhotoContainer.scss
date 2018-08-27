@@ -20,10 +20,12 @@
 }
 .card-container {
     display: flex;
+    flex-flow: column-wrap;
     direction: column;
     padding: 30px;
     position: relative; 
-    
+    position: fixed; 
+    overflow-Y: scroll;
     /* Old browsers */
     // background: -moz-linear-gradient(-45deg, #1e5799 0%, #681062 61%, #f2a982 75%); /* FF3.6-15*/
     // background: -webkit-linear-gradient(-45deg, #1e5799 0%,#681062 61%,#f2a982 55%); /*Chrome10-25,Safari5.1-6 */

@@ -58,8 +58,9 @@ class Line extends React.Component {
       high: Math.max.apply(this, clickTotals),
       low: Math.min.apply(this, clickTotals),
       axisX: {
+        offset: 100,
         labelInterpolationFnc: function(value, index) {
-          return index % 1 === 0 ? value : null;
+          return  index % 2 === 0 ? value : '/\n' + value;  
         }, 
       
       }

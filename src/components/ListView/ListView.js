@@ -10,7 +10,7 @@ import { base } from '../rebaseConfig/firebase'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
 import withAuthentication from '../Session/withAuthentication'
 import withInstagram from '../Session/withInstagram';
-import SwipeToDelete from 'react-swipe-to-delete-component';
+// import SwipeToDelete from 'react-swipe-to-delete-component';
 // import ICONS from '../Icons/constants';
 // import Icon from '../Icons/Icon';
 // import Graph from '../Graph/Graph'
@@ -209,7 +209,6 @@ class ListView extends Component {
         { 
         Object.keys(gallery).map((media) => {
             return (     
-                
                 <PhotoContainer 
                   proSubscription={ this.state.stripeData.proSubscription || false}
                   media={gallery[media]} 
@@ -218,7 +217,6 @@ class ListView extends Component {
                   title={gallery[media].title}
                   gallery={this.galleryRef}
                   />
-               
                 );
             })};
             
@@ -244,30 +242,14 @@ class ListView extends Component {
     base.removeBinding(this.proGalleryRef);
    };
    render() {
-   const { gallery } = this.state;
-   return (
-    <div 
-      className="App" 
-      style={{
-        position: 'fixed', 
-        overflowY: 'scroll'
-      }}
-      >
-    <Header/>
-    <SideBar2 />
-    <div 
-      className="list__view" 
-      style={{
-        display: 'inline-flex', 
-        alignContent:'row'
-      }} 
-      >
-     
-      { this.MediaLists(gallery)}  
-      <h4><b>Links and titles may be added to or edited in your images here.</b></h4>
-
-    </div>
-
+    const { gallery } = this.state;
+    return (
+      <div className="App" style={{position: 'fixed', overflowY: 'scroll'}}>
+      <Header/>
+        <SideBar2 />
+        <div className="list__view" style={{display: 'inlineFlex', alignContent:'row'}}>
+          { this.MediaLists(gallery) }  
+      </div>
     </div>
     );
   }

@@ -5,7 +5,7 @@
     color:white;
     filter: opacity(85%);
     //  cursor: pointer;
-    position: fixed;
+    position: bottom 0;
 
     background: rgba(42, 3, 61, 0.822);
     // background: -moz-linear-gradient(top, rgba(0,0,0,6.95) 0%, rgba(0,0,0,3.63) 100%); /* FF3.6-15 */
@@ -15,16 +15,16 @@
     width: 100%;
     // margin-left: 2px;
     // padding-left: 4px;
-    overflow: scroll-y;
+    // overflow: scroll-y;
     z-index: 2;
     background-position:baseline;
     background-size: contain;
     padding: 10px;
     // margin: 5px 0px 0px 12px;
-    display:inline-block;
+    display:inline-flex;
     height: 300px;
     vertical-align: baseline;
-    padding-top: 545;
+    padding-top: 30;
   }
   
   // .test-footer:hover {

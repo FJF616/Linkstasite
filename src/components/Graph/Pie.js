@@ -57,9 +57,11 @@ class Pie extends React.Component {
       high: Math.max.apply(this, clickTotals),
       low: 0,
       strokeWidth: '45px',
+      seriesBarDistance: 10,
       axisX: {
+        offset: 60,
         labelInterpolationFnc: function(value, index) {
-          return index % 1 === 0 ? value : null;
+          return index % 2 === 0 ? value : '/\n' + value  
         }, 
       },
        

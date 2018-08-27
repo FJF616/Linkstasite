@@ -52,7 +52,12 @@ export default class MediaGridComponent extends Component {
 //     data: { editedImages },
 //   })
 // }
-
+/**
+ * 
+ * 
+ * 
+ * creates a duplicate gallery of only edited images
+ */
 checkAffiliates = () => {
   base.fetch(`gallery/${this.props.media.id}`, {
     context: this,
@@ -62,10 +67,10 @@ checkAffiliates = () => {
         base.post(`images/${this.props.id}`, { data:  fetchData })
         return
       } else {
-       console.log('no affiliate link found for this image!')
+       console.log('no affiliate link found for this image!');
       }
     }
-  })
+  });
 }
 
 
@@ -74,12 +79,8 @@ componentWillMount() {
     context: this,
     state: 'stats'
   });
-  // this.editedRef = base.syncState(`editedGallery/${this.props.id}` ,{ 
-  //   context: this,
-  //   state: 'galleryImage'
-  //  })
-  
 };
+
 componentDidMount() {
   this.checkAffiliates();
 }
@@ -119,24 +120,42 @@ componentWillUnmount() {
 
 //   this.setState({ gallery: newState });
 // }
+/**
+ * 
+ * 
+ * 
+ * Removes image media from main gallery
+ */
 updateGallery = (key, id) => {
   id = this.props.media.id;
-  base
-  .remove(`gallery/${id}`)
-  .then((id) => {
-    alert('media has been permanently deleted', id)
-  })
-  .catch(error =>{
-    console.log('error updating media gallery')
-  })
-}
+  base.remove(`gallery/${id}`)
+    .then((id) => {
+      alert('media has been permanently deleted', id)
+    })
+    .catch(error =>{
+      console.log('error updating media gallery')
+    });
+  }
+/**
+ * 
+ * 
+ * 
+ * removes image media from current gallery 
+ */
 deleteMedia = (key, id) => {
   // id = this.state.gallery[key].id
   this.setState(prevState => {
     return { galleryImage: Object.keys(prevState.galleryImage).filter(media => media.id !== id) };
   });
-  // this.updateFb(id)
 };
+
+/**
+ * 
+ * 
+ * 
+ * permanently Removes image media from state, then from firebase galleries. 
+ */
+
 removeMedia = (key, id) => {
   id = this.props.media.id;
   base

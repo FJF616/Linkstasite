@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from '@material-ui/core';
+// import { Card } from '@material-ui/core';
 import '../App/App.css';
 import withAuthentication from '../Session/withAuthentication';
 
@@ -131,7 +131,7 @@ class GridView extends Component {
       <Header />
        <SideBar2/>
        <div  >
-      <h2><b>Images that have been edited with affiliate links will appear in this gallery.</b></h2>
+      <h2><b>Images that have been edited with affiliate links will appear in this gallery. Deleting an image here will permanently delete it from your gallery. </b></h2>
     
       {this.MediaLists(this.state.gallery)}
       </div>
