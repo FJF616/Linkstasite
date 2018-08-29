@@ -24,7 +24,7 @@ async shortenLink(longUrl)  {
             
            });
             if (response.ok) {   
-                console.log(response);     
+                   
                 let bitly  =   await response.json();
                 let shortUrl = await bitly.data
                
@@ -45,7 +45,7 @@ async expandLink(shortUrl) {
             
            });
             if (response.ok) {   
-                console.log(response);     
+                // console.log(response);     
                 let bitly  =   await response.json();
                 let longUrl = await bitly.data
                
@@ -69,7 +69,7 @@ async fetchClicks(url)   {
             
         });
         if (response.ok) {   
-            console.log(response);     
+            // console.log(response);     
             let bitly  =   await response.json();
             let clicks = await bitly.data;
            

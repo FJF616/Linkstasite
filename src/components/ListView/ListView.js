@@ -257,14 +257,22 @@ class ListView extends Component {
     
     return (
       <div className="App" style={{position: 'fixed', overflowY: 'scroll'}}>
-      <Header/>
-        <SideBar2 />
-        <div className="list__view" style={{display: 'inlineFlex', alignContent:'row'}}>
-          { this.MediaLists(gallery) }  
-       
-
+        <Header/>
+          <SideBar2 />
+          <div style={{padding: 25,}}>
+            <h3>Edit Images</h3>
+              <ul>
+                <li>Add affiliate links to your images</li>
+                <li>Add a short description/title</li>
+                <li>Each link is converted to a bit.ly shortened url</li>
+                <li>Enable link preview to verify your link</li>
+                <li>Unlink the affiliate link and reuse the image at any time</li>
+              </ul>
+          </div>
+          <div className="list__view" style={{display: 'inlineFlex', alignContent:'row'}}>
+            { this.MediaLists(gallery) }  
+        </div>
       </div>
-    </div>
     );
   }
 }

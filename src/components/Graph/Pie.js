@@ -6,7 +6,13 @@ import BitlyHelper from '../../util/BitlyHelper';
 // import ChartistAccessibility from 'react-chartist-plugin-accessibility'
  
 class Pie extends React.Component {
-  state = {}
+  constructor(props){ 
+    super(props);
+    this.state = {
+      shortLinks:[]
+    }
+  }
+
   
   getLinks = () => {
     let linkArr = [];
@@ -15,14 +21,14 @@ class Pie extends React.Component {
       const link = graphData[key].url
       linkArr.push(link)
     }
-      return linkArr;
+    return linkArr;   
     }
   getLongLinks = () => {
    const shortLinks=this.getLinks();
    var newArr=[];
   for (let i = 0; i < shortLinks.length; i++) {
-      let shortlink = shortLinks[i]
-      newArr.push(BitlyHelper.expandLink(shortlink))
+      var shortLink = shortLinks[i]
+      newArr.push(BitlyHelper.expandLink(shortLink))
     }
   
     return newArr
@@ -39,8 +45,8 @@ class Pie extends React.Component {
     return clickArr;
   }
   componentDidMount() {
-    console.log(this.getLongLinks());
-    console.log(this.getLinks())
+   
+  
   }
   
   render() {
@@ -73,6 +79,7 @@ class Pie extends React.Component {
  
     return (
       <div >
+        <h3>All Time Links With Click  Totals</h3>
         <ChartistGraph style={{
             display: 'flex', 
             margin: 67, 

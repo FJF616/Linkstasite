@@ -71,6 +71,7 @@ class Line extends React.Component {
  
     return (
       <div>
+      
         <ChartistGraph style={{display: 'flex', backgroundColor: 'white', marginLeft: 95, marginTop: 30,  padding: 220, paddingRight: 1000, height: 180, width:430, minHeight: 55, minWidth: 205,border: '3.5px outset', borderColor:'silver'}} className={'ct-series-g ct-line ct-octave'} data={data} options={lineChartOptions} type={type} />
       </div>
     )

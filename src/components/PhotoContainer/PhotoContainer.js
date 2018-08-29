@@ -44,10 +44,10 @@ constructor(props) {
  * 
  * get number of clicks for a shortened url
  */
-     getLinkStats = async () => {
+     getLinkStats = async() => {
         let url =  this.state.mediaData.url;
         if (this.state.mediaData.url) {
-            await  Bitlink.fetchClicks(`${url}`).then(clicks => 
+          await  Bitlink.fetchClicks(`${url}`).then(clicks => 
                 this.setState({
                     bitlyDataRef: {
                         clicks: clicks.link_clicks || {},
@@ -57,8 +57,8 @@ constructor(props) {
                     mediaData: {
                         clicks: clicks.link_clicks
                     }
-                }))
-            }
+                }));
+            };
         }
 
 /**
@@ -71,16 +71,16 @@ constructor(props) {
      this.slidesRef =  base.syncState('slides', {
            context: this,
            state: 'slides'
-       })
+       });
        this.galleryRef = base.syncState(`gallery/${this.props.id}`, {
            context: this,
            state: 'mediaData'
-       })
+       });
    
      this.bitlyDataRef = base.syncState(`bitlyData/${this.props.media.id}`, {
          context: this,
          state: 'bitlyDataRef'
-     })
+     });
     }  
 
     toggleClear = () => {
@@ -103,7 +103,7 @@ constructor(props) {
                     console.log('successfully updated gallery from mediaData')
                 }
             }
-        })
+        });
      }
    }
 /**

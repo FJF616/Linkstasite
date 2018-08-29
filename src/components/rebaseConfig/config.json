@@ -1,6 +1,6 @@
 {
     "instagram": {
-        "clientId": "0d744e65869b4acc8dde4d6e3c6a58e2",
+        "clientId": process.env.REACT_APP_INSTAGRAM_CLIENT_ID,
         "clientSecret": process.env.REACT_APP_INSTAGRAM_CLIENT_SECRET,
     },
     "firebase": {
