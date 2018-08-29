@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import ChartistGraph from 'react-chartist';
-import { max } from '../../../node_modules/moment';
+// import { max } from '../../../node_modules/moment';
 import BitlyHelper from '../../util/BitlyHelper';
  
 class Line extends React.Component {
@@ -52,19 +52,19 @@ class Line extends React.Component {
     };
     var lineChartOptions = {
       low: 0,
-      showArea: true
-    }
-    var options = {
+      showArea: true,
+   
+  
       high: Math.max.apply(this, clickTotals),
-      low: Math.min.apply(this, clickTotals),
+      // low: Math.min.apply(this, clickTotals),
       axisX: {
         offset: 100,
         labelInterpolationFnc: function(value, index) {
           return  index % 2 === 0 ? value : '/\n' + value;  
-        }, 
+         
       
       }
-      
+    }
     };
  
     var type = 'Line'

@@ -4,7 +4,7 @@ import { base } from '../rebaseConfig/firebase'
 import { Link } from 'react-router-dom'
 import * as routes from '../constants/routes'
 import { auth } from '../rebaseConfig'
-import ReactTooltip from 'react-tooltip';
+// import ReactTooltip from 'react-tooltip';
 export default class DropDown extends Component {
     state = {
         userProfile: [],

@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import StickyBox from 'react-sticky-box'; 
 import './SideBar.scss'
 import  'bootstrap/dist/css/bootstrap.css';
-import StripeForm from '../PaymentForm/StripeForm';
+// import StripeForm from '../PaymentForm/StripeForm';
 import Icon from '../Icons/Icon'
 import ICONS from '../Icons/constants';
 import * as routes from '../constants/routes';
 import { Link } from 'react-router-dom';
 // import { base } from '../rebaseConfig/firebase';
-import Imager from '../Imager/Imager';
+// import Imager from '../Imager/Imager';
 // import MergeGalleries from '../../util/MergeGalleries';
 // import { url } from 'inspector';
 // import { Blink } from 'react-blink';
-import Delay from 'react-delay';
+// import Delay from 'react-delay';
 // import withSubscription from '../Session/withSubscription';
 // import InstagramLogin from '../../util/InstagramLogin';
 // import { InstagramLoginButton } from 'react-social-login-buttons';
@@ -57,7 +57,7 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                         <li  ><Link to={routes.ABOUT}><Icon className="listItem" icon={ICONS.ABOUT} size={95} mode={"contain"} color={"white"}/></Link></li> 
 
                     </ul>
-                    {
+                    {/*
                         (this.state &&  this.state.subscription === 'trial' )  
                         ? <Delay wait={20}>
                         <div >
@@ -69,7 +69,7 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                         </div>
                         </Delay>     
                         :null
-                        }  
+                    */ }  
                        
                         
                     </div>

@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 import SideBar2 from '../SideBar/SideBar2';
 import withAuthorization from '../Session/withAuthorization';
 // import InstagramLogin from '../../util/InstagramLogin';
-import withInstagram from "../Session/withInstagram";
+// import withInstagram from "../Session/withInstagram";
 import subscriptionWrapper from '../Session/subscriptionWrapper'
 /**
  * 

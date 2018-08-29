@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Plot from '../Graph/Plot';
-import Bar from '../Graph/Bar';
+// import Plot from '../Graph/Plot';
+// import Bar from '../Graph/Bar';
 // import InstagramLogin from '../../util/InstagramLogin';
 // import ProgressBar from '../Graph/ProgressBar';
 // import{ BrowserRouter } from 'react-router-dom';
 // import Header from '../Header/Header';
-import Graph from '../Graph/Graph'
-import MarkSeries from '../Graph/MarkSeries';
+// import Graph from '../Graph/Graph'
+// import MarkSeries from '../Graph/MarkSeries';
 import InstagramLogin from '../../util/InstagramLogin'
 import withAuthorization from '../Session/withAuthorization';
 import  { db } from '../rebaseConfig';
@@ -28,6 +28,8 @@ import Line from '../Graph/Line';
 // import Delay from 'react-delay';
 // import ShortenLink from '../../util/Bitly';
 // import merge from 'deepmerge';
+// import { firebase } from '../rebaseConfig';
+
 import InstagramPhotoPicker from 'react-instagram-photo-picker'
 import withInstagram from '../Session/withInstagram';
 class HomePage extends Component {
@@ -43,6 +45,8 @@ class HomePage extends Component {
     
   }
    componentWillMount() {
+   
+  
     try {
       base.bindToState('imageUrls', {
         context: this,
@@ -101,15 +105,14 @@ class HomePage extends Component {
         this.setState({ userProfile: data })
         const { userProfile } = this.state;
           if (userProfile.hasOwnProperty('proSubscription') || userProfile.proSubscription === true) {
-            this.setState({accountStatus: 'pro'})
-          
+            this.setState({accountStatus: 'pro'})  
           }
-       
     })
   }
    
   componentDidMount() {
    
+  
     // this.instaDialog.showDialog();
     // this.instaDialog.showDialog();
     db.onceGetUsers().then(snapshot =>
@@ -124,7 +127,9 @@ class HomePage extends Component {
     })
   
   }
-  
+  // componentWillUnmount() {
+  //   this.removeListener();
+  // }
    render() {
     // const { users } = this.state;
     return (

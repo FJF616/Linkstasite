@@ -19,13 +19,14 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c231f9f9', endColorstr='#c288fc88',GradientType=1 );
 }
 .card-container {
-    display: flex;
-    flex-flow: column-wrap;
-    direction: column;
+    display: inline-block;
+    flex-flow: column wrap;
+    direction: row;
     padding: 30px;
     position: relative; 
-    position: fixed; 
-    overflow-Y: scroll;
+    
+    // position: fixed; 
+    overflow: scroll-x;
     /* Old browsers */
     // background: -moz-linear-gradient(-45deg, #1e5799 0%, #681062 61%, #f2a982 75%); /* FF3.6-15*/
     // background: -webkit-linear-gradient(-45deg, #1e5799 0%,#681062 61%,#f2a982 55%); /*Chrome10-25,Safari5.1-6 */
@@ -204,4 +205,19 @@
  }
  .stats:hover {
      filter: opacity(85%);
+ }
+@media (min-height: 222px) { 
+ .list__view {
+     display: inline-flex;
+    -webkit-column-count: 2;
+     -moz-column-count: 2;
+          column-count: 2;
+  -webkit-column-width: 200px;
+     -moz-column-width: 200px;
+          column-width: 10px;
+          overflow-y: scroll;
+        
+        
+}
+         
  }

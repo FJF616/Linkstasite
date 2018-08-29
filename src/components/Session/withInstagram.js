@@ -169,14 +169,16 @@ const withInstagram = (Component)  => {
  * 
  */
     isFirstLogin() {
-        try {
-            if(!this.isEmpty(this.state.gallery) && this.isEmpty(this.state.userProfile)) {
-                this.getPro();
-                } else {
-                this.trialGallery();
+        if(this.props.firstLogin) {
+            try {
+                if(!this.isEmpty(this.state.gallery) && this.isEmpty(this.state.userProfile)) {
+                    this.getPro();
+                    } else {
+                    this.trialGallery();
+                    }
+                } catch (error) {
+                    throw Error;
                 }
-            } catch (error) {
-                throw Error;
             }
         }  
 /**
@@ -224,7 +226,7 @@ const withInstagram = (Component)  => {
            
      this.checkFirstLogin()
      this.checkIfPro();
-       
+     this.isFirstLogin();  
     }
        
 
@@ -237,7 +239,7 @@ const withInstagram = (Component)  => {
         return (
             <InstagramContext.Provider  value={this.state} >
                 <InstagramContext.Consumer >
-                 { (value) => <Component {...this.props.children} gallery={value.gallery} paginationUrl={value.paginationUrl} userProfile={value.userProfile}/> }
+                 { (value) => <Component {...this.props.children} gallery={value.gallery}  userProfile={value.userProfile}/> }
                 </InstagramContext.Consumer>
             </InstagramContext.Provider>
         );

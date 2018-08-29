@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { base } from '../components/rebaseConfig/firebase';
-import { keys } from '../../node_modules/mobx';
+// import { keys } from '../../node_modules/mobx';
 
 const redirectURI = `http://localhost:3000/`;
 const client_id = process.env.REACT_APP_INSTAGRAM_CLIENT_ID;
 const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
-const log_out_url = `http://instagram.com/accounts/logout/`;
+// const log_out_url = `http://instagram.com/accounts/logout/`;
 let accessToken;
 const instagramToken = /^(\d+)/gm.test(accessToken);
 let jsonResponse;

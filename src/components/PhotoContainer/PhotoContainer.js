@@ -5,7 +5,7 @@ import Imager from '../Imager/Imager';
 import ICONS from '../Icons/constants';
 import Icon from '../Icons/Icon';
 import MicrolinkCard from 'react-microlink';
-import ReactTooltip from 'react-tooltip';
+// import ReactTooltip from 'react-tooltip';
 import {  base } from '../rebaseConfig/firebase'
 import Bitlink from '../../util/BitlyHelper';
 import UrlError from '../ErrorBoundary/UrlError';
@@ -50,7 +50,7 @@ constructor(props) {
             await  Bitlink.fetchClicks(`${url}`).then(clicks => 
                 this.setState({
                     bitlyDataRef: {
-                        clicks: clicks.link_clicks,
+                        clicks: clicks.link_clicks || {},
                         url: `${url}`
                     },
                     clickData: clicks.link_clicks,
@@ -254,7 +254,7 @@ constructor(props) {
     }    
     render() {    
       return (  
-        <div className="cardContainer">
+        <div className="card-container" style={{display: 'inlineGrid'}}>
           <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
               <div className="card" style={{backgroundColor: 'plum', border: '4px  outset', borderColor: 'pink', height: 405, margin: 25, padding: 10,  width: 700}}>

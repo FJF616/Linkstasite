@@ -10,6 +10,7 @@ import { base } from '../rebaseConfig/firebase'
 import PhotoContainer from '../PhotoContainer/PhotoContainer'
 import withAuthentication from '../Session/withAuthentication'
 import withInstagram from '../Session/withInstagram';
+// import Pagination from 'jw-react-pagination';
 // import SwipeToDelete from 'react-swipe-to-delete-component';
 // import ICONS from '../Icons/constants';
 // import Icon from '../Icons/Icon';
@@ -32,14 +33,24 @@ class ListView extends Component {
     super(props);
     this.state = {
       gallery: {},
+      // pageOfItems:[],
       stripeData:{},
-      proGallery:{}
+      proGallery:{},
       // userProfile: [],
       // slides:[],
       // accountName:'loading',
       // listView:''
+      currentPage: 1
     };
+   
   }
+  handlePageChange = page => {
+    this.setState({
+      currentPage: page
+    });
+  };
+
+
  loadMore = () => {
    InstagramLogin.loadMorePhotos(6).then(newPics => {
     console.log(newPics) 
@@ -201,25 +212,25 @@ class ListView extends Component {
  * makes copy of gallery that is synced to state/firebase, and feeds the images to PhotoContainer 
  * this allows the user to edit each instagram image.  
  */
-  MediaLists = ({ gallery, ProgressBar})  => {
-    gallery = {...this.galleryRef.context.state.gallery};
+  MediaLists = ({ pageOfItems })  => {
+   pageOfItems = {...this.galleryRef.context.state.gallery};
     // proSubscription = this.state.stripeData.stripe.proSubscription;
     return (
-      <div key={gallery.key} className='list' sytle={{display: 'inlineFlex'}}>
+      <div key={pageOfItems.key} className='list' sytle={{display: 'inlineFlex'}}>
         { 
-        Object.keys(gallery).map((media) => {
+        Object.keys(pageOfItems).map((media) => {
             return (     
                 <PhotoContainer 
                   proSubscription={ this.state.stripeData.proSubscription || false}
-                  media={gallery[media]} 
-                  key={gallery[media].id} 
-                  id={gallery[media].id} 
-                  title={gallery[media].title}
+                  media={pageOfItems[media]} 
+                  key={pageOfItems[media].id} 
+                  id={pageOfItems[media].id} 
+                  title={pageOfItems[media].title}
                   gallery={this.galleryRef}
                   />
                 );
             })};
-            
+
           </div>
         );
       };
@@ -243,12 +254,15 @@ class ListView extends Component {
    };
    render() {
     const { gallery } = this.state;
+    
     return (
       <div className="App" style={{position: 'fixed', overflowY: 'scroll'}}>
       <Header/>
         <SideBar2 />
         <div className="list__view" style={{display: 'inlineFlex', alignContent:'row'}}>
           { this.MediaLists(gallery) }  
+       
+
       </div>
     </div>
     );

@@ -1,13 +1,15 @@
 @import "~react-vis/dist/style";
 .ct-series-a .ct-line,
 .ct-series-a .ct-point {
-  stroke: blue;
-  stroke-width:5px;
+  stroke: rgb(85, 38, 238);
+  stroke-width:2px;
 }
-
+.ct-series-f .ct-bar,
 .ct-series-b .ct-line, 
 .ct-series-b .ct-point,
 .ct-series-h .ct-line {
   stroke: green;
-  stroke-width: 25px;
+  stroke-width: 40px;
+  font-weight: 19px;
+  font-size: 20px;
 }

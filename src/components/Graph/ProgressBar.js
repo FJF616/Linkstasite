@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Progress } from 'react-sweet-progress';
 import 'react-sweet-progress/lib/style.css';
-import { base } from '../rebaseConfig/firebase';
+// import { base } from '../rebaseConfig/firebase';
 // import MicrolinkCard from 'react-microlink';
 
 class ProgressBar extends Component {

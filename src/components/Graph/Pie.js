@@ -1,9 +1,9 @@
 import React from 'react';
 // import ReactDOM from 'react-dom';
 import ChartistGraph from 'react-chartist';
-import { max } from '../../../node_modules/moment';
+// import { max } from '../../../node_modules/moment';
 import BitlyHelper from '../../util/BitlyHelper';
-import ChartistAccessibility from 'react-chartist-plugin-accessibility'
+// import ChartistAccessibility from 'react-chartist-plugin-accessibility'
  
 class Pie extends React.Component {
   state = {}
@@ -93,7 +93,7 @@ class Pie extends React.Component {
               }],
             ]}
        
-          className={'ct-series-f ct-line'} 
+          className={'ct-series-f ct-bar'} 
           data={data} 
           options={options} 
           type={type} 
