@@ -67,12 +67,12 @@ class SignInForm extends Component {
       email === '';
 
     return (
-      <div className="App" style={{marginTop: -35, paddingBottom: 65}}>
+      <div className="App" style={{ marginTop: -35, paddingBottom: 65}}>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
       
-      <div className="login-card"><h1>SignIn</h1>
+      <div className="login-card" style={{height: '425px'}}><h1>SignIn</h1>
       
       <p className="profile-name-card"> </p>
         <form className="form-signin" onSubmit={this.onSubmit}>

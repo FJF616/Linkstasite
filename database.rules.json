@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "imgUrls": {
+      ".read": "true",
+        ".write": "auth !== null"
+    },
+    "gallery": {
+      ".read": "true",
+        ".write" : "auth !== null"
+    },
+    "$instagramAccessToken": {
+     
+        ".read": "true",
+        ".write": "auth !== null"
+    },
+    
+  }
+}
