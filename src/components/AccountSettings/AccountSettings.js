@@ -6,6 +6,8 @@ import withAuthorization from '../Session/withAuthorization';
 import SideBar2 from '../SideBar/SideBar2'
 import AvatarEditor from 'react-avatar-editor'
 import Header from '../Header/Header'
+// import PasswordForgetForm from '../PasswordForget/index'
+// import PasswordChangeForm from '../PasswordChange/index'
 
  class AccountSettings extends Component { 
    state = {
@@ -34,6 +36,7 @@ import Header from '../Header/Header'
         {authUser =>
          
           <div className="App" >
+         
           <Header/>
           <SideBar2/>
           <meta charSet="utf-8" />
@@ -93,6 +96,7 @@ import Header from '../Header/Header'
             </form>
           </div>
         </div>
+      
         }
      
         </AuthUserContext.Consumer>

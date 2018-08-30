@@ -98,6 +98,7 @@ class HomePage extends Component {
     })
   }
   getData = async () => {
+    if (!this.state.userProfile) {
     await base.fetch('userProfile', {
       context: this,
     })
@@ -107,7 +108,8 @@ class HomePage extends Component {
           if (userProfile.hasOwnProperty('proSubscription') || userProfile.proSubscription === true) {
             this.setState({accountStatus: 'pro'})  
           }
-    })
+      })
+    }
   }
    
   componentDidMount() {
@@ -119,7 +121,7 @@ class HomePage extends Component {
       this.setState(() => ({ users: snapshot.val() }))
     )
     .then(() => {
-      this.getPro().then(proGallery => this.setState({ proGallery}))
+      this.getData()
     })
    
    .catch(err => {
@@ -147,11 +149,12 @@ class HomePage extends Component {
               <div style={{marginTop: 25}} >
               <p><h1><b>Dashboard</b></h1>
               <ul>
-                <li>affiliate link analytics</li>
-                <li>keep track of your most active links</li>
-                <li>data graphs updated in realtime</li>
-                <li>total amount of clicks shown per link</li>
-                <li>each is link customised without duplicates</li>
+                <li>Affiliate link analytics</li>
+                <li>Keep track of your most active links</li>
+                <li>Data graphs updated in realtime</li>
+                <li>Total amount of clicks shown per link</li>
+                <li>Each is link customised without duplicates</li>
+                <li>Most recent affiliate link is shown for each image in gallery</li>
                 <li><i>More features to come!</i></li>
               </ul></p></div>
               <div style={{position: 'relative', display: 'inlineBlock'}}>

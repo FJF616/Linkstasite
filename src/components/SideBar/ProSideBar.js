@@ -1,53 +1,74 @@
+
+    
+
 import React, { Component } from 'react';
 import StickyBox from 'react-sticky-box'; 
-import './SideBar.scss';
+import './SideBar.scss'
 import  'bootstrap/dist/css/bootstrap.css';
 // import StripeForm from '../PaymentForm/StripeForm';
 import Icon from '../Icons/Icon'
 import ICONS from '../Icons/constants';
 import * as routes from '../constants/routes';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+// import { base } from '../rebaseConfig/firebase';
+// import Imager from '../Imager/Imager';
+// import MergeGalleries from '../../util/MergeGalleries';
+// import { url } from 'inspector';
 // import { Blink } from 'react-blink';
-export default class ProSidBar extends Component {
+// import Delay from 'react-delay';
+// import withSubscription from '../Session/withSubscription';
+// import InstagramLogin from '../../util/InstagramLogin';
+// import { InstagramLoginButton } from 'react-social-login-buttons';
+// import  InstagramPhotoPicker  from '../PhotoPicker'
+
+import subscriptionWrapper from '../Session/subscriptionWrapper';
+ class ProSideBar extends Component {
     constructor() {
         super();
         this.state = {
-        view: ''
+            subscription:'trial'
+        }
     }
-    this.gridView.bind(this);
-    this.listView.bind(this);
-}
-    listView() {
-        this.setState({
-            view: 'listView'
-        })
+    // showDialog = () => {
+    //     this.instaDialog.showDialog();
+    //    }
+    // fetchProGallery()  {
+    //         InstagramLogin.getProGallery().then(proGallery => this.setState({ proGallery }))    
+    //     }  
+    /***
+     * 
+     * check account status and set state to pro if stripe payment info is found
+     */
+      checkStatus = async () => {
+        const { stripeData } = this.props;
+        const proStatus =  await ((stripeData || {}).stripe || {}).proSubscription;
+        this.setState({ subscription: proStatus ? 'pro' : 'trial' }) 
     }
-
-    gridView() {
-        this.setState({
-            view: 'gridView'
-        })
+      
+    componentDidMount() {
+        this.checkStatus()
+       
     }
-
     render(){
       return(
-         
-            <StickyBox className="sideBar" style={{  paddingTop: 45, border: '5px outset',  width: 215, borderColor: 'lightpink' }} >
-                <div className="sideItem">
+            <StickyBox className="sideBar" style={{ marginLeft: 35, paddingTop: 45, border: '5px outset',  width: 215, borderColor: 'lightpink' }} >
+                
+
+                    <div className="sideItem">    
+                    <h6 style={{color: 'aliceblue', position: 'top'}}><b> You may Purchase a proscubscription through Stripe checkout or save your payment info for automatic payments</b></h6><br/><br/>
                     <ul className="sidelist" style={{listStyleType: 'none'}}>
                         <li ><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"white"}/></Link></li>
-                        <li><Link to={routes.BILLING_PAGE}><Icon className="listItem" icon={ICONS.CREDITCARD} size={95} mode={"contain"} color={"white"} /></Link></li>
-                        <li><Link to={routes.ACCOUNT}><Icon className="listItem" icon={ICONS.SETTINGS} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li ><Link  to={routes.LIST_VIEW}><Icon className="listItem" icon={ICONS.THLIST2} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li  ><Link to={routes.GRID_VIEW}><Icon className="listItem" icon={ICONS.GRID} size={95} mode={"contain"} color={"white"}/></Link></li> 
-                       {/* <li><a href="https://instagram.com/accounts/logout/" width="0" height="0" title="logout" >Logout of Instagram</a></li>*/}
-                    </ul>
-                    <br/>
-                    <h6> You may Purchase a proscubscription through Stripe checkout or save your payment info for automatic payments</h6>
+                        <li  ><Link to={routes.ABOUT}><Icon className="listItem" icon={ICONS.ABOUT} size={95} mode={"contain"} color={"white"}/></Link></li> 
 
-                </div>
-            </StickyBox>
-          
-      );
+                    </ul>
+
+                       
+                        
+                    </div>
+             </StickyBox>    
+            )
+        }
     }
-}
+export default subscriptionWrapper(ProSideBar);

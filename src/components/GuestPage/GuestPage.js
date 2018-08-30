@@ -4,7 +4,7 @@ import HeaderNonAuth from '../Header/HeaderNonAuth';
 import MicrolinkCard from 'react-microlink';
 import AvatarEditor from 'react-avatar-editor';
 import {withRouter} from 'react-router-dom';
-
+import withAuthentication from '../Session/withAuthentication'
 import { base } from '../rebaseConfig/firebase';
 
 /**
@@ -186,4 +186,4 @@ import { base } from '../rebaseConfig/firebase';
        })
       };
   }
-export default withRouter(GuestPage);
+export default GuestPage;

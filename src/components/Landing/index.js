@@ -125,7 +125,12 @@ import subscriptionWrapper from '../Session/subscriptionWrapper'
               <Header/>
               <SideBar2/>
                 <div refs='gallery-container' className='container-fluid gallery-container'>
-                  <h3><b>Instagram Gallery With Affiliate Links and Click Stats</b></h3>
+                  <h3><b>LinkstaSite gallery and Click Stats</b></h3>
+                  <ul>
+                  <li>Hover over image to see how many clicks each active link has</li>
+                  <li>This is exactly how the final gallery will look to your guest</li>
+                  <li>Each link is clickable through the title you provide to each image</li>
+                  </ul>
                   <br/>
                     <div className='row'>
                     {

@@ -131,7 +131,15 @@ class GridView extends Component {
       <Header />
        <SideBar2/>
        <div  >
-      <h2><b>Images that have been edited with affiliate links will appear in this gallery. Deleting an image here will permanently delete it from your gallery. </b></h2>
+      <h3><b>Image Gallery</b></h3>
+      <ul>
+      <li>Images with affiliate links and titles will appear in this gallery</li>
+      <li><b>Deleting images will permanently remove the image from gallery</b></li>
+      <li>You may test each affiliate link</li>
+      <li>You may unlink and reuse images at anytime in edit mode</li>
+      <li>Trial Subscriptions are limited to 100 clicks per affiliate link and 6 images max.</li>
+      <li>Pro Subscritpitons have unlimited clicks per link and may access 20 images max.</li>
+      </ul>
     
       {this.MediaLists(this.state.gallery)}
       </div>

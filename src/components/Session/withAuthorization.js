@@ -4,6 +4,7 @@ import AuthUserContext from './AuthUserContext';
 // import InstagramLogin from '../../util/InstagramLogin';
 import { firebase } from '../rebaseConfig';
 import * as routes from '../constants/routes';
+import HeaderNonAuth from '../Header/HeaderNonAuth'
 // import InstagramConsumer from '../Session/InstagramProvider'
 const withAuthorization = (condition) => (Component) => {
   class WithAuthorization extends React.Component {
@@ -22,7 +23,7 @@ const withAuthorization = (condition) => (Component) => {
           {authUser => authUser 
     
                   ? <Component />
-                  :  null}
+                  : <HeaderNonAuth/>}
            
         </AuthUserContext.Consumer>
       );

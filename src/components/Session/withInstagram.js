@@ -3,6 +3,7 @@ import InstagramContext from './InstagramContext';
 import InstagramLogin from '../../util/InstagramLogin';
 import { base } from '../rebaseConfig/firebase';
 import { withRouter } from 'react-router-dom';
+// import { extendObservableObjectWithProperties } from '../../../node_modules/mobx/lib/internal';
 
 /**
  * 
@@ -31,7 +32,18 @@ const withInstagram = (Component)  => {
  * checks for empty objects
  */
 
-
+getData = async () => {
+    await base.fetch('userProfile', {
+      context: this,
+    })
+    .then((data) => {
+        this.setState({ userProfile: data })
+        const { userProfile } = this.state;
+          if (userProfile.hasOwnProperty('proSubscription') || userProfile.proSubscription === true) {
+            this.setState({accountStatus: 'pro'})  
+          }
+    })
+  }
 
     isEmpty = (obj) =>  {
         for(var prop in obj) {
@@ -99,7 +111,7 @@ const withInstagram = (Component)  => {
                 paginationUrl: images.pagination
                   ? images.pagination.next_url
                   : null,
-              });
+              })
             })
             .catch((error) => {
               console.error(error);
@@ -110,27 +122,40 @@ const withInstagram = (Component)  => {
     
     checkIfNeedToDownload = () => {
         if ( this.isEmpty(this.state.userProfile) ||  Object.keys(this.state.userProfile.length === undefined)) {
-          this.setState({ isDownloadingImages: true });
-          InstagramLogin.getUserMedia(6)
-            .then((instagramUser) =>
-              this.setState({
-                instagramUser,
-                gallery: instagramUser.user.gallery,
-                userProfile: instagramUser.user,
-                accountName: instagramUser.user.userName,
-                isDownloadingImages: false,
-                accessToken: instagramUser.user.accessToken,
-                paginationUrl: instagramUser.user.pagination
-                  ? instagramUser.user.pagination.next_url
-                  : null,
-              }))
-            .catch((error) => {
-              console.error(error);
-              this.setState({ isDownloadingImages: false });
-            });
-        }
-        else return
-      };
+          try {
+              base.fetch('userProfile', {
+                  context: this,
+                  state: 'userProfile',
+                })
+                .then(userProfile => {
+                  if (Object.keys(userProfile).length) {
+                      this.setState({ userProfile })
+                    } else {
+                        this.setState({ isDownloadingImages: true });
+                        InstagramLogin.getUserMedia(6)
+                            .then((instagramUser) =>
+                              this.setState({
+                                instagramUser,
+                                gallery: instagramUser.user.gallery,
+                                userProfile: instagramUser.user,
+                                accountName: instagramUser.user.userName,
+                                isDownloadingImages: false,
+                                accessToken: instagramUser.user.accessToken,
+                                paginationUrl: instagramUser.user.pagination
+                                ? instagramUser.user.pagination.next_url
+                                : null,
+                            }))
+                            .catch((error) => {
+                              console.error(error);
+                              this.setState({ isDownloadingImages: false });
+                            }); 
+                        }
+                    })
+                } catch (error) {
+                    throw Error
+                };
+            }
+        } 
 
     /**
      * 
@@ -169,16 +194,18 @@ const withInstagram = (Component)  => {
  * 
  */
     isFirstLogin() {
-        if(this.props.firstLogin) {
+       
             try {
-                if(!this.isEmpty(this.state.gallery) && this.isEmpty(this.state.userProfile)) {
-                    this.getPro();
-                    } else {
-                    this.trialGallery();
+                if(this.isEmpty(this.state.userProfile)) {
+                    this.getData();
                     }
+                if(!this.isEmpty(this.state.gallery) && !this.isEmpty(this.state.userProfile)) {
+                    this.getPro();
+                    }
+               
                 } catch (error) {
                     throw Error;
-                }
+                
             }
         }  
 /**
@@ -224,8 +251,8 @@ const withInstagram = (Component)  => {
         // });
         
            
-     this.checkFirstLogin()
-     this.checkIfPro();
+    //  this.checkFirstLogin()
+    //  this.checkIfPro();
      this.isFirstLogin();  
     }
        

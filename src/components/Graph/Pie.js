@@ -79,7 +79,7 @@ class Pie extends React.Component {
  
     return (
       <div >
-        <h3>All Time Links With Click  Totals</h3>
+        <h3><b>  All Time Links With Click  Totals</b></h3>
         <ChartistGraph style={{
             display: 'flex', 
             margin: 67, 

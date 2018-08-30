@@ -16,9 +16,9 @@ class WithSubscriptionProvider extends React.Component {
     }
     checkSub = async () => {
             try{
-                const { stripe } = this.state;
-                if ( stripe ) {
-                    stripe.hasOwnProperty('proSubscription' ) 
+                const { stripeData } = this.props;
+                if ( stripeData ) {
+                    stripeData.hasOwnProperty('proSubscription' ) 
                     ? base.post('subscription', {
                         data: { status: 'pro' },
                         then(err) {
@@ -67,17 +67,17 @@ class WithSubscriptionProvider extends React.Component {
             state:'stripe'
     
     })
-        if (!this.state.subscription) {
-           base.fetch('subscription', {
-              context: this,
-              then(data) {
-                  if( data.length ) {
-                  this.setState({ subscription: data });
-              }
-            }
-          })
+    //     if (!this.state.subscription) {
+    //        base.fetch('subscription', {
+    //           context: this,
+    //           then(data) {
+    //               if( data.length ) {
+    //               this.setState({ subscription: data });
+    //           }
+    //         }
+    //       })
    
-    }
+    // }
 }
    
     componentWillUnmount() {

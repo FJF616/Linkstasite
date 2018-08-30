@@ -1,4 +1,4 @@
-
+import storage from './firebase';
 
 fileButton.addEventListener('change', function(e){ 
     //Get files
@@ -10,9 +10,10 @@ fileButton.addEventListener('change', function(e){
 });
 
 //Handle waiting to upload each file using promise
+
 function uploadImageAsPromise (imageFile) {
     return new Promise(function (resolve, reject) {
-        var storageRef = firebase.storage().ref(fullDirectory+"/"+imageFile.name);
+        var storageRef = storage.ref('uploadedFiles');
 
         //Upload file
         var task = storageRef.put(imageFile);

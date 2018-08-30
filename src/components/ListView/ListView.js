@@ -260,7 +260,7 @@ class ListView extends Component {
         <Header/>
           <SideBar2 />
           <div style={{padding: 25,}}>
-            <h3>Edit Images</h3>
+            <h3><b>Edit Images</b></h3>
               <ul>
                 <li>Add affiliate links to your images</li>
                 <li>Add a short description/title</li>

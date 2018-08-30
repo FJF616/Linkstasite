@@ -14,9 +14,9 @@ export default class InstagramProvider extends React.Component {
     constructor() {
         super();
         this.state = {
-            trialGallery: {},
-            proGallery:{},
-            userProfile: {},
+            // trialGallery: {},
+            // proGallery:{},
+            // userProfile: {},
             accountName: '', 
             firstLogin: true     
         };

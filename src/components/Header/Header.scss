@@ -1,6 +1,8 @@
 .header {
+
   display:flex;
   box-sizing: border-box;
+
   // background-color: #bf45f0 40%;
    background: -moz-linear-gradient(-45deg, #1e5799 0%, #681062 61%, #f2a982 75%); /* FF3.6-15*/
     background: -webkit-linear-gradient(-45deg, #1e5799 0%,#681062 61%,#f2a982 55%); /*Chrome10-25,Safari5.1-6 */
@@ -59,11 +61,11 @@
 .showHide { display:none; }
 
 /* Desktop*/
-@media screen and (min-width: 1150px) {
+@media screen and (min-width: 990px) {
   .showHide  { display: block; }
   #rightside > ul  { display: none; }
 }
-  @media screen and ( max-width: 1867px) {
+  @media screen and ( max-width: 1767px) {
     .showHide { display: none; }
   #leftside > div { display: none; }
 }

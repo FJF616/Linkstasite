@@ -36,7 +36,7 @@ class Header extends React.Component {
     userProfile: [],
     subscriptionData: {},
     proSubscription: false,
-    galleryLink: 'https://ff47ae7f.ngrok.io/guestpage',
+    galleryLink: '',
     show: false
     // anchorEl: null,
   }
@@ -47,7 +47,10 @@ class Header extends React.Component {
           state: 'stripe',
             then(subscriptionData) {
             if(subscriptionData !== null) {
-                this.setState({ subscriptionData })
+                this.setState({ 
+                  subscriptionData,
+                  proSubscription: true  
+                })
             } else {
               console.log('failed to get subscription status')
             }
@@ -108,7 +111,7 @@ class Header extends React.Component {
           </Row>  
         </Card>
         <InstagramLoginButton style={{marginLeft: 100, paddingTop: 5}} onClick={this.showlink}>
-           <span> <h3><b>{this.state.userProfile.userName} Demo Profile</b></h3></span>
+           <span  ><h3><b>{this.state.userProfile.userName} Demo Profile</b></h3></span>
         </InstagramLoginButton>
         {
           this.state.show === true
