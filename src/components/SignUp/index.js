@@ -80,7 +80,7 @@ const SignUpPage = ({ history }) =>
         email === '';
   
       return (
-        <div className="App" style={{paddingBottom: 331}}>
+        <div className="App" >
         <form onSubmit={this.onSubmit}>
         <p><h1>Sign Up</h1></p>
           <input
@@ -113,7 +113,7 @@ const SignUpPage = ({ history }) =>
         
           { error && <p>{error.message}</p> }
         </form>
-        <div style={{ paddingTop: 425, position: 'absolute', width: '100%'}}>
+        <div style={{display: 'inlineBlock',  position: 'absolute', marginTop: 330, width: '100%' }}>
           <TestFooter/>
           </div>
         </div>

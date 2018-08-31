@@ -58,7 +58,8 @@ componentDidMount() {
         <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95,}} className="navbar navbar-expand-lg  fixed-top">
         <div style={{display: 'inlineFlex', marginTop: 15}}>
         <h4 className="banner" style={{ color: 'white', marginLeft: 10, marginRight: 20 }}>🅻🅸🅽🅺🆂🆃🅰🆂🅸🆃🅴</h4> 
-        <p className="links_c" style={{marginLeft: 15}}><Link to={routes.HOME} style={{color: 'skyblue'}}>Home</Link><strong> · </strong><Link to={routes.PARALLAX} style={{color: 'aquamarine'}}>Blog</Link><strong> · </strong><Link to={routes.ABOUT} style={{color: 'skyblue'}}>About</Link></p>
+        <p className="links_c" style={{marginLeft: 15 }}><Link to={routes.HOME} style={{color: 'skyblue'}}>Home</Link><strong> · </strong><Link to={routes.PARALLAX} style={{color: 'aquamarine'}}>Blog</Link><strong> · </strong><Link to={routes.ABOUT} style={{color: 'skyblue'}}>About</Link>
+        {!this.props.userProfile || !this.state.instagramUserID ?  <div><strong> · </strong><Link to={routes.SIGN_IN} style={{color: 'skyblue'}}>Log In</Link></div> : ''}</p>
         </div>
         {this.props.userProfile.proSubscription &&
          <Link to={ routes.HOME } id="leftside">
