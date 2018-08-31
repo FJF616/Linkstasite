@@ -299,12 +299,12 @@ constructor(props) {
                     <div className="media-body">
                     { 
                     this.state.mediaData.filled  ? 
-                        <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}> <h3><b>{this.state.mediaData.title}</b></h3>  
+                        <div className="media_title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}> <h3><b>{this.state.mediaData.title}</b></h3>  
                             </div>
                             : !this.state.mediaData.filled && !this.state.mediaData.edited && this.state.mediaData.editing ?
                             <h5><input style={{width: 395, marginTop: 10, marginLeft: '5px', borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 25}}    value={this.state.mediaData.title} onChange={this.handleChange} placeholder="title" type="title" /></h5>
                             :  this.state.mediaData.affiliated || this.state.mediaData.title
-                            ? <div className="title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
+                            ? <div className="media_title" style={{color: 'Blue', marginTop: 10, marginLeft: 10}}>
                             <h3><b>{this.state.mediaData.title}</b></h3>  
                             </div>
                             : <h5><input style={{width: 395, marginTop: 10, marginLeft: '5px', borderRadius: '6%', color: 'Blue',  boxShadow: '0 3px 2px 0 hsla(0, 5%, 5%, .75)', paddingLeft: 25}}    onChange={this.handleChange} placeholder="title" type="title" /></h5>

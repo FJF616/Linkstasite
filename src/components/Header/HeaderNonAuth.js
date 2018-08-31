@@ -56,10 +56,11 @@ componentDidMount() {
       <div className="header" style={{marginBottom:-70}}>
    
         <nav style={{backgroundColor: 'rgba(86, 59, 136, 95%)', height: 95,}} className="navbar navbar-expand-lg  fixed-top">
-        <h4 className="banner" style={{ color: 'skyblue', marginLeft: 65 }}>🅻🅸🅽🅺🆂🆃🅰🆂🅸🆃🅴</h4>
+        <h4 className="banner" style={{ color: 'white', marginLeft: 10, marginRight: 20 }}>🅻🅸🅽🅺🆂🆃🅰🆂🅸🆃🅴</h4> 
+        <p className="links_c" ><Link to={routes.HOME} style={{color: 'skyblue'}}>Home</Link><strong> · </strong><Link to={routes.PARALLAX} style={{color: 'aquamarine'}}>Blog</Link><strong> · </strong><a >Pricing</a><strong> · </strong><Link to={routes.ABOUT} style={{color: 'aquamarine'}}>About</Link><strong> · </strong><a >Faq</a><strong> · </strong><a style={{color: 'aquamarine'}}>Contact</a></p>
         {this.props.userProfile.proSubscription &&
          <Link to={ routes.HOME }>
-           <InstagramLoginButton style={{marginLeft: 70, marginBottom: 25}}>
+           <InstagramLoginButton style={{marginLeft: 70, marginBottom: 25, marginTop: 20}}>
              <span><h3><b>Linkstasite Demo Profile</b></h3></span>
            </InstagramLoginButton></Link>
          }
