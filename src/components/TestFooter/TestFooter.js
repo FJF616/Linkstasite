@@ -9,7 +9,7 @@ const TestFooter = () => {
             <span style={{marginTop: 65}}>
                 <p><h4><b><Link to={routes.HOME} style={{color: 'white', marginLeft: 15}} >🅻🅸🅽🅺🆂🆃🅰🆂🅸🆃🅴</Link></b></h4></p>
                 <div className="col-sm-6 col-md-4 footer-navigation">
-                <p className="links_c" ><Link to={routes.HOME} style={{color: 'skyblue'}}>Home</Link><strong> · </strong><Link to={routes.PARALLAX} style={{color: 'aquamarine'}}>Blog</Link><strong> · </strong><a >Pricing</a><strong> · </strong><Link to={routes.ABOUT} style={{color: 'aquamarine'}}>About</Link><strong> · </strong><a >Faq</a><strong> · </strong><a style={{color: 'aquamarine'}}>Contact</a></p>
+                <p className="links_c" ><Link to={routes.HOME} style={{color: 'skyblue'}}>Home</Link><strong> · </strong><Link to={routes.PARALLAX} style={{color: 'aquamarine'}}>Blog</Link><strong> · </strong><Link to={routes.ABOUT} style={{color: 'aquamarine'}}>About</Link></p>
                 <p className="company-name">LinkstaSite © 2018</p>
             </div>
                 <div className="col-md-4 footer-about">

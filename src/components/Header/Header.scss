@@ -65,7 +65,7 @@
   .showHide  { display: block; }
   #rightside > ul  { display: none; }
 }
-  @media screen and ( max-width: 1767px) {
+  @media screen and ( max-width: 1200px) {
     .showHide { display: none; }
   #leftside > div { display: none; }
 }

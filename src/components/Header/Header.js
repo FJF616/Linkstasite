@@ -110,7 +110,7 @@ class Header extends React.Component {
               </Col>            
           </Row>  
         </Card>
-        <InstagramLoginButton style={{marginLeft: 100, paddingTop: 5}} onClick={this.showlink}>
+        <InstagramLoginButton style={{marginLeft: 95, paddingTop: 5, marginTop: 18}} id="leftside" onClick={this.showlink}>
            <span  ><h3><b>{this.state.userProfile.userName} Demo Profile</b></h3></span>
         </InstagramLoginButton>
         {
