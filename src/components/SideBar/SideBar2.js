@@ -7,6 +7,7 @@ import Icon from '../Icons/Icon'
 import ICONS from '../Icons/constants';
 import * as routes from '../constants/routes';
 import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 // import { base } from '../rebaseConfig/firebase';
 // import Imager from '../Imager/Imager';
 // import MergeGalleries from '../../util/MergeGalleries';
@@ -52,10 +53,12 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                 <div className="sideItem">              
                     <ul className="sidelist" style={{listStyleType: 'none'}}>
                         
-                        <li ><Link  to={routes.LIST_VIEW}><Icon className="listItem" icon={ICONS.THLIST2} size={95} mode={"contain"} color={"white"}/></Link></li>
-                        <li  ><Link to={routes.GRID_VIEW}><Icon className="listItem" icon={ICONS.GRID} size={95} mode={"contain"} color={"white"}/></Link></li> 
-                        <li ><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={85} mode={"contain"} color={"white"}/></Link></li>
-                        <li  ><Link to={routes.ABOUT}><Icon className="listItem" icon={ICONS.ABOUT} size={95} mode={"contain"} color={"white"}/></Link></li> 
+                        <li ><Link data-tip="edit images" to={routes.LIST_VIEW}><Icon  className="listItem" icon={ICONS.THLIST2} size={95} mode={"contain"} color={"white"}/></Link></li>
+                        <li  ><Link data-tip="administrative view" to={routes.GRID_VIEW}><Icon  aclassName="listItem" icon={ICONS.GRID} size={95} mode={"contain"} color={"white"}/></Link></li> 
+                        <li ><Link data-tip="preview & clickstats" to={routes.LANDING} ><Icon   className="listItem" icon={ICONS.INSTAGRAM} size={85} mode={"contain"} color={"white"}/></Link></li>
+                        <li  ><Link data-tip="about" to={routes.ABOUT}><Icon  className="listItem" icon={ICONS.ABOUT} size={95} mode={"contain"} color={"white"}/></Link></li> 
+                     
+
                     </ul>
                     {/*
                         (this.state &&  this.state.subscription === 'trial' )  

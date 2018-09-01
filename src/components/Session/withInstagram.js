@@ -251,7 +251,7 @@ getData = async () => {
         // });
         
            
-    //  this.checkFirstLogin()
+     this.checkFirstLogin()
     //  this.checkIfPro();
      this.isFirstLogin();  
     }
@@ -266,7 +266,7 @@ getData = async () => {
         return (
             <InstagramContext.Provider  value={this.state} >
                 <InstagramContext.Consumer >
-                 { (value) => <Component {...this.props.children} gallery={value.gallery}  userProfile={value.userProfile}/> }
+                 { (value) => <Component {...this.props.children} gallery={value.gallery}  proGallery={value.proGallery} userProfile={value.userProfile}/> }
                 </InstagramContext.Consumer>
             </InstagramContext.Provider>
         );

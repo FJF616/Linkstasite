@@ -188,20 +188,24 @@ body {
    background:black; 
    background-image: url('../images/rawpixel-597450-unsplash.jpg'); 
    background-repeat: no-repeat; 
-  background-size: contain; 
+  background-size: cover; 
    background-position: center; 
 
  } 
 
  #group7 {
+   background: rgb(127, 6, 163);
+   filter: opacity(76%);
    z-index:3;
  }
 
 #group7 .scroll-level-base { 
-  background:rgb(111, 52, 138);
+  background:rgb(12, 228, 228);
+  filter: opacity(85%);
   background-image: url('../images/linkstasite2.png');
   background-repeat: no-repeat;
-  background-size: small; 
+  background-size: cover; 
   background-position: center;
-} 
+ 
+}
   

@@ -12,10 +12,12 @@
 }
 
 .trash__icon {
+  margin-right: 10;
   display: flex;
   z-index: 2;
 }
 .trash__icon:hover {
+  
   position: relative;
   display: flex;
   z-index: 2;

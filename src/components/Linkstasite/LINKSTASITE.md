@@ -1,13 +1,26 @@
-﻿# LinkstaSite
-####  Add affiliate links to your Instagram gallery images  
+﻿# LinkstaSite    
+
+   
+  ```These credentials are provided in order to test out this app:```    
+          
+           LinkstaSite username/email: me@mail.com   
+                             password: password
+
+           Instagram username: DemoProject99
+                     password: password    
+              
+After logging into linkstasite you will automatically be asked to sign in with Instagram.  
+
+#### Add affiliate links to your Instagram gallery images  
 
 This app uses React and Firebase as well as Re-base.  React context api is used as well but very sparingly.  and requires that the user sign up for a developer account through instagram in order to make use of their api.  However, the demo for this app has a demo profile for the purposes of exploring the functionality. If you wish to create a developer account, you may do that [here](https://www.instagram.com/developer/register/). The demo  is setup only to display the demo instagram profile regardless if you sign into your instagram account from within this app.  
 
 This app was originally a capstone project that got scrapped and I later picked it up to do on my spare time.  Being as such it's a little buggy, but the intention was to be able to come back to this from time to time and stay sharp and practice.  
-![](images/guestpage.PNG)
+          
+  ![](images/guestpage.PNG)
 
 The first page is basically what the images look like after theyve been edited- it will be what you present to your guests. in the upper right hand side of the header there are two links- one to enter the app if you're already authenticated and one to log in.  They are hard to see on purpose as this page is primarily for guests to see.  
-![The app starts off basically showing the final outcome of an instagram image with affiliate link ](images/guest%20page.PNG)  
+    ![The app starts off basically showing the final outcome of an instagram image with affiliate link ](images/guest%20page.PNG)  
 
 Clicking on an image will bring up a modal with an affiliate link linked to the title as well as a link preview right beside it, and an instagram avatar in the lower corner.   
   

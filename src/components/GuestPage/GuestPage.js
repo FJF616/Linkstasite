@@ -39,7 +39,7 @@ import { base } from '../rebaseConfig/firebase';
        <div className='modal-body'>
         <a className='modal-close' onClick={this.props.onClick}><span className='fa fa-times'></span></a>
         <span className="modal-title">
-          <a href={this.props.link}><h2><b>{this.props.title}</b></h2></a><MicrolinkCard url={this.props.link} size="small" style={{ position: 'relative', marginLeft: 55, width: 325 }}/></span>
+          <a href={this.props.link}><h2><b>{this.props.title}</b></h2></a><MicrolinkCard url={this.props.link} size="small" prerender="auto" controls="true" style={{ position: 'relative', marginLeft: 55, width: 325 }}/></span>
           <div><a href="https://www.instagram.com/linkstasite"><AvatarEditor className="avatar__img"
           style={{borderRadius: '70%', boxShadow: '0 5px 10px 0 hsla(0, 8%, 9%, .75)', position: 'absolute', bottom: '0', left: '0', border: '4px outset', marginLeft: 10, marginBottom: 10, borderColor:'skyblue'}}
           image={this.props.userProfile.profilePic}

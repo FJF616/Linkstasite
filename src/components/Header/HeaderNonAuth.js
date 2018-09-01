@@ -70,7 +70,7 @@ class HeaderNonAuth extends React.Component {
           </p>
         </div>
           {
-            this.props.userProfile.proSubscription &&
+           authenticated &&
               <Link to={ routes.HOME } id="leftside">
                 <InstagramLoginButton style={{marginLeft: 70, marginBottom: 25, marginTop: 20}}>
                   <span><h3><b>Linkstasite Demo Profile</b></h3></span>
@@ -90,7 +90,9 @@ class HeaderNonAuth extends React.Component {
               ? <li className="nav-item active" data-tip="home/dahsboard" style={{ marginLeft: '-225px'}}>
                   <Link to={ routes.SIGN_IN }><span className="sr-only">(current)</span><Icon icon={ ICONS.LOGIN } size={105} mode={"contain"} color={"gold"}/></Link>
                 </li>
-              : ''
+              : <li className="nav-item active" data-tip="home/dahsboard" style={{ marginLeft: '-225px'}}>
+              <Link to={ routes.HOME }><span className="sr-only">(current)</span><Icon icon={ ICONS.HOME } size={65} mode={"contain"} color={"gold"}/></Link>
+            </li>
             }
           </ul> 
         </div>

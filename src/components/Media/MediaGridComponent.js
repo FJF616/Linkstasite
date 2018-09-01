@@ -240,7 +240,7 @@ render() {
                   <Button 
                   // className="remove-btn"
                   type="button"
-                  style={{width: 35, height: 35,  marginTop: 175, marginLeft: 15, padding: 2, position: 'absolute', backgroundColor: 'transparent'}}
+                  style={{width: 30, height: 35,  marginTop: 175, marginLeft: 25, padding: 2, position: 'absolute', backgroundColor: 'transparent'}}
                   onClick={() =>
                     this.removeMedia(this.props.media.id)
                   }
@@ -273,8 +273,8 @@ render() {
                 
               
               <ReactTooltip 
-                place="top" 
-                type="light" 
+                place="bottom" 
+                type="dark" 
                 effect="float"
                       /> 
           </div>
