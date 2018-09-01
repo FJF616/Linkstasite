@@ -4,7 +4,7 @@ import LINKSTASITE from './LINKSTASITE.md';
 import Markdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import * as routes from '../constants/routes';
-import MarkdownRenderer from './MarkdownRenderer'
+// import MarkdownRenderer from './MarkdownRenderer'
 require('./github.scss');
 
 

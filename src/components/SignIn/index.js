@@ -7,7 +7,7 @@ import { PasswordForgetLink } from '../PasswordForget';
 import  {  auth } from '../rebaseConfig';
 import * as routes from '../constants/routes';
 import TestFooter from '../TestFooter/TestFooter';
-import { base } from '../rebaseConfig/firebase';
+// import { base } from '../rebaseConfig/firebase';
 // import Imager from '../Imager/Imager'
 const SignInPage = ({ history }) =>
   <div>
