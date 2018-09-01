@@ -82,10 +82,10 @@ import { base } from '../rebaseConfig/firebase';
           this.setState({ image: data})
         }
       })
-      // this.profileRef = base.syncState('userProfile', {
-      //   context: this,
-      //   state: 'userProfile'
-      // })
+      this.profileRef = base.syncState('userProfile', {
+        context: this,
+        state: 'userProfile'
+      })
     
     }
     // componentDidMount() {
@@ -103,7 +103,7 @@ import { base } from '../rebaseConfig/firebase';
     componentWillUnmount() {
       base.removeBinding(this.imageRef);
       // base.removeBinding(this.galleryRef)
-      // base.removeBinding(this.profileRef);
+      base.removeBinding(this.profileRef);
     }
 
   //   getMapKeyValueByIndex = (obj, idx) => {

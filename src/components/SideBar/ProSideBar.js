@@ -55,7 +55,7 @@ import subscriptionWrapper from '../Session/subscriptionWrapper';
                 
 
                     <div className="sideItem">    
-                    <h6 style={{color: 'aliceblue', position: 'top'}}><b> You may Purchase a proscubscription through Stripe checkout or save your payment info for automatic payments</b></h6><br/><br/>
+                    <h6 style={{color: 'aliceblue', position: 'top'}}><b> You may Purchase a Pro scubscription through Stripe checkout or save your payment info for automatic payments</b></h6><br/><br/>
                     <ul className="sidelist" style={{listStyleType: 'none'}}>
                         <li ><Link to={routes.LANDING} ><Icon className="listItem" icon={ICONS.INSTAGRAM} size={95} mode={"contain"} color={"white"}/></Link></li>
                         <li ><Link  to={routes.LIST_VIEW}><Icon className="listItem" icon={ICONS.THLIST2} size={95} mode={"contain"} color={"white"}/></Link></li>

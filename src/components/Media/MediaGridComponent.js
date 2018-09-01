@@ -127,8 +127,8 @@ componentWillUnmount() {
  * Removes image media from main gallery
  */
 updateGallery = (key, id) => {
-  id = this.props.media.id;
-  base.remove(`gallery/${id}`)
+  // id = this.props.media.id;
+  base.remove(`gallery/${this.props.media.id}`)
     .then((id) => {
       alert('media has been permanently deleted', id)
     })

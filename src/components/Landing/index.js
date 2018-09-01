@@ -65,14 +65,15 @@ import subscriptionWrapper from '../Session/subscriptionWrapper'
       this.closeModal = this.closeModal.bind(this);
       }
     
-    componentWillMount() {
-      this.imageRef = base.syncState('images', {
+    // componentWillMount() {
+      
+    
+    componentDidMount() {
+      this.imageRef = base.bindToState('images', {
         context: this,
         state: 'image',
         asArray: true
       })
-    
-    // componentDidMount() {
       // InstagramLogin.fetchUserInfo().then(instagramUser => this.setState({  
       //     image: instagramUser.gallery,
       //     userProfile: instagramUser.user['0'],
