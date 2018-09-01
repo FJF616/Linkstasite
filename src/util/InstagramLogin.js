@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { base } from '../components/rebaseConfig/firebase';
 // import { keys } from '../../node_modules/mobx';
-
+// const auth = require('../components/rebaseConfig/firebase')
 const redirectURI = `http://localhost:3000/`;
 const client_id = process.env.REACT_APP_INSTAGRAM_CLIENT_ID;
 const auth_url = `https://api.instagram.com/oauth/authorize/?client_id=${client_id}&redirect_uri=${redirectURI}&response_type=token`;
@@ -36,14 +36,17 @@ class InstagramLogin {
           //use redirect instead of popup window
           
          window.location = auth_url;
+        
         }
-       
+        
       };
       async getProGallery() {
         // if(!accessToken) {
         //   this.getAccessToken();
         // }
-        const accessToken = await this.getAccessToken();
+        const accessToken = await this.getAccessToken()
+      
+       
         const token_url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}&count=20`;
         try {
           let response = await fetch(token_url, {

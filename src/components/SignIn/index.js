@@ -7,6 +7,7 @@ import { PasswordForgetLink } from '../PasswordForget';
 import  {  auth } from '../rebaseConfig';
 import * as routes from '../constants/routes';
 import TestFooter from '../TestFooter/TestFooter';
+import { base } from '../rebaseConfig/firebase';
 // import Imager from '../Imager/Imager'
 const SignInPage = ({ history }) =>
   <div>
@@ -32,7 +33,7 @@ class SignInForm extends Component {
 
     this.state = { ...INITIAL_STATE };
   }
-
+  
   onSubmit = (event) => {
     const {
       email,
@@ -51,7 +52,7 @@ class SignInForm extends Component {
       .catch(error => {
         this.setState(updateByPropertyName('error', error));
       });
-
+   
     event.preventDefault();
   }
 
@@ -96,7 +97,7 @@ class SignInForm extends Component {
           placeholder="Password" 
           id="inputPassword"
         />
-        <button disabled={isInvalid} className="btn btn-primary btn-block btn-lg btn-signin" type="submit">
+        <button disabled={isInvalid}  className="btn btn-primary btn-block btn-lg btn-signin" type="submit">
           Sign In
         </button>
         <br/>

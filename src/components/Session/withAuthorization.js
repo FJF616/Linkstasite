@@ -11,6 +11,7 @@ const withAuthorization = (condition) => (Component) => {
     componentDidMount() {
       firebase.auth.onAuthStateChanged(authUser => {
     
+    
         if (!condition(authUser)) {
           this.props.history.push(routes.GUEST_PAGE);
         }
@@ -23,7 +24,7 @@ const withAuthorization = (condition) => (Component) => {
           {authUser => authUser 
     
                   ? <Component />
-                  : <HeaderNonAuth/>}
+                  : <HeaderNonAuth />}
            
         </AuthUserContext.Consumer>
       );

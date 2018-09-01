@@ -18,6 +18,7 @@ import Header from '../Header/Header'
 // import ClickGraph from '../Graph/ClickGraph'
 // import EditableTable from '../FormInputs/EditableTable'
 import { base } from '../rebaseConfig/firebase';
+import { firebase } from '../rebaseConfig'
 import GraphContext from '../Session/GraphContext';
 import GraphProvider from '../Session/GraphProvider';
 import Pie from '../Graph/Pie';
@@ -36,6 +37,8 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      authenticated: false,
+
       // users: {},
       // accountStatus:'trial',
       // userProfile:{},
@@ -45,8 +48,10 @@ class HomePage extends Component {
     
   }
    componentWillMount() {
-   
-  
+   this.authenticatedRef = base.syncState('authenticated', {
+     context: this,
+     state: 'authenticated'
+   })
     try {
       base.bindToState('imageUrls', {
         context: this,
@@ -106,14 +111,29 @@ class HomePage extends Component {
         this.setState({ userProfile: data })
         const { userProfile } = this.state;
           if (userProfile.hasOwnProperty('proSubscription') || userProfile.proSubscription === true) {
-            this.setState({accountStatus: 'pro'})  
+            this.setState({accountStatus: 'pro' })  
           }
-      })
+      
+    })
     }
   }
    
   componentDidMount() {
-   
+    firebase.auth.onAuthStateChanged(user => {
+    if (user) {
+      this.setState({
+        authenticated: true,
+        currentUser: user,
+        loading: false
+      });
+    } else {
+      this.setState({
+        authenticated: false,
+        currentUser: null,
+        loading: false
+      });
+    }
+  });
   
     // this.instaDialog.showDialog();
     // this.instaDialog.showDialog();
@@ -129,10 +149,12 @@ class HomePage extends Component {
     })
   
   }
-  // componentWillUnmount() {
+  componentWillUnmount() {
   //   this.removeListener();
-  // }
+    base.removeBinding(this.authenticatedRef)
+}
    render() {
+    //  const { authenticated, currentUser } = this.state;
     // const { users } = this.state;
     return (
   
@@ -167,7 +189,7 @@ class HomePage extends Component {
             <InstagramPhotoPicker
               onPhotosPicked={photos => console.warn(photos)}
               ref={ref => this.instaDialog = ref}
-              clientId={'0d744e65869b4acc8dde4d6e3c6a58e2'}
+              clientId={process.env.REACT_APP_INSTAGRAM_CLIENT_ID}
             />
         </div>
       

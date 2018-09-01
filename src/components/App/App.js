@@ -32,7 +32,7 @@ const App = () =>
           <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
           <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
           <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
-          <Route exact path={routes.HOME} component={() => <HomePage  />} />
+          <Route exact path={routes.HOME}  component={() => <HomePage  />} />
           <Route exact path={routes.ACCOUNT} component={() => <AccountSettings />} />
           <Route exact path={routes.BILLING_PAGE} component={() => <BillingPage />} />
           <Route exact path={routes.GRID_VIEW} component={() => <GridView />} />

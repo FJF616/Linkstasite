@@ -16,7 +16,7 @@ Clicking on an image will bring up a modal with an affiliate link linked to the 
 
 
 
-![](pics/analytics.PNG)
+![](images/analytics.PNG)
 The home page is a dashboard that will display analytics for the links you associate with your instagram gallery.  Links are sent to bit.ly and each link is unique so you don't end up using duplicates.  
 
 
